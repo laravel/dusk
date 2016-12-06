@@ -100,7 +100,7 @@ class ElementResolver
      * @param  string  $value
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
-    public function resolveForRadioSelection($field, $value)
+    public function resolveForRadioSelection($field, $value = null)
     {
         if (Str::startsWith($field, '#')) {
             return $this->driver->findElement(WebDriverBy::id(substr($field, 1)));
@@ -137,7 +137,7 @@ class ElementResolver
     public function resolveForAttachment($field)
     {
         if (Str::startsWith($field, '#')) {
-            return $field;
+            return $this->driver->findElement(WebDriverBy::id(substr($field, 1)));
         }
 
         return $this->firstOrFail([

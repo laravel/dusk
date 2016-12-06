@@ -24,4 +24,14 @@ class Page
     {
         return [];
     }
+
+    /**
+     * Get the global element shortcuts for the site.
+     *
+     * @return array
+     */
+    public static function siteElements()
+    {
+        return [];
+    }
 }
