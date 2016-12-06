@@ -11,6 +11,28 @@ use Facebook\WebDriver\Interactions\WebDriverActions;
 trait InteractsWithElements
 {
     /**
+     * Get all of the elements matching the given selector.
+     *
+     * @param  string  $selector
+     * @return array
+     */
+    public function elements($selector)
+    {
+        return $this->resolver->all($selector);
+    }
+
+    /**
+     * Get the element matching the given selector.
+     *
+     * @param  string  $selector
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
+     */
+    public function element($selector)
+    {
+        return $this->resolver->find($selector);
+    }
+
+    /**
      * Click the element at the given selector.
      *
      * @param  string  $selector
