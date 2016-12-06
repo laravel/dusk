@@ -1,7 +1,7 @@
 {
     "name": "laravel/dusk",
-    "description": "Laravel Dusk provides simple end-to-end testing using Nightwatch.js.",
-    "keywords": ["laravel", "testing", "nightwatch"],
+    "description": "Laravel Dusk provides simple end-to-end testing and browser automation.",
+    "keywords": ["laravel", "testing", "webdriver"],
     "license": "MIT",
     "authors": [
         {
