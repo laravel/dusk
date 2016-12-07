@@ -2,6 +2,8 @@
 
 namespace Laravel\Dusk;
 
+use InvalidArgumentException;
+
 class Dusk
 {
     /**
@@ -9,8 +11,39 @@ class Dusk
      *
      * @return void
      */
-    public static function register()
+    public static function register(array $options = [])
     {
+        if (! static::duskEnvironment($options)) {
+            return;
+        }
+
         app()->register(DuskServiceProvider::class);
+    }
+
+    /**
+     * Determine if Dusk may run in this environment.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    protected static function duskEnvironment($options)
+    {
+        if (! isset($options['environments'])) {
+            return false;
+        }
+
+        if (is_string($options['environments'])) {
+            $options['environments'] = [$options['environments']];
+        }
+
+        if (! is_array($options['environments'])) {
+            throw new InvalidArgumentException("Dusk environments must be listed as an array.");
+        }
+
+        if (! app()->environment(...$options['environments'])) {
+            return false;
+        }
+
+        return true;
     }
 }
