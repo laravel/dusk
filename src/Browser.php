@@ -4,6 +4,8 @@ namespace Laravel\Dusk;
 
 use Closure;
 use BadMethodCallException;
+use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Facebook\WebDriver\WebDriverDimension;
@@ -190,6 +192,23 @@ class Browser
         }
 
         call_user_func($callback, $browser);
+
+        return $this;
+    }
+
+    /**
+     * Execute a Closure with a new browser instance.
+     *
+     * @param  \Closure  $callback
+     * @return $this
+     */
+    public function browser($callback)
+    {
+        $browser = new static(
+            RemoteWebDriver::create('http://localhost:9515', DesiredCapabilities::chrome())
+        );
+
+        call_user_func($callback, $this, $browser);
 
         return $this;
     }

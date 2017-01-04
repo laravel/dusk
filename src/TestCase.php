@@ -110,10 +110,10 @@ abstract class TestCase extends FoundationTestCase
      *
      * @return void
      */
-    protected function tearDown()
+    public static function tearDownAfterClass()
     {
         static::$browser->quit();
 
-        parent::tearDown();
+        parent::tearDownAfterClass();
     }
 }
