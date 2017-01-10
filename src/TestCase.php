@@ -12,11 +12,11 @@ use Illuminate\Foundation\Testing\TestCase as FoundationTestCase;
 abstract class TestCase extends FoundationTestCase
 {
     /**
-     * The other browser windows that have been opened.
+     * The browser window being used for tests.
      *
-     * @var array
+     * @var \Laravel\Dusk\Browser
      */
-    protected $otherBrowsers = [];
+    protected static $browser = null;
 
     /**
      * Register the base URL with Dusk.
@@ -35,20 +35,17 @@ abstract class TestCase extends FoundationTestCase
     /**
      * Create a new browser instance.
      *
-     * @param  \Closure|null  $callback
      * @return \Laravel\Dusk\Browser|void
      */
-    public function browser(Closure $callback = null)
+    public function browser()
     {
-        if ($callback) {
-            return $this->withBrowser($callback);
+        if (static::$browser) {
+            return static::$browser;
         }
 
-        $this->otherBrowsers[] = $browser = new Browser(
+        return static::$browser = new Browser(
             $driver = $this->createWebDriver()
         );
-
-        return $browser;
     }
 
     /**
@@ -108,5 +105,17 @@ abstract class TestCase extends FoundationTestCase
     protected function user()
     {
         throw new Exception("User resolver has not been set.");
+    }
+
+    /**
+     * Clean up the testing environment before the next test.
+     *
+     * @return void
+     */
+    public static function tearDownAfterClass()
+    {
+        static::$browser->quit();
+
+        parent::tearDownAfterClass();
     }
 }
