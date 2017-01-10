@@ -29,8 +29,10 @@ class DuskServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                Console\DuskCommand::class,
                 Console\InstallCommand::class,
+                Console\DuskCommand::class,
+                Console\MakeCommand::class,
+                Console\PageCommand::class,
             ]);
         }
     }

@@ -77,18 +77,27 @@ class Browser
      */
     public function visit($url)
     {
-        if (is_object($url) || (is_string($url) && class_exists($url))) {
-            $page = is_string($url) ? new $url : $url;
+        // First, if the URL is an object it means we are actually dealing with a page
+        // and we need to create this page then get the URL from the page object as
+        // it contains the URL. Once that is done, we will be ready to format it.
+        if (is_object($url)) {
+            $page = $url;
 
             $url = $page->url();
         }
 
+        // If the URL does not start with http or https, then we will prepend the base
+        // URL onto the URL and navigate to the URL. This will actually navigate to
+        // the URL in the browser. Then we will be ready to make assertions, etc.
         if (! Str::startsWith($url, ['http://', 'https://'])) {
             $url = static::$baseUrl.'/'.ltrim($url, '/');
         }
 
         $this->driver->navigate()->to($url);
 
+        // If the page variable was set, we will call the "on" method which will set a
+        // page instance variable and call an assert method on the page so that the
+        // page can have the chance to verify that we are within the right pages.
         if (isset($page)) {
             $this->on($page);
         }
@@ -104,14 +113,13 @@ class Browser
      */
     public function on($page)
     {
-        if (is_string($page) && class_exists($page)) {
-            $page = new $page;
-        }
-
         $this->page = $page;
 
         $page->assert($this);
 
+        // Here we will set the page elements on the resolver instance, which will allow
+        // the developer to access short-cuts for CSS selectors on the page which can
+        // allow for more expressive navigation and interaction with all the pages.
         $this->resolver->pageElements(array_merge(
             $page::siteElements(), $page->elements()
         ));

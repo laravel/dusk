@@ -13,11 +13,9 @@ class Dusk
      */
     public static function register(array $options = [])
     {
-        if (! static::duskEnvironment($options)) {
-            return;
+        if (static::duskEnvironment($options)) {
+            app()->register(DuskServiceProvider::class);
         }
-
-        app()->register(DuskServiceProvider::class);
     }
 
     /**
@@ -40,10 +38,6 @@ class Dusk
             throw new InvalidArgumentException("Dusk environments must be listed as an array.");
         }
 
-        if (! app()->environment(...$options['environments'])) {
-            return false;
-        }
-
-        return true;
+        return app()->environment(...$options['environments']);
     }
 }

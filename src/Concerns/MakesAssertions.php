@@ -45,7 +45,9 @@ trait MakesAssertions
      */
     public function assertPathIs($path)
     {
-        PHPUnit::assertEquals($path, parse_url($this->driver->getCurrentURL())['path']);
+        PHPUnit::assertEquals($path, parse_url(
+            $this->driver->getCurrentURL()
+        )['path']);
 
         return $this;
     }

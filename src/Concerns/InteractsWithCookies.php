@@ -11,6 +11,7 @@ trait InteractsWithCookies
      *
      * @param  string  $name
      * @param  string|null  $value
+     * @param  mixed  $expiration
      * @param  array  $options
      * @return string
      */

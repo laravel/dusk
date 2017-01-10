@@ -34,6 +34,19 @@ class ElementResolver
     public $elements = [];
 
     /**
+     * The button finding methods.
+     *
+     * @var array
+     */
+    protected $buttonFinders = [
+        'findById',
+        'findButtonBySelector',
+        'findButtonByName',
+        'findButtonByValue',
+        'findButtonByText'
+    ];
+
+    /**
      * Create a new element resolver instance.
      *
      * @param  \Facebook\WebDriver\Remote\RemoteWebDriver  $driver
@@ -67,8 +80,8 @@ class ElementResolver
      */
     public function resolveForTyping($field)
     {
-        if (Str::startsWith($field, '#')) {
-            return $this->driver->findElement(WebDriverBy::id(substr($field, 1)));
+        if (! is_null($element = $this->findById($field))) {
+            return $element;
         }
 
         return $this->firstOrFail([
@@ -84,8 +97,8 @@ class ElementResolver
      */
     public function resolveForSelection($field)
     {
-        if (Str::startsWith($field, '#')) {
-            return $this->driver->findElement(WebDriverBy::id(substr($field, 1)));
+        if (! is_null($element = $this->findById($field))) {
+            return $element;
         }
 
         return $this->firstOrFail([
@@ -102,8 +115,8 @@ class ElementResolver
      */
     public function resolveForRadioSelection($field, $value = null)
     {
-        if (Str::startsWith($field, '#')) {
-            return $this->driver->findElement(WebDriverBy::id(substr($field, 1)));
+        if (! is_null($element = $this->findById($field))) {
+            return $element;
         }
 
         return $this->firstOrFail([
@@ -119,8 +132,8 @@ class ElementResolver
      */
     public function resolveForChecking($field)
     {
-        if (Str::startsWith($field, '#')) {
-            return $this->driver->findElement(WebDriverBy::id(substr($field, 1)));
+        if (! is_null($element = $this->findById($field))) {
+            return $element;
         }
 
         return $this->firstOrFail([
@@ -136,8 +149,8 @@ class ElementResolver
      */
     public function resolveForAttachment($field)
     {
-        if (Str::startsWith($field, '#')) {
-            return $this->driver->findElement(WebDriverBy::id(substr($field, 1)));
+        if (! is_null($element = $this->findById($field))) {
+            return $element;
         }
 
         return $this->firstOrFail([
@@ -153,27 +166,8 @@ class ElementResolver
      */
     public function resolveForButtonPress($button)
     {
-        if (Str::startsWith($button, '#')) {
-            return $this->driver->findElement(WebDriverBy::id(substr($button, 1)));
-        }
-
-        if (! is_null($element = $this->find($button))) {
-            return $element;
-        }
-
-        if (! is_null($element = $this->find("input[type=submit][name={$button}]")) ||
-            ! is_null($element = $this->find("button[name={$button}]"))) {
-            return $element;
-        }
-
-        foreach ($this->all("input[type=submit]") as $element) {
-            if ($element->getAttribute('value') === $button) {
-                return $element;
-            }
-        }
-
-        foreach ($this->all('button') as $element) {
-            if (Str::contains($element->getText(), $button)) {
+        foreach ($this->buttonFinders as $method) {
+            if (! is_null($element = $this->{$method}($button))) {
                 return $element;
             }
         }
@@ -181,6 +175,76 @@ class ElementResolver
         throw new InvalidArgumentException(
             "Unable to locate button [{$button}]."
         );
+    }
+
+    /**
+     * Resolve the element for a given button by selector.
+     *
+     * @param  string  $button
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
+     */
+    protected function findButtonBySelector($button)
+    {
+        if (! is_null($element = $this->find($button))) {
+            return $element;
+        }
+    }
+
+    /**
+     * Resolve the element for a given button by name.
+     *
+     * @param  string  $button
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
+     */
+    protected function findButtonByName($button)
+    {
+        if (! is_null($element = $this->find("input[type=submit][name={$button}]")) ||
+            ! is_null($element = $this->find("button[name={$button}]"))) {
+            return $element;
+        }
+    }
+
+    /**
+     * Resolve the element for a given button by value.
+     *
+     * @param  string  $button
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
+     */
+    protected function findButtonByValue($button)
+    {
+        foreach ($this->all("input[type=submit]") as $element) {
+            if ($element->getAttribute('value') === $button) {
+                return $element;
+            }
+        }
+    }
+
+    /**
+     * Resolve the element for a given button by text.
+     *
+     * @param  string  $button
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
+     */
+    protected function findButtonByText($button)
+    {
+        foreach ($this->all('button') as $element) {
+            if (Str::contains($element->getText(), $button)) {
+                return $element;
+            }
+        }
+    }
+
+    /**
+     * Attempt to find the selector by ID.
+     *
+     * @param  string  $selector
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
+     */
+    protected function findById($selector)
+    {
+        if (Str::startsWith($selector, '#')) {
+            return $this->driver->findElement(WebDriverBy::id(substr($selector, 1)));
+        }
     }
 
     /**
