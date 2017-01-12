@@ -4,7 +4,7 @@ namespace Laravel\Dusk;
 
 use Symfony\Component\Process\Process;
 
-trait Chrome
+trait SupportsChrome
 {
     /**
      * The Chrome driver process instance.
@@ -14,10 +14,9 @@ trait Chrome
     /**
      * Start the Chrome driver process.
      *
-     * @beforeClass
      * @return void
      */
-    public static function startChromeDriver()
+    public static function useChrome()
     {
         if (PHP_OS === 'Darwin') {
             static::$chromeProcess = new Process('./chromedriver-mac', realpath(__DIR__.'/../bin'), null, null, null);

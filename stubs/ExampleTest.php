@@ -8,8 +8,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ExampleTest extends DuskTestCase
 {
-    use Chrome;
-
     /**
      * A basic browser test example.
      *
