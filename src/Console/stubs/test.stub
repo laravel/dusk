@@ -15,7 +15,7 @@ class DummyClass extends DuskTestCase
      */
     public function testExample()
     {
-        $this->browser(function ($browser) {
+        $this->browse(function ($browser) {
             $browser->visit('/')
                     ->assertSee('Laravel');
         });

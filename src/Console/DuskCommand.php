@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Console;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
 class DuskCommand extends Command
@@ -40,6 +41,8 @@ class DuskCommand extends Command
      */
     public function handle()
     {
+        $this->purgeScreenshots();
+
         $options = implode(' ', array_slice($_SERVER['argv'], 2));
 
         $this->withDuskEnvironment(function () use ($options) {
@@ -49,6 +52,22 @@ class DuskCommand extends Command
                         $this->output->write($line);
                     });
         });
+    }
+
+    /**
+     * Purge the failure screenshots
+     *
+     * @return void
+     */
+    protected function purgeScreenshots()
+    {
+        $files = Finder::create()->files()
+                        ->in(base_path('tests/Browser/screenshots'))
+                        ->name('failure-*');
+
+        foreach ($files as $file) {
+            @unlink($file->getRealPath());
+        }
     }
 
     /**

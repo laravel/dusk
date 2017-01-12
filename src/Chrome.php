@@ -26,12 +26,16 @@ trait Chrome
         }
 
         static::$chromeProcess->start();
+
+        static::afterClass(function () {
+            static::stopChromeDriver();
+        });
     }
 
     /**
      * Stop the Chrome driver process.
      *
-     * @afterClass
+     * @return void
      */
     public static function stopChromeDriver()
     {

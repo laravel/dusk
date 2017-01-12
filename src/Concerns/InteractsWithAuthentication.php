@@ -19,7 +19,7 @@ trait InteractsWithAuthentication
     /**
      * Log into the application using a given user ID or email.
      *
-     * @param  string  $userId
+     * @param  object|string  $userId
      * @return $this
      */
     public function loginAs($userId)
@@ -27,5 +27,15 @@ trait InteractsWithAuthentication
         $userId = method_exists($userId, 'getKey') ? $userId->getKey() : $userId;
 
         return $this->visit('/_dusk/login/'.$userId);
+    }
+
+    /**
+     * Log out of the application.
+     *
+     * @return $this
+     */
+    public function logout()
+    {
+        return $this->visit(route('logout', [], false));
     }
 }
