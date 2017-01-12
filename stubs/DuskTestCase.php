@@ -9,12 +9,12 @@ abstract class DuskTestCase extends BaseTestCase
     use CreatesApplication;
 
     /**
-     * Prepare the Dusk browser.
+     * Configure the Dusk browser driver.
      *
      * @beforeClass
      * @return void
      */
-    public static function prepareBrowser()
+    public static function browser()
     {
         static::useChrome();
     }
