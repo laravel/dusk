@@ -21,7 +21,13 @@ This is an alpha release of Dusk. Documentation is in progress.
 
     composer require laravel/dusk
 
-Once Dusk is installed, add the `Laravel\Dusk\DuskServiceProvider` to your `config/app.php` configuration file:
+Once Dusk is installed, you need to register the `Laravel\Dusk\DuskServiceProvider` service provider. You should do this within the `register` method of your `AppServiceProvider` in order to limit the environments in which Dusk is available, since it exposes the ability to login as other users:
+
+    if ($this->app->environment('local', 'testing')) {
+        $this->app->register(DuskServiceProvider::class);
+    }
+
+Next, run the `dusk:install` Artisan command:
 
     php artisan dusk:install
 
