@@ -17,6 +17,8 @@ This is an alpha release of Dusk. Documentation is in progress.
 
 #### Quickstart (For Laravel 5.4)
 
+> **Note:** Dusk is not currently compatible with Windows. We need assistance from Windows users to provide the code to correctly start Chromedriver on Windows.
+
     composer require laravel/dusk
 
 Once Dusk is installed, add the `Laravel\Dusk\DuskServiceProvider` to your `config/app.php` configuration file:
