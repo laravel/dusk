@@ -56,6 +56,64 @@ $this->browse(function ($first, $second) {
 });
 ```
 
+#### Page Objects / Selectors
+
+Page objects allow you to define expressive actions that may be taken on a given page, as well as short-cuts for that page's selectors:
+
+```php
+<?php
+
+namespace Tests\Browser\Pages;
+
+use Laravel\Dusk\Browser;
+
+class Dashboard extends Page
+{
+    /**
+     * Get the URL for the page.
+     *
+     * @return string
+     */
+    public function url()
+    {
+        return '/dashboard';
+    }
+
+    /**
+     * Flush all of the todos.
+     *
+     * @return void
+     */
+    public function flushTodos(Browser $browser, $param)
+    {
+        $this->press('@deleteAll')->refresh();
+    }
+
+    /**
+     * Get the element shortcuts for the page.
+     *
+     * @return array
+     */
+    public function elements()
+    {
+        return [
+            '@deleteAll' => 'css > selector button[name=deleteAll]',
+        ];
+    }
+}
+```
+
+Then, within your test you may navigate to and utilize the page:
+
+```php
+$this->browse(function ($browser) {
+    $browser->loginAs(User::find(1))
+            ->visit(new Dashboard)
+            ->flushTodos()
+            ->assertVisible('@deleteAll');
+});
+```
+
 ## License
 
 Laravel Dusk is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
