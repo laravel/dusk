@@ -46,7 +46,7 @@ class DuskCommand extends Command
         $options = implode(' ', array_slice($_SERVER['argv'], 2));
 
         $this->withDuskEnvironment(function () use ($options) {
-            (new Process(trim('php vendor/bin/phpunit -c '.base_path('phpunit.dusk.xml').' '.$options), base_path()))
+            (new Process(trim('php vendor/bin/phpunit -c '.base_path('phpunit.dusk.xml').' '.$options), base_path(), []))
                     ->setTty(true)
                     ->run(function ($type, $line) {
                         $this->output->write($line);
@@ -78,7 +78,7 @@ class DuskCommand extends Command
      */
     protected function withDuskEnvironment($callback)
     {
-        if (file_exists(base_path('.env.dusk'))) {
+        if (file_exists(base_path($this->duskFile()))) {
             $this->backupEnvironment();
         }
 
@@ -88,7 +88,7 @@ class DuskCommand extends Command
 
         $this->removeConfiguration();
 
-        if (file_exists(base_path('.env.dusk'))) {
+        if (file_exists(base_path($this->duskFile()))) {
             $this->restoreEnvironment();
         }
     }
@@ -102,7 +102,7 @@ class DuskCommand extends Command
     {
         copy(base_path('.env'), base_path('.env.backup'));
 
-        copy(base_path('.env.dusk'), base_path('.env'));
+        copy(base_path($this->duskFile()), base_path('.env'));
     }
 
     /**
@@ -135,5 +135,15 @@ class DuskCommand extends Command
     protected function removeConfiguration()
     {
         unlink(base_path('phpunit.dusk.xml'));
+    }
+
+    /**
+     * Get the name of the Dusk file for the environment.
+     *
+     * @return string
+     */
+    protected function duskFile()
+    {
+        return '.env.dusk.'.$this->laravel->environment();
     }
 }

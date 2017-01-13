@@ -16,7 +16,7 @@ trait SupportsChrome
      *
      * @return void
      */
-    public static function useChrome()
+    public static function startChromeDriver()
     {
         if (PHP_OS === 'Darwin') {
             static::$chromeProcess = new Process('./chromedriver-mac', realpath(__DIR__.'/../bin'), null, null, null);
