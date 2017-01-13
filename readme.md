@@ -84,9 +84,9 @@ class Dashboard extends Page
      *
      * @return void
      */
-    public function flushTodos(Browser $browser, $param)
+    public function flushTodos(Browser $browser)
     {
-        $this->press('@deleteAll')->refresh();
+        $browser->press('@deleteAll')->refresh();
     }
 
     /**
