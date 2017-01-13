@@ -35,6 +35,25 @@ To run your tests, use the `dusk` command. The `dusk` command accepts any argume
 
 To force Dusk to use its own environment file, create a `.env.dusk.{environment}` file in the root of your project. For example, if you will be initiating the `dusk` command from your `local` environment, you should create a `.env.dusk.local` file.
 
+#### Multiple Browsers
+
+If you would like to test a scenario that requires multiple browser windows, such as event broadcasting, simply "ask" for a second browser in your callback signature:
+
+    $this->browse(function ($first, $second) {
+        $first->loginAs(User::find(1))
+                ->visit('/home')
+                ->waitForText('Message');
+
+        $second->loginAs(User::find(2))
+                ->visit('/home')
+                ->waitForText('Message')
+                ->type('message', 'Hey Taylor')
+                ->press('Send');
+
+        $first->waitForText('Hey Taylor')
+               ->assertSee('Jeffrey Way');
+    });
+
 ## License
 
 Laravel Dusk is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
