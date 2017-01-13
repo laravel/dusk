@@ -39,20 +39,22 @@ To force Dusk to use its own environment file, create a `.env.dusk.{environment}
 
 If you would like to test a scenario that requires multiple browser windows, such as event broadcasting, simply "ask" for a second browser in your callback signature:
 
-    $this->browse(function ($first, $second) {
-        $first->loginAs(User::find(1))
-                ->visit('/home')
-                ->waitForText('Message');
+```php
+$this->browse(function ($first, $second) {
+    $first->loginAs(User::find(1))
+            ->visit('/home')
+            ->waitForText('Message');
 
-        $second->loginAs(User::find(2))
-                ->visit('/home')
-                ->waitForText('Message')
-                ->type('message', 'Hey Taylor')
-                ->press('Send');
+    $second->loginAs(User::find(2))
+            ->visit('/home')
+            ->waitForText('Message')
+            ->type('message', 'Hey Taylor')
+            ->press('Send');
 
-        $first->waitForText('Hey Taylor')
-               ->assertSee('Jeffrey Way');
-    });
+    $first->waitForText('Hey Taylor')
+           ->assertSee('Jeffrey Way');
+});
+```
 
 ## License
 
