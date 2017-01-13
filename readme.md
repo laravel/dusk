@@ -19,17 +19,15 @@ This is an alpha release of Dusk. Documentation is in progress.
 
     composer require laravel/dusk
 
-Once Dusk is installed, add the `Laravel\Dusk\DuskServiceProvider` to your `config/app.php` configuration file.
+Once Dusk is installed, add the `Laravel\Dusk\DuskServiceProvider` to your `config/app.php` configuration file:
 
     php artisan dusk:install
 
 A `Browser` directory will be created within your `tests` directory containing an example test. Examples of advanced testing and page objects will be available with the full documentation.
 
-To run your tests, use the `dusk` command:
+To run your tests, use the `dusk` command. The `dusk` command accepts any argument that is also accepted by the `phpunit` command:
 
     php artisan dusk
-
-The `dusk` command accepts any argument that is also accepted by the `phpunit` command.
 
 #### Environments
 
