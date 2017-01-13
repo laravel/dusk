@@ -56,6 +56,24 @@ $this->browse(function ($first, $second) {
 });
 ```
 
+#### Waiting
+
+Dusk allows you to easily wait for certain conditions to be true on your page. This is particularly useful for JavaScript heavy applications:
+
+```php
+$this->browse(function ($first, $second) {
+    $first->loginAs(User::find(1))
+            ->visit('/home')
+            ->waitForText('Message');
+            ->waitFor('css selector')
+            ->waitFor('@pageObjectShortcut')
+            ->waitUntil('javaScript.Expression')
+            ->whenAvailable('#some-modal', function ($modal) {
+                $modal->assertSee('Some Text');
+            });
+});
+```
+
 #### Page Objects / Selectors
 
 Page objects allow you to define expressive actions that may be taken on a given page, as well as short-cuts for that page's selectors:
