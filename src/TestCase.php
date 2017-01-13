@@ -173,8 +173,20 @@ abstract class TestCase extends FoundationTestCase
     protected function createWebDriver()
     {
         return retry(5, function () {
-            return RemoteWebDriver::create('http://localhost:9515', DesiredCapabilities::chrome());
+            return $this->driver();
         }, 50);
+    }
+
+    /**
+     * Create the RemoteWebDriver instance.
+     *
+     * @return \Facebook\WebDriver\Remote\RemoteWebDriver
+     */
+    protected function driver()
+    {
+        return RemoteWebDriver::create(
+            'http://localhost:9515', DesiredCapabilities::chrome()
+        );
     }
 
     /**
