@@ -61,8 +61,8 @@ $this->browse(function ($first, $second) {
 Dusk allows you to easily wait for certain conditions to be true on your page. This is particularly useful for JavaScript heavy applications:
 
 ```php
-$this->browse(function ($first, $second) {
-    $first->loginAs(User::find(1))
+$this->browse(function ($browser) {
+    $browser->loginAs(User::find(1))
             ->visit('/home')
             ->waitForText('Message');
             ->waitFor('css selector')
