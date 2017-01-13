@@ -7,6 +7,16 @@ use Laravel\Dusk\Page as BasePage;
 class DummyClass extends BasePage
 {
     /**
+     * Get the URL for the page.
+     *
+     * @return string
+     */
+    public function url()
+    {
+        return '/';
+    }
+
+    /**
      * Assert that the browser is on the page.
      *
      * @return void
