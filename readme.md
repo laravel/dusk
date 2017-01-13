@@ -15,6 +15,26 @@ Laravel Dusk provides an expressive, easy-to-use browser automation and testing 
 
 This is an alpha release of Dusk. Documentation is in progress.
 
+#### Quickstart (For Laravel 5.4)
+
+    composer require laravel/dusk
+
+Once Dusk is installed, add the `Laravel\Dusk\DuskServiceProvider` to your `config/app.php` configuration file.
+
+    php artisan dusk:install
+
+A `Browser` directory will be created within your `tests` directory containing an example test. Examples of advanced testing and page objects will be available with the full documentation.
+
+To run your tests, use the `dusk` command:
+
+    php artisan dusk
+
+The `dusk` command accepts any argument that is also accepted by the `phpunit` command.
+
+#### Environments
+
+To force Dusk to use its own environment file, create a `.env.dusk.{environment}` file in the root of your project. For example, if you will be initiating the `dusk` command from your `local` environment, you should create a `.env.dusk.local` file.
+
 ## License
 
 Laravel Dusk is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
