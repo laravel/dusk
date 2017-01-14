@@ -5,6 +5,7 @@ namespace Laravel\Dusk\Console;
 use Illuminate\Console\Command;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessBuilder;
 
 class DuskCommand extends Command
 {
@@ -45,13 +46,29 @@ class DuskCommand extends Command
 
         $options = implode(' ', array_slice($_SERVER['argv'], 2));
 
-        $this->withDuskEnvironment(function () use ($options) {
-            (new Process(trim('php vendor/bin/phpunit -c "'.base_path('phpunit.dusk.xml').'" '.$options), base_path(), []))
-                    ->setTty(true)
-                    ->run(function ($type, $line) {
-                        $this->output->write($line);
-                    });
-        });
+        $this->withDuskEnvironment(
+            function () use ($options) {
+                (new ProcessBuilder())
+                    ->setPrefix($this->getPathToPhpUnit())
+                    ->setArguments(['-c', base_path('phpunit.dusk.xml'), $options])
+                    ->getProcess()
+                    ->setTty(PHP_OS !== 'WINNT')
+                    ->run(
+                        function ($type, $line) {
+                            $this->output->write($line);
+                        }
+                    );
+            }
+        );
+    }
+
+    private function getPathToPhpUnit()
+    {
+        if (PHP_OS === 'WINNT') {
+            return base_path('vendor\bin\phpunit.bat');
+        }
+
+        return 'php vendor/bin/phpunit';
     }
 
     /**
@@ -62,8 +79,8 @@ class DuskCommand extends Command
     protected function purgeScreenshots()
     {
         $files = Finder::create()->files()
-                        ->in(base_path('tests/Browser/screenshots'))
-                        ->name('failure-*');
+            ->in(base_path('tests/Browser/screenshots'))
+            ->name('failure-*');
 
         foreach ($files as $file) {
             @unlink($file->getRealPath());
@@ -73,7 +90,8 @@ class DuskCommand extends Command
     /**
      * Run the given callback with the Dusk configuration files.
      *
-     * @param  \Closure  $callback
+     * @param  \Closure $callback
+     *
      * @return void
      */
     protected function withDuskEnvironment($callback)

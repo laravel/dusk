@@ -3,6 +3,7 @@
 namespace Laravel\Dusk;
 
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessBuilder;
 
 trait SupportsChrome
 {
@@ -18,17 +19,15 @@ trait SupportsChrome
      */
     public static function startChromeDriver()
     {
-        if (PHP_OS === 'Darwin') {
-            static::$chromeProcess = new Process('./chromedriver-mac', realpath(__DIR__.'/../bin'), null, null, null);
-        } else {
-            static::$chromeProcess = new Process('./chromedriver-linux', realpath(__DIR__.'/../bin'), ['DISPLAY' => ':0'], null, null);
-        }
+        static::initChromeDriver();
 
         static::$chromeProcess->start();
 
-        static::afterClass(function () {
-            static::stopChromeDriver();
-        });
+        static::afterClass(
+            function () {
+                static::stopChromeDriver();
+            }
+        );
     }
 
     /**
@@ -41,5 +40,35 @@ trait SupportsChrome
         if (static::$chromeProcess) {
             static::$chromeProcess->stop();
         }
+    }
+
+    protected static function initChromeDriver()
+    {
+        static::$chromeProcess = (new ProcessBuilder())
+            ->setPrefix(realpath(__DIR__.'/../bin/chromedriver-'.static::getOSSuffix().'.exe'))
+            ->getProcess()
+            ->setEnv(static::getOSEnv());
+    }
+
+    protected static function getOSEnv()
+    {
+        if (PHP_OS === 'Darwin' || PHP_OS === 'WINNT') {
+            return [];
+        }
+
+        return ['DISPLAY' => ':0'];
+    }
+
+    protected static function getOSSuffix()
+    {
+        if (PHP_OS === 'Darwin') {
+            return 'mac';
+        }
+
+        if (PHP_OS === 'WINNT') {
+            return 'win';
+        }
+
+        return 'linux';
     }
 }

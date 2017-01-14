@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7bf2884a-f3c3-4d8c-86c7-e2e5fb5ef580" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/chromedriver-win.exe" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Console/DuskCommand.php" afterPath="$PROJECT_DIR$/src/Console/DuskCommand.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SupportsChrome.php" afterPath="$PROJECT_DIR$/src/SupportsChrome.php" />
+    </list>
+    <ignored mask=".idea" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="SupportsChrome.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/SupportsChrome.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="464">
+              <caret line="57" column="35" lean-forward="false" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mail.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../domains/testing/config/mail.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="services.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../domains/testing/config/services.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="368">
+              <caret line="23" column="24" lean-forward="false" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Process.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/symfony/process/Process.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="386">
+              <caret line="1591" column="0" lean-forward="false" selection-start-line="1591" selection-start-column="0" selection-end-line="1591" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DuskServiceProvider.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DuskServiceProvider.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="608">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InteractsWithElements.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Concerns/InteractsWithElements.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1568">
+              <caret line="53" column="29" lean-forward="false" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="29" />
+              <folding>
+                <marker date="1484933405635" expanded="true" signature="274:7125" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="1195:1432" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="1441:1609" ph=" Directly get or set the value attribute of an input field. ..." />
+                <marker date="1484933405635" expanded="true" signature="1663:1993" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="1693:1784" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="1881:1962" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="2002:2134" ph=" Get the text of the element matching the given selector. ..." />
+                <marker date="1484933405635" expanded="true" signature="2172:2250" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="2259:2438" ph=" Get the given attribute from the element matching the given selector. ..." />
+                <marker date="1484933405635" expanded="true" signature="2493:2586" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="2595:2763" ph=" Send the given keys to the element matching the given selector. ..." />
+                <marker date="1484933405635" expanded="true" signature="2811:2929" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="2938:3054" ph=" Parse the keys before sending to the keyboard. ..." />
+                <marker date="1484933405635" expanded="true" signature="3096:3579" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="3138:3564" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="3155:3563" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="3248:3350" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="3419:3527" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="3588:3730" ph=" Type the given value in the given field. ..." />
+                <marker date="1484933405635" expanded="true" signature="3773:3886" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="3895:3989" ph=" Clear the given field. ..." />
+                <marker date="1484933405635" expanded="true" signature="4025:4120" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="4129:4275" ph=" Select the given value of a drop-down field. ..." />
+                <marker date="1484933405635" expanded="true" signature="4320:4680" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="4508:4650" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="4569:4640" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="4689:4838" ph=" Select the given value of a radio button field. ..." />
+                <marker date="1484933405635" expanded="true" signature="4882:4993" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="5002:5099" ph=" Check the given checkbox. ..." />
+                <marker date="1484933405635" expanded="true" signature="5135:5316" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="5246:5286" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="5325:5424" ph=" Uncheck the given checkbox. ..." />
+                <marker date="1484933405635" expanded="true" signature="5462:5641" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="5571:5611" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="5650:5786" ph=" Attach the given file to the field. ..." />
+                <marker date="1484933405635" expanded="true" signature="5830:6007" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="6016:6134" ph=" Press the button with the given text or name. ..." />
+                <marker date="1484933405635" expanded="true" signature="6171:6272" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="6281:6428" ph=" Press the button with the given text or name. ..." />
+                <marker date="1484933405635" expanded="true" signature="6489:6728" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="6625:6720" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="6668:6719" ph="..." />
+                <marker date="1484933405635" expanded="true" signature="6737:6886" ph=" Drag an element to another element using selectors. ..." />
+                <marker date="1484933405635" expanded="true" signature="6925:7123" ph="{...}" />
+                <marker date="1484933405635" expanded="true" signature="6991:7081" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Dusk.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Dusk.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1024">
+              <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Browser.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Browser.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="14" column="30" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+              <folding>
+                <marker date="1484933405631" expanded="true" signature="199:6403" ph="{...}" />
+                <marker date="1484933405631" expanded="true" signature="609:617" ph=" Get the callback which resolves the default user to authenticate. ..." />
+                <marker date="1484933405631" expanded="true" signature="5393:5399" ph="{...}" />
+                <marker date="1484933405631" expanded="true" signature="5408:5527" ph=" Pause for the given amount of milliseconds. ..." />
+                <marker date="1484933405631" expanded="true" signature="5570:5643" ph="{...}" />
+                <marker date="1484933405631" expanded="true" signature="5652:5711" ph=" Close the browser. ..." />
+                <marker date="1484933405631" expanded="true" signature="5740:5783" ph="{...}" />
+                <marker date="1484933405631" expanded="true" signature="5792:5940" ph=" Dynamically call a method on the browser. ..." />
+                <marker date="1484933405631" expanded="true" signature="5991:6401" ph="{...}" />
+                <marker date="1484933405631" expanded="true" signature="6038:6106" ph="..." />
+                <marker date="1484933405631" expanded="true" signature="6174:6310" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExampleTest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../domains/testing/tests/Browser/ExampleTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="672">
+              <caret line="21" column="38" lean-forward="false" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
+              <folding>
+                <element signature="e#33#58#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="welcome.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../domains/testing/resources/views/welcome.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2976">
+              <caret line="93" column="75" lean-forward="false" selection-start-line="93" selection-start-column="75" selection-end-line="93" selection-end-column="75" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>windows</find>
+      <find>enhanceWindowsCompatibility</find>
+      <find>setEn</find>
+      <find>getDes</find>
+      <find>output</find>
+      <find>createA</find>
+      <find>-&gt;input</find>
+      <find>setU</find>
+      <find>prep</find>
+      <find>prepare</find>
+      <find>driver</find>
+      <find>createWebDriver</find>
+      <find>createBrowsersFor</find>
+      <find>browse</find>
+      <find>SetUp</find>
+      <find>start</find>
+      <find>start(</find>
+      <find>visit</find>
+      <find>beforeClass</find>
+      <find>visi</find>
+      <find>base</find>
+      <find>path</find>
+      <find>windo</find>
+      <find>jqu</find>
+      <find>window</find>
+      <find>Link</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <push-targets>
+      <push-target-info repo="$PROJECT_DIR$" source="master" target-remote="fork" target-branch="master" />
+    </push-targets>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/../../domains/testing/storage/logs/laravel.log" />
+        <option value="$PROJECT_DIR$/../../domains/testing/vendor/laravel/dusk/vendor/symfony/process/Process.php" />
+        <option value="$PROJECT_DIR$/../../domains/testing/tests/CreatesApplication.php" />
+        <option value="$PROJECT_DIR$/../../domains/testing/vendor/symfony/process/Pipes/WindowsPipes.php" />
+        <option value="$PROJECT_DIR$/tests/BrowserTest.php" />
+        <option value="$PROJECT_DIR$/../../domains/testing/tests/DuskTestCase.php" />
+        <option value="$PROJECT_DIR$/vendor/symfony/process/Process.php" />
+        <option value="$PROJECT_DIR$/../../domains/testing/vendor/symfony/process/Process.php" />
+        <option value="$PROJECT_DIR$/../../domains/testing/vendor/laravel/dusk/src/TestCase.php" />
+        <option value="$PROJECT_DIR$/../../domains/testing/vendor/laravel/dusk/src/SupportsChrome.php" />
+        <option value="$PROJECT_DIR$/src/TestCase.php" />
+        <option value="$PROJECT_DIR$/../../domains/testing/.env.dusk.local" />
+        <option value="$PROJECT_DIR$/../../domains/testing/app/Providers/AppServiceProvider.php" />
+        <option value="$PROJECT_DIR$/src/Console/DuskCommand.php" />
+        <option value="$PROJECT_DIR$/src/Browser.php" />
+        <option value="$PROJECT_DIR$/../../domains/testing/tests/Browser/ExampleTest.php" />
+        <option value="$PROJECT_DIR$/../../domains/testing/resources/views/welcome.blade.php" />
+        <option value="$PROJECT_DIR$/src/SupportsChrome.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dusk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testing" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dusk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testing" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dusk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testing" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dusk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testing" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../domains/testing" />
+    <property name="node.js.path.for.package.jscs" value="project" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
+    <property name="node.js.selected.package.jscs" value="" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Ignored.Files" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\OpenServer\domains\testing" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7bf2884a-f3c3-4d8c-86c7-e2e5fb5ef580" name="Default" comment="" />
+      <created>1484369885226</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1484369885226</updated>
+      <workItem from="1484369886887" duration="12472000" />
+      <workItem from="1484420820394" duration="62000" />
+      <workItem from="1484491999181" duration="1694000" />
+      <workItem from="1484682129678" duration="1488000" />
+      <workItem from="1484933102898" duration="386000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="16102000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26066098" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/DuskServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dusk.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1024">
+          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TestCase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SupportsChrome.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1376">
+          <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/tests/Browser/ExampleTest.php" />
+    <entry file="file://$PROJECT_DIR$/src/Console/DuskCommand.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding>
+            <marker date="1484933407920" expanded="true" signature="3829:3835" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DuskServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dusk.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1024">
+          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TestCase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/bootstrap/app.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/config/app.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/.env.dusk.local" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/app/Providers/AppServiceProvider.php" />
+    <entry file="file://$PROJECT_DIR$/src/SupportsChrome.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1344">
+          <caret line="43" column="44" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/storage/logs/laravel.log" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/vendor/bin/phpunit" />
+    <entry file="file://$PROJECT_DIR$/tests/WaitsForElementsTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="4" column="41" lean-forward="false" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/ElementResolverTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2483">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stubs/phpunit.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-96">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/tests/Browser/Pages/HomePage.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/vendor/bin/phpunit.bat" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/vendor/laravel/dusk/vendor/symfony/process/Process.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/vendor/laravel/framework/src/Illuminate/Foundation/Testing/TestCase.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/vendor/phpunit/phpunit/src/Framework/TestSuite.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/vendor/symfony/process/Pipes/WindowsPipes.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/phpunit.dusk.xml" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/vendor/symfony/process/Process.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/tests/CreatesApplication.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/vendor/laravel/dusk/src/TestCase.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/vendor/laravel/dusk/src/SupportsChrome.php" />
+    <entry file="file://$PROJECT_DIR$/tests/BrowserTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/.env" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/tests/DuskTestCase.php" />
+    <entry file="file://$PROJECT_DIR$/src/TestCase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/bootstrap/app.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/config/app.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/.env.dusk.local" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/app/Providers/AppServiceProvider.php" />
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/vendor/laravel/dusk/vendor/symfony/process/ProcessBuilder.php" />
+    <entry file="file://$PROJECT_DIR$/src/Console/DuskCommand.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1344">
+          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding>
+            <marker date="1484933407920" expanded="true" signature="3829:3835" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dusk.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1024">
+          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/tests/Browser/ExampleTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="21" column="38" lean-forward="false" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
+          <folding>
+            <element signature="e#33#58#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/resources/views/welcome.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2976">
+          <caret line="93" column="75" lean-forward="false" selection-start-line="93" selection-start-column="75" selection-end-line="93" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Browser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="14" column="30" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+          <folding>
+            <marker date="1484933405631" expanded="true" signature="199:6403" ph="{...}" />
+            <marker date="1484933405631" expanded="true" signature="609:617" ph=" Get the callback which resolves the default user to authenticate. ..." />
+            <marker date="1484933405631" expanded="true" signature="5393:5399" ph="{...}" />
+            <marker date="1484933405631" expanded="true" signature="5408:5527" ph=" Pause for the given amount of milliseconds. ..." />
+            <marker date="1484933405631" expanded="true" signature="5570:5643" ph="{...}" />
+            <marker date="1484933405631" expanded="true" signature="5652:5711" ph=" Close the browser. ..." />
+            <marker date="1484933405631" expanded="true" signature="5740:5783" ph="{...}" />
+            <marker date="1484933405631" expanded="true" signature="5792:5940" ph=" Dynamically call a method on the browser. ..." />
+            <marker date="1484933405631" expanded="true" signature="5991:6401" ph="{...}" />
+            <marker date="1484933405631" expanded="true" signature="6038:6106" ph="..." />
+            <marker date="1484933405631" expanded="true" signature="6174:6310" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Concerns/InteractsWithElements.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1568">
+          <caret line="53" column="29" lean-forward="false" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="29" />
+          <folding>
+            <marker date="1484933405635" expanded="true" signature="274:7125" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="1195:1432" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="1441:1609" ph=" Directly get or set the value attribute of an input field. ..." />
+            <marker date="1484933405635" expanded="true" signature="1663:1993" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="1693:1784" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="1881:1962" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="2002:2134" ph=" Get the text of the element matching the given selector. ..." />
+            <marker date="1484933405635" expanded="true" signature="2172:2250" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="2259:2438" ph=" Get the given attribute from the element matching the given selector. ..." />
+            <marker date="1484933405635" expanded="true" signature="2493:2586" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="2595:2763" ph=" Send the given keys to the element matching the given selector. ..." />
+            <marker date="1484933405635" expanded="true" signature="2811:2929" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="2938:3054" ph=" Parse the keys before sending to the keyboard. ..." />
+            <marker date="1484933405635" expanded="true" signature="3096:3579" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="3138:3564" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="3155:3563" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="3248:3350" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="3419:3527" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="3588:3730" ph=" Type the given value in the given field. ..." />
+            <marker date="1484933405635" expanded="true" signature="3773:3886" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="3895:3989" ph=" Clear the given field. ..." />
+            <marker date="1484933405635" expanded="true" signature="4025:4120" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="4129:4275" ph=" Select the given value of a drop-down field. ..." />
+            <marker date="1484933405635" expanded="true" signature="4320:4680" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="4508:4650" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="4569:4640" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="4689:4838" ph=" Select the given value of a radio button field. ..." />
+            <marker date="1484933405635" expanded="true" signature="4882:4993" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="5002:5099" ph=" Check the given checkbox. ..." />
+            <marker date="1484933405635" expanded="true" signature="5135:5316" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="5246:5286" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="5325:5424" ph=" Uncheck the given checkbox. ..." />
+            <marker date="1484933405635" expanded="true" signature="5462:5641" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="5571:5611" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="5650:5786" ph=" Attach the given file to the field. ..." />
+            <marker date="1484933405635" expanded="true" signature="5830:6007" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="6016:6134" ph=" Press the button with the given text or name. ..." />
+            <marker date="1484933405635" expanded="true" signature="6171:6272" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="6281:6428" ph=" Press the button with the given text or name. ..." />
+            <marker date="1484933405635" expanded="true" signature="6489:6728" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="6625:6720" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="6668:6719" ph="..." />
+            <marker date="1484933405635" expanded="true" signature="6737:6886" ph=" Drag an element to another element using selectors. ..." />
+            <marker date="1484933405635" expanded="true" signature="6925:7123" ph="{...}" />
+            <marker date="1484933405635" expanded="true" signature="6991:7081" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DuskServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/config/mail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../domains/testing/config/services.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="23" column="24" lean-forward="false" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/process/Process.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="1591" column="0" lean-forward="false" selection-start-line="1591" selection-start-column="0" selection-end-line="1591" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SupportsChrome.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="57" column="35" lean-forward="false" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
