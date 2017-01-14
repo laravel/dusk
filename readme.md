@@ -19,7 +19,7 @@ This is an alpha release of Dusk. Documentation is in progress.
 
 > **Note:** Dusk is not currently compatible with Windows. We need assistance from Windows users to provide the code to correctly start Chromedriver on Windows.
 
-    composer require laravel/dusk
+    composer require laravel/dusk --dev
 
 Once Dusk is installed, you need to register the `Laravel\Dusk\DuskServiceProvider` service provider. You should do this within the `register` method of your `AppServiceProvider` in order to limit the environments in which Dusk is available, since it exposes the ability to login as other users:
 
