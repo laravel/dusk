@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7bf2884a-f3c3-4d8c-86c7-e2e5fb5ef580" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/chromedriver-win.exe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Console/DuskCommand.php" afterPath="$PROJECT_DIR$/src/Console/DuskCommand.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SupportsChrome.php" afterPath="$PROJECT_DIR$/src/SupportsChrome.php" />
     </list>
     <ignored mask=".idea" />
@@ -20,8 +18,8 @@
       <file leaf-file-name="SupportsChrome.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/SupportsChrome.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="57" column="35" lean-forward="false" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+            <state relative-caret-position="2176">
+              <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -419,12 +417,12 @@
       <workItem from="1484420820394" duration="62000" />
       <workItem from="1484491999181" duration="1694000" />
       <workItem from="1484682129678" duration="1488000" />
-      <workItem from="1484933102898" duration="386000" />
+      <workItem from="1484933102898" duration="599000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16102000" />
+    <option name="totallyTimeSpent" value="16315000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -740,8 +738,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SupportsChrome.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="57" column="35" lean-forward="false" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+        <state relative-caret-position="2176">
+          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
           <folding />
         </state>
       </provider>

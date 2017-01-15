@@ -66,7 +66,7 @@ trait SupportsChrome
         }
 
         if (PHP_OS === 'WINNT') {
-            return 'win';
+            return 'win.exe';
         }
 
         return 'linux';
