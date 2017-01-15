@@ -5,6 +5,16 @@ namespace Laravel\Dusk;
 class Page
 {
     /**
+     * Get the URL for the page.
+     *
+     * @return string
+     */
+    public function url()
+    {
+        return '/';
+    }
+    
+    /**
      * Assert that the browser is on the page.
      *
      * @param  \Laravel\Dusk\Browser  $browser
