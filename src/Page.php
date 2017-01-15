@@ -2,8 +2,15 @@
 
 namespace Laravel\Dusk;
 
-class Page
+abstract class Page
 {
+    /**
+     * Get the URL for the page.
+     *
+     * @return string
+     */
+    abstract public function url();
+
     /**
      * Assert that the browser is on the page.
      *
