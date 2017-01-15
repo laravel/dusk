@@ -146,8 +146,8 @@ class DuskCommand extends Command
     {
         if (file_exists(base_path($file = '.env.dusk.'.$this->laravel->environment()))) {
             return $file;
-        } else {
-            return '.env.dusk';
         }
+        
+        return '.env.dusk';
     }
 }
