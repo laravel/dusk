@@ -39,7 +39,7 @@ To run your tests, use the `dusk` command. The `dusk` command accepts any argume
 
     php artisan dusk
 
-> Make sure you set the `APP_URI` in your `.env` file to match your local environment. For example `APP_URI=http://dusk.dev`
+> Make sure you set the `APP_URL` in your `.env` file to match your local environment. For example `APP_URL=http://dusk.dev`
 
 #### Environments
 
