@@ -35,11 +35,11 @@ Next, run the `dusk:install` Artisan command:
 
 A `Browser` directory will be created within your `tests` directory containing an example test. Examples of advanced testing and page objects will be available with the full documentation.
 
+Next, set the `APP_URL` environment variable in your `.env` file. This value should match the URL you use to access your application in a browser.
+
 To run your tests, use the `dusk` command. The `dusk` command accepts any argument that is also accepted by the `phpunit` command:
 
     php artisan dusk
-
-> Make sure you set the `APP_URL` in your `.env` file to match your local environment. For example `APP_URL=http://dusk.dev`
 
 #### Environments
 
