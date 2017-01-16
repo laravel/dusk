@@ -14,7 +14,7 @@ trait WaitsForElements
      * Execute the given callback in a scoped browser once the selector is available.
      *
      * @param  string  $selector
-     * @param  \Closure  $callback
+     * @param  Closure  $callback
      * @param  int  $seconds
      * @return $this
      */
@@ -106,9 +106,10 @@ trait WaitsForElements
      *
      * @param  int  $seconds
      * @param  int  $interval
-     * @param  \Closure  $callback
+     * @param  Closure  $callback
      * @param  string|null  $message
      * @return $this
+     * @throws TimeOutException
      */
     public function waitUsing($seconds, $interval, Closure $callback, $message = null)
     {
