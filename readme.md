@@ -39,6 +39,8 @@ To run your tests, use the `dusk` command. The `dusk` command accepts any argume
 
     php artisan dusk
 
+> Make sure you set the `APP_URL` in your `.env` file to match your local environment. For example `APP_URL=http://dusk.dev`
+
 #### Environments
 
 To force Dusk to use its own environment file, create a `.env.dusk.{environment}` file in the root of your project. For example, if you will be initiating the `dusk` command from your `local` environment, you should create a `.env.dusk.local` file.
