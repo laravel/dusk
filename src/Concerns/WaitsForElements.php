@@ -109,6 +109,7 @@ trait WaitsForElements
      * @param  Closure  $callback
      * @param  string|null  $message
      * @return $this
+     * @throws TimeOutException
      */
     public function waitUsing($seconds, $interval, Closure $callback, $message = null)
     {
