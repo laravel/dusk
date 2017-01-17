@@ -215,15 +215,15 @@ trait MakesAssertions
      */
     public function seeLink($link)
     {
-      $script = <<<JS
-          return Array.prototype.slice
-          .call(document.querySelectorAll("a"))
-          .some(function(element) {
-            return element.innerHTML === "{$link}" &&  element.offsetHeight > 0 && element.offsetWidth > 0;
-          });
+        $script = <<<JS
+            return Array.prototype.slice
+            .call(document.querySelectorAll("a"))
+            .some(function(element) {
+                return element.innerHTML === "{$link}" &&  element.offsetHeight > 0 && element.offsetWidth > 0;
+            });
 JS;
 
-      return $this->driver->executeScript($script);
+        return $this->driver->executeScript($script);
     }
 
     /**
