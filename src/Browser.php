@@ -209,8 +209,7 @@ class Browser
      */
     protected function ensurejQueryIsAvailable()
     {
-        if (is_null($this->driver->executeScript("return window.$"))) {
-            dd('here');
+        if ($this->driver->executeScript("return window.$ == null")) {
             $this->driver->executeScript(file_get_contents(__DIR__.'/../bin/jquery.js'));
         }
     }
