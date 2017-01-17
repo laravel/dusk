@@ -220,7 +220,9 @@ trait MakesAssertions
         $script = <<<JS
             return Array.prototype.slice
             .call(document.querySelectorAll("{$selector}"))
-            .some(function(element) { return element.offsetHeight > 0 && element.offsetWidth > 0 });
+            .some(function(element) {
+              return element.offsetHeight > 0 && element.offsetWidth > 0 && element.style.visibility !== "hidden" ;
+            });
 JS;
 
         return $this->driver->executeScript($script);
