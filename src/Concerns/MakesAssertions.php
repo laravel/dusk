@@ -221,7 +221,7 @@ trait MakesAssertions
             return Array.prototype.slice
             .call(document.querySelectorAll("{$selector}"))
             .some(function(element) {
-              return element.offsetHeight > 0 && element.offsetWidth > 0 && element.style.visibility !== "hidden" ;
+              return element.offsetHeight > 0 && element.offsetWidth > 0;
             });
 JS;
 
