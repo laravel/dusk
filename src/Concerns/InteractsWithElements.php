@@ -143,11 +143,11 @@ trait InteractsWithElements
     /**
      * Type the given value in the given field.
      *
-     * @param  string  $field
      * @param  string  $value
+     * @param  string  $field
      * @return $this
      */
-    public function type($field, $value)
+    public function type($value, $field)
     {
         $this->resolver->resolveForTyping($field)->clear()->sendKeys($value);
 
@@ -170,11 +170,11 @@ trait InteractsWithElements
     /**
      * Select the given value of a drop-down field.
      *
+     * @param  string  $value
      * @param  string  $field
-     * @param  stirng  $value
      * @return $this
      */
-    public function select($field, $value)
+    public function select($value, $field)
     {
         $element = $this->resolver->resolveForSelection($field);
 
@@ -194,11 +194,11 @@ trait InteractsWithElements
     /**
      * Select the given value of a radio button field.
      *
+     * @param  string  $value
      * @param  string  $field
-     * @param  stirng  $value
      * @return $this
      */
-    public function radio($field, $value)
+    public function radio($value, $field)
     {
         $this->resolver->resolveForRadioSelection($field, $value)->click();
 
@@ -242,11 +242,11 @@ trait InteractsWithElements
     /**
      * Attach the given file to the field.
      *
-     * @param  string  $field
      * @param  string  $path
+     * @param  string  $field
      * @return $this
      */
-    public function attach($field, $path)
+    public function attach($path, $field)
     {
         $element = $this->resolver->resolveForAttachment($field);
 

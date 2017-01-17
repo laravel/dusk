@@ -58,7 +58,7 @@ $this->browse(function ($first, $second) {
     $second->loginAs(User::find(2))
             ->visit('/home')
             ->waitForText('Message')
-            ->type('message', 'Hey Taylor')
+            ->type('Hey Taylor', 'message')
             ->press('Send');
 
     $first->waitForText('Hey Taylor')
