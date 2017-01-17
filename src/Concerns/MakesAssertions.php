@@ -215,6 +215,8 @@ trait MakesAssertions
      */
     public function seeLink($link)
     {
+        $this->ensurejQueryIsAvailable();
+
         $selector = trim($this->resolver->format("a:contains('{$link}')"));
 
         $script = <<<JS

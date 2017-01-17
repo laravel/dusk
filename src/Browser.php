@@ -203,6 +203,19 @@ class Browser
     }
 
     /**
+     * Ensure that jQuery is available on the page.
+     *
+     * @return void
+     */
+    protected function ensurejQueryIsAvailable()
+    {
+        if (is_null($this->driver->executeScript("return window.$"))) {
+            dd('here');
+            $this->driver->executeScript(file_get_contents(__DIR__.'/../bin/jquery.js'));
+        }
+    }
+
+    /**
      * Pause for the given amount of milliseconds.
      *
      * @param  int  $milliseconds
