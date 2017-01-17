@@ -215,11 +215,12 @@ trait MakesAssertions
      */
     public function seeLink($link)
     {
-        $selector = trim($this->resolver->format("a:contains('{$link}')"));
+        $selector = trim($this->resolver->format("a[href*='{$link}']"));
 
         $script = <<<JS
-            var link = $("{$selector}");
-            return link.length > 0 && link.is(':visible');
+            return Array.prototype.slice
+            .call(document.querySelectorAll("{$selector}"))
+            .some(function(element) { return element.offsetHeight > 0 && element.offsetWidth > 0 });
 JS;
 
         return $this->driver->executeScript($script);
