@@ -203,14 +203,14 @@ class Browser
     }
 
     /**
-     * Ensure that jQuery is available on the page.
+     * Ensure that Sizzle is available on the page if jQuery not present.
      *
      * @return void
      */
-    protected function ensurejQueryIsAvailable()
+    protected function ensureSizzleIsAvailable()
     {
         if ($this->driver->executeScript("return window.jQuery == null")) {
-            $this->driver->executeScript(file_get_contents(__DIR__.'/../bin/jquery.js'));
+            $this->driver->executeScript(file_get_contents(__DIR__.'/../bin/sizzle.js'));
         }
     }
 

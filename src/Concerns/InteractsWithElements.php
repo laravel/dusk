@@ -53,7 +53,7 @@ trait InteractsWithElements
      */
     public function clickLink($link)
     {
-        $this->ensurejQueryIsAvailable();
+        $this->ensureSizzleIsAvailable();
 
         $selector = trim($this->resolver->format("a:contains('{$link}')"));
 
