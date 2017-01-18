@@ -209,7 +209,7 @@ class Browser
      */
     protected function ensureSizzleIsAvailable()
     {
-        if ($this->driver->executeScript("return window.jQuery == null")) {
+        if ($this->driver->executeScript("return window.jQuery === undefined")) {
             $this->driver->executeScript(file_get_contents(__DIR__.'/../bin/sizzle.js'));
         }
     }
