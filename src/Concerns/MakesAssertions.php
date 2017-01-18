@@ -215,7 +215,7 @@ trait MakesAssertions
      */
     public function seeLink($link)
     {
-        $this->ensurejQueryIsAvailable();
+        $this->ensureSizzleIsAvailable();
 
         $selector = trim($this->resolver->format("a:contains('{$link}')"));
 
