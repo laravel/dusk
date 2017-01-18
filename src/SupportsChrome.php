@@ -21,7 +21,7 @@ trait SupportsChrome
         if (PHP_OS === 'Darwin') {
             static::$chromeProcess = new Process('./chromedriver-mac', realpath(__DIR__.'/../bin'), null, null, null);
         } else {
-            static::$chromeProcess = new Process('./chromedriver-linux', realpath(__DIR__.'/../bin'), null, null, null);
+            static::$chromeProcess = new Process('./chromedriver-linux', realpath(__DIR__.'/../bin'), ['DISPLAY' => ':0'], null, null);
         }
 
         static::$chromeProcess->start();
