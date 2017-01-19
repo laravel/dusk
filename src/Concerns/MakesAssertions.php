@@ -220,7 +220,7 @@ trait MakesAssertions
         $selector = trim($this->resolver->format("a:contains('{$link}')"));
 
         $script = <<<JS
-            var link = $("{$selector}");
+            var link = jQuery.find("{$selector}");
             return link.length > 0 && link.is(':visible');
 JS;
 
