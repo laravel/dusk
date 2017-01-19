@@ -57,7 +57,7 @@ trait InteractsWithElements
 
         $selector = trim($this->resolver->format("a:contains('{$link}')"));
 
-        $this->driver->executeScript("$(\"{$selector}\")[0].click();");
+        $this->driver->executeScript("jQuery(\"{$selector}\")[0].click();");
 
         return $this;
     }
