@@ -45,7 +45,7 @@ trait SupportsChrome
     protected static function initChromeDriver()
     {
         static::$chromeProcess = (new ProcessBuilder())
-            ->setPrefix(realpath(__DIR__.'/../bin/chromedriver-'.static::getOSSuffix().'.exe'))
+            ->setPrefix(realpath(__DIR__.'/../bin/chromedriver-'.static::getOSSuffix()))
             ->getProcess()
             ->setEnv(static::getOSEnv());
     }

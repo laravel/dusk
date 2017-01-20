@@ -46,20 +46,26 @@ class DuskCommand extends Command
 
         $options = implode(' ', array_slice($_SERVER['argv'], 2));
 
-        $this->withDuskEnvironment(
-            function () use ($options) {
-                (new ProcessBuilder())
-                    ->setPrefix($this->getPathToPhpUnit())
-                    ->setArguments(['-c', base_path('phpunit.dusk.xml'), $options])
-                    ->getProcess()
-                    ->setTty(PHP_OS !== 'WINNT')
-                    ->run(
-                        function ($type, $line) {
-                            $this->output->write($line);
-                        }
-                    );
-            }
-        );
+        $this->withDuskEnvironment(function () use ($options) {
+            (new ProcessBuilder())
+                ->setPrefix($this->getPathToPhpUnit())
+                ->setArguments($this->getAttributesForPhpUnit($options))
+                ->getProcess()
+                ->setTty(PHP_OS !== 'WINNT')
+                ->run(function ($type, $line) {
+                    $this->output->write($line);
+                });
+        });
+    }
+    private function getAttributesForPhpUnit($options)
+    {
+        $executable = [];
+
+        if (PHP_OS !== 'WINNT') {
+            $executable = ['vendor/bin/phpunit'];
+        }
+
+        return array_merge($executable, ['-c', base_path('phpunit.dusk.xml'), $options]);
     }
 
     private function getPathToPhpUnit()
@@ -68,7 +74,7 @@ class DuskCommand extends Command
             return base_path('vendor\bin\phpunit.bat');
         }
 
-        return 'php vendor/bin/phpunit';
+        return 'php';
     }
 
     /**
@@ -79,8 +85,8 @@ class DuskCommand extends Command
     protected function purgeScreenshots()
     {
         $files = Finder::create()->files()
-            ->in(base_path('tests/Browser/screenshots'))
-            ->name('failure-*');
+                        ->in(base_path('tests/Browser/screenshots'))
+                        ->name('failure-*');
 
         foreach ($files as $file) {
             @unlink($file->getRealPath());
