@@ -28,11 +28,11 @@ class Browser
     public static $baseUrl;
 
     /**
-     * The directory to place screenshots.
+     * The directory that will contain any screenshots.
      *
      * @var string
      */
-    public static $screenshotDir;
+    public static $storeScreenshotsAt;
 
     /**
      * Get the callback which resolves the default user to authenticate.
@@ -182,7 +182,9 @@ class Browser
      */
     public function screenshot($name)
     {
-        $this->driver->takeScreenshot(sprintf('%s/%s.png', rtrim(static::$screenshotDir, '/'), $name));
+        $this->driver->takeScreenshot(
+            sprintf('%s/%s.png', rtrim(static::$storeScreenshotsAt, '/'), $name)
+        );
 
         return $this;
     }

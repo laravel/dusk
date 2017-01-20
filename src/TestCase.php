@@ -38,7 +38,8 @@ abstract class TestCase extends FoundationTestCase
     public function propagateScaffoldingToBrowser()
     {
         Browser::$baseUrl = $this->baseUrl();
-        Browser::$screenshotDir = base_path('tests/Browser/screenshots');
+
+        Browser::$storeScreenshotsAt = base_path('tests/Browser/screenshots');
 
         Browser::$userResolver = function () {
             return $this->user();
