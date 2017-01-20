@@ -7,6 +7,7 @@ use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Facebook\WebDriver\Exception\TimeOutException;
+use Facebook\WebDriver\Exception\NoSuchElementException;
 
 trait WaitsForElements
 {
@@ -44,10 +45,30 @@ trait WaitsForElements
      * @param  int  $seconds
      * @return $this
      */
-    public function waitUntilMissing($selector, $seconds = 5)
+    public function waitUntilHidden($selector, $seconds = 5)
     {
         return $this->waitUsing($seconds, 100, function () use ($selector) {
             return ! $this->resolver->findOrFail($selector)->isDisplayed();
+        });
+    }
+
+    /**
+     * Wait for the given selector to be removed.
+     *
+     * @param  string  $selector
+     * @param  int  $seconds
+     * @return $this
+     */
+    public function waitUntilMissing($selector, $seconds = 5)
+    {
+        return $this->waitUsing($seconds, 100, function () use ($selector) {
+            try {
+                $this->resolver->findOrFail($selector);
+            } catch (NoSuchElementException $e) {
+                return true;
+            }
+
+            return false;
         });
     }
 
