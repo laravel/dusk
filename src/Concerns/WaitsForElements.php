@@ -39,20 +39,6 @@ trait WaitsForElements
     }
 
     /**
-     * Wait for the given selector to be not visible.
-     *
-     * @param  string  $selector
-     * @param  int  $seconds
-     * @return $this
-     */
-    public function waitUntilHidden($selector, $seconds = 5)
-    {
-        return $this->waitUsing($seconds, 100, function () use ($selector) {
-            return ! $this->resolver->findOrFail($selector)->isDisplayed();
-        });
-    }
-
-    /**
      * Wait for the given selector to be removed.
      *
      * @param  string  $selector
@@ -63,12 +49,12 @@ trait WaitsForElements
     {
         return $this->waitUsing($seconds, 100, function () use ($selector) {
             try {
-                $this->resolver->findOrFail($selector);
+                $missing = ! $this->resolver->findOrFail($selector)->isDisplayed();
             } catch (NoSuchElementException $e) {
-                return true;
+                $missing = true;
             }
 
-            return false;
+            return $missing;
         });
     }
 
