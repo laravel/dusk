@@ -117,7 +117,7 @@ abstract class TestCase extends FoundationTestCase
     }
 
     /**
-     * Get the nmber of browsers needed for a given callback.
+     * Get the number of browsers needed for a given callback.
      *
      * @param  \Closure  $callback
      * @return int
