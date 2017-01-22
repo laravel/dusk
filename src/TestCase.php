@@ -75,6 +75,8 @@ abstract class TestCase extends FoundationTestCase
      *
      * @param  \Closure  $callback
      * @return \Laravel\Dusk\Browser|void
+     * @throws \Exception
+     * @throws \Throwable
      */
     public function browse(Closure $callback)
     {
@@ -203,6 +205,7 @@ abstract class TestCase extends FoundationTestCase
      * Get a callback that returns the default user to authenticate.
      *
      * @return \Closure
+     * @throws \Exception
      */
     protected function user()
     {
