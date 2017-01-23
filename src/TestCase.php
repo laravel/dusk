@@ -8,12 +8,13 @@ use Throwable;
 use ReflectionFunction;
 use Illuminate\Support\Collection;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Laravel\Dusk\BrowserKit\SupportsBrowserKit;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Illuminate\Foundation\Testing\TestCase as FoundationTestCase;
 
 abstract class TestCase extends FoundationTestCase
 {
-    use SupportsChrome;
+    use SupportsChrome, SupportsBrowserKit;
 
     /**
      * All of the active browser instances.
