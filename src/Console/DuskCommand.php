@@ -44,10 +44,9 @@ class DuskCommand extends Command
         $this->purgeScreenshots();
 
         $options = implode(' ', array_slice($_SERVER['argv'], 2));
-        $phpCommand = PHP_BINARY ?: 'php';
 
-        $this->withDuskEnvironment(function () use ($options, $phpCommand) {
-            (new Process(trim($phpCommand . ' vendor/bin/phpunit -c "'.base_path('phpunit.dusk.xml').'" '.$options), base_path(), []))
+        $this->withDuskEnvironment(function () use ($options) {
+            (new Process(trim(PHP_BINARY . ' vendor/bin/phpunit -c "'.base_path('phpunit.dusk.xml').'" '.$options), base_path(), []))
                     ->setTty(true)
                     ->run(function ($type, $line) {
                         $this->output->write($line);
