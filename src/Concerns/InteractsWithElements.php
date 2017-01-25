@@ -173,7 +173,7 @@ trait InteractsWithElements
      * Select the given value of a drop-down field.
      *
      * @param  string  $field
-     * @param  stirng  $value
+     * @param  string  $value
      * @return $this
      */
     public function select($field, $value)
@@ -197,7 +197,7 @@ trait InteractsWithElements
      * Select the given value of a radio button field.
      *
      * @param  string  $field
-     * @param  stirng  $value
+     * @param  string  $value
      * @return $this
      */
     public function radio($field, $value)
