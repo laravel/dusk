@@ -57,7 +57,13 @@ class DuskCommand extends Command
                 });
         });
     }
-    private function getAttributesForPhpUnit($options)
+  
+    /**
+     * Get array of attributes for running PHPUnit
+     *
+     * @return string
+     */
+    protected function getAttributesForPhpUnit($options)
     {
         $executable = [];
 
@@ -68,13 +74,18 @@ class DuskCommand extends Command
         return array_merge($executable, ['-c', base_path('phpunit.dusk.xml'), $options]);
     }
 
-    private function getPathToPhpUnit()
+    /**
+     * Get binary for executing
+     *
+     * @return string
+     */
+    protected function getPathToPhpUnit()
     {
         if (PHP_OS === 'WINNT') {
             return base_path('vendor\bin\phpunit.bat');
         }
 
-        return 'php';
+        return PHP_BINARY;
     }
 
     /**
