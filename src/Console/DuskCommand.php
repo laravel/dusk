@@ -80,6 +80,7 @@ class DuskCommand extends Command
     {
         if (file_exists(base_path($this->duskFile()))) {
             $this->backupEnvironment();
+            \Artisan::call('config:cache');
         }
 
         $this->writeConfiguration();
@@ -90,6 +91,7 @@ class DuskCommand extends Command
 
         if (file_exists(base_path($this->duskFile()))) {
             $this->restoreEnvironment();
+            \Artisan::call('config:cache');
         }
     }
 
