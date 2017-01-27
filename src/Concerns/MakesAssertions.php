@@ -221,7 +221,7 @@ trait MakesAssertions
 
         $script = <<<JS
             var link = jQuery.find("{$selector}");
-            return link.length > 0 && link.is(':visible');
+            return link.length > 0 && jQuery(link).is(':visible');
 JS;
 
         return $this->driver->executeScript($script);
