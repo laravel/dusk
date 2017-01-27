@@ -5,6 +5,7 @@ namespace Laravel\Dusk\Console;
 use Illuminate\Console\Command;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessBuilder;
 
 class DuskCommand extends Command
 {
@@ -46,12 +47,45 @@ class DuskCommand extends Command
         $options = implode(' ', array_slice($_SERVER['argv'], 2));
 
         $this->withDuskEnvironment(function () use ($options) {
-            (new Process(trim(PHP_BINARY.' vendor/bin/phpunit -c "'.base_path('phpunit.dusk.xml').'" '.$options), base_path(), []))
-                    ->setTty(true)
-                    ->run(function ($type, $line) {
-                        $this->output->write($line);
-                    });
+            (new ProcessBuilder())
+                ->setPrefix($this->getPathToPhpUnit())
+                ->setArguments($this->getAttributesForPhpUnit($options))
+                ->getProcess()
+                ->setTty(PHP_OS !== 'WINNT')
+                ->run(function ($type, $line) {
+                    $this->output->write($line);
+                });
         });
+    }
+  
+    /**
+     * Get array of attributes for running PHPUnit
+     *
+     * @return string
+     */
+    protected function getAttributesForPhpUnit($options)
+    {
+        $executable = [];
+
+        if (PHP_OS !== 'WINNT') {
+            $executable = ['vendor/bin/phpunit'];
+        }
+
+        return array_merge($executable, ['-c', base_path('phpunit.dusk.xml'), $options]);
+    }
+
+    /**
+     * Get binary for executing
+     *
+     * @return string
+     */
+    protected function getPathToPhpUnit()
+    {
+        if (PHP_OS === 'WINNT') {
+            return base_path('vendor\bin\phpunit.bat');
+        }
+
+        return PHP_BINARY;
     }
 
     /**
@@ -73,7 +107,8 @@ class DuskCommand extends Command
     /**
      * Run the given callback with the Dusk configuration files.
      *
-     * @param  \Closure  $callback
+     * @param  \Closure $callback
+     *
      * @return void
      */
     protected function withDuskEnvironment($callback)
