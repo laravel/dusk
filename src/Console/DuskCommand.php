@@ -48,8 +48,8 @@ class DuskCommand extends Command
 
         $this->withDuskEnvironment(function () use ($options) {
             (new ProcessBuilder())
-                ->setPrefix($this->getPathToPhpUnit())
-                ->setArguments($this->getAttributesForPhpUnit($options))
+                ->setPrefix($this->binary())
+                ->setArguments($this->phpunitArguments($options))
                 ->getProcess()
                 ->setTty(PHP_OS !== 'WINNT')
                 ->run(function ($type, $line) {
@@ -57,13 +57,23 @@ class DuskCommand extends Command
                 });
         });
     }
-  
+
     /**
-     * Get array of attributes for running PHPUnit
+     * Get the PHP binary to execute.
      *
      * @return string
      */
-    protected function getAttributesForPhpUnit($options)
+    protected function binary()
+    {
+        return PHP_OS === 'WINNT' ? base_path('vendor\bin\phpunit.bat') : PHP_BINARY;
+    }
+
+    /**
+     * Get the array of arguments for running PHPUnit.
+     *
+     * @return array
+     */
+    protected function phpunitArguments($options)
     {
         $executable = [];
 
@@ -71,21 +81,9 @@ class DuskCommand extends Command
             $executable = ['vendor/bin/phpunit'];
         }
 
-        return array_merge($executable, ['-c', base_path('phpunit.dusk.xml'), $options]);
-    }
-
-    /**
-     * Get binary for executing
-     *
-     * @return string
-     */
-    protected function getPathToPhpUnit()
-    {
-        if (PHP_OS === 'WINNT') {
-            return base_path('vendor\bin\phpunit.bat');
-        }
-
-        return PHP_BINARY;
+        return array_merge($executable, [
+            '-c', base_path('phpunit.dusk.xml'), $options
+        ]);
     }
 
     /**
@@ -107,8 +105,7 @@ class DuskCommand extends Command
     /**
      * Run the given callback with the Dusk configuration files.
      *
-     * @param  \Closure $callback
-     *
+     * @param  \Closure  $callback
      * @return void
      */
     protected function withDuskEnvironment($callback)
@@ -182,7 +179,7 @@ class DuskCommand extends Command
         if (file_exists(base_path($file = '.env.dusk.'.$this->laravel->environment()))) {
             return $file;
         }
-        
+
         return '.env.dusk';
     }
 }
