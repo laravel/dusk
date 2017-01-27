@@ -48,6 +48,7 @@ class DuskCommand extends Command
 
         $this->withDuskEnvironment(function () use ($options) {
             (new ProcessBuilder())
+                ->setTimeout(null)
                 ->setPrefix($this->binary())
                 ->setArguments($this->phpunitArguments($options))
                 ->getProcess()
