@@ -18,11 +18,9 @@ class LoginController
      */
     public function login($userId)
     {
-        \Log::debug('here');
         if (!$this->verifyAuthToken($userId, request('token'))) {
             throw new AuthenticationException('Invalid Dusk Token for userId');
         }
-        \Log::debug('somehow');
 
         $model = config('auth.providers.users.model');
 

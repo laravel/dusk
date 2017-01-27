@@ -6,6 +6,7 @@
 
 namespace Laravel\Dusk\Concerns;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Storage;
 
 trait ManagesAuthenticationTokens
@@ -30,10 +31,15 @@ trait ManagesAuthenticationTokens
      */
     public function verifyAuthToken($userId, $token)
     {
-        if (Storage::disk('local')->get(static::$keyPrefix.$userId) === $token) {
-            Storage::disk('local')->delete(static::$keyPrefix.$userId);
-            return true;
+        try {
+            if (Storage::disk('local')->get(static::$keyPrefix.$userId) === $token) {
+                Storage::disk('local')->delete(static::$keyPrefix.$userId);
+                return true;
+            }
+        } catch (FileNotFoundException $e) {
+            return false;
         }
+
         return false;
     }
 }
