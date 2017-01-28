@@ -66,7 +66,7 @@ class DuskCommand extends Command
      */
     protected function binary()
     {
-        return PHP_OS === 'WINNT' ? base_path('vendor\bin\phpunit.bat') : PHP_BINARY;
+        return PHP_OS === 'WINNT' ? base_path('vendor\bin\phpunit.bat') : 'vendor/bin/phpunit';
     }
 
     /**
@@ -76,13 +76,7 @@ class DuskCommand extends Command
      */
     protected function phpunitArguments($options)
     {
-        $executable = [];
-
-        if (PHP_OS !== 'WINNT') {
-            $executable = ['vendor/bin/phpunit'];
-        }
-
-        return array_merge($executable, [
+        return array_merge([], [
             '-c', base_path('phpunit.dusk.xml'), $options
         ]);
     }
