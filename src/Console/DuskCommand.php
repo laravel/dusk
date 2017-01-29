@@ -108,7 +108,8 @@ class DuskCommand extends Command
     {
         if (file_exists(base_path($this->duskFile()))) {
             $this->backupEnvironment();
-            $this->reloadEnvironment();
+
+            $this->refreshEnvironment();
         }
 
         $this->writeConfiguration();
@@ -120,14 +121,6 @@ class DuskCommand extends Command
         if (file_exists(base_path($this->duskFile()))) {
             $this->restoreEnvironment();
         }
-    }
-
-    /**
-     * Reload environment to use valid environment variables. 
-     */
-    protected function reloadEnvironment()
-    {
-        (new Dotenv(base_path()))->overload();
     }
 
     /**
@@ -152,6 +145,16 @@ class DuskCommand extends Command
         copy(base_path('.env.backup'), base_path('.env'));
 
         unlink(base_path('.env.backup'));
+    }
+
+    /**
+     * Refresh the current environment variables.
+     *
+     * @return void
+     */
+    protected function refreshEnvironment()
+    {
+        (new Dotenv(base_path()))->overload();
     }
 
     /**
