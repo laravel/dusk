@@ -2,6 +2,7 @@
 
 namespace Laravel\Dusk\Console;
 
+use Dotenv\Dotenv;
 use Illuminate\Console\Command;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
@@ -107,6 +108,7 @@ class DuskCommand extends Command
     {
         if (file_exists(base_path($this->duskFile()))) {
             $this->backupEnvironment();
+            $this->reloadEnvironment();
         }
 
         $this->writeConfiguration();
@@ -118,6 +120,14 @@ class DuskCommand extends Command
         if (file_exists(base_path($this->duskFile()))) {
             $this->restoreEnvironment();
         }
+    }
+
+    /**
+     * Reload environment to use valid environment variables. 
+     */
+    protected function reloadEnvironment()
+    {
+        (new Dotenv(base_path()))->overload();
     }
 
     /**
