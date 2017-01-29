@@ -9,6 +9,7 @@ class Dusk
     /**
      * Register the Dusk service provider.
      *
+     * @param  array  $options
      * @return void
      */
     public static function register(array $options = [])
