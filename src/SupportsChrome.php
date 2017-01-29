@@ -8,12 +8,12 @@ use Symfony\Component\Process\ProcessBuilder;
 trait SupportsChrome
 {
     /**
-     * The Chrome driver process instance.
+     * The Chromedriver process instance.
      */
     protected static $chromeProcess;
 
     /**
-     * Start the Chrome driver process.
+     * Start the Chromedriver process.
      *
      * @return void
      */
@@ -29,7 +29,7 @@ trait SupportsChrome
     }
 
     /**
-     * Stop the Chrome driver process.
+     * Stop the Chromedriver process.
      *
      * @return void
      */
