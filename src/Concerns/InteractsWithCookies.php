@@ -11,7 +11,7 @@ trait InteractsWithCookies
      *
      * @param  string  $name
      * @param  string|null  $value
-     * @param  int|DateTimeInterface|null $expiry
+     * @param  int|DateTimeInterface|null  $expiry
      * @param  array  $options
      * @return string
      */
@@ -29,10 +29,10 @@ trait InteractsWithCookies
     /**
      * Get or set a plain cookie's value.
      *
-     * @param  string $name
-     * @param  string|null $value
-     * @param int|DateTimeInterface|null $expiry
-     * @param  array $options
+     * @param  string  $name
+     * @param  string|null  $value
+     * @param  int|DateTimeInterface|null  $expiry
+     * @param  array  $options
      * @return string
      */
     public function plainCookie($name, $value = null, $expiry = null, array $options = [])
