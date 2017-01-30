@@ -303,4 +303,28 @@ trait InteractsWithElements
 
         return $this;
     }
+
+    /**
+     * Accept JavaScript dialog.
+     *
+     * @return $this
+     */
+    public function acceptDialog()
+    {
+        $this->resolver->resolveToAlert()->accept();
+
+        return $this;
+    }
+
+    /**
+     * Dismiss JavaScript dialog.
+     *
+     * @return $this
+     */
+    public function dismissDialog()
+    {
+        $this->resolver->resolveToAlert()->dismiss();
+
+        return $this;
+    }
 }
