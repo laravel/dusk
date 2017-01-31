@@ -311,7 +311,7 @@ trait InteractsWithElements
      */
     public function acceptDialog()
     {
-        $this->resolver->resolveToAlert()->accept();
+        $this->resolver->resolveToDialog()->accept();
 
         return $this;
     }
@@ -323,7 +323,7 @@ trait InteractsWithElements
      */
     public function dismissDialog()
     {
-        $this->resolver->resolveToAlert()->dismiss();
+        $this->resolver->resolveToDialog()->dismiss();
 
         return $this;
     }

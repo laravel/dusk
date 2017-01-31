@@ -417,7 +417,7 @@ JS;
      */
     public function assertDialogOpened($message)
     {
-        PHPUnit::assertEquals($message, $this->resolver->resolveToAlert()->getText());
+        PHPUnit::assertEquals($message, $this->resolver->resolveToDialog()->getText());
 
         return $this;
     }
