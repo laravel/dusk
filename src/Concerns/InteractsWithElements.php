@@ -307,25 +307,25 @@ trait InteractsWithElements
     }
 
     /**
-     * Accept JavaScript dialog.
+     * Accept a JavaScript dialog.
      *
      * @return $this
      */
     public function acceptDialog()
     {
-        $this->resolver->resolveToDialog()->accept();
+        $this->driver->switchTo()->alert()->accept();
 
         return $this;
     }
 
     /**
-     * Dismiss JavaScript dialog.
+     * Dismiss a JavaScript dialog.
      *
      * @return $this
      */
     public function dismissDialog()
     {
-        $this->resolver->resolveToDialog()->dismiss();
+        $this->driver->switchTo()->alert()->dismiss();
 
         return $this;
     }
