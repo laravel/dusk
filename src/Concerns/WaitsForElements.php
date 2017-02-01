@@ -35,7 +35,7 @@ trait WaitsForElements
     {
         return $this->waitUsing($seconds, 100, function () use ($selector) {
             return $this->resolver->findOrFail($selector)->isDisplayed();
-        }, "Waited $seconds seconds for selector $selector");
+        }, "Waited {$seconds} seconds for selector [{$selector}].");
     }
 
     /**
@@ -55,7 +55,7 @@ trait WaitsForElements
             }
 
             return $missing;
-        }, "Waited $seconds seconds for removal of selector $selector");
+        }, "Waited {$seconds} seconds for removal of selector [{$selector}].");
     }
 
     /**
@@ -69,7 +69,7 @@ trait WaitsForElements
     {
         return $this->waitUsing($seconds, 100, function () use ($text) {
             return Str::contains($this->resolver->findOrFail('')->getText(), $text);
-        }, "Waited $seconds seconds for text $text");
+        }, "Waited {$seconds} seconds for text [{$text}].");
     }
 
     /**
