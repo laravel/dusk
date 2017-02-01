@@ -340,4 +340,14 @@ class ElementResolver
 
         return trim($this->prefix.' '.$selector);
     }
+
+    /**
+     * Resolve for JavaScript dialog.
+     *
+     * @return \Facebook\WebDriver\WebDriverAlert
+     */
+    public function resolveToDialog()
+    {
+        return $this->driver->switchTo()->alert();
+    }
 }

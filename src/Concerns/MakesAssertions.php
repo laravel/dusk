@@ -410,4 +410,17 @@ JS;
 
         return $this;
     }
+
+    /**
+     * Assert that the JavaScript dialog with given message has been opened.
+     * 
+     * @param  string  $message
+     * @return $this
+     */
+    public function assertDialogOpened($message)
+    {
+        PHPUnit::assertEquals($message, $this->resolver->resolveToDialog()->getText());
+
+        return $this;
+    }
 }
