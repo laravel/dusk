@@ -52,6 +52,16 @@ class ElementResolverTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $resolver->resolveForRadioSelection('foo', 'value'));
     }
 
+    public function test_resolve_for_radio_selection_throws_exception_without_id_and_without_value()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('findElement')->once()->andReturn('foo');
+        $resolver = new ElementResolver($driver);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Value not provided for radio [foo].');
+        $resolver->resolveForRadioSelection('foo');
+    }
+
     public function test_resolve_for_checking_resolves_by_id()
     {
         $driver = Mockery::mock(StdClass::class);
