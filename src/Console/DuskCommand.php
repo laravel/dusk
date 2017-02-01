@@ -47,8 +47,8 @@ class DuskCommand extends Command
 
         $options = implode(' ', array_slice($_SERVER['argv'], 2));
 
-        $this->withDuskEnvironment(function () use ($options) {
-            (new ProcessBuilder())
+        return $this->withDuskEnvironment(function () use ($options) {
+            return (new ProcessBuilder())
                 ->setTimeout(null)
                 ->setPrefix($this->binary())
                 ->setArguments($this->phpunitArguments($options))
@@ -102,7 +102,7 @@ class DuskCommand extends Command
      * Run the given callback with the Dusk configuration files.
      *
      * @param  \Closure  $callback
-     * @return void
+     * @return mixed
      */
     protected function withDuskEnvironment($callback)
     {
@@ -114,13 +114,14 @@ class DuskCommand extends Command
 
         $this->writeConfiguration();
 
-        $callback();
+        $return = $callback();
 
         $this->removeConfiguration();
 
         if (file_exists(base_path($this->duskFile()))) {
             $this->restoreEnvironment();
         }
+        return $return;
     }
 
     /**
