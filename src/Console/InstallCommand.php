@@ -50,9 +50,7 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/DuskTestCase.php', base_path('tests/DuskTestCase.php'));
         copy(__DIR__.'/../../stubs/Page.php', base_path('tests/Browser/Pages/Page.php'));
 
-        file_put_contents(base_path('tests/Browser/screenshots/.gitignore'), '*
-!.gitignore
-');
+        file_put_contents(base_path('tests/Browser/screenshots/.gitignore'), "*\n!.gitignore");
 
         $this->info('Dusk scaffolding installed successfully.');
     }
