@@ -58,7 +58,7 @@ class ElementResolverTest extends PHPUnit_Framework_TestCase
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Value not provided for radio [foo].');
+        $this->expectExceptionMessage('No value was provided for radio button [foo].');
         $resolver->resolveForRadioSelection('foo');
     }
 
