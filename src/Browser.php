@@ -7,6 +7,7 @@ use BadMethodCallException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Facebook\WebDriver\WebDriverDimension;
+use Laravel\Dusk\Helpers\ConsoleLogFormatter;
 
 class Browser
 {
@@ -33,6 +34,13 @@ class Browser
      * @var string
      */
     public static $storeScreenshotsAt;
+
+    /**
+     * The directory that will contain any JavaScript console logs.
+     *
+     * @var string
+     */
+    public static $storeConsoleLogsAt;    
 
     /**
      * Get the callback which resolves the default user to authenticate.
@@ -187,6 +195,30 @@ class Browser
         );
 
         return $this;
+    }
+
+    /**
+     * Store JavaScript console logs with given name.
+     *
+     * @param string $name
+     */
+    public function saveConsoleLogs($name)
+    {
+        $formatter = new ConsoleLogFormatter();
+
+        file_put_contents(
+            sprintf('%s/%s', rtrim(static::$storeConsoleLogsAt, '/'), $name),
+            $formatter->get($this->consoleLogs()));        
+    }
+
+    /**
+     * Get JavaScript console logs.
+     *
+     * @return array
+     */
+    protected function consoleLogs()
+    {
+        return $this->driver->manage()->getLog('browser');   
     }
 
     /**
