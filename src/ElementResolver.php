@@ -85,7 +85,7 @@ class ElementResolver
         }
 
         return $this->firstOrFail([
-            $field, "input[name={$field}]", "textarea[name={$field}]"
+            $field, "input[name='{$field}']", "textarea[name='{$field}']"
         ]);
     }
 
@@ -102,7 +102,7 @@ class ElementResolver
         }
 
         return $this->firstOrFail([
-            $field, "select[name={$field}]"
+            $field, "select[name='{$field}']"
         ]);
     }
 
@@ -120,7 +120,7 @@ class ElementResolver
         }
 
         return $this->firstOrFail([
-            $field, "input[type=radio][name={$field}][value={$value}]"
+            $field, "input[type=radio][name='{$field}'][value='{$value}']"
         ]);
     }
 
@@ -137,7 +137,7 @@ class ElementResolver
         }
 
         return $this->firstOrFail([
-            $field, "input[type=checkbox][name={$field}]"
+            $field, "input[type=checkbox][name='{$field}']"
         ]);
     }
 
@@ -154,7 +154,7 @@ class ElementResolver
         }
 
         return $this->firstOrFail([
-            $field, "input[type=file][name={$field}]"
+            $field, "input[type=file][name='{$field}']"
         ]);
     }
 
@@ -198,8 +198,8 @@ class ElementResolver
      */
     protected function findButtonByName($button)
     {
-        if (! is_null($element = $this->find("input[type=submit][name={$button}]")) ||
-            ! is_null($element = $this->find("button[name={$button}]"))) {
+        if (! is_null($element = $this->find("input[type=submit][name='{$button}']")) ||
+            ! is_null($element = $this->find("button[name='{$button}']"))) {
             return $element;
         }
     }
