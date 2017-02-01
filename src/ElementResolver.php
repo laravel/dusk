@@ -128,16 +128,23 @@ class ElementResolver
      * Resolve the element for a given checkbox "field".
      *
      * @param  string  $field
+     * @param  string  $value
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
-    public function resolveForChecking($field)
+    public function resolveForChecking($field, $value = null)
     {
         if (! is_null($element = $this->findById($field))) {
             return $element;
         }
 
+        $selector = "input[type=checkbox][name='{$field}']";
+
+        if (! is_null($value)) {
+            $selector .= "[value='{$value}']";
+        }
+
         return $this->firstOrFail([
-            $field, "input[type=checkbox][name='{$field}']"
+            $field, $selector
         ]);
     }
 
