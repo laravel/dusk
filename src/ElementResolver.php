@@ -119,6 +119,12 @@ class ElementResolver
             return $element;
         }
 
+        if (is_null($value)) {
+            throw new InvalidArgumentException(
+                "Value not provided for radio [{$field}]."
+            );
+        }
+
         return $this->firstOrFail([
             $field, "input[type=radio][name={$field}][value={$value}]"
         ]);
