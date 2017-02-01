@@ -114,14 +114,13 @@ class DuskCommand extends Command
 
         $this->writeConfiguration();
 
-        $return = $callback();
+        return tap($callback(), function () {
+            $this->removeConfiguration();
 
-        $this->removeConfiguration();
-
-        if (file_exists(base_path($this->duskFile()))) {
-            $this->restoreEnvironment();
-        }
-        return $return;
+            if (file_exists(base_path($this->duskFile()))) {
+                $this->restoreEnvironment();
+            }
+        });
     }
 
     /**
