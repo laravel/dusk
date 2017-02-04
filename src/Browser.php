@@ -11,11 +11,11 @@ use Facebook\WebDriver\WebDriverDimension;
 class Browser
 {
     use Concerns\InteractsWithAuthentication,
-        Concerns\InteractsWithCookies,
         Concerns\InteractsWithElements,
+        Concerns\InteractsWithCookies,
         Concerns\InteractsWithMouse,
-        Concerns\MakesAssertions,
         Concerns\WaitsForElements,
+        Concerns\MakesAssertions,
         Macroable {
             __call as macroCall;
         }
