@@ -45,6 +45,10 @@ class InstallCommand extends Command
             mkdir(base_path('tests/Browser/screenshots'), 0755, true);
         }
 
+        if (! file_exists(base_path('tests/CreatesApplication.php'))) {
+            copy(__DIR__.'/../../stubs/CreatesApplication.php', base_path('tests/CreatesApplication.php'));
+        }
+
         copy(__DIR__.'/../../stubs/ExampleTest.php', base_path('tests/Browser/ExampleTest.php'));
         copy(__DIR__.'/../../stubs/HomePage.php', base_path('tests/Browser/Pages/HomePage.php'));
         copy(__DIR__.'/../../stubs/DuskTestCase.php', base_path('tests/DuskTestCase.php'));
