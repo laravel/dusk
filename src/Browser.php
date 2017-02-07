@@ -217,7 +217,7 @@ class Browser
      *
      * @return void
      */
-    protected function ensurejQueryIsAvailable()
+    public function ensurejQueryIsAvailable()
     {
         if ($this->driver->executeScript("return window.jQuery == null")) {
             $this->driver->executeScript(file_get_contents(__DIR__.'/../bin/jquery.js'));
@@ -245,6 +245,19 @@ class Browser
     public function quit()
     {
         $this->driver->quit();
+    }
+
+    /**
+     * Tap the browser into a callback.
+     *
+     * @param  \Closure  $callback
+     * @return $this
+     */
+    public function tap($callback)
+    {
+        $callback($this);
+
+        return $this;
     }
 
     /**

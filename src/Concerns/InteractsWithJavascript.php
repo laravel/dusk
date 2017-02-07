@@ -5,25 +5,15 @@ namespace Laravel\Dusk\Concerns;
 trait InteractsWithJavascript
 {
     /**
-     * Execute single or multiple Javascript code
+     * Execute JavaScript within the browser.
      *
-     * @param string|array $scripts
-     * @return $this
+     * @param  string|array $scripts
+     * @return array
      */
-    public function executeScripts($scripts)
+    public function script($scripts)
     {
-        $this->ensurejQueryIsAvailable();
-
-        if (is_array($scripts)) {
-            foreach ($scripts as $script) {
-                $this->driver->executeScript($script);
-            }
-
-            return $this;
-        }
-
-        $this->driver->executeScript($scripts);
-
-        return $this;
+        return collect((array) $scripts)->map(function ($script) {
+            return $this->driver->executeScript($script);
+        })->all();
     }
 }
