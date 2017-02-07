@@ -16,6 +16,7 @@ class Browser
         Concerns\InteractsWithMouse,
         Concerns\MakesAssertions,
         Concerns\WaitsForElements,
+        Concerns\InteractsWithJavascript,
         Macroable {
             __call as macroCall;
         }
