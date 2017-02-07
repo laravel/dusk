@@ -13,10 +13,10 @@ class Browser
     use Concerns\InteractsWithAuthentication,
         Concerns\InteractsWithCookies,
         Concerns\InteractsWithElements,
+        Concerns\InteractsWithJavascript,
         Concerns\InteractsWithMouse,
         Concerns\MakesAssertions,
         Concerns\WaitsForElements,
-        Concerns\InteractsWithJavascript,
         Macroable {
             __call as macroCall;
         }
