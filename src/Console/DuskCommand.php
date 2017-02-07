@@ -44,6 +44,7 @@ class DuskCommand extends Command
     public function handle()
     {
         $this->purgeScreenshots();
+        $this->purgeConsoleLogs();
 
         $options = implode(' ', array_slice($_SERVER['argv'], 2));
 
@@ -92,6 +93,22 @@ class DuskCommand extends Command
         $files = Finder::create()->files()
                         ->in(base_path('tests/Browser/screenshots'))
                         ->name('failure-*');
+
+        foreach ($files as $file) {
+            @unlink($file->getRealPath());
+        }
+    }
+
+    /**
+     * Purge the failure JavaScript console logs
+     *
+     * @return void
+     */
+    protected function purgeConsoleLogs()
+    {
+        $files = Finder::create()->files()
+            ->in(base_path('tests/Browser/jsconsole'))
+            ->name('failure-*');
 
         foreach ($files as $file) {
             @unlink($file->getRealPath());

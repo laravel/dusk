@@ -40,6 +40,7 @@ abstract class TestCase extends FoundationTestCase
         Browser::$baseUrl = $this->baseUrl();
 
         Browser::$storeScreenshotsAt = base_path('tests/Browser/screenshots');
+        Browser::$storeConsoleLogsAt = base_path('tests/Browser/jsconsole');
 
         Browser::$userResolver = function () {
             return $this->user();
@@ -141,6 +142,7 @@ abstract class TestCase extends FoundationTestCase
     {
         $browsers->each(function ($browser, $key) {
             $browser->screenshot('failure-'.$this->getName().'-'.$key);
+            $browser->saveConsoleLogs('failure-'.$this->getName().'-'.$key.'.txt');
         });
     }
 
