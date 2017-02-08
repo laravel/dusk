@@ -45,10 +45,10 @@ class InstallCommand extends Command
             mkdir(base_path('tests/Browser/screenshots'), 0755, true);
         }
 
-        copy(__DIR__.'/../../stubs/ExampleTest.php', base_path('tests/Browser/ExampleTest.php'));
-        copy(__DIR__.'/../../stubs/HomePage.php', base_path('tests/Browser/Pages/HomePage.php'));
-        copy(__DIR__.'/../../stubs/DuskTestCase.php', base_path('tests/DuskTestCase.php'));
-        copy(__DIR__.'/../../stubs/Page.php', base_path('tests/Browser/Pages/Page.php'));
+        copy(__DIR__.'/../../stubs/ExampleTest.stub', base_path('tests/Browser/ExampleTest.php'));
+        copy(__DIR__.'/../../stubs/HomePage.stub', base_path('tests/Browser/Pages/HomePage.php'));
+        copy(__DIR__.'/../../stubs/DuskTestCase.stub', base_path('tests/DuskTestCase.php'));
+        copy(__DIR__.'/../../stubs/Page.stub', base_path('tests/Browser/Pages/Page.php'));
 
         file_put_contents(base_path('tests/Browser/screenshots/.gitignore'), '*
 !.gitignore
