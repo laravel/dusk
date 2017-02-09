@@ -52,6 +52,18 @@ trait MakesAssertions
     }
 
     /**
+     * Assert that the current URL path matches the given route.
+     *
+     * @param  string  $route
+     * @param  array  $parameters
+     * @return $this
+     */
+    public function assertRouteIs($route, $parameters = [])
+    {
+        return $this->assertPathIs(route($route, $parameters, false));
+    }
+
+    /**
      * Assert that the given cookie is present.
      *
      * @param  string  $name
