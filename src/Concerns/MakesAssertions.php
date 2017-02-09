@@ -164,6 +164,34 @@ trait MakesAssertions
     }
 
     /**
+     * Assert that the given source code is present on the page.
+     *
+     * @param  string  $code
+     * @return $this
+     */
+    public function assertSourceHas($code)
+    {
+        PHPUnit::assertContains(
+            $code, $this->driver->getPageSource(),
+            "Did not find expected source code [$code]"
+        );
+    }
+
+    /**
+     * Assert that the given source code is not present on the page.
+     *
+     * @param  string  $code
+     * @return $this
+     */
+    public function assertSourceMissing($code)
+    {
+        PHPUnit::assertNotContains(
+            $code, $this->driver->getPageSource(),
+            "Found unexpected source code [$code]"
+        );
+    }
+
+    /**
      * Assert that the given link is visible.
      *
      * @param  string  $link
