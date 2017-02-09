@@ -114,6 +114,18 @@ class Browser
     }
 
     /**
+     * Browse to the given route.
+     *
+     * @param  string  $route
+     * @param  array  $parameters
+     * @return $this
+     */
+    public function visitRoute($route, $parameters = [])
+    {
+        return $this->visit(route($route, $parameters));
+    }
+
+    /**
      * Set the current page object.
      *
      * @param  mixed  $page
