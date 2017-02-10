@@ -41,6 +41,8 @@ abstract class TestCase extends FoundationTestCase
 
         Browser::$storeScreenshotsAt = base_path('tests/Browser/screenshots');
 
+        Browser::$storeOutputAt = base_path('tests/Browser/output');
+
         Browser::$userResolver = function () {
             return $this->user();
         };
@@ -140,7 +142,10 @@ abstract class TestCase extends FoundationTestCase
     protected function captureFailuresFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            $browser->screenshot('failure-'.$this->getName().'-'.$key);
+            $name = 'failure-'.$this->getName().'-'.$key;
+
+            $browser->screenshot($name)
+                ->storeOutput($name);
         });
     }
 
