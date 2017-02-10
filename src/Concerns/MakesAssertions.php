@@ -173,7 +173,7 @@ trait MakesAssertions
     {
         PHPUnit::assertContains(
             $code, $this->driver->getPageSource(),
-            "Did not find expected source code [$code]"
+            "Did not find expected source code [{$code}]"
         );
     }
 
@@ -187,7 +187,7 @@ trait MakesAssertions
     {
         PHPUnit::assertNotContains(
             $code, $this->driver->getPageSource(),
-            "Found unexpected source code [$code]"
+            "Found unexpected source code [{$code}]"
         );
     }
 
