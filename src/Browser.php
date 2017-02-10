@@ -273,6 +273,16 @@ class Browser
     }
 
     /**
+     * Dump the content from the last response.
+     *
+     * @return void
+     */
+    public function dump()
+    {
+        dd($this->driver->getPageSource());
+    }
+
+    /**
      * Dynamically call a method on the browser.
      *
      * @param  string  $method
