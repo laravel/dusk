@@ -187,6 +187,8 @@ trait MakesAssertions
             $code, $this->driver->getPageSource(),
             "Did not find expected source code [{$code}]"
         );
+
+        return $this;
     }
 
     /**
@@ -201,6 +203,8 @@ trait MakesAssertions
             $code, $this->driver->getPageSource(),
             "Found unexpected source code [{$code}]"
         );
+
+        return $this;
     }
 
     /**
