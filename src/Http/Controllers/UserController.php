@@ -4,7 +4,7 @@ namespace Laravel\Dusk\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 
-class LoginController
+class UserController
 {
     /**
      * Login using the given user ID / email.
@@ -33,5 +33,25 @@ class LoginController
     public function logout()
     {
         Auth::logout();
+    }
+
+    /**
+     * Retrieve the authenticated user identifier and class name.
+     *
+     * @param  string|null  $guard
+     * @return array
+     */
+    public function user($guard = null)
+    {
+        $user = Auth::guard($guard)->user();
+
+        if (!$user) {
+            return [];
+        }
+
+        return [
+            'id' => $user->getAuthIdentifier(),
+            'className' => get_class($user),
+        ];
     }
 }

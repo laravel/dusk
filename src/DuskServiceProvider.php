@@ -16,12 +16,17 @@ class DuskServiceProvider extends ServiceProvider
     {
         Route::get('/_dusk/login/{userId}', [
             'middleware' => 'web',
-            'uses' => 'Laravel\Dusk\Http\Controllers\LoginController@login'
+            'uses' => 'Laravel\Dusk\Http\Controllers\UserController@login',
         ]);
 
         Route::get('/_dusk/logout', [
             'middleware' => 'web',
-            'uses' => 'Laravel\Dusk\Http\Controllers\LoginController@logout'
+            'uses' => 'Laravel\Dusk\Http\Controllers\UserController@logout',
+        ]);
+
+        Route::get('/_dusk/user/{guard?}', [
+            'middleware' => 'web',
+            'uses' => 'Laravel\Dusk\Http\Controllers\UserController@user',
         ]);
     }
 
