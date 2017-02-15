@@ -45,7 +45,7 @@ class DuskCommand extends Command
     {
         $this->purgeScreenshots();
 
-        $options = implode(' ', array_slice($_SERVER['argv'], 2));
+        $options = array_slice($_SERVER['argv'], 2);
 
         return $this->withDuskEnvironment(function () use ($options) {
             return (new ProcessBuilder())
@@ -77,9 +77,7 @@ class DuskCommand extends Command
      */
     protected function phpunitArguments($options)
     {
-        return array_merge([], [
-            '-c', base_path('phpunit.dusk.xml'), $options
-        ]);
+        return array_merge(['-c', base_path('phpunit.dusk.xml')], $options);
     }
 
     /**
