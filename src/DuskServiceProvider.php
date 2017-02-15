@@ -23,24 +23,6 @@ class DuskServiceProvider extends ServiceProvider
             'middleware' => 'web',
             'uses' => 'Laravel\Dusk\Http\Controllers\LoginController@logout'
         ]);
-
-        $this->app->booted(function () {
-            $this->makeLogoutAccessibleViaGet();
-        });
-    }
-
-    /**
-     * Make the "logout" named route accessible over the GET verb.
-     *
-     * @return void
-     */
-    protected function makeLogoutAccessibleViaGet()
-    {
-        Route::getRoutes()->refreshNameLookups();
-
-        if ($route = Route::getRoutes()->getByName('logout')) {
-            Route::get($route->uri, $route->action);
-        }
     }
 
     /**
