@@ -96,6 +96,8 @@ abstract class TestCase extends FoundationTestCase
             throw $e;
         } finally {
             static::$browsers = $this->closeAllButPrimary($browsers);
+
+            static::$browsers->first()->logoutIfLoggedIn();
         }
     }
 
