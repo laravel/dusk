@@ -7,6 +7,13 @@ use Laravel\Dusk\Browser;
 trait InteractsWithAuthentication
 {
     /**
+     * Indicates if the user was authenticated using the loginAs method.
+     *
+     * @var bool
+     */
+    protected $loggedIn = false;
+
+    /**
      * Log into the application as the default user.
      *
      * @return $this
@@ -26,6 +33,8 @@ trait InteractsWithAuthentication
     {
         $userId = method_exists($userId, 'getKey') ? $userId->getKey() : $userId;
 
+        $this->loggedIn = true;
+
         return $this->visit('/_dusk/login/'.$userId);
     }
 
@@ -36,6 +45,22 @@ trait InteractsWithAuthentication
      */
     public function logout()
     {
+        $this->loggedIn = false;
+        
         return $this->visit(route('logout', [], false));
+    }
+
+    /**
+     * Log out a user if it is logged in.
+     *
+     * @return $this
+     */
+    public function logoutIfLoggedIn()
+    {
+        if ($this->loggedIn) {
+            return $this->logout();
+        }
+
+        return $this;
     }
 }
