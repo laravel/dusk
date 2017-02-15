@@ -147,11 +147,16 @@ trait InteractsWithElements
      *
      * @param  string  $field
      * @param  string  $value
+     * @param  bool    $clear 
      * @return $this
      */
-    public function type($field, $value)
+    public function type($field, $value, $clear = true)
     {
-        $this->resolver->resolveForTyping($field)->clear()->sendKeys($value);
+        $resolvedField = $this->resolver->resolveForTyping($field);
+        if ($clear) {
+            $resolvedField->clear();
+        }
+        $resolvedField->sendKeys($value);
 
         return $this;
     }
