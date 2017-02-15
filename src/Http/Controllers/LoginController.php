@@ -24,4 +24,9 @@ class LoginController
 
         Auth::login($user);
     }
+
+    public function logout()
+    {
+        Auth::logout();
+    }
 }

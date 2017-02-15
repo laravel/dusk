@@ -36,6 +36,6 @@ trait InteractsWithAuthentication
      */
     public function logout()
     {
-        return $this->visit(route('logout', [], false));
+        return $this->visit('/_dusk/logout/');
     }
 }
