@@ -6,6 +6,8 @@ use Laravel\Dusk\Browser;
 
 trait InteractsWithAuthentication
 {
+    use ManagesAuthenticationTokens;
+
     /**
      * Log into the application as the default user.
      *
@@ -26,7 +28,9 @@ trait InteractsWithAuthentication
     {
         $userId = method_exists($userId, 'getKey') ? $userId->getKey() : $userId;
 
-        return $this->visit('/_dusk/login/'.$userId);
+        $token = $this->generateAuthToken($userId);
+
+        return $this->visit('/_dusk/login/'.$userId.'?token='.$token);
     }
 
     /**
