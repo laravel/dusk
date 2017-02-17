@@ -105,5 +105,13 @@ class ElementResolverTest extends PHPUnit_Framework_TestCase
         $resolver = new ElementResolver(new StdClass, 'prefix');
         $resolver->pageElements(['@modal' => '#modal']);
         $this->assertEquals('prefix #modal', $resolver->format('@modal'));
+
+        $resolver = new ElementResolver(new StdClass, 'prefix');
+        $resolver->pageElements([
+            '@modal' => '#first',
+            '@modal-second' => '#second'
+        ]);
+        $this->assertEquals('prefix #first', $resolver->format('@modal'));
+        $this->assertEquals('prefix #second', $resolver->format('@modal-second'));
     }
 }
