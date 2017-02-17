@@ -7,6 +7,26 @@ use Illuminate\Support\Facades\Auth;
 class UserController
 {
     /**
+     * Retrieve the authenticated user identifier and class name.
+     *
+     * @param  string|null  $guard
+     * @return array
+     */
+    public function user($guard = null)
+    {
+        $user = Auth::guard($guard)->user();
+
+        if (! $user) {
+            return [];
+        }
+
+        return [
+            'id' => $user->getAuthIdentifier(),
+            'className' => get_class($user),
+        ];
+    }
+
+    /**
      * Login using the given user ID / email.
      *
      * @param  string  $userId
@@ -33,25 +53,5 @@ class UserController
     public function logout()
     {
         Auth::logout();
-    }
-
-    /**
-     * Retrieve the authenticated user identifier and class name.
-     *
-     * @param  string|null  $guard
-     * @return array
-     */
-    public function user($guard = null)
-    {
-        $user = Auth::guard($guard)->user();
-
-        if (!$user) {
-            return [];
-        }
-
-        return [
-            'id' => $user->getAuthIdentifier(),
-            'className' => get_class($user),
-        ];
     }
 }

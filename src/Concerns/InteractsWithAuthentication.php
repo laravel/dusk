@@ -41,14 +41,14 @@ trait InteractsWithAuthentication
     }
 
     /**
-     * Return the ID and the class name of the authenticated user.
+     * Get the ID and the class name of the authenticated user.
      *
      * @param  string|null  $guard
      * @return array
      */
     protected function currentUserInfo($guard = null)
     {
-        $response = $this->visit("/_dusk/user/$guard");
+        $response = $this->visit("/_dusk/user/{$guard}");
 
         return json_decode(strip_tags($response->driver->getPageSource()), true);
     }
@@ -59,9 +59,9 @@ trait InteractsWithAuthentication
      * @param  string|null  $guard
      * @return $this
      */
-    public function assertAuthentication($guard = null)
+    public function assertAuthenticated($guard = null)
     {
-        PHPUnit::assertNotEmpty($this->currentUserInfo($guard), 'The user is not authenticated');
+        PHPUnit::assertNotEmpty($this->currentUserInfo($guard), 'The user is not authenticated.');
 
         return $this;
     }
@@ -74,7 +74,9 @@ trait InteractsWithAuthentication
      */
     public function assertGuest($guard = null)
     {
-        PHPUnit::assertEmpty($this->currentUserInfo($guard), 'The user is authenticated');
+        PHPUnit::assertEmpty(
+            $this->currentUserInfo($guard), 'The user is unexpectedly authenticated.'
+        );
 
         return $this;
     }
@@ -95,7 +97,7 @@ trait InteractsWithAuthentication
 
         PHPUnit::assertSame(
             $expected, $this->currentUserInfo($guard),
-            'The currently authenticated user is not who was expected'
+            'The currently authenticated user is not who was expected.'
         );
 
         return $this;
