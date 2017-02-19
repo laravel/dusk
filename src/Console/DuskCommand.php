@@ -53,7 +53,7 @@ class DuskCommand extends Command
                 ->setPrefix($this->binary())
                 ->setArguments($this->phpunitArguments($options))
                 ->getProcess()
-                ->setTty(PHP_OS !== 'WINNT')
+                ->setTty($this->isTtySupported())
                 ->run(function ($type, $line) {
                     $this->output->write($line);
                 });
@@ -187,5 +187,15 @@ class DuskCommand extends Command
         }
 
         return '.env.dusk';
+    }
+
+    /**
+     * Checks if the TTY mode is supported
+     *
+     * @return bool
+     */
+    protected function isTtySupported()
+    {
+        return PHP_OS !== 'WINNT' && (bool) @proc_open('echo 1 >/dev/null', [['file', '/dev/tty', 'r'], ['file', '/dev/tty', 'w'], ['file', '/dev/tty', 'w']], $pipes);
     }
 }
