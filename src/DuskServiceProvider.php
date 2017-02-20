@@ -2,8 +2,9 @@
 
 namespace Laravel\Dusk;
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Dusk\Http\Middleware\AddUserInfo;
 
 class DuskServiceProvider extends ServiceProvider
 {
@@ -12,21 +13,18 @@ class DuskServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Router $router)
     {
-        Route::get('/_dusk/login/{userId}', [
+        $router->pushMiddlewareToGroup('web', AddUserInfo::class);
+
+        $router->get('/_dusk/login/{userId}', [
             'middleware' => 'web',
             'uses' => 'Laravel\Dusk\Http\Controllers\UserController@login',
         ]);
 
-        Route::get('/_dusk/logout', [
+        $router->get('/_dusk/logout', [
             'middleware' => 'web',
             'uses' => 'Laravel\Dusk\Http\Controllers\UserController@logout',
-        ]);
-
-        Route::get('/_dusk/user/{guard?}', [
-            'middleware' => 'web',
-            'uses' => 'Laravel\Dusk\Http\Controllers\UserController@user',
         ]);
     }
 
