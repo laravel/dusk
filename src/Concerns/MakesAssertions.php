@@ -351,6 +351,44 @@ JS;
 
         return $this;
     }
+    
+    /**
+     * Assert that the given radio field is selected.
+     *
+     * @param  string  $field
+     * @param  string  $value
+     * @return $this
+     */
+    function assertRadioSelected($field, $value)
+    {
+        $element = $this->resolver->resolveForRadioSelection($field, $value);
+
+        PHPUnit::assertTrue(
+            $element->isSelected(),
+            "Expected radio [{$field}] to be selected, but it wasn't."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given radio field is not selected.
+     *
+     * @param  string  $field
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertRadioNotSelected($field, $value = null)
+    {
+        $element = $this->resolver->resolveForRadioSelection($field, $value);
+
+        PHPUnit::assertFalse(
+            $element->isSelected(),
+            "Radio [{$field}] was unexpectedly selected."
+        );
+
+        return $this;
+    }
 
     /**
      * Assert that the given select field has the given value selected.
