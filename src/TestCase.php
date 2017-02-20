@@ -41,6 +41,8 @@ abstract class TestCase extends FoundationTestCase
 
         Browser::$storeScreenshotsAt = base_path('tests/Browser/screenshots');
 
+        Browser::$storeConsoleLogAt = base_path('tests/Browser/console');
+
         Browser::$userResolver = function () {
             return $this->user();
         };
@@ -95,6 +97,8 @@ abstract class TestCase extends FoundationTestCase
 
             throw $e;
         } finally {
+            $this->logConsoleFor($browsers);
+
             static::$browsers = $this->closeAllButPrimary($browsers);
         }
     }
@@ -152,6 +156,19 @@ abstract class TestCase extends FoundationTestCase
     {
         $browsers->each(function ($browser, $key) {
             $browser->screenshot('failure-'.$this->getName().'-'.$key);
+        });
+    }
+
+    /**
+     * Log the console output for each browser.
+     *
+     * @param  \Illuminate\Support\Collection  $browsers
+     * @return void
+     */
+    protected function logConsoleFor($browsers)
+    {
+        $browsers->each(function ($browser, $key) {
+            $browser->logConsole($this->getName().'-'.$key);
         });
     }
 
