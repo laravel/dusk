@@ -85,4 +85,14 @@ trait InteractsWithCookies
 
         return $this;
     }
+
+    /**
+     * Delete all the cookies.
+     *
+     * @return $this
+     */
+    public function deleteAllCookies()
+    {
+        $this->driver->manage()->deleteAllCookies();
+    }
 }
