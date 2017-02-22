@@ -46,6 +46,21 @@ trait InteractsWithElements
     }
 
     /**
+     * Right click the element at the given selector.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function rightClick($selector)
+    {
+        (new WebDriverActions($this->driver))->contextClick(
+            $this->resolver->findOrFail($selector)
+        )->perform();
+
+        return $this;
+    }
+
+    /**
      * Click the link with the given text.
      *
      * @param  string  $link
@@ -61,20 +76,6 @@ trait InteractsWithElements
 
         return $this;
     }
-    
-    /**
-     * Right click (a.k.a. context click) the element at the given selector.
-     *
-     * @param  string  $selector
-     * @return $this
-     */
-    public function rightClick($selector)
-    {
-        (new WebDriverActions($this->driver))->contextClick(
-            $this->resolver->findOrFail($selector))->perform();
-
-        return $this;
-    }    
 
     /**
      * Directly get or set the value attribute of an input field.
