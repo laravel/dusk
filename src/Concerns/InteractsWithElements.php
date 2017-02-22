@@ -63,12 +63,12 @@ trait InteractsWithElements
     }
     
     /**
-     * Context click (a.k.a. right click) the element at the given selector.
+     * Right click (a.k.a. context click) the element at the given selector.
      *
      * @param  string  $selector
      * @return $this
      */
-    public function contextClick($selector)
+    public function rightClick($selector)
     {
         (new WebDriverActions($this->driver))->contextClick(
             $this->resolver->findOrFail($selector))->perform();
