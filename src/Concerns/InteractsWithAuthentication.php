@@ -21,23 +21,25 @@ trait InteractsWithAuthentication
      * Log into the application using a given user ID or email.
      *
      * @param  object|string  $userId
+     * @param  string         $guard
      * @return $this
      */
-    public function loginAs($userId)
+    public function loginAs($userId, $guard = null)
     {
         $userId = method_exists($userId, 'getKey') ? $userId->getKey() : $userId;
 
-        return $this->visit('/_dusk/login/'.$userId);
+        return $this->visit('/_dusk/login/'.$userId.'/'.$guard);
     }
 
     /**
      * Log out of the application.
      *
+     * @param  string  $guard
      * @return $this
      */
-    public function logout()
+    public function logout($guard = null)
     {
-        return $this->visit('/_dusk/logout/');
+        return $this->visit('/_dusk/logout/'.$guard);
     }
 
     /**
