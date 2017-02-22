@@ -30,11 +30,14 @@ class UserController
      * Login using the given user ID / email.
      *
      * @param  string  $userId
+     * @param  string  $guard
      * @return Response
      */
-    public function login($userId)
+    public function login($userId, $guard = null)
     {
-        $model = config('auth.providers.users.model');
+        $guard    = $guard ?: config('auth.defaults.guard');
+        $provider = config("auth.guards.{$guard}.provider");
+        $model    = config("auth.providers.{$provider}.model");
 
         if (str_contains($userId, '@')) {
             $user = (new $model)->where('email', $userId)->first();
@@ -42,16 +45,17 @@ class UserController
             $user = (new $model)->find($userId);
         }
 
-        Auth::login($user);
+        Auth::guard($guard)->login($user);
     }
 
     /**
      * Log the user out of the application.
      *
+     * @param  string  $guard
      * @return Response
      */
-    public function logout()
+    public function logout($guard = null)
     {
-        Auth::logout();
+        Auth::guard($guard ?: config('auth.defaults.guard'))->logout();
     }
 }
