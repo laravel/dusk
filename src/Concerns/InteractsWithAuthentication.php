@@ -28,7 +28,7 @@ trait InteractsWithAuthentication
     {
         $userId = method_exists($userId, 'getKey') ? $userId->getKey() : $userId;
 
-        return $this->visit('/_dusk/login/'.$userId.'/'.$guard);
+        return $this->visit(rtrim('/_dusk/login/'.$userId.'/'.$guard, '/'));
     }
 
     /**
@@ -39,7 +39,7 @@ trait InteractsWithAuthentication
      */
     public function logout($guard = null)
     {
-        return $this->visit('/_dusk/logout/'.$guard);
+        return $this->visit(rtrim('/_dusk/logout/'.$guard, '/'));
     }
 
     /**

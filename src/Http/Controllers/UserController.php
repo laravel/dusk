@@ -35,9 +35,9 @@ class UserController
      */
     public function login($userId, $guard = null)
     {
-        $guard    = $guard ?: config('auth.defaults.guard');
-        $provider = config("auth.guards.{$guard}.provider");
-        $model    = config("auth.providers.{$provider}.model");
+        $model = $this->modelForGuard(
+            $guard = $guard ?: config('auth.defaults.guard')
+        );
 
         if (str_contains($userId, '@')) {
             $user = (new $model)->where('email', $userId)->first();
@@ -57,5 +57,18 @@ class UserController
     public function logout($guard = null)
     {
         Auth::guard($guard ?: config('auth.defaults.guard'))->logout();
+    }
+
+    /**
+     * Get the model for the given guard.
+     *
+     * @param  string  $guard
+     * @return string
+     */
+    protected function modelForGuard($guard)
+    {
+        $provider = config("auth.guards.{$guard}.provider");
+
+        return config("auth.providers.{$provider}.model");
     }
 }
