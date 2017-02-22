@@ -12,8 +12,10 @@ trait InteractsWithJavascript
      */
     public function script($scripts)
     {
-        return collect((array) $scripts)->map(function ($script) {
+        collect((array) $scripts)->map(function ($script) {
             return $this->driver->executeScript($script);
         })->all();
+
+        return $this;
     }
 }
