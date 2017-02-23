@@ -25,6 +25,13 @@ class DuskCommand extends Command
     protected $description = 'Run the Dusk tests for the application';
 
     /**
+     * Whether the project has its own phpunit.dusk.xml file.
+     *
+     * @var boolean
+     */
+    protected $phpunitDuskXmlExists = false;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -105,6 +112,14 @@ class DuskCommand extends Command
     protected function withDuskEnvironment($callback)
     {
         if (file_exists(base_path($this->duskFile()))) {
+            if (file_exists(base_path('.env.backup'))) {
+                $this->error('Cannot backup the current environment because there is already a .env.backup file in place!');
+                $this->error('Please check the contents of .env and .env.backup, remove the latter one if redundant, and then start Dusk again.');
+                $this->error('Aborting...');
+
+                return 2; // non-zero exit code to indicate failure
+            }
+
             $this->backupEnvironment();
 
             $this->refreshEnvironment();
@@ -162,7 +177,12 @@ class DuskCommand extends Command
      */
     protected function writeConfiguration()
     {
-        copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), base_path('phpunit.dusk.xml'));
+        $file = base_path('phpunit.dusk.xml');
+        if (file_exists($file)) {
+            $this->phpunitDuskXmlExists = true;
+        } else {
+            copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
+        }
     }
 
     /**
@@ -172,7 +192,9 @@ class DuskCommand extends Command
      */
     protected function removeConfiguration()
     {
-        unlink(base_path('phpunit.dusk.xml'));
+        if (! $this->phpunitDuskXmlExists) {
+            unlink(base_path('phpunit.dusk.xml'));
+        }
     }
 
     /**
