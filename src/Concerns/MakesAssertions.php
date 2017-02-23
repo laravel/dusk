@@ -64,6 +64,78 @@ trait MakesAssertions
     }
 
     /**
+     * Assert that the given query string parameter is present.
+     *
+     * @param  string  $name
+     * @return $this
+     */
+    public function assertHasQueryStringParam($name)
+    {
+        $parsedUrl = parse_url($this->driver->getCurrentURL());
+
+        PHPUnit::assertArrayHasKey(
+            'query', $parsedUrl,
+            "Did not see expected query string in [". $this->driver->getCurrentURL() ."]."
+        );
+
+        parse_str($parsedUrl['query'], $output);
+
+        PHPUnit::assertArrayHasKey(
+            $name, $output,
+            "Did not see expected query string parameter [{$name}] in [". $this->driver->getCurrentURL() ."]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given query string parameter is present.
+     *
+     * @param  string  $name
+     * @return $this
+     */
+    public function assertMissingQueryStringParam($name)
+    {
+        $parsedUrl = parse_url($this->driver->getCurrentURL());
+
+        if (! array_key_exists('query', $parsedUrl)) {
+            PHPUnit::assertTrue(true);
+
+            return $this;
+        }
+
+        parse_str($parsedUrl['query'], $output);
+
+        PHPUnit::assertArrayNotHasKey(
+            $name, $output,
+            "Found unexpected query string parameter [{$name}] in [". $this->driver->getCurrentURL() ."]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that a query string parameter has a given value.
+     *
+     * @param  string  $name
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertQueryStringValue($name, $value)
+    {
+        $this->assertHasQueryStringParam($name);
+
+        parse_str(parse_url($this->driver->getCurrentURL())['query'], $output);
+
+        PHPUnit::assertEquals(
+            $value, $output[$name],
+            "Query string [{$name}] had value [{$output[$name]}], but expected [{$value}]."
+        );
+
+        return $this;
+    }
+    
+    /**
      * Assert that the given cookie is present.
      *
      * @param  string  $name
