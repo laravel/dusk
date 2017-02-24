@@ -105,7 +105,9 @@ class DuskCommand extends Command
     protected function withDuskEnvironment($callback)
     {
         if (file_exists(base_path($this->duskFile()))) {
-            $this->backupEnvironment();
+            if (file_get_contents(base_path('.env')) !== file_get_contents(base_path($this->duskFile())) {
+                $this->backupEnvironment();
+            }
 
             $this->refreshEnvironment();
         }
