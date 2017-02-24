@@ -117,7 +117,7 @@ class DuskCommand extends Command
         return tap($callback(), function () {
             $this->removeConfiguration();
 
-            if (file_exists(base_path($this->duskFile()))) {
+            if (file_exists(base_path($this->duskFile())) && file_exists(base_path('.env.backup')))) {
                 $this->restoreEnvironment();
             }
         });
