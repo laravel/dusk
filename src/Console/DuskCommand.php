@@ -24,6 +24,13 @@ class DuskCommand extends Command
      */
     protected $description = 'Run the Dusk tests for the application';
 
+    /*
+     * Whether the project has its own phpunit.dusk.xml file.
+     *
+     * @var boolean
+     */
+    protected $projectHasPhpunitDuskXml = false;
+
     /**
      * Create a new command instance.
      *
@@ -162,7 +169,11 @@ class DuskCommand extends Command
      */
     protected function writeConfiguration()
     {
-        copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), base_path('phpunit.dusk.xml'));
+        if (! file_exists($file = base_path('phpunit.dusk.xml'))) {
+            copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
+        } else {
+            $this->projectHasPhpunitDuskXml = true;
+        }
     }
 
     /**
@@ -172,7 +183,9 @@ class DuskCommand extends Command
      */
     protected function removeConfiguration()
     {
-        unlink(base_path('phpunit.dusk.xml'));
+        if (! $this->projectHasPhpunitDuskXml) {
+            unlink(base_path('phpunit.dusk.xml'));
+        }
     }
 
     /**
