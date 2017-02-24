@@ -283,6 +283,16 @@ class Browser
     }
 
     /**
+     * Stop the script but keep the browser open.
+     *
+     * @return void
+     */
+    public function stop()
+    {
+        exit();
+    }
+
+    /**
      * Dynamically call a method on the browser.
      *
      * @param  string  $method
