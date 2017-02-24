@@ -69,7 +69,7 @@ trait MakesAssertions
      * @param  string  $name
      * @return $this
      */
-    public function assertHasQueryStringParam($name)
+    protected function assertHasQuery($name)
     {
         $parsedUrl = parse_url($this->driver->getCurrentURL());
 
@@ -85,22 +85,21 @@ trait MakesAssertions
             "Did not see expected query string parameter [{$name}] in [". $this->driver->getCurrentURL() ."]."
         );
 
-        return $this;
+        return $output;
     }
 
     /**
-     * Assert that the given query string parameter is present.
+     * Assert that the given query string parameter is missing.
      *
      * @param  string  $name
      * @return $this
      */
-    public function assertMissingQueryStringParam($name)
+    public function assertMissingQuery($name)
     {
         $parsedUrl = parse_url($this->driver->getCurrentURL());
 
         if (! array_key_exists('query', $parsedUrl)) {
             PHPUnit::assertTrue(true);
-
             return $this;
         }
 
@@ -115,21 +114,23 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that a query string parameter has a given value.
+     * Assert that a query string parameter is present and has a given value.
      *
      * @param  string  $name
      * @param  string  $value
      * @return $this
      */
-    public function assertQueryStringValue($name, $value)
+    public function assertQuery($name, $value = null)
     {
-        $this->assertHasQueryStringParam($name);
+        $output = $this->assertHasQuery($name);
 
-        parse_str(parse_url($this->driver->getCurrentURL())['query'], $output);
+        if (is_null($value)) {
+            return $this;
+        }
 
         PHPUnit::assertEquals(
             $value, $output[$name],
-            "Query string [{$name}] had value [{$output[$name]}], but expected [{$value}]."
+            "Query string parameter [{$name}] had value [{$output[$name]}], but expected [{$value}]."
         );
 
         return $this;
