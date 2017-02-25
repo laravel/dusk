@@ -283,7 +283,7 @@ class Browser
     }
 
     /**
-     * Stop the script but keep the browser open.
+     * Stop running tests but leave the browser open.
      *
      * @return void
      */
