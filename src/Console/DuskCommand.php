@@ -50,7 +50,7 @@ class DuskCommand extends Command
      */
     public function handle()
     {
-        $this->purgeScreenshots();
+        $this->purgeScreenshotsAndOutput();
 
         $options = array_slice($_SERVER['argv'], 2);
 
@@ -88,14 +88,17 @@ class DuskCommand extends Command
     }
 
     /**
-     * Purge the failure screenshots
+     * Purge the failure screenshots and source codes.
      *
      * @return void
      */
-    protected function purgeScreenshots()
+    protected function purgeScreenshotsAndOutput()
     {
         $files = Finder::create()->files()
-                        ->in(base_path('tests/Browser/screenshots'))
+                        ->in([
+                            base_path('tests/Browser/screenshots'),
+                            base_path('tests/Browser/output'),
+                        ])
                         ->name('failure-*');
 
         foreach ($files as $file) {

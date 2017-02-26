@@ -36,6 +36,13 @@ class Browser
     public static $storeScreenshotsAt;
 
     /**
+     * The directory that will contain any source codes.
+     *
+     * @var string
+     */
+    public static $storeOutputAt;
+
+    /**
      * Get the callback which resolves the default user to authenticate.
      *
      * @var \Closure
@@ -197,6 +204,21 @@ class Browser
     {
         $this->driver->takeScreenshot(
             sprintf('%s/%s.png', rtrim(static::$storeScreenshotsAt, '/'), $name)
+        );
+
+        return $this;
+    }
+
+    /**
+     * Store the page source.
+     *
+     * @param $name
+     */
+    public function storeOutput($name)
+    {
+        file_put_contents(
+            sprintf('%s/%s.html', rtrim(static::$storeOutputAt, '/'), $name),
+            $this->driver->getPageSource()
         );
 
         return $this;
