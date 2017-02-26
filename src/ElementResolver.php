@@ -302,6 +302,10 @@ class ElementResolver
      */
     public function findOrFail($selector)
     {
+        if (! is_null($element = $this->findById($selector))) {
+            return $element;
+        }
+
         return $this->driver->findElement(
             WebDriverBy::cssSelector($this->format($selector))
         );
