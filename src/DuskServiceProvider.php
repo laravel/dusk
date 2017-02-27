@@ -45,5 +45,9 @@ class DuskServiceProvider extends ServiceProvider
                 Console\PageCommand::class,
             ]);
         }
+
+        $this->publishes([
+            __DIR__.'/../stubs/config.stub' => config_path('dusk.php')
+        ], 'config');
     }
 }
