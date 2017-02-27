@@ -1,0 +1,25 @@
+<?php
+
+return [
+    /*
+    |--------------------------------------------------------------------------
+    | Tests Path
+    |--------------------------------------------------------------------------
+    |
+    | If you wish to change the tests directory path, you may do so here.
+    |
+    */
+
+    'tests_path' => base_path('tests'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Binary Path
+    |--------------------------------------------------------------------------
+    |
+    | If you wish to change the PHPUnit binary path, you may do so here.
+    |
+    */
+
+    'bin_path' => 'vendor/bin/phpunit'
+];

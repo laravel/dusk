@@ -37,23 +37,28 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        if (! is_dir(base_path('tests/Browser/Pages'))) {
-            mkdir(base_path('tests/Browser/Pages'), 0755, true);
+        if (! is_dir($this->generateTestsPath('Browser/Pages'))) {
+            mkdir($this->generateTestsPath('Browser/Pages'), 0755, true);
         }
 
-        if (! is_dir(base_path('tests/Browser/screenshots'))) {
-            mkdir(base_path('tests/Browser/screenshots'), 0755, true);
+        if (! is_dir($this->generateTestsPath('Browser/screenshots'))) {
+            mkdir($this->generateTestsPath('Browser/screenshots'), 0755, true);
         }
 
-        copy(__DIR__.'/../../stubs/ExampleTest.stub', base_path('tests/Browser/ExampleTest.php'));
-        copy(__DIR__.'/../../stubs/HomePage.stub', base_path('tests/Browser/Pages/HomePage.php'));
-        copy(__DIR__.'/../../stubs/DuskTestCase.stub', base_path('tests/DuskTestCase.php'));
-        copy(__DIR__.'/../../stubs/Page.stub', base_path('tests/Browser/Pages/Page.php'));
+        copy(__DIR__.'/../../stubs/ExampleTest.stub', $this->generateTestsPath('Browser/ExampleTest.php'));
+        copy(__DIR__.'/../../stubs/HomePage.stub', $this->generateTestsPath('Browser/Pages/HomePage.php'));
+        copy(__DIR__.'/../../stubs/DuskTestCase.stub', $this->generateTestsPath('DuskTestCase.php'));
+        copy(__DIR__.'/../../stubs/Page.stub', $this->generateTestsPath('Browser/Pages/Page.php'));
 
-        file_put_contents(base_path('tests/Browser/screenshots/.gitignore'), '*
+        file_put_contents($this->generateTestsPath('Browser/screenshots/.gitignore'), '*
 !.gitignore
 ');
 
         $this->info('Dusk scaffolding installed successfully.');
+    }
+
+    protected function generateTestsPath($path)
+    {
+        return (config('dusk.tests_path') ?: 'tests').DIRECTORY_SEPARATOR.$path;
     }
 }

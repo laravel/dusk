@@ -74,7 +74,9 @@ class DuskCommand extends Command
      */
     protected function binary()
     {
-        return PHP_OS === 'WINNT' ? base_path('vendor\bin\phpunit.bat') : 'vendor/bin/phpunit';
+        $defaultPath = PHP_OS === 'WINNT' ? base_path('vendor\bin\phpunit.bat') : 'vendor/bin/phpunit';
+
+        return config('dusk.bin_path') ?: $defaultPath;
     }
 
     /**
@@ -95,7 +97,7 @@ class DuskCommand extends Command
     protected function purgeScreenshots()
     {
         $files = Finder::create()->files()
-                        ->in(base_path('tests/Browser/screenshots'))
+                        ->in($this->generateTestsPath('Browser/screenshots'))
                         ->name('failure-*');
 
         foreach ($files as $file) {
@@ -112,7 +114,7 @@ class DuskCommand extends Command
     protected function withDuskEnvironment($callback)
     {
         if (file_exists(base_path($this->duskFile()))) {
-            if (file_get_contents(base_path('.env')) !== file_get_contents(base_path($this->duskFile())) {
+            if (file_get_contents(base_path('.env')) !== file_get_contents(base_path($this->duskFile()))) {
                 $this->backupEnvironment();
             }
 
@@ -202,5 +204,15 @@ class DuskCommand extends Command
         }
 
         return '.env.dusk';
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function generateTestsPath($path)
+    {
+        return config('dusk.tests_path')
+            ? config('dusk.tests_path').DIRECTORY_SEPARATOR.$path
+            : base_path('tests/'.$path);
     }
 }

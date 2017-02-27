@@ -39,7 +39,7 @@ abstract class TestCase extends FoundationTestCase
     {
         Browser::$baseUrl = $this->baseUrl();
 
-        Browser::$storeScreenshotsAt = base_path('tests/Browser/screenshots');
+        Browser::$storeScreenshotsAt = $this->generateTestsPath('Browser/screenshots');
 
         Browser::$userResolver = function () {
             return $this->user();
@@ -223,5 +223,15 @@ abstract class TestCase extends FoundationTestCase
     protected function user()
     {
         throw new Exception("User resolver has not been set.");
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function generateTestsPath($path)
+    {
+        return config('dusk.tests_path')
+            ? config('dusk.tests_path').DIRECTORY_SEPARATOR.$path
+            : base_path('tests/'.$path);
     }
 }

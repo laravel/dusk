@@ -47,7 +47,11 @@ class PageCommand extends GeneratorCommand
     {
         $name = str_replace_first($this->rootNamespace(), '', $name);
 
-        return $this->laravel->basePath().'/tests'.str_replace('\\', '/', $name).'.php';
+        $name = str_replace('\\', '/', $name).'.php';
+
+        $basePath = config('dusk.tests_path') ?: $this->laravel->basePath().'/tests';
+
+        return $basePath.$name;
     }
 
     /**
