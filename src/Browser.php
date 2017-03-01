@@ -36,6 +36,13 @@ class Browser
     public static $storeScreenshotsAt;
 
     /**
+     * The directory that will contain any console log.
+     *
+     * @var string
+     */
+    public static $storeConsoleLogAt;
+
+    /**
      * Get the callback which resolves the default user to authenticate.
      *
      * @var \Closure
@@ -197,6 +204,22 @@ class Browser
     {
         $this->driver->takeScreenshot(
             sprintf('%s/%s.png', rtrim(static::$storeScreenshotsAt, '/'), $name)
+        );
+
+        return $this;
+    }
+
+    /**
+     * Store the console output with the given name.
+     *
+     * @param  string  $name
+     * @return $this
+     */
+    public function logConsole($name)
+    {
+        file_put_contents(
+            sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name)
+            , json_encode($this->driver->manage()->getLog('browser'), JSON_PRETTY_PRINT)
         );
 
         return $this;
