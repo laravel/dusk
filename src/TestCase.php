@@ -97,7 +97,7 @@ abstract class TestCase extends FoundationTestCase
 
             throw $e;
         } finally {
-            $this->logConsoleFor($browsers);
+            $this->storeConsoleLogsFor($browsers);
 
             static::$browsers = $this->closeAllButPrimary($browsers);
         }
@@ -160,15 +160,15 @@ abstract class TestCase extends FoundationTestCase
     }
 
     /**
-     * Log the console output for each browser.
+     * Store the console output for the given browsers.
      *
      * @param  \Illuminate\Support\Collection  $browsers
      * @return void
      */
-    protected function logConsoleFor($browsers)
+    protected function storeConsoleLogsFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            $browser->logConsole($this->getName().'-'.$key);
+            $browser->storeConsoleLog($this->getName().'-'.$key);
         });
     }
 

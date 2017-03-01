@@ -36,7 +36,7 @@ class Browser
     public static $storeScreenshotsAt;
 
     /**
-     * The directory that will contain any console log.
+     * The directory that will contain any console logs.
      *
      * @var string
      */
@@ -215,7 +215,7 @@ class Browser
      * @param  string  $name
      * @return $this
      */
-    public function logConsole($name)
+    public function storeConsoleLog($name)
     {
         file_put_contents(
             sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name)
