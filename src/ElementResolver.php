@@ -255,7 +255,7 @@ class ElementResolver
      */
     protected function findById($selector)
     {
-        if (Str::startsWith($selector, '#')) {
+        if (preg_match('/^#[\w\-]+$/', $selector)) {
             return $this->driver->findElement(WebDriverBy::id(substr($selector, 1)));
         }
     }
