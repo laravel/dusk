@@ -221,7 +221,7 @@ class Browser
         if (!empty($console)) {
             file_put_contents(
                 sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name)
-                , json_encode($this->driver->manage()->getLog('browser'), JSON_PRETTY_PRINT)
+                , json_encode($console, JSON_PRETTY_PRINT)
             );
         }
 
