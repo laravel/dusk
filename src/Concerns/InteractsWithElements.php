@@ -326,6 +326,71 @@ trait InteractsWithElements
 
         return $this;
     }
+    
+    /**
+     * Drag an element up.
+     *
+     * @param  string  $selector
+     * @param  int  $offset
+     * @return $this
+     */
+    public function dragUp($selector, $offset)
+    {
+        return $this->dragOffset($selector, 0, -$offset);
+    }
+
+    /**
+     * Drag an element down.
+     *
+     * @param  string  $selector
+     * @param  int  $offset
+     * @return $this
+     */
+    public function dragDown($selector, $offset)
+    {
+        return $this->dragOffset($selector, 0, $offset);
+    }
+
+    /**
+     * Drag an element to the left.
+     *
+     * @param  string  $selector
+     * @param  int  $offset
+     * @return $this
+     */
+    public function dragLeft($selector, $offset)
+    {
+        return $this->dragOffset($selector, -$offset, 0);
+    }
+
+    /**
+     * Drag an element to the right.
+     *
+     * @param  string  $selector
+     * @param  int  $offset
+     * @return $this
+     */
+    public function dragRight($selector, $offset)
+    {
+        return $this->dragOffset($selector, $offset, 0);
+    }
+
+    /**
+     * Drag an element by offset.
+     *
+     * @param  string  $selector
+     * @param  int  $x
+     * @param  int  $y
+     * @return $this
+     */   
+    public function dragOffset($selector, $x = 0, $y = 0)
+    {
+        (new WebDriverActions($this->driver))->dragAndDropBy(
+            $this->resolver->findOrFail($selector), $x, $y
+        )->perform();
+
+        return $this;
+    }
 
     /**
      * Accept a JavaScript dialog.
