@@ -4,7 +4,7 @@ namespace Laravel\Dusk\Console;
 
 use Illuminate\Console\Command;
 
-class Link extends Command
+class LinkCommand extends Command
 {
     /**
      * The console command signature.
