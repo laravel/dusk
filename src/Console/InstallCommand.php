@@ -42,24 +42,18 @@ class InstallCommand extends Command
         }
 
         if (! is_dir(base_path('tests/Browser/screenshots'))) {
-            mkdir(base_path('tests/Browser/screenshots'), 0755, true);
-            file_put_contents(base_path('tests/Browser/screenshots/.gitignore'), '*
-!.gitignore
-');
+            $this->createScreenshotsDirectory();
         }
 
         if (! is_dir(base_path('tests/Browser/console'))) {
-            mkdir(base_path('tests/Browser/console'), 0755, true);
-            file_put_contents(base_path('tests/Browser/console/.gitignore'), '*
-!.gitignore
-');
+            $this->createConsoleDirectory();
         }
 
         $subs = [
-            'ExampleTest.stub'  => base_path('tests/Browser/ExampleTest.php'),
-            'HomePage.stub'     => base_path('tests/Browser/Pages/HomePage.php'),
+            'ExampleTest.stub' => base_path('tests/Browser/ExampleTest.php'),
+            'HomePage.stub' => base_path('tests/Browser/Pages/HomePage.php'),
             'DuskTestCase.stub' => base_path('tests/DuskTestCase.php'),
-            'Page.stub'         => base_path('tests/Browser/Pages/Page.php'),
+            'Page.stub' => base_path('tests/Browser/Pages/Page.php'),
         ];
 
         foreach ($subs as $stub => $file) {
@@ -69,5 +63,33 @@ class InstallCommand extends Command
         }
 
         $this->info('Dusk scaffolding installed successfully.');
+    }
+
+    /**
+     * Create the screenshots directory.
+     *
+     * @return void
+     */
+    protected function createScreenshotsDirectory()
+    {
+        mkdir(base_path('tests/Browser/screenshots'), 0755, true);
+
+        file_put_contents(base_path('tests/Browser/screenshots/.gitignore'), '*
+!.gitignore
+');
+    }
+
+    /**
+     * Create the console directory.
+     *
+     * @return void
+     */
+    protected function createConsoleDirectory()
+    {
+        mkdir(base_path('tests/Browser/console'), 0755, true);
+
+        file_put_contents(base_path('tests/Browser/console/.gitignore'), '*
+!.gitignore
+');
     }
 }
