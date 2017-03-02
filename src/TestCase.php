@@ -6,6 +6,7 @@ use Closure;
 use Exception;
 use Throwable;
 use ReflectionFunction;
+use Laravel\Dusk\Events\ScreenshotCaptured;
 use Illuminate\Support\Collection;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
@@ -156,6 +157,7 @@ abstract class TestCase extends FoundationTestCase
     {
         $browsers->each(function ($browser, $key) {
             $browser->screenshot('failure-'.$this->getName().'-'.$key);
+            event(new ScreenshotCaptured('failure-'.$this->getName().'-'.$key));
         });
     }
 
