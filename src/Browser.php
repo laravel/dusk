@@ -218,7 +218,8 @@ class Browser
     public function storeConsoleLog($name)
     {
         $console = $this->driver->manage()->getLog('browser');
-        if (!empty($console)) {
+
+        if (! empty($console)) {
             file_put_contents(
                 sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name)
                 , json_encode($console, JSON_PRETTY_PRINT)
