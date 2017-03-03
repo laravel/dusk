@@ -326,7 +326,7 @@ trait InteractsWithElements
 
         return $this;
     }
-    
+
     /**
      * Drag an element up.
      *
@@ -376,13 +376,13 @@ trait InteractsWithElements
     }
 
     /**
-     * Drag an element by offset.
+     * Drag an element by the given offset.
      *
      * @param  string  $selector
      * @param  int  $x
      * @param  int  $y
      * @return $this
-     */   
+     */
     public function dragOffset($selector, $x = 0, $y = 0)
     {
         (new WebDriverActions($this->driver))->dragAndDropBy(
