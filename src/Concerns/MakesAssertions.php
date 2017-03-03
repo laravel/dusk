@@ -50,7 +50,7 @@ trait MakesAssertions
             $urlPath = '/' . ltrim($urlPath, '/');
         }
         
-        PHPUnit::assertEquals($path, $configPath);
+        PHPUnit::assertEquals($path, $urlPath);
         
         return $this;
     }
