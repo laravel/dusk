@@ -86,7 +86,7 @@ trait InteractsWithElements
      */
     public function value($selector, $value = null)
     {
-        if (! $value) {
+        if (is_null($value)) {
             return $this->resolver->findOrFail($selector)->getAttribute('value');
         }
 
