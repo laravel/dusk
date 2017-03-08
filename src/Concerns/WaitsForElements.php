@@ -95,7 +95,7 @@ trait WaitsForElements
      */
     public function waitForLocation($path, $seconds = 5)
     {
-        return $this->waitUntil("window.location.pathname == '$path'", $seconds);
+        return $this->waitUntil("window.location.pathname == '{$path}'", $seconds);
     }
 
     /**
