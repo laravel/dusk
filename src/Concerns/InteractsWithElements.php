@@ -203,7 +203,7 @@ trait InteractsWithElements
 
         else {
             foreach ($options as $option) {
-                if ((string)$option->getAttribute('value') === (string)$value) {
+                if ((string) $option->getAttribute('value') === (string) $value) {
                     $option->click();
 
                     break;
