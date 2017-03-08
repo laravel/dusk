@@ -87,6 +87,18 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for the given location.
+     *
+     * @param  string  $path
+     * @param  int  $seconds
+     * @return $this
+     */
+    public function waitForLocation($path, $seconds = 5)
+    {
+        return $this->waitUntil("window.location.pathname == '{$path}'", $seconds);
+    }
+
+    /**
      * Wait until the given script returns true.
      *
      * @param  string  $script
