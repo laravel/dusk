@@ -3,7 +3,7 @@
 namespace Laravel\Dusk\Concerns;
 
 use Illuminate\Support\Str;
-use PHPUnit_Framework_Assert as PHPUnit;
+use PHPUnit\Framework\Assert as PHPUnit;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 
 trait MakesAssertions
