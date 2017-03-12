@@ -167,6 +167,18 @@ class Browser
     }
 
     /**
+     * Click the browser's back button.
+     *
+     * @return $this
+     */
+    public function back()
+    {
+        $this->driver->navigate()->back();
+
+        return $this;
+    }
+    
+    /**
      * Maximize the browser window.
      *
      * @return $this
