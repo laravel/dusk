@@ -262,6 +262,45 @@ trait MakesAssertions
 
         return $this;
     }
+	
+	/**
+	 * Assert that the given collection appears on the page by checking the values of labels.
+	 *
+	 * @param array  $collection
+	 * @param [array|string]  $labels
+	 * @return $this
+	 */
+    public function assertSeeCollection($collection, $labels) {
+    	if (!is_array($labels))
+    		$labels = [$labels];
+    	
+    	foreach ($collection as $item) {
+    		foreach ($labels as $label)
+    			$this->assertSee($item->$label);
+		}
+		
+    	return $this;
+	}
+	
+	/**
+	 * Assert that the given collection appears within the given selector by checking the values of labels.
+	 *
+	 * @param string  $element
+	 * @param array  $collection
+	 * @param [array|string]  $labels
+	 * @return $this
+	 */
+	public function assertSeeCollectionIn($element, $collection, $labels) {
+		if (!is_array($labels))
+			$labels = [$labels];
+		
+		foreach ($collection as $item) {
+			foreach ($labels as $label)
+				$this->assertSeeIn($element, $item->$label);
+		}
+		
+		return $this;
+	}
 
     /**
      * Assert that the given source code is present on the page.
