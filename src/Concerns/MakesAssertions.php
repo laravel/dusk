@@ -513,6 +513,70 @@ JS;
     }
 
     /**
+     * Assert that the given array of values are available to be selected on the given field.
+     *
+     * @param string  $field
+     * @param array  $values
+     * @return $this
+     */
+    public function assertOptionsAvailable($field, array $values)
+    {
+        PHPUnit::assertCount(
+            count($values),
+            $this->resolver->resolveSelectOptions($field, $values),
+            "Expected options [".implode(',', $values)."] for select [{$field}] to be available, but it wasn't."
+        );
+
+        return $this;
+    }
+    
+    /**
+     * Assert that the given array of values are not available to be selected on the given field.
+     *
+     * @param string  $field
+     * @param array  $values
+     * @return $this
+     */
+    public function assertOptionsNotAvailable($field, array $values)
+    {
+        PHPUnit::assertCount(
+            0,
+            $this->resolver->resolveSelectOptions($field, $values),
+            "Unexpected available options [".implode(',', $values)."] for select [{$field}]."
+        );
+
+        return $this;
+    }
+    
+    /**
+     * Assert that the given value is available to be selected on the given field.
+     *
+     * @param string  $field
+     * @param string  $value
+     * @return $this
+     */
+    public function assertOptionAvailable($field, $value)
+    {
+        $value = [$value];
+
+        return $this->assertOptionsAvailable($field, $value);
+    }
+    
+    /**
+     * Assert that the given value is not available to be selected on the given field.
+     *
+     * @param string  $field
+     * @param string  $value
+     * @return $this
+     */
+    public function assertOptionNotAvailable($field, $value)
+    {
+        $value = [$value];
+
+        return $this->assertOptionsNotAvailable($field, $value);
+    }
+
+    /**
      * Determine if the given value is selected for the given select field.
      *
      * @param  string  $field

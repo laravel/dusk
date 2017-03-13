@@ -107,6 +107,29 @@ class ElementResolver
     }
 
     /**
+     * Resolve all the options with the given value on the select field.
+     *
+     * @param string  $field
+     * @param array  $values
+     * @return array
+     */
+    public function resolveSelectOptions($field, array $values)
+    {
+        $select = $this->resolveForSelection($field);
+        $options = $select->findElements(WebDriverBy::tagName('option'));
+        
+        if (empty($options))
+            return [];
+        
+        $available = [];
+        foreach ($options as $option)
+            if (in_array($option->getAttribute('value'), $values))
+                $available[] = $option;
+        
+        return $available;
+    }
+    
+    /**
      * Resolve the element for a given radio "field" / value.
      *
      * @param  string  $field
