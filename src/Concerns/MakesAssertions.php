@@ -557,9 +557,7 @@ JS;
      */
     public function assertOptionAvailable($field, $value)
     {
-        $value = [$value];
-
-        return $this->assertOptionsAvailable($field, $value);
+        return $this->assertOptionsAvailable($field, [$value]);
     }
     
     /**
@@ -571,9 +569,7 @@ JS;
      */
     public function assertOptionNotAvailable($field, $value)
     {
-        $value = [$value];
-
-        return $this->assertOptionsNotAvailable($field, $value);
+        return $this->assertOptionsNotAvailable($field, [$value]);
     }
 
     /**
