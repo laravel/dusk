@@ -37,16 +37,16 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        if (! is_dir(base_path('tests/Browser/Pages'))) {
-            mkdir(base_path('tests/Browser/Pages'), 0755, true);
-        }
+        $dirs = [
+            'Pages' => false,
+            'screenshots' => true,
+            'console' => true,
+        ];
 
-        if (! is_dir(base_path('tests/Browser/screenshots'))) {
-            $this->createScreenshotsDirectory();
-        }
-
-        if (! is_dir(base_path('tests/Browser/console'))) {
-            $this->createConsoleDirectory();
+        foreach ($dirs as $dir => $has_dot_gitignore) {
+            if (!is_dir(base_path("tests/Browser/{$dir}"))) {
+                $this->createDirectory($dir, $has_dot_gitignore);
+            }
         }
 
         $subs = [
@@ -66,30 +66,17 @@ class InstallCommand extends Command
     }
 
     /**
-     * Create the screenshots directory.
+     * Create directory inside tests/Browser.
      *
-     * @return void
+     * @param  string  $dir
+     * @param  boolean  $has_dot_gitignore
      */
-    protected function createScreenshotsDirectory()
+    protected function createDirectory($dir, $has_dot_gitignore)
     {
-        mkdir(base_path('tests/Browser/screenshots'), 0755, true);
+        mkdir(base_path("tests/Browser/{$dir}"), 0755, true);
 
-        file_put_contents(base_path('tests/Browser/screenshots/.gitignore'), '*
-!.gitignore
-');
-    }
-
-    /**
-     * Create the console directory.
-     *
-     * @return void
-     */
-    protected function createConsoleDirectory()
-    {
-        mkdir(base_path('tests/Browser/console'), 0755, true);
-
-        file_put_contents(base_path('tests/Browser/console/.gitignore'), '*
-!.gitignore
-');
+        if ($has_dot_gitignore) {
+            file_put_contents(base_path("tests/Browser/{$dir}/.gitignore"), '*'.PHP_EOL.'!.gitignore'.PHP_EOL);
+        }
     }
 }
