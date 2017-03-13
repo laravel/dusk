@@ -24,7 +24,7 @@ class DuskCommand extends Command
      */
     protected $description = 'Run the Dusk tests for the application';
 
-    /*
+    /**
      * Indicates if the project has its own PHPUnit configuration.
      *
      * @var boolean
