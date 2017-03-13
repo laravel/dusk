@@ -80,7 +80,7 @@ trait SupportsChrome
             case 'WINNT':
                 return 'win.exe';
             default:
-                return 'linux';
+                return 'linux'.(PHP_INT_SIZE * 8);
         }
     }
 }
