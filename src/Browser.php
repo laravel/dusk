@@ -167,7 +167,7 @@ class Browser
     }
 
     /**
-     * Click the browser's back button.
+     * Navigate to the previous page.
      *
      * @return $this
      */
