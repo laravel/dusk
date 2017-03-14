@@ -116,10 +116,11 @@ class ElementResolver
     public function resolveSelectOptions($field, array $values)
     {
         $options = $this->resolveForSelection($field)
-            ->findElements(WebDriverBy::tagName('option'));
+                ->findElements(WebDriverBy::tagName('option'));
 
-        if (empty($options))
+        if (empty($options)) {
             return [];
+        }
 
         return array_filter($options, function($option) use ($values) {
             return in_array($option->getAttribute('value'), $values);

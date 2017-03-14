@@ -65,7 +65,7 @@ trait MakesAssertions
 
         return $this;
     }
-    
+
     /**
      * Assert that the current URL path matches the given route.
      *
@@ -513,41 +513,40 @@ JS;
     }
 
     /**
-     * Assert that the given array of values are available to be selected on the given field.
+     * Assert that the given array of values are available to be selected.
      *
      * @param string  $field
      * @param array  $values
      * @return $this
      */
-    public function assertOptionsAvailable($field, array $values)
+    public function assertSelectHasOptions($field, array $values)
     {
         PHPUnit::assertCount(
             count($values),
             $this->resolver->resolveSelectOptions($field, $values),
-            "Expected options [".implode(',', $values)."] for select [{$field}] to be available, but it wasn't."
+            "Expected options [".implode(',', $values)."] for selection field [{$field}] to be available."
         );
 
         return $this;
     }
-    
+
     /**
-     * Assert that the given array of values are not available to be selected on the given field.
+     * Assert that the given array of values are not available to be selected.
      *
      * @param string  $field
      * @param array  $values
      * @return $this
      */
-    public function assertOptionsNotAvailable($field, array $values)
+    public function assertSelectMissingOptions($field, array $values)
     {
         PHPUnit::assertCount(
-            0,
-            $this->resolver->resolveSelectOptions($field, $values),
-            "Unexpected available options [".implode(',', $values)."] for select [{$field}]."
+            0, $this->resolver->resolveSelectOptions($field, $values),
+            "Unexpected options [".implode(',', $values)."] for selection field [{$field}]."
         );
 
         return $this;
     }
-    
+
     /**
      * Assert that the given value is available to be selected on the given field.
      *
@@ -559,7 +558,7 @@ JS;
     {
         return $this->assertOptionsAvailable($field, [$value]);
     }
-    
+
     /**
      * Assert that the given value is not available to be selected on the given field.
      *
