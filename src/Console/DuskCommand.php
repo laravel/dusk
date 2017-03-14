@@ -106,7 +106,7 @@ class DuskCommand extends Command
     }
 
     /**
-     * Purge the the console logs.
+     * Purge the console logs.
      *
      * @return void
      */
