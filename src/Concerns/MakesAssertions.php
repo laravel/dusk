@@ -556,7 +556,7 @@ JS;
      */
     public function assertOptionAvailable($field, $value)
     {
-        return $this->assertOptionsAvailable($field, [$value]);
+        return $this->assertSelectHasOptions($field, [$value]);
     }
 
     /**
@@ -568,7 +568,7 @@ JS;
      */
     public function assertOptionNotAvailable($field, $value)
     {
-        return $this->assertOptionsNotAvailable($field, [$value]);
+        return $this->assertSelectMissingOptions($field, [$value]);
     }
 
     /**
