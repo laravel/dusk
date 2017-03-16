@@ -7,6 +7,13 @@ use Illuminate\Console\Command;
 class InstallCommand extends Command
 {
     /**
+     * The driver downloader.
+     *
+     * @var DriverDownloader
+     */
+    protected $driverDownloader;
+
+    /**
      * The name and signature of the console command.
      *
      * @var string
@@ -25,8 +32,10 @@ class InstallCommand extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(DriverDownloader $driverDownloader)
     {
+        $this->driverDownloader = $driverDownloader;
+
         parent::__construct();
     }
 
@@ -37,18 +46,43 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        if (! is_dir(base_path('tests/Browser/Pages'))) {
-            mkdir(base_path('tests/Browser/Pages'), 0755, true);
-        }
+        $this->info('Downloading the driver..');
+        $this->driverDownloader->run();
+        $this->createTestDirectories();
+        $this->copyStubs();
+    }
 
-        if (! is_dir(base_path('tests/Browser/screenshots'))) {
-            $this->createScreenshotsDirectory();
-        }
+    /**
+     * Create test directories.
+     *
+     * @return  void
+     */
+    protected function createTestDirectories()
+    {
+        $dirs = [
+            'Pages' => false,
+            'screenshots' => true,
+            'console' => true,
+        ];
 
-        if (! is_dir(base_path('tests/Browser/console'))) {
-            $this->createConsoleDirectory();
-        }
+        foreach ($dirs as $dir => $has_dot_gitignore) {
+            if (!is_dir(base_path("tests/Browser/{$dir}"))) {
+                mkdir(base_path("tests/Browser/{$dir}"), 0755, true);
 
+                if ($has_dot_gitignore) {
+                    file_put_contents(base_path("tests/Browser/{$dir}/.gitignore"), '*'.PHP_EOL.'!.gitignore'.PHP_EOL);
+                }
+            }
+        }
+    }
+
+    /**
+     * Copy stubs to test directories.
+     *
+     * @return  void
+     */
+    protected function copyStubs()
+    {
         $subs = [
             'ExampleTest.stub' => base_path('tests/Browser/ExampleTest.php'),
             'HomePage.stub' => base_path('tests/Browser/Pages/HomePage.php'),
@@ -63,33 +97,5 @@ class InstallCommand extends Command
         }
 
         $this->info('Dusk scaffolding installed successfully.');
-    }
-
-    /**
-     * Create the screenshots directory.
-     *
-     * @return void
-     */
-    protected function createScreenshotsDirectory()
-    {
-        mkdir(base_path('tests/Browser/screenshots'), 0755, true);
-
-        file_put_contents(base_path('tests/Browser/screenshots/.gitignore'), '*
-!.gitignore
-');
-    }
-
-    /**
-     * Create the console directory.
-     *
-     * @return void
-     */
-    protected function createConsoleDirectory()
-    {
-        mkdir(base_path('tests/Browser/console'), 0755, true);
-
-        file_put_contents(base_path('tests/Browser/console/.gitignore'), '*
-!.gitignore
-');
     }
 }
