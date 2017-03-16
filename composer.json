@@ -19,7 +19,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
-        "mockery/mockery": "^0.9.6"
+        "mockery/mockery": "^0.9.6",
+        "elgoumri-oussama/php-base-path": "^0.0.1"
     },
     "autoload": {
         "psr-4": {
