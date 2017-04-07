@@ -114,4 +114,18 @@ class ElementResolverTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('prefix #first', $resolver->format('@modal'));
         $this->assertEquals('prefix #second', $resolver->format('@modal-second'));
     }
+
+    public function test_find_by_id_with_colon()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('findElement')->once()->andReturn('foo');
+        $resolver = new ElementResolver($driver);
+
+        $class = new \ReflectionClass($resolver);
+        $method = $class->getMethod('findById');
+        $method->setAccessible(true);
+        $result = $method->invoke($resolver, '#frmLogin:strCustomerLogin_userID');
+
+        $this->assertEquals('foo', $result);
+    }
 }
