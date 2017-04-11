@@ -2,9 +2,9 @@
 
 namespace Laravel\Dusk\Concerns;
 
+use Facebook\WebDriver\Exception\NoSuchElementException;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert as PHPUnit;
-use Facebook\WebDriver\Exception\NoSuchElementException;
 
 trait MakesAssertions
 {
@@ -203,22 +203,24 @@ trait MakesAssertions
      * Assert that the given text appears on the page.
      *
      * @param  string  $text
+     * @param  bool    $caseSensitive
      * @return $this
      */
-    public function assertSee($text)
+    public function assertSee($text, $caseSensitive = true)
     {
-        return $this->assertSeeIn('', $text);
+        return $this->assertSeeIn('', $text, $caseSensitive);
     }
 
     /**
      * Assert that the given text does not appear on the page.
      *
      * @param  string  $text
+     * @param  bool    $caseSensitive
      * @return $this
      */
-    public function assertDontSee($text)
+    public function assertDontSee($text, $caseSensitive = true)
     {
-        return $this->assertDontSeeIn('', $text);
+        return $this->assertDontSeeIn('', $text, $caseSensitive);
     }
 
     /**
@@ -226,16 +228,24 @@ trait MakesAssertions
      *
      * @param  string  $selector
      * @param  string  $text
+     * @param  bool    $caseSensitive
      * @return $this
      */
-    public function assertSeeIn($selector, $text)
+    public function assertSeeIn($selector, $text, $caseSensitive = true)
     {
         $fullSelector = $this->resolver->format($selector);
 
         $element = $this->resolver->findOrFail($selector);
 
+        $actualText = $element->getText();
+
+        if (!$caseSensitive) {
+            $actualText = Str::lower($actualText);
+            $text = Str::lower($text);
+        }
+
         PHPUnit::assertTrue(
-            Str::contains($element->getText(), $text),
+            Str::contains($actualText, $text),
             "Did not see expected text [{$text}] within element [{$fullSelector}]."
         );
 
@@ -247,16 +257,24 @@ trait MakesAssertions
      *
      * @param  string  $selector
      * @param  string  $text
+     * @param  bool    $caseSensitive
      * @return $this
      */
-    public function assertDontSeeIn($selector, $text)
+    public function assertDontSeeIn($selector, $text, $caseSensitive = true)
     {
         $fullSelector = $this->resolver->format($selector);
 
         $element = $this->resolver->findOrFail($selector);
 
+        $actualText = $element->getText();
+
+        if (!$caseSensitive) {
+            $actualText = Str::lower($actualText);
+            $text = Str::lower($text);
+        }
+
         PHPUnit::assertFalse(
-            Str::contains($element->getText(), $text),
+            Str::contains($actualText, $text),
             "Saw unexpected text [{$text}] within element [{$fullSelector}]."
         );
 
