@@ -6,6 +6,7 @@ use Dotenv\Dotenv;
 use Illuminate\Console\Command;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\ProcessBuilder;
+use Symfony\Component\Process\Exception\RuntimeException;
 
 class DuskCommand extends Command
 {
@@ -56,15 +57,21 @@ class DuskCommand extends Command
         $options = array_slice($_SERVER['argv'], 2);
 
         return $this->withDuskEnvironment(function () use ($options) {
-            return (new ProcessBuilder())
+            $process = (new ProcessBuilder())
                 ->setTimeout(null)
                 ->setPrefix($this->binary())
                 ->setArguments($this->phpunitArguments($options))
-                ->getProcess()
-                ->setTty(PHP_OS !== 'WINNT')
-                ->run(function ($type, $line) {
-                    $this->output->write($line);
-                });
+                ->getProcess();
+
+            try {
+                $process->setTty(true);
+            } catch (RuntimeException $e) {
+                $this->output->writeln('Warning: '.$e->getMessage());
+            }
+
+            return $process->run(function ($type, $line) {
+                $this->output->write($line);
+            });
         });
     }
 
