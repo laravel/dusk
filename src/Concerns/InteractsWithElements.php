@@ -70,7 +70,7 @@ trait InteractsWithElements
     {
         $this->ensurejQueryIsAvailable();
 
-        $selector = trim($this->resolver->format("a:contains('{$link}')"));
+        $selector = trim($this->resolver->format("a:contains({$link})"));
 
         $this->driver->executeScript("jQuery.find(\"{$selector}\")[0].click();");
 
