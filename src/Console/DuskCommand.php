@@ -61,7 +61,7 @@ class DuskCommand extends Command
                 ->setPrefix($this->binary())
                 ->setArguments($this->phpunitArguments($options))
                 ->getProcess()
-                ->setTty(PHP_OS !== 'WINNT' && is_writable('/dev/tty'))
+                ->setTty(PHP_OS !== 'WINNT')
                 ->run(function ($type, $line) {
                     $this->output->write($line);
                 });
