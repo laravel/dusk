@@ -32,11 +32,12 @@ abstract class TestCase extends FoundationTestCase
     /**
      * Register the base URL with Dusk.
      *
-     * @before
      * @return void
      */
-    public function propagateScaffoldingToBrowser()
+    public function setUp()
     {
+        parent::setUp();
+
         Browser::$baseUrl = $this->baseUrl();
 
         Browser::$storeScreenshotsAt = base_path('tests/Browser/screenshots');
