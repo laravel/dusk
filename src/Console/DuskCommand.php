@@ -5,8 +5,8 @@ namespace Laravel\Dusk\Console;
 use Dotenv\Dotenv;
 use Illuminate\Console\Command;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\ProcessBuilder;
+use Symfony\Component\Process\Exception\RuntimeException;
 
 class DuskCommand extends Command
 {
@@ -66,7 +66,7 @@ class DuskCommand extends Command
             try {
                 $process->setTty(true);
             } catch (RuntimeException $e) {
-                $this->output->writeln('Warning: ' . $e->getMessage());
+                $this->output->writeln('Warning: '.$e->getMessage());
             }
 
             return $process->run(function ($type, $line) {
