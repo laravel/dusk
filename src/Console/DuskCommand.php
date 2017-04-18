@@ -64,7 +64,7 @@ class DuskCommand extends Command
                 ->getProcess();
 
             try {
-                $process->setTty(PHP_OS !== 'WINNT');
+                $process->setTty(true);
             } catch (RuntimeException $e) {
                 $this->output->writeln('Warning: ' . $e->getMessage());
             }
