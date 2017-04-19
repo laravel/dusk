@@ -40,7 +40,7 @@ class DuskServiceProvider extends ServiceProvider
     public function register()
     {
         if ($this->app->environment('production')) {
-            throw new Exception('Do not register Dusk in production! Read more on https://github.com/laravel/dusk/issues/57');
+            throw new Exception('It is unsafe to run Dusk in production.');
         }
 
         if ($this->app->runningInConsole()) {
