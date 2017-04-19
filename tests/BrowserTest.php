@@ -2,8 +2,9 @@
 
 use Laravel\Dusk\Page;
 use Laravel\Dusk\Browser;
+use PHPUnit\Framework\TestCase;
 
-class BrowserTest extends PHPUnit_Framework_TestCase
+class BrowserTest extends TestCase
 {
     public function test_visit()
     {

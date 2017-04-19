@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Laravel\Dusk\ElementResolver;
 
-class ElementResolverTest extends PHPUnit_Framework_TestCase
+class ElementResolverTest extends TestCase
 {
     public function test_resolve_for_typing_resolves_by_id()
     {
