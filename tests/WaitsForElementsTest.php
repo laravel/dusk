@@ -1,8 +1,9 @@
 <?php
 
 use Laravel\Dusk\Browser;
+use PHPUnit\Framework\TestCase;
 
-class WaitsForElementsTest extends PHPUnit_Framework_TestCase
+class WaitsForElementsTest extends TestCase
 {
     public function test_wait_using()
     {
