@@ -8,6 +8,14 @@ use Illuminate\Support\ServiceProvider;
 
 class DuskServiceProvider extends ServiceProvider
 {
+
+    /**
+     * Environments prohibited to register dusk
+     *
+     * @var array
+     */
+    protected $blacklist = ['production'];
+
     /**
      * Bootstrap any package services.
      *
@@ -39,7 +47,7 @@ class DuskServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment('production')) {
+        if ($this->app->environment($this->blacklist)) {
             throw new Exception('It is unsafe to run Dusk in production.');
         }
 
