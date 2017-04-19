@@ -1,0 +1,20 @@
+<?php
+
+namespace Tests\Browser;
+
+use Laravel\Dusk\Browser as DuskBrowser;
+
+class Browser extends DuskBrowser
+{
+
+    /**
+     * Make your custom assertion
+     *
+     * @return $this
+     */
+    public function assertLaravelIsAwesome() {
+        // Make your assertion
+
+        return $this;
+    }
+}
