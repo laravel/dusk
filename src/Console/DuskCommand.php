@@ -78,11 +78,11 @@ class DuskCommand extends Command
     /**
      * Get the PHP binary to execute.
      *
-     * @return string
+     * @return string|array
      */
     protected function binary()
     {
-        return PHP_OS === 'WINNT' ? base_path('vendor\bin\phpunit.bat') : 'vendor/bin/phpunit';
+        return PHP_OS === 'WINNT' ? base_path('vendor\bin\phpunit.bat') : [PHP_BINARY, 'vendor/bin/phpunit'];
     }
 
     /**
