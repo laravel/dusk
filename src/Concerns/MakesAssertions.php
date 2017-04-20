@@ -582,7 +582,7 @@ JS;
     {
         $element = $this->resolver->resolveForSelection($field);
 
-        return $element->getAttribute('value') === $value;
+        return (string) $element->getAttribute('value') === (string) $value;
     }
 
     /**
