@@ -1,17 +1,25 @@
 # Release Notes for 1.0.x
 
-## v1.0.13 (TBA)
+## v1.0.13 (2017-04-20)
+
+### Added
+- Added `illuminate/console` as dependency ([#232](https://github.com/laravel/dusk/pull/232))
+- Added security measurement against registering Dusk on production ([#229](https://github.com/laravel/dusk/pull/229))
+- Added `PHP_BINARY` constant to the list of PHP's executable binaries ([#240](https://github.com/laravel/dusk/pull/240))
 
 ### Changed
-- Changed `propagateScaffoldingToBrowser()` to `setUp()` for compatibility with PHPUnit ~6.0
+- Changed `propagateScaffoldingToBrowser()` to `setUp()` for compatibility with PHPUnit ~6.0 ([#227](https://github.com/laravel/dusk/pull/227))
+- Changed `selected()` comparison to always cast the value to string ([#239](https://github.com/laravel/dusk/pull/239))
 
 ### Fixed
 - No longer throws exception when Tty is not available ([#226](https://github.com/laravel/dusk/pull/226))
+- Use `getAttribute('value')` instead of `getText()` for `textarea` elements ([#237](https://github.com/laravel/dusk/pull/237))
+- Fixed bug when giving strings with apostrophe to `clickLink()` ([#228](https://github.com/laravel/dusk/pull/228))
 
 ## v1.0.12 (2017-04-07)
 
 ### Added
-- Added automated tests for HTML elements identified by strings with a colon. ([#214](https://github.com/laravel/dusk/pull/214))
+- Added automated tests for HTML elements identified by strings with a colon ([#214](https://github.com/laravel/dusk/pull/214))
 
 ### Fixed
 - Support for colon on HTML id tag ([#214](https://github.com/laravel/dusk/pull/214))
