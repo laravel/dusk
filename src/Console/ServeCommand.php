@@ -2,10 +2,9 @@
 
 namespace Laravel\Dusk\Console;
 
-use Laravel\Dusk\Console\DuskCommand as BaseCommand;
 use Symfony\Component\Process\ProcessBuilder;
 
-class ServeCommand extends BaseCommand
+class ServeCommand extends DuskCommand
 {
     /**
      * The name and signature of the console command.
