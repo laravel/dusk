@@ -122,6 +122,8 @@ abstract class TestCase extends FoundationTestCase
             static::$browsers->push($this->newBrowser($this->createWebDriver()));
         }
 
+        $this->validateBrowserEnvironment(static::$browsers->first());
+
         return static::$browsers;
     }
 
@@ -241,5 +243,20 @@ abstract class TestCase extends FoundationTestCase
     protected function user()
     {
         throw new Exception("User resolver has not been set.");
+    }
+
+    /**
+     * Verify that dusk environment matches the web environment.
+     *
+     * @param Browser $browser
+     * @throws Exception
+     */
+    protected function validateBrowserEnvironment(Browser $browser)
+    {
+        $dusk = $browser->visit('/_dusk/env')->element('')->getText();
+        $web = getenv('APP_ENV');
+        if ($dusk != $web) {
+            throw new Exception("Dusk environment [{$dusk}] diverge from web environment [{$web}]");
+        }
     }
 }
