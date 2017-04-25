@@ -82,6 +82,21 @@ trait MakesAssertions
     }
 
     /**
+     * Assert that the current URL path does not match the given regex.
+     *
+     * @param  string  $regex
+     * @return $this
+     */
+    public function assertPathMatchesNot($regex)
+    {
+        PHPUnit::assertNotRegExp($regex, parse_url(
+            $this->driver->getCurrentURL()
+        )['path']);
+
+        return $this;
+    }
+
+    /**
      * Assert that the current URL path matches the given route.
      *
      * @param  string  $route
