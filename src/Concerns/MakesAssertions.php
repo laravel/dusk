@@ -11,12 +11,14 @@ trait MakesAssertions
     /**
      * Assert that the page title is the given value.
      *
-     * @param  string  $title
+     * @param  string $title
+     * @param  string $message
+     *
      * @return $this
      */
-    public function assertTitle($title)
+    public function assertTitle($title, $message = null)
     {
-        PHPUnit::assertEquals($title, $this->driver->getTitle());
+        PHPUnit::assertEquals($title, $this->driver->getTitle(), $message);
 
         return $this;
     }
@@ -24,13 +26,15 @@ trait MakesAssertions
     /**
      * Assert that the page title contains the given value.
      *
-     * @param  string  $title
+     * @param  string $title
+     * @param  string $message
+     *
      * @return $this
      */
-    public function assertTitleContains($title)
+    public function assertTitleContains($title, $message = null)
     {
         PHPUnit::assertTrue(
-            Str::contains($this->driver->getTitle(), $title)
+            Str::contains($this->driver->getTitle(), $title, $message)
         );
 
         return $this;
@@ -39,14 +43,19 @@ trait MakesAssertions
     /**
      * Assert that the current URL path matches the given path.
      *
-     * @param  string  $path
+     * @param  string $path
+     * @param  string $message
+     *
      * @return $this
      */
-    public function assertPathIs($path)
+    public function assertPathIs($path, $message = null)
     {
-        PHPUnit::assertEquals($path, parse_url(
-            $this->driver->getCurrentURL()
-        )['path']);
+        PHPUnit::assertEquals($path,
+            parse_url(
+                $this->driver->getCurrentURL()
+            )['path'],
+            $message
+        );
 
         return $this;
     }
@@ -54,14 +63,19 @@ trait MakesAssertions
     /**
      * Assert that the current URL path begins with given path.
      *
-     * @param  string  $path
+     * @param  string $path
+     * @param  string $message
+     *
      * @return $this
      */
-    public function assertPathBeginsWith($path)
+    public function assertPathBeginsWith($path, $message = null)
     {
-        PHPUnit::assertStringStartsWith($path, parse_url(
-            $this->driver->getCurrentURL()
-        )['path']);
+        PHPUnit::assertStringStartsWith($path,
+            parse_url(
+                $this->driver->getCurrentURL()
+            )['path'],
+            $message
+        );
 
         return $this;
     }
@@ -69,14 +83,19 @@ trait MakesAssertions
     /**
      * Assert that the current URL path does not match the given path.
      *
-     * @param  string  $path
+     * @param  string $path
+     * @param  string $message
+     *
      * @return $this
      */
-    public function assertPathIsNot($path)
+    public function assertPathIsNot($path, $message = null)
     {
-        PHPUnit::assertNotEquals($path, parse_url(
-            $this->driver->getCurrentURL()
-        )['path']);
+        PHPUnit::assertNotEquals($path,
+            parse_url(
+                $this->driver->getCurrentURL()
+            )['path'],
+            $message
+        );
 
         return $this;
     }
@@ -84,32 +103,39 @@ trait MakesAssertions
     /**
      * Assert that the current URL path matches the given route.
      *
-     * @param  string  $route
+     * @param  string $route
      * @param  array  $parameters
+     * @param  string $message
+     *
      * @return $this
      */
-    public function assertRouteIs($route, $parameters = [])
+    public function assertRouteIs($route, $parameters = [], $message = null)
     {
-        return $this->assertPathIs(route($route, $parameters, false));
+        return $this->assertPathIs(
+            route($route, $parameters, false),
+            $message
+        );
     }
 
     /**
      * Assert that a query string parameter is present and has a given value.
      *
-     * @param  string  $name
-     * @param  string  $value
+     * @param  string $name
+     * @param  string $value
+     *
      * @return $this
      */
     public function assertQueryStringHas($name, $value = null)
     {
         $output = $this->assertHasQueryStringParameter($name);
 
-        if (is_null($value)) {
+        if (is_null($value))
+        {
             return $this;
         }
 
         PHPUnit::assertEquals(
-            $value, $output[$name],
+            $value, $output[ $name ],
             "Query string parameter [{$name}] had value [{$output[$name]}], but expected [{$value}]."
         );
 
@@ -119,15 +145,18 @@ trait MakesAssertions
     /**
      * Assert that the given query string parameter is missing.
      *
-     * @param  string  $name
+     * @param  string $name
+     *
      * @return $this
      */
     public function assertQueryStringMissing($name)
     {
         $parsedUrl = parse_url($this->driver->getCurrentURL());
 
-        if (! array_key_exists('query', $parsedUrl)) {
+        if ( !array_key_exists('query', $parsedUrl))
+        {
             PHPUnit::assertTrue(true);
+
             return $this;
         }
 
@@ -135,47 +164,23 @@ trait MakesAssertions
 
         PHPUnit::assertArrayNotHasKey(
             $name, $output,
-            "Found unexpected query string parameter [{$name}] in [".$this->driver->getCurrentURL()."]."
+            "Found unexpected query string parameter [{$name}] in [" . $this->driver->getCurrentURL() . "]."
         );
 
         return $this;
     }
 
     /**
-     * Assert that the given query string parameter is present.
-     *
-     * @param  string  $name
-     * @return $this
-     */
-    protected function assertHasQueryStringParameter($name)
-    {
-        $parsedUrl = parse_url($this->driver->getCurrentURL());
-
-        PHPUnit::assertArrayHasKey(
-            'query', $parsedUrl,
-            "Did not see expected query string in [".$this->driver->getCurrentURL()."]."
-        );
-
-        parse_str($parsedUrl['query'], $output);
-
-        PHPUnit::assertArrayHasKey(
-            $name, $output,
-            "Did not see expected query string parameter [{$name}] in [".$this->driver->getCurrentURL()."]."
-        );
-
-        return $output;
-    }
-
-    /**
      * Assert that the given cookie is present.
      *
-     * @param  string  $name
+     * @param  string $name
+     *
      * @return $this
      */
     public function assertHasCookie($name)
     {
         PHPUnit::assertTrue(
-            ! is_null($this->cookie($name)),
+            !is_null($this->cookie($name)),
             "Did not find expected cookie [{$name}]."
         );
 
@@ -185,9 +190,10 @@ trait MakesAssertions
     /**
      * Assert that an encrypted cookie has a given value.
      *
-     * @param  string  $name
-     * @param  string  $value
-     * @param  bool  $decrypt
+     * @param  string $name
+     * @param  string $value
+     * @param  bool   $decrypt
+     *
      * @return $this
      */
     public function assertCookieValue($name, $value, $decrypt = true)
@@ -205,8 +211,9 @@ trait MakesAssertions
     /**
      * Assert that a cookie has a given value.
      *
-     * @param  string  $name
-     * @param  string  $value
+     * @param  string $name
+     * @param  string $value
+     *
      * @return $this
      */
     public function assertPlainCookieValue($name, $value)
@@ -217,7 +224,8 @@ trait MakesAssertions
     /**
      * Assert that the given text appears on the page.
      *
-     * @param  string  $text
+     * @param  string $text
+     *
      * @return $this
      */
     public function assertSee($text)
@@ -228,7 +236,8 @@ trait MakesAssertions
     /**
      * Assert that the given text does not appear on the page.
      *
-     * @param  string  $text
+     * @param  string $text
+     *
      * @return $this
      */
     public function assertDontSee($text)
@@ -239,8 +248,9 @@ trait MakesAssertions
     /**
      * Assert that the given text appears within the given selector.
      *
-     * @param  string  $selector
-     * @param  string  $text
+     * @param  string $selector
+     * @param  string $text
+     *
      * @return $this
      */
     public function assertSeeIn($selector, $text)
@@ -260,8 +270,9 @@ trait MakesAssertions
     /**
      * Assert that the given text does not appear within the given selector.
      *
-     * @param  string  $selector
-     * @param  string  $text
+     * @param  string $selector
+     * @param  string $text
+     *
      * @return $this
      */
     public function assertDontSeeIn($selector, $text)
@@ -281,7 +292,8 @@ trait MakesAssertions
     /**
      * Assert that the given source code is present on the page.
      *
-     * @param  string  $code
+     * @param  string $code
+     *
      * @return $this
      */
     public function assertSourceHas($code)
@@ -297,7 +309,8 @@ trait MakesAssertions
     /**
      * Assert that the given source code is not present on the page.
      *
-     * @param  string  $code
+     * @param  string $code
+     *
      * @return $this
      */
     public function assertSourceMissing($code)
@@ -313,14 +326,17 @@ trait MakesAssertions
     /**
      * Assert that the given link is visible.
      *
-     * @param  string  $link
+     * @param  string $link
+     *
      * @return $this
      */
     public function assertSeeLink($link)
     {
-        if ($this->resolver->prefix) {
+        if ($this->resolver->prefix)
+        {
             $message = "Did not see expected link [{$link}] within [{$this->resolver->prefix}].";
-        } else {
+        } else
+        {
             $message = "Did not see expected link [{$link}].";
         }
 
@@ -335,14 +351,17 @@ trait MakesAssertions
     /**
      * Assert that the given link is not visible.
      *
-     * @param  string  $link
+     * @param  string $link
+     *
      * @return $this
      */
     public function assertDontSeeLink($link)
     {
-        if ($this->resolver->prefix) {
+        if ($this->resolver->prefix)
+        {
             $message = "Saw unexpected link [{$link}] within [{$this->resolver->prefix}].";
-        } else {
+        } else
+        {
             $message = "Saw unexpected expected link [{$link}].";
         }
 
@@ -357,7 +376,8 @@ trait MakesAssertions
     /**
      * Determine if the given link is visible.
      *
-     * @param  string  $link
+     * @param  string $link
+     *
      * @return bool
      */
     public function seeLink($link)
@@ -377,13 +397,15 @@ JS;
     /**
      * Assert that the given input or text area contains the given value.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param  string $field
+     * @param  string $value
+     * @param  string $message
+     *
      * @return $this
      */
-    public function assertInputValue($field, $value)
+    public function assertInputValue($field, $value, $message = null)
     {
-        PHPUnit::assertEquals($value, $this->inputValue($field));
+        PHPUnit::assertEquals($value, $this->inputValue($field), $message);
 
         return $this;
     }
@@ -391,13 +413,15 @@ JS;
     /**
      * Assert that the given input or text area does not contain the given value.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param  string $field
+     * @param  string $value
+     * @param  string $message
+     *
      * @return $this
      */
-    public function assertInputValueIsNot($field, $value)
+    public function assertInputValueIsNot($field, $value, $message = null)
     {
-        PHPUnit::assertNotEquals($value, $this->inputValue($field));
+        PHPUnit::assertNotEquals($value, $this->inputValue($field), $message);
 
         return $this;
     }
@@ -405,7 +429,8 @@ JS;
     /**
      * Get the value of the given input or text area field.
      *
-     * @param  string  $field
+     * @param  string $field
+     *
      * @return string
      */
     public function inputValue($field)
@@ -413,15 +438,16 @@ JS;
         $element = $this->resolver->resolveForTyping($field);
 
         return in_array($element->getTagName(), ['input', 'textarea'])
-                        ? $element->getAttribute('value')
-                        : $element->getText();
+            ? $element->getAttribute('value')
+            : $element->getText();
     }
 
     /**
      * Assert that the given checkbox field is checked.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param  string $field
+     * @param  string $value
+     *
      * @return $this
      */
     public function assertChecked($field, $value = null)
@@ -439,8 +465,9 @@ JS;
     /**
      * Assert that the given checkbox field is not checked.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param  string $field
+     * @param  string $value
+     *
      * @return $this
      */
     public function assertNotChecked($field, $value = null)
@@ -458,8 +485,9 @@ JS;
     /**
      * Assert that the given radio field is selected.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param  string $field
+     * @param  string $value
+     *
      * @return $this
      */
     function assertRadioSelected($field, $value)
@@ -477,8 +505,9 @@ JS;
     /**
      * Assert that the given radio field is not selected.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param  string $field
+     * @param  string $value
+     *
      * @return $this
      */
     public function assertRadioNotSelected($field, $value = null)
@@ -496,8 +525,9 @@ JS;
     /**
      * Assert that the given select field has the given value selected.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param  string $field
+     * @param  string $value
+     *
      * @return $this
      */
     public function assertSelected($field, $value)
@@ -513,8 +543,9 @@ JS;
     /**
      * Assert that the given select field does not have the given value selected.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param  string $field
+     * @param  string $value
+     *
      * @return $this
      */
     public function assertNotSelected($field, $value)
@@ -530,8 +561,9 @@ JS;
     /**
      * Assert that the given array of values are available to be selected.
      *
-     * @param string  $field
+     * @param string $field
      * @param array  $values
+     *
      * @return $this
      */
     public function assertSelectHasOptions($field, array $values)
@@ -539,7 +571,7 @@ JS;
         PHPUnit::assertCount(
             count($values),
             $this->resolver->resolveSelectOptions($field, $values),
-            "Expected options [".implode(',', $values)."] for selection field [{$field}] to be available."
+            "Expected options [" . implode(',', $values) . "] for selection field [{$field}] to be available."
         );
 
         return $this;
@@ -548,15 +580,16 @@ JS;
     /**
      * Assert that the given array of values are not available to be selected.
      *
-     * @param string  $field
+     * @param string $field
      * @param array  $values
+     *
      * @return $this
      */
     public function assertSelectMissingOptions($field, array $values)
     {
         PHPUnit::assertCount(
             0, $this->resolver->resolveSelectOptions($field, $values),
-            "Unexpected options [".implode(',', $values)."] for selection field [{$field}]."
+            "Unexpected options [" . implode(',', $values) . "] for selection field [{$field}]."
         );
 
         return $this;
@@ -565,8 +598,9 @@ JS;
     /**
      * Assert that the given value is available to be selected on the given field.
      *
-     * @param string  $field
-     * @param string  $value
+     * @param string $field
+     * @param string $value
+     *
      * @return $this
      */
     public function assertSelectHasOption($field, $value)
@@ -577,8 +611,9 @@ JS;
     /**
      * Assert that the given value is not available to be selected on the given field.
      *
-     * @param string  $field
-     * @param string  $value
+     * @param string $field
+     * @param string $value
+     *
      * @return $this
      */
     public function assertSelectMissingOption($field, $value)
@@ -589,22 +624,24 @@ JS;
     /**
      * Determine if the given value is selected for the given select field.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param  string $field
+     * @param  string $value
+     *
      * @return bool
      */
     public function selected($field, $value)
     {
         $element = $this->resolver->resolveForSelection($field);
 
-        return (string) $element->getAttribute('value') === (string) $value;
+        return (string)$element->getAttribute('value') === (string)$value;
     }
 
     /**
      * Assert that the element at the given selector has the given value.
      *
-     * @param  string  $selector
-     * @param  string  $value
+     * @param  string $selector
+     * @param  string $value
+     *
      * @return $this
      */
     public function assertValue($selector, $value)
@@ -619,7 +656,8 @@ JS;
     /**
      * Assert that the element with the given selector is visible.
      *
-     * @param  string  $selector
+     * @param  string $selector
+     *
      * @return $this
      */
     public function assertVisible($selector)
@@ -637,16 +675,19 @@ JS;
     /**
      * Assert that the element with the given selector is not on the page.
      *
-     * @param  string  $selector
+     * @param  string $selector
+     *
      * @return $this
      */
     public function assertMissing($selector)
     {
         $fullSelector = $this->resolver->format($selector);
 
-        try {
-            $missing = ! $this->resolver->findOrFail($selector)->isDisplayed();
-        } catch (NoSuchElementException $e) {
+        try
+        {
+            $missing = !$this->resolver->findOrFail($selector)->isDisplayed();
+        } catch (NoSuchElementException $e)
+        {
             $missing = true;
         }
 
@@ -658,7 +699,8 @@ JS;
     /**
      * Assert that a JavaScript dialog with given message has been opened.
      *
-     * @param  string  $message
+     * @param  string $message
+     *
      * @return $this
      */
     public function assertDialogOpened($message)
@@ -668,5 +710,31 @@ JS;
         );
 
         return $this;
+    }
+
+    /**
+     * Assert that the given query string parameter is present.
+     *
+     * @param  string $name
+     *
+     * @return $this
+     */
+    protected function assertHasQueryStringParameter($name)
+    {
+        $parsedUrl = parse_url($this->driver->getCurrentURL());
+
+        PHPUnit::assertArrayHasKey(
+            'query', $parsedUrl,
+            "Did not see expected query string in [" . $this->driver->getCurrentURL() . "]."
+        );
+
+        parse_str($parsedUrl['query'], $output);
+
+        PHPUnit::assertArrayHasKey(
+            $name, $output,
+            "Did not see expected query string parameter [{$name}] in [" . $this->driver->getCurrentURL() . "]."
+        );
+
+        return $output;
     }
 }
