@@ -178,7 +178,7 @@ trait InteractsWithElements
      * @param  string  $value
      * @return $this
      */
-    public function typeWithoutClearing($field, $value)
+    public function append($field, $value)
     {
         $this->resolver->resolveForTyping($field)->sendKeys($value);
 
