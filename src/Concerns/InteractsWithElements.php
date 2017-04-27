@@ -172,6 +172,20 @@ trait InteractsWithElements
     }
 
     /**
+     * Type the given value in the given field without clearing it.
+     *
+     * @param  string  $field
+     * @param  string  $value
+     * @return $this
+     */
+    public function append($field, $value)
+    {
+        $this->resolver->resolveForTyping($field)->sendKeys($value);
+
+        return $this;
+    }
+
+    /**
      * Clear the given field.
      *
      * @param  string  $field
