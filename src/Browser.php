@@ -36,6 +36,13 @@ class Browser
     public static $storeScreenshotsAt;
 
     /**
+     * The directory that will contain any page sources.
+     *
+     * @var string
+     */
+    public static $storeSourcesAt;
+
+    /**
      * The directory that will contain any console logs.
      *
      * @var string
@@ -216,6 +223,22 @@ class Browser
     {
         $this->driver->takeScreenshot(
             sprintf('%s/%s.png', rtrim(static::$storeScreenshotsAt, '/'), $name)
+        );
+
+        return $this;
+    }
+
+    /**
+     * Store the source code with the given name.
+     *
+     * @param  string  $name
+     * @return $this
+     */
+    public function source($name)
+    {
+        file_put_contents(
+            sprintf('%s/%s.html', rtrim(static::$storeSourcesAt, '/'), $name),
+            $this->driver->getPageSource()
         );
 
         return $this;

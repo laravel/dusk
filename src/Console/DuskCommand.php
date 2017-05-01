@@ -52,6 +52,8 @@ class DuskCommand extends Command
     {
         $this->purgeScreenshots();
 
+        $this->purgeSources();
+
         $this->purgeConsoleLogs();
 
         $options = array_slice($_SERVER['argv'], 2);
@@ -95,6 +97,15 @@ class DuskCommand extends Command
         return array_merge(['-c', base_path('phpunit.dusk.xml')], $options);
     }
 
+    protected function purgeFiles($path, $name)
+    {
+        $files = Finder::create()->files()->in($path)->name($name);
+
+        foreach ($files as $file) {
+            @unlink($file->getRealPath());
+        }
+    }
+
     /**
      * Purge the failure screenshots
      *
@@ -102,13 +113,17 @@ class DuskCommand extends Command
      */
     protected function purgeScreenshots()
     {
-        $files = Finder::create()->files()
-                        ->in(base_path('tests/Browser/screenshots'))
-                        ->name('failure-*');
+        $this->purgeFiles(base_path('tests/Browser/screenshots'), 'failure-*');
+    }
 
-        foreach ($files as $file) {
-            @unlink($file->getRealPath());
-        }
+    /**
+     * Purge the failure sources
+     *
+     * @return void
+     */
+    protected function purgeSources()
+    {
+        $this->purgeFiles(base_path('tests/Browser/sources'), 'failure-*');
     }
 
     /**
@@ -118,13 +133,7 @@ class DuskCommand extends Command
      */
     protected function purgeConsoleLogs()
     {
-        $files = Finder::create()->files()
-            ->in(base_path('tests/Browser/console'))
-            ->name('*.log');
-
-        foreach ($files as $file) {
-            @unlink($file->getRealPath());
-        }
+        $this->purgeFiles(base_path('tests/Browser/console'), '*.log');
     }
 
     /**
