@@ -41,7 +41,7 @@ trait SupportsChrome
     }
 
     /**
-     * Build the process to run the Chromedriver.
+     * Build the process to run the Chrome driver.
      *
      * @return \Symfony\Component\Process\Process
      */
@@ -54,7 +54,7 @@ trait SupportsChrome
     }
 
     /**
-     * Get the Chromedriver environment variables.
+     * Get the Chrome driver environment variables.
      *
      * @return array
      */
@@ -68,7 +68,7 @@ trait SupportsChrome
     }
 
     /**
-     * Get the suffix for the Chromedriver binary.
+     * Get the suffix for the Chrome driver binary.
      *
      * @return string
      */

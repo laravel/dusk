@@ -301,6 +301,7 @@ class ElementResolver
      *
      * @param  array  $selectors
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
+     * @throws \Exception
      */
     public function firstOrFail($selectors)
     {
