@@ -322,6 +322,18 @@ class Browser
     }
 
     /**
+     * Pause execution of test and open Laravel Tinker (PsySH) REPL.
+     *
+     * @return $this
+     */
+    public function tinker()
+    {
+        eval(\Psy\sh());
+
+        return $this;
+    }
+
+    /**
      * Stop running tests but leave the browser open.
      *
      * @return void
