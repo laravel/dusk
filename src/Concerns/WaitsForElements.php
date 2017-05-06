@@ -129,14 +129,16 @@ trait WaitsForElements
      */
     public function waitForReload($callback = null, $seconds = 5)
     {
-        $reloadStateKey = str_random();
+        $token = str_random();
 
-        $this->executeScript("window['{$reloadStateKey}'] = \{\};");
+        $this->executeScript("window['{$token}'] = \{\};");
 
-        $callback && $callback($this);
+        if ($callback) {
+            $callback($this);
+        }
 
-        return $this->waitUsing($seconds, 100, function () use ($script) {
-            return $this->driver->executeScript("return typeof window['{$reloadStateKey}'] === 'undefined';");
+        return $this->waitUsing($seconds, 100, function () use ($token) {
+            return $this->driver->executeScript("return typeof window['{$token}'] === 'undefined';");
         });
     }
 
