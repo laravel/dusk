@@ -9,18 +9,11 @@ use Symfony\Component\Process\ProcessBuilder;
 trait SupportsChrome
 {
     /**
-     * The driver file path.
+     * The path to the custom Chromedriver binary.
      *
-     * @var string
+     * @var string|null
      */
-    protected static $driverPath = __DIR__.'/../bin';
-
-    /**
-     * The driver file to use.
-     *
-     * @var null|string
-     */
-    protected static $driverFile;
+    protected static $chromeDriver;
 
     /**
      * The Chromedriver process instance.
@@ -68,16 +61,28 @@ trait SupportsChrome
      */
     protected static function buildChromeProcess()
     {
-        $driverFilePath = static::driverPath().'/'.static::driverFile();
+        $driver = static::$chromeDriver
+                ?: realpath(__DIR__.'/../bin/chromedriver-'.static::driverSuffix());
 
-        if (realpath($driverFilePath) === false) {
-            throw new RuntimeException("The \"$driverFilePath\" file doesn't exist.");
+        if (realpath($driver) === false) {
+            throw new RuntimeException("Invalid path to Chromedriver [{$driver}].");
         }
 
         return (new ProcessBuilder())
-                ->setPrefix(realpath($driverFilePath))
+                ->setPrefix(realpath($driver))
                 ->getProcess()
                 ->setEnv(static::chromeEnvironment());
+    }
+
+    /**
+     * Set the path to the custom Chromedriver.
+     *
+     * @param  string  $path
+     * @return void
+     */
+    public static function useChromedriver($path)
+    {
+        static::$chomeDriver = $path;
     }
 
     /**
@@ -92,52 +97,6 @@ trait SupportsChrome
         }
 
         return ['DISPLAY' => ':0'];
-    }
-
-    /**
-     * Get the path to the driver file directory.
-     *
-     * @return string
-     */
-    public static function driverPath()
-    {
-        return static::$driverPath;
-    }
-
-    /**
-     * Set the directory for the driver file.
-     *
-     * @param  string  $path
-     * @return void
-     */
-    public static function useDriverPath($path)
-    {
-        static::$driverPath = $path;
-    }
-
-    /**
-     * Get the driver file used.
-     *
-     * @return string
-     */
-    public static function driverFile()
-    {
-        if (is_null(static::$driverFile)) {
-            return 'chromedriver-'.static::driverSuffix();
-        } else {
-            return static::$driverFile;
-        }
-    }
-
-    /**
-     * Set the driver file to be used.
-     *
-     * @param  string  $file
-     * @return void
-     */
-    public static function useDriverFile($file)
-    {
-        static::$driverFile = $file;
     }
 
     /**
