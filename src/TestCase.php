@@ -100,7 +100,7 @@ abstract class TestCase extends FoundationTestCase
         } finally {
             $this->storeConsoleLogsFor($browsers);
 
-            static::$browsers = $this->closeAllButPrimary($browsers);
+            static::$browsers = $this->resetToFreshBrowser($browsers);
         }
     }
 
@@ -174,15 +174,16 @@ abstract class TestCase extends FoundationTestCase
     }
 
     /**
-     * Close all of the browsers except the primary (first) one.
+     * Reset to one fresh browser.
      *
      * @param  \Illuminate\Support\Collection  $browsers
      * @return \Illuminate\Support\Collection
      */
-    protected function closeAllButPrimary($browsers)
+    protected function resetToFreshBrowser($browsers)
     {
         $browsers->slice(1)->each->quit();
-
+        $browsers->first()->clearCookies();
+        
         return $browsers->take(1);
     }
 

@@ -344,6 +344,16 @@ class Browser
     }
 
     /**
+     * Clear all browser cookies.
+     *
+     * @return void
+     */
+    public function clearCookies()
+    {
+        $this->driver->manage()->deleteAllCookies();
+    }
+
+    /**
      * Dynamically call a method on the browser.
      *
      * @param  string  $method
