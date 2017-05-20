@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Concerns;
 
 use DateTimeInterface;
+use Facebook\WebDriver\Cookie;
 
 trait InteractsWithCookies
 {
@@ -22,7 +23,7 @@ trait InteractsWithCookies
         }
 
         if ($cookie = $this->driver->manage()->getCookieNamed($name)) {
-            return decrypt(rawurldecode($cookie['value']));
+            return decrypt(rawurldecode($cookie->getValue()));
         }
     }
 
@@ -42,7 +43,7 @@ trait InteractsWithCookies
         }
 
         if ($cookie = $this->driver->manage()->getCookieNamed($name)) {
-            return rawurldecode($cookie['value']);
+            return rawurldecode($cookie->getValue());
         }
     }
 
@@ -66,9 +67,9 @@ trait InteractsWithCookies
             $expiry = $expiry->getTimestamp();
         }
 
-        $this->driver->manage()->addCookie(
-            array_merge($options, compact('expiry', 'name', 'value'))
-        );
+        $cookie = Cookie::createFromArray(array_merge($options, compact('expiry', 'name', 'value')));
+
+        $this->driver->manage()->addCookie($cookie);
 
         return $this;
     }
