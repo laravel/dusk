@@ -29,6 +29,10 @@ class DuskServiceProvider extends ServiceProvider
             'middleware' => 'web',
             'uses' => 'Laravel\Dusk\Http\Controllers\UserController@user',
         ]);
+
+        $this->publishes([
+            __DIR__.'/../files/' => base_path('tests/Browser/files')
+        ], 'files');
     }
 
     /**
