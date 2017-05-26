@@ -131,7 +131,7 @@ trait WaitsForElements
     {
         $token = str_random();
 
-        $this->executeScript("window['{$token}'] = \{\};");
+        $this->driver->executeScript("window['{$token}'] = {};");
 
         if ($callback) {
             $callback($this);
