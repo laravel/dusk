@@ -44,9 +44,10 @@ trait MakesAssertions
      */
     public function assertPathIs($path)
     {
-        PHPUnit::assertEquals($path, parse_url(
+        PHPUnit::assertEquals(
+            $this->normalizeUrl($path),
             $this->driver->getCurrentURL()
-        )['path']);
+        );
 
         return $this;
     }
@@ -668,5 +669,24 @@ JS;
         );
 
         return $this;
+    }
+
+    /**
+     * Turn the given URI into a fully qualified URL.
+     *
+     * @param  string  $uri
+     * @return string
+     */
+    protected function normalizeUrl($uri)
+    {
+        if (! Str::startsWith($uri, 'http')) {
+            if (! Str::startsWith($uri, '/')) {
+                $uri = '/'.$uri;
+            }
+
+            $uri = config('app.url').$uri;
+        }
+
+        return $uri;
     }
 }
