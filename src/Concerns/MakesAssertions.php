@@ -44,9 +44,8 @@ trait MakesAssertions
      */
     public function assertPathIs($path)
     {
-        PHPUnit::assertEquals($path, parse_url(
-            $this->driver->getCurrentURL()
-        )['path']);
+        $url = parse_url($this->driver->getCurrentURL());
+        PHPUnit::assertEquals($path, $url['fragment'] ? $url['path'] . '#' . $url['fragment'] : $url['path']);
 
         return $this;
     }
@@ -74,9 +73,8 @@ trait MakesAssertions
      */
     public function assertPathIsNot($path)
     {
-        PHPUnit::assertNotEquals($path, parse_url(
-            $this->driver->getCurrentURL()
-        )['path']);
+        $url = parse_url($this->driver->getCurrentURL());
+        PHPUnit::assertNotEquals($path, $url['fragment'] ? $url['path'] . '#' . $url['fragment'] : $url['path']);
 
         return $this;
     }
