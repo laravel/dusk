@@ -57,7 +57,7 @@ abstract class TestCase extends FoundationTestCase
     }
 
     /**
-     * Optionally clear all cookies after a test has run
+     * Optionally clear all cookies after a test has run.
      *
      * @return void
      */
@@ -66,7 +66,7 @@ abstract class TestCase extends FoundationTestCase
         parent::tearDown();
 
         if ($this->clearCookiesBetweenTests) {
-            static::$browsers->each->clearCookies();
+            Collection::make(static::$browsers)->each->clearCookies();
         }
     }
 
