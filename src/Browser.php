@@ -142,14 +142,14 @@ class Browser
     {
         $this->page = $page;
 
-        $page->assert($this);
-
         // Here we will set the page elements on the resolver instance, which will allow
         // the developer to access short-cuts for CSS selectors on the page which can
         // allow for more expressive navigation and interaction with all the pages.
         $this->resolver->pageElements(array_merge(
             $page::siteElements(), $page->elements()
         ));
+        
+        $page->assert($this);
 
         return $this;
     }
