@@ -82,7 +82,7 @@ trait SupportsChrome
      */
     public static function useChromedriver($path)
     {
-        static::$chomeDriver = $path;
+        static::$chromeDriver = $path;
     }
 
     /**
