@@ -5,6 +5,7 @@ namespace Laravel\Dusk;
 use Closure;
 use BadMethodCallException;
 use Illuminate\Support\Str;
+use Facebook\WebDriver\WebDriverPoint;
 use Illuminate\Support\Traits\Macroable;
 use Facebook\WebDriver\WebDriverDimension;
 
@@ -186,6 +187,22 @@ class Browser
     public function maximize()
     {
         $this->driver->manage()->window()->maximize();
+
+        return $this;
+    }
+
+    /**
+     * Set the position of the browser window from top left.
+     *
+     * @param  int  $x
+     * @param  int  $7
+     * @return $this
+     */
+    public function position($x, $y)
+    {
+        $this->driver->manage()->window()->setPosition(
+            new \Facebook\WebDriver\WebDriverPoint($x, $y)
+        );
 
         return $this;
     }
