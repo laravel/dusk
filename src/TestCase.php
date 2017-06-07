@@ -101,6 +101,8 @@ abstract class TestCase extends FoundationTestCase
             $this->storeConsoleLogsFor($browsers);
 
             static::$browsers = $this->closeAllButPrimary($browsers);
+
+            static::$browsers->first()->deleteAllCookies();
         }
     }
 
