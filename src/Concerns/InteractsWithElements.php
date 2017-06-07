@@ -61,6 +61,22 @@ trait InteractsWithElements
     }
 
     /**
+     * Click the given jQuery selector.
+     *
+     * @param  string  $selector
+     * @param  int  $index
+     * @return $this
+     */
+    public function clickJQuery($selector, $index = 0)
+    {
+        $this->ensurejQueryIsAvailable();
+
+        $this->driver->executeScript("jQuery.find(\"{$selector}\")[{$index}].click();");
+
+        return $this;
+    }
+    
+    /**
      * Click the link with the given text.
      *
      * @param  string  $link
