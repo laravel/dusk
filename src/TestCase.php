@@ -30,6 +30,13 @@ abstract class TestCase extends FoundationTestCase
     protected static $afterClassCallbacks = [];
 
     /**
+     * Indicates whether cookies should be cleared between tests.
+     *
+     * @var bool
+     */
+    protected $clearCookiesBetweenTests = false;
+
+    /**
      * Register the base URL with Dusk.
      *
      * @return void
@@ -47,6 +54,20 @@ abstract class TestCase extends FoundationTestCase
         Browser::$userResolver = function () {
             return $this->user();
         };
+    }
+
+    /**
+     * Optionally clear all cookies after a test has run.
+     *
+     * @return void
+     */
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        if ($this->clearCookiesBetweenTests) {
+            Collection::make(static::$browsers)->each->clearCookies();
+        }
     }
 
     /**
