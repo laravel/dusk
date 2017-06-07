@@ -41,6 +41,10 @@ class DuskCommand extends Command
         parent::__construct();
 
         $this->ignoreValidationErrors();
+
+        $this->purgeScreenshots();
+
+        $this->purgeConsoleLogs();
     }
 
     /**
@@ -50,28 +54,29 @@ class DuskCommand extends Command
      */
     public function handle()
     {
-        $this->purgeScreenshots();
+        return $this->withDuskEnvironment(function () {
+            return $this->runPhpunit();
+        });
+    }
 
-        $this->purgeConsoleLogs();
-
+    protected function runPhpunit()
+    {
         $options = array_slice($_SERVER['argv'], 2);
 
-        return $this->withDuskEnvironment(function () use ($options) {
-            $process = (new ProcessBuilder())
-                ->setTimeout(null)
-                ->setPrefix($this->binary())
-                ->setArguments($this->phpunitArguments($options))
-                ->getProcess();
+        $process = (new ProcessBuilder())
+            ->setTimeout(null)
+            ->setPrefix($this->binary())
+            ->setArguments($this->phpunitArguments($options))
+            ->getProcess();
 
-            try {
-                $process->setTty(true);
-            } catch (RuntimeException $e) {
-                $this->output->writeln('Warning: '.$e->getMessage());
-            }
+        try {
+            $process->setTty(true);
+        } catch (RuntimeException $e) {
+            $this->output->writeln('Warning: '.$e->getMessage());
+        }
 
-            return $process->run(function ($type, $line) {
-                $this->output->write($line);
-            });
+        return $process->run(function ($type, $line) {
+            $this->output->write($line);
         });
     }
 
