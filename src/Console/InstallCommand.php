@@ -45,6 +45,10 @@ class InstallCommand extends Command
             $this->createScreenshotsDirectory();
         }
 
+        if (! is_dir(base_path('tests/Browser/sources'))) {
+            $this->createSourcesDirectory();
+        }
+
         if (! is_dir(base_path('tests/Browser/console'))) {
             $this->createConsoleDirectory();
         }
@@ -89,6 +93,20 @@ class InstallCommand extends Command
         mkdir(base_path('tests/Browser/console'), 0755, true);
 
         file_put_contents(base_path('tests/Browser/console/.gitignore'), '*
+!.gitignore
+');
+    }
+
+    /**
+     * Create the screenshots directory.
+     *
+     * @return void
+     */
+    protected function createSourcesDirectory()
+    {
+        mkdir(base_path('tests/Browser/sources'), 0755, true);
+
+        file_put_contents(base_path('tests/Browser/sources/.gitignore'), '*
 !.gitignore
 ');
     }

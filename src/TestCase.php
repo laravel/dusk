@@ -42,6 +42,8 @@ abstract class TestCase extends FoundationTestCase
 
         Browser::$storeScreenshotsAt = base_path('tests/Browser/screenshots');
 
+        Browser::$storeSourcesAt = base_path('tests/Browser/sources');
+
         Browser::$storeConsoleLogAt = base_path('tests/Browser/console');
 
         Browser::$userResolver = function () {
@@ -157,6 +159,8 @@ abstract class TestCase extends FoundationTestCase
     {
         $browsers->each(function ($browser, $key) {
             $browser->screenshot('failure-'.$this->getName().'-'.$key);
+
+            $browser->source('failure-'.$this->getName().'-'.$key);
         });
     }
 
