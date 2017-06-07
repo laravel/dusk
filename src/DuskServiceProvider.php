@@ -29,6 +29,13 @@ class DuskServiceProvider extends ServiceProvider
             'middleware' => 'web',
             'uses' => 'Laravel\Dusk\Http\Controllers\UserController@user',
         ]);
+
+        Route::get('/_dusk/env', [
+            'middleware' => 'web',
+            'uses' => function () {
+                return getenv('APP_ENV');
+            }
+        ]);
     }
 
     /**
