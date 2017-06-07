@@ -91,6 +91,14 @@ class BrowserTest extends TestCase
 
         $this->assertTrue($browser->page->macroed);
     }
+
+    public function test_clear_cookies()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('manage->deleteAllCookies');
+        $browser = new Browser($driver);
+        $browser->clearCookies();
+    }
 }
 
 
