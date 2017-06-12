@@ -30,6 +30,11 @@
     "extra": {
         "branch-alias": {
             "dev-master": "2.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Laravel\\Dusk\\DuskServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev"
