@@ -12,11 +12,12 @@ trait MakesAssertions
      * Assert that the page title is the given value.
      *
      * @param  string  $title
+     * @param  string  $message
      * @return $this
      */
-    public function assertTitle($title)
+    public function assertTitle($title, $message = '')
     {
-        PHPUnit::assertEquals($title, $this->driver->getTitle());
+        PHPUnit::assertEquals($title, $this->driver->getTitle(), $message);
 
         return $this;
     }
@@ -25,12 +26,13 @@ trait MakesAssertions
      * Assert that the page title contains the given value.
      *
      * @param  string  $title
+     * @param  string  $message
      * @return $this
      */
-    public function assertTitleContains($title)
+    public function assertTitleContains($title, $message = '')
     {
         PHPUnit::assertTrue(
-            Str::contains($this->driver->getTitle(), $title)
+            Str::contains($this->driver->getTitle(), $title), $message
         );
 
         return $this;
@@ -40,13 +42,14 @@ trait MakesAssertions
      * Assert that the current URL path matches the given path.
      *
      * @param  string  $path
+     * @param  string  $message
      * @return $this
      */
-    public function assertPathIs($path)
+    public function assertPathIs($path, $message = '')
     {
         PHPUnit::assertEquals($path, parse_url(
             $this->driver->getCurrentURL()
-        )['path']);
+        )['path'], $message);
 
         return $this;
     }
@@ -55,13 +58,14 @@ trait MakesAssertions
      * Assert that the current URL path begins with given path.
      *
      * @param  string  $path
+     * @param  string  $message
      * @return $this
      */
-    public function assertPathBeginsWith($path)
+    public function assertPathBeginsWith($path, $message = '')
     {
         PHPUnit::assertStringStartsWith($path, parse_url(
             $this->driver->getCurrentURL()
-        )['path']);
+        )['path'], $message);
 
         return $this;
     }
@@ -70,13 +74,14 @@ trait MakesAssertions
      * Assert that the current URL path does not match the given path.
      *
      * @param  string  $path
+     * @param  string  $message
      * @return $this
      */
-    public function assertPathIsNot($path)
+    public function assertPathIsNot($path, $message = '')
     {
         PHPUnit::assertNotEquals($path, parse_url(
             $this->driver->getCurrentURL()
-        )['path']);
+        )['path'], $message);
 
         return $this;
     }
@@ -85,12 +90,13 @@ trait MakesAssertions
      * Assert that the current URL path matches the given route.
      *
      * @param  string  $route
-     * @param  array  $parameters
+     * @param  array   $parameters
+     * @param  string  $message
      * @return $this
      */
-    public function assertRouteIs($route, $parameters = [])
+    public function assertRouteIs($route, $parameters = [], $message = '')
     {
-        return $this->assertPathIs(route($route, $parameters, false));
+        return $this->assertPathIs(route($route, $parameters, false), $message);
     }
 
     /**
@@ -98,11 +104,12 @@ trait MakesAssertions
      *
      * @param  string  $name
      * @param  string  $value
+     * @param  string  $message
      * @return $this
      */
-    public function assertQueryStringHas($name, $value = null)
+    public function assertQueryStringHas($name, $value = null, $message = '')
     {
-        $output = $this->assertHasQueryStringParameter($name);
+        $output = $this->assertHasQueryStringParameter($name, $message);
 
         if (is_null($value)) {
             return $this;
@@ -110,7 +117,7 @@ trait MakesAssertions
 
         PHPUnit::assertEquals(
             $value, $output[$name],
-            "Query string parameter [{$name}] had value [{$output[$name]}], but expected [{$value}]."
+            $message ?: "Query string parameter [{$name}] had value [{$output[$name]}], but expected [{$value}]."
         );
 
         return $this;
@@ -120,9 +127,10 @@ trait MakesAssertions
      * Assert that the given query string parameter is missing.
      *
      * @param  string  $name
+     * @param  string  $message
      * @return $this
      */
-    public function assertQueryStringMissing($name)
+    public function assertQueryStringMissing($name, $message = '')
     {
         $parsedUrl = parse_url($this->driver->getCurrentURL());
 
@@ -135,7 +143,7 @@ trait MakesAssertions
 
         PHPUnit::assertArrayNotHasKey(
             $name, $output,
-            "Found unexpected query string parameter [{$name}] in [".$this->driver->getCurrentURL()."]."
+            $message ?: "Found unexpected query string parameter [{$name}] in [".$this->driver->getCurrentURL()."]."
         );
 
         return $this;
@@ -145,22 +153,23 @@ trait MakesAssertions
      * Assert that the given query string parameter is present.
      *
      * @param  string  $name
+     * @param  string  $message
      * @return $this
      */
-    protected function assertHasQueryStringParameter($name)
+    protected function assertHasQueryStringParameter($name, $message = '')
     {
         $parsedUrl = parse_url($this->driver->getCurrentURL());
 
         PHPUnit::assertArrayHasKey(
             'query', $parsedUrl,
-            "Did not see expected query string in [".$this->driver->getCurrentURL()."]."
+            $message ?: "Did not see expected query string in [".$this->driver->getCurrentURL()."]."
         );
 
         parse_str($parsedUrl['query'], $output);
 
         PHPUnit::assertArrayHasKey(
             $name, $output,
-            "Did not see expected query string parameter [{$name}] in [".$this->driver->getCurrentURL()."]."
+            $message ?: "Did not see expected query string parameter [{$name}] in [".$this->driver->getCurrentURL()."]."
         );
 
         return $output;
@@ -170,13 +179,14 @@ trait MakesAssertions
      * Assert that the given cookie is present.
      *
      * @param  string  $name
+     * @param  string  $message
      * @return $this
      */
-    public function assertHasCookie($name)
+    public function assertHasCookie($name, $message = '')
     {
         PHPUnit::assertTrue(
             ! is_null($this->cookie($name)),
-            "Did not find expected cookie [{$name}]."
+            $message ?: "Did not find expected cookie [{$name}]."
         );
 
         return $this;
@@ -187,16 +197,17 @@ trait MakesAssertions
      *
      * @param  string  $name
      * @param  string  $value
-     * @param  bool  $decrypt
+     * @param  bool    $decrypt
+     * @param  string  $message
      * @return $this
      */
-    public function assertCookieValue($name, $value, $decrypt = true)
+    public function assertCookieValue($name, $value, $decrypt = true, $message = '')
     {
         $actual = $decrypt ? $this->cookie($name) : $this->plainCookie($name);
 
         PHPUnit::assertEquals(
             $value, $actual,
-            "Cookie [{$name}] had value [{$actual}], but expected [{$value}]."
+            $message ?: "Cookie [{$name}] had value [{$actual}], but expected [{$value}]."
         );
 
         return $this;
@@ -207,33 +218,36 @@ trait MakesAssertions
      *
      * @param  string  $name
      * @param  string  $value
+     * @param  string  $message
      * @return $this
      */
-    public function assertPlainCookieValue($name, $value)
+    public function assertPlainCookieValue($name, $value, $message = '')
     {
-        return $this->assertCookieValue($name, $value, false);
+        return $this->assertCookieValue($name, $value, false, $message);
     }
 
     /**
      * Assert that the given text appears on the page.
      *
      * @param  string  $text
+     * @param  string  $message
      * @return $this
      */
-    public function assertSee($text)
+    public function assertSee($text, $message = '')
     {
-        return $this->assertSeeIn('', $text);
+        return $this->assertSeeIn('', $text, $message);
     }
 
     /**
      * Assert that the given text does not appear on the page.
      *
      * @param  string  $text
+     * @param  string  $message
      * @return $this
      */
-    public function assertDontSee($text)
+    public function assertDontSee($text, $message = '')
     {
-        return $this->assertDontSeeIn('', $text);
+        return $this->assertDontSeeIn('', $text, $message);
     }
 
     /**
@@ -241,9 +255,10 @@ trait MakesAssertions
      *
      * @param  string  $selector
      * @param  string  $text
+     * @param  string  $message
      * @return $this
      */
-    public function assertSeeIn($selector, $text)
+    public function assertSeeIn($selector, $text, $message = '')
     {
         $fullSelector = $this->resolver->format($selector);
 
@@ -251,7 +266,7 @@ trait MakesAssertions
 
         PHPUnit::assertTrue(
             Str::contains($element->getText(), $text),
-            "Did not see expected text [{$text}] within element [{$fullSelector}]."
+            $message ?: "Did not see expected text [{$text}] within element [{$fullSelector}]."
         );
 
         return $this;
@@ -262,9 +277,10 @@ trait MakesAssertions
      *
      * @param  string  $selector
      * @param  string  $text
+     * @param  string  $message
      * @return $this
      */
-    public function assertDontSeeIn($selector, $text)
+    public function assertDontSeeIn($selector, $text, $message = '')
     {
         $fullSelector = $this->resolver->format($selector);
 
@@ -272,7 +288,7 @@ trait MakesAssertions
 
         PHPUnit::assertFalse(
             Str::contains($element->getText(), $text),
-            "Saw unexpected text [{$text}] within element [{$fullSelector}]."
+            $message ?: "Saw unexpected text [{$text}] within element [{$fullSelector}]."
         );
 
         return $this;
@@ -282,13 +298,14 @@ trait MakesAssertions
      * Assert that the given source code is present on the page.
      *
      * @param  string  $code
+     * @param  string  $message
      * @return $this
      */
-    public function assertSourceHas($code)
+    public function assertSourceHas($code, $message = '')
     {
         PHPUnit::assertContains(
             $code, $this->driver->getPageSource(),
-            "Did not find expected source code [{$code}]"
+            $message ?: "Did not find expected source code [{$code}]"
         );
 
         return $this;
@@ -298,13 +315,14 @@ trait MakesAssertions
      * Assert that the given source code is not present on the page.
      *
      * @param  string  $code
+     * @param  string  $message
      * @return $this
      */
-    public function assertSourceMissing($code)
+    public function assertSourceMissing($code, $message = '')
     {
         PHPUnit::assertNotContains(
             $code, $this->driver->getPageSource(),
-            "Found unexpected source code [{$code}]"
+            $message ?: "Found unexpected source code [{$code}]"
         );
 
         return $this;
@@ -314,14 +332,17 @@ trait MakesAssertions
      * Assert that the given link is visible.
      *
      * @param  string  $link
+     * @param  string  $message
      * @return $this
      */
-    public function assertSeeLink($link)
+    public function assertSeeLink($link, $message = '')
     {
-        if ($this->resolver->prefix) {
-            $message = "Did not see expected link [{$link}] within [{$this->resolver->prefix}].";
-        } else {
-            $message = "Did not see expected link [{$link}].";
+        if($message === '') {
+            if ($this->resolver->prefix) {
+                $message = "Did not see expected link [{$link}] within [{$this->resolver->prefix}].";
+            } else {
+                $message = "Did not see expected link [{$link}].";
+            }
         }
 
         PHPUnit::assertTrue(
@@ -336,14 +357,17 @@ trait MakesAssertions
      * Assert that the given link is not visible.
      *
      * @param  string  $link
+     * @param  string  $message
      * @return $this
      */
-    public function assertDontSeeLink($link)
+    public function assertDontSeeLink($link, $message = '')
     {
-        if ($this->resolver->prefix) {
-            $message = "Saw unexpected link [{$link}] within [{$this->resolver->prefix}].";
-        } else {
-            $message = "Saw unexpected expected link [{$link}].";
+        if($message === '') {
+            if ($this->resolver->prefix) {
+                $message = "Saw unexpected link [{$link}] within [{$this->resolver->prefix}].";
+            } else {
+                $message = "Saw unexpected expected link [{$link}].";
+            }
         }
 
         PHPUnit::assertFalse(
@@ -379,11 +403,12 @@ JS;
      *
      * @param  string  $field
      * @param  string  $value
+     * @param  string  $message
      * @return $this
      */
-    public function assertInputValue($field, $value)
+    public function assertInputValue($field, $value, $message = '')
     {
-        PHPUnit::assertEquals($value, $this->inputValue($field));
+        PHPUnit::assertEquals($value, $this->inputValue($field), $message);
 
         return $this;
     }
@@ -393,11 +418,12 @@ JS;
      *
      * @param  string  $field
      * @param  string  $value
+     * @param  string  $message
      * @return $this
      */
-    public function assertInputValueIsNot($field, $value)
+    public function assertInputValueIsNot($field, $value, $message = '')
     {
-        PHPUnit::assertNotEquals($value, $this->inputValue($field));
+        PHPUnit::assertNotEquals($value, $this->inputValue($field), $message);
 
         return $this;
     }
@@ -422,15 +448,16 @@ JS;
      *
      * @param  string  $field
      * @param  string  $value
+     * @param  string  $message
      * @return $this
      */
-    public function assertChecked($field, $value = null)
+    public function assertChecked($field, $value = null, $message = '')
     {
         $element = $this->resolver->resolveForChecking($field, $value);
 
         PHPUnit::assertTrue(
             $element->isSelected(),
-            "Expected checkbox [{$field}] to be checked, but it wasn't."
+            $message ?: "Expected checkbox [{$field}] to be checked, but it wasn't."
         );
 
         return $this;
@@ -441,15 +468,16 @@ JS;
      *
      * @param  string  $field
      * @param  string  $value
+     * @param  string  $message
      * @return $this
      */
-    public function assertNotChecked($field, $value = null)
+    public function assertNotChecked($field, $value = null, $message = '')
     {
         $element = $this->resolver->resolveForChecking($field, $value);
 
         PHPUnit::assertFalse(
             $element->isSelected(),
-            "Checkbox [{$field}] was unexpectedly checked."
+            $message ?: "Checkbox [{$field}] was unexpectedly checked."
         );
 
         return $this;
@@ -460,15 +488,16 @@ JS;
      *
      * @param  string  $field
      * @param  string  $value
+     * @param  string  $message
      * @return $this
      */
-    function assertRadioSelected($field, $value)
+    function assertRadioSelected($field, $value, $message = '')
     {
         $element = $this->resolver->resolveForRadioSelection($field, $value);
 
         PHPUnit::assertTrue(
             $element->isSelected(),
-            "Expected radio [{$field}] to be selected, but it wasn't."
+            $message ?: "Expected radio [{$field}] to be selected, but it wasn't."
         );
 
         return $this;
@@ -479,15 +508,16 @@ JS;
      *
      * @param  string  $field
      * @param  string  $value
+     * @param  string  $message
      * @return $this
      */
-    public function assertRadioNotSelected($field, $value = null)
+    public function assertRadioNotSelected($field, $value = null, $message = '')
     {
         $element = $this->resolver->resolveForRadioSelection($field, $value);
 
         PHPUnit::assertFalse(
             $element->isSelected(),
-            "Radio [{$field}] was unexpectedly selected."
+            $message ?: "Radio [{$field}] was unexpectedly selected."
         );
 
         return $this;
@@ -498,13 +528,14 @@ JS;
      *
      * @param  string  $field
      * @param  string  $value
+     * @param  string  $message
      * @return $this
      */
-    public function assertSelected($field, $value)
+    public function assertSelected($field, $value, $message = '')
     {
         PHPUnit::assertTrue(
             $this->selected($field, $value),
-            "Expected value [{$value}] to be selected for [{$field}], but it wasn't."
+            $message ?: "Expected value [{$value}] to be selected for [{$field}], but it wasn't."
         );
 
         return $this;
@@ -515,13 +546,14 @@ JS;
      *
      * @param  string  $field
      * @param  string  $value
+     * @param  string  $message
      * @return $this
      */
-    public function assertNotSelected($field, $value)
+    public function assertNotSelected($field, $value, $message = '')
     {
         PHPUnit::assertFalse(
             $this->selected($field, $value),
-            "Unexpected value [{$value}] selected for [{$field}]."
+            $message ?: "Unexpected value [{$value}] selected for [{$field}]."
         );
 
         return $this;
@@ -531,15 +563,16 @@ JS;
      * Assert that the given array of values are available to be selected.
      *
      * @param string  $field
-     * @param array  $values
+     * @param array   $values
+     * @param string  $message
      * @return $this
      */
-    public function assertSelectHasOptions($field, array $values)
+    public function assertSelectHasOptions($field, array $values, $message = '')
     {
         PHPUnit::assertCount(
             count($values),
             $this->resolver->resolveSelectOptions($field, $values),
-            "Expected options [".implode(',', $values)."] for selection field [{$field}] to be available."
+            $message ?: "Expected options [".implode(',', $values)."] for selection field [{$field}] to be available."
         );
 
         return $this;
@@ -549,14 +582,15 @@ JS;
      * Assert that the given array of values are not available to be selected.
      *
      * @param string  $field
-     * @param array  $values
+     * @param array   $values
+     * @param string  $message
      * @return $this
      */
-    public function assertSelectMissingOptions($field, array $values)
+    public function assertSelectMissingOptions($field, array $values, $message = '')
     {
         PHPUnit::assertCount(
             0, $this->resolver->resolveSelectOptions($field, $values),
-            "Unexpected options [".implode(',', $values)."] for selection field [{$field}]."
+            $message ?: "Unexpected options [".implode(',', $values)."] for selection field [{$field}]."
         );
 
         return $this;
@@ -567,11 +601,12 @@ JS;
      *
      * @param string  $field
      * @param string  $value
+     * @param string  $message
      * @return $this
      */
-    public function assertSelectHasOption($field, $value)
+    public function assertSelectHasOption($field, $value, $message = '')
     {
-        return $this->assertSelectHasOptions($field, [$value]);
+        return $this->assertSelectHasOptions($field, [$value], $message);
     }
 
     /**
@@ -579,11 +614,12 @@ JS;
      *
      * @param string  $field
      * @param string  $value
+     * @param string  $message
      * @return $this
      */
-    public function assertSelectMissingOption($field, $value)
+    public function assertSelectMissingOption($field, $value, $message = '')
     {
-        return $this->assertSelectMissingOptions($field, [$value]);
+        return $this->assertSelectMissingOptions($field, [$value], $message);
     }
 
     /**
@@ -605,13 +641,14 @@ JS;
      *
      * @param  string  $selector
      * @param  string  $value
+     * @param  string  $message
      * @return $this
      */
-    public function assertValue($selector, $value)
+    public function assertValue($selector, $value, $message = '')
     {
         $actual = $this->resolver->findOrFail($selector)->getAttribute('value');
 
-        PHPUnit::assertEquals($value, $actual);
+        PHPUnit::assertEquals($value, $actual, $message);
 
         return $this;
     }
@@ -620,15 +657,16 @@ JS;
      * Assert that the element with the given selector is visible.
      *
      * @param  string  $selector
+     * @param  string  $message
      * @return $this
      */
-    public function assertVisible($selector)
+    public function assertVisible($selector, $message = '')
     {
         $fullSelector = $this->resolver->format($selector);
 
         PHPUnit::assertTrue(
             $this->resolver->findOrFail($selector)->isDisplayed(),
-            "Element [{$fullSelector}] is not visible."
+            $message ?: "Element [{$fullSelector}] is not visible."
         );
 
         return $this;
@@ -638,9 +676,10 @@ JS;
      * Assert that the element with the given selector is not on the page.
      *
      * @param  string  $selector
+     * @param  string  $message
      * @return $this
      */
-    public function assertMissing($selector)
+    public function assertMissing($selector, $message = '')
     {
         $fullSelector = $this->resolver->format($selector);
 
@@ -650,7 +689,7 @@ JS;
             $missing = true;
         }
 
-        PHPUnit::assertTrue($missing, "Saw unexpected element [{$fullSelector}].");
+        PHPUnit::assertTrue($missing, $message ?: "Saw unexpected element [{$fullSelector}].");
 
         return $this;
     }
@@ -658,13 +697,14 @@ JS;
     /**
      * Assert that a JavaScript dialog with given message has been opened.
      *
+     * @param  string  $dialogMessage
      * @param  string  $message
      * @return $this
      */
-    public function assertDialogOpened($message)
+    public function assertDialogOpened($dialogMessage, $message = '')
     {
         PHPUnit::assertEquals(
-            $message, $this->driver->switchTo()->alert()->getText()
+            $dialogMessage, $this->driver->switchTo()->alert()->getText(), $message
         );
 
         return $this;
