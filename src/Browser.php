@@ -148,7 +148,7 @@ class Browser
         $this->resolver->pageElements(array_merge(
             $page::siteElements(), $page->elements()
         ));
-        
+
         $page->assert($this);
 
         return $this;
@@ -177,7 +177,7 @@ class Browser
 
         return $this;
     }
-    
+
     /**
      * Maximize the browser window.
      *
@@ -328,12 +328,12 @@ class Browser
      */
     public function tinker()
     {
-        $browser = $this;
-        $driver = $this->driver;
-        $resolver = $this->resolver;
-        $page = $this->page;
-
-        \Psy\Shell::debug(compact('browser', 'driver', 'resolver', 'page'), $this);
+        \Psy\Shell::debug([
+            'browser' => $this,
+            'driver' => $this->driver,
+            'resolver' => $this->resolver,
+            'page' => $this->page,
+        ], $this);
 
         return $this;
     }
