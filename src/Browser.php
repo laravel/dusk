@@ -328,7 +328,12 @@ class Browser
      */
     public function tinker()
     {
-        eval(\Psy\sh());
+        $browser = $this;
+        $driver = $this->driver;
+        $resolver = $this->resolver;
+        $page = $this->page;
+
+        \Psy\Shell::debug(compact('browser', 'driver', 'resolver', 'page'), $this);
 
         return $this;
     }
