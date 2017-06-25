@@ -338,6 +338,21 @@ class Browser
         return $this;
     }
 
+    public function preview($interval = 1000)
+    {
+        $time = time();
+
+        $name = sprintf('%s/%s.png', rtrim(static::$storeScreenshotsAt, '/'), $time);
+        $command = sprintf('/usr/bin/qlmanage -p %s > /dev/null 2> /dev/null', $name);
+
+        $this->pause($interval)->screenshot($time);
+
+        exec($command);
+        unlink($name);
+
+        return $this;
+    }
+
     /**
      * Stop running tests but leave the browser open.
      *
