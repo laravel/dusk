@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverKeys;
 use Facebook\WebDriver\Remote\LocalFileDetector;
+use Facebook\WebDriver\Remote\UselessFileDetector;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 
 trait InteractsWithElements
