@@ -289,7 +289,11 @@ trait InteractsWithElements
     {
         $element = $this->resolver->resolveForAttachment($field);
 
-        $element->setFileDetector(new LocalFileDetector)->sendKeys($path);
+        if ($this->driver->getCapabilities()->getBrowserName() == 'phantomjs') {
+	        $element->setFileDetector(new UselessFileDetector())->sendKeys($path);
+        } else {
+	        $element->setFileDetector(new LocalFileDetector)->sendKeys($path);
+        }
 
         return $this;
     }
