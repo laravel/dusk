@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverKeys;
 use Facebook\WebDriver\Remote\LocalFileDetector;
+use Facebook\WebDriver\Remote\UselessFileDetector;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 
 trait InteractsWithElements
@@ -289,7 +290,11 @@ trait InteractsWithElements
     {
         $element = $this->resolver->resolveForAttachment($field);
 
-        $element->setFileDetector(new LocalFileDetector)->sendKeys($path);
+        if ($this->driver->getCapabilities()->getBrowserName() == 'phantomjs') {
+	        $element->setFileDetector(new UselessFileDetector())->sendKeys($path);
+        } else {
+	        $element->setFileDetector(new LocalFileDetector)->sendKeys($path);
+        }
 
         return $this;
     }
