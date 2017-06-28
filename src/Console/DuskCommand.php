@@ -15,7 +15,7 @@ class DuskCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dusk';
+    protected $signature = 'dusk {--d|debug}';
 
     /**
      * The console command description.
@@ -82,6 +82,12 @@ class DuskCommand extends Command
      */
     protected function binary()
     {
+        if ($this->option('debug')) {
+            return [
+                PHP_BINARY, '-dxdebug.remote_autostart', 'vendor/phpunit/phpunit/phpunit'
+            ];
+        }
+
         return [PHP_BINARY, 'vendor/phpunit/phpunit/phpunit'];
     }
 
