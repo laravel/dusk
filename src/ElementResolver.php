@@ -233,6 +233,7 @@ class ElementResolver
     protected function findButtonByName($button)
     {
         if (! is_null($element = $this->find("input[type=submit][name='{$button}']")) ||
+            ! is_null($element = $this->find("input[type=button][value='{$button}']")) ||
             ! is_null($element = $this->find("button[name='{$button}']"))) {
             return $element;
         }
