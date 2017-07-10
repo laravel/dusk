@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Concerns;
 
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 
