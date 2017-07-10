@@ -403,7 +403,7 @@ JS;
     }
 
     /**
-     * Assert that the given button is visible.
+     * Assert that the given button is not visible.
      *
      * @param  string  $button
      * @return $this
