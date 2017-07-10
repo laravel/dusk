@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Concerns;
 
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 
@@ -372,6 +373,62 @@ trait MakesAssertions
 JS;
 
         return $this->driver->executeScript($script);
+    }
+    
+    /**
+     * Assert that the given button is visible.
+     *
+     * @param  string  $button
+     * @return $this
+     */
+    public function assertSeeButton($button)
+    {
+        if ($this->resolver->prefix) {
+            $message = "Did not see expected button [{$button}] within [{$this->resolver->prefix}].";
+        } else {
+            $message = "Did not see expected button [{$button}].";
+        }
+
+        try {
+            $element = $this->resolver->resolveForButtonPress($button);
+        } catch (InvalidArgumentException $exception) {
+            $element = null;
+        }
+
+        PHPUnit::assertNotNull(
+            $element,
+            $message
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given button is not visible.
+     *
+     * @param  string  $button
+     * @return $this
+     */
+    public function assertDontSeeButton($button)
+    {
+        if ($this->resolver->prefix) {
+            $message = "Saw unexpected button [{$button}] within [{$this->resolver->prefix}].";
+        } else {
+            $message = "Saw unexpected expected button [{$button}].";
+        }
+
+        try {
+            $element = $this->resolver->resolveForButtonPress($button);
+        } catch (InvalidArgumentException $exception) {
+            $element = null;
+        }
+
+        PHPUnit::assertTrue(
+            $element == null,
+            $message
+        );
+
+        return $this;
     }
 
     /**
