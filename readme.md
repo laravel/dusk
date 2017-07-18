@@ -13,8 +13,8 @@ Laravel Dusk provides an expressive, easy-to-use browser automation and testing 
 
 ## Official Documentation
 
-Documentation for Dusk can be found on the [Laravel website](https://laravel.com/docs/master/dusk).
+Documentation for Dusk can be found on the [Laravel website](https://laravel.com/docs/dusk).
 
 ## License
 
-Laravel Dusk is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Laravel Dusk is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT)
