@@ -393,6 +393,8 @@ JS;
             $element = $this->resolver->resolveForButtonPress($button);
         } catch (InvalidArgumentException $exception) {
             $element = null;
+        } catch(NoSuchElementException $exception) {
+            $element = null;
         }
 
         PHPUnit::assertNotNull(
@@ -420,6 +422,8 @@ JS;
         try {
             $element = $this->resolver->resolveForButtonPress($button);
         } catch (InvalidArgumentException $exception) {
+            $element = null;
+        } catch(NoSuchElementException $exception) {
             $element = null;
         }
 
