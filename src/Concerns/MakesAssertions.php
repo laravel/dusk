@@ -393,7 +393,7 @@ JS;
             $element = $this->resolver->resolveForButtonPress($button);
         } catch (InvalidArgumentException $exception) {
             $element = null;
-        } catch(NoSuchElementException $exception) {
+        } catch (NoSuchElementException $exception) {
             $element = null;
         }
 
@@ -423,7 +423,7 @@ JS;
             $element = $this->resolver->resolveForButtonPress($button);
         } catch (InvalidArgumentException $exception) {
             $element = null;
-        } catch(NoSuchElementException $exception) {
+        } catch (NoSuchElementException $exception) {
             $element = null;
         }
 
