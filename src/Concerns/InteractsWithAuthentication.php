@@ -3,7 +3,7 @@
 namespace Laravel\Dusk\Concerns;
 
 use Laravel\Dusk\Browser;
-use PHPUnit_Framework_Assert as PHPUnit;
+use PHPUnit\Framework\Assert as PHPUnit;
 
 trait InteractsWithAuthentication
 {
