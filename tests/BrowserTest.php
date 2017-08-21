@@ -52,18 +52,18 @@ class BrowserTest extends TestCase
         $browser->refresh();
     }
 
-    public function test_with_method()
+    public function test_within_method()
     {
         $driver = Mockery::mock(StdClass::class);
         $browser = new Browser($driver);
 
-        $browser->with('prefix', function ($browser) {
+        $browser->within('prefix', function ($browser) {
             $this->assertInstanceof(Browser::class, $browser);
             $this->assertEquals('body prefix', $browser->resolver->prefix);
         });
     }
 
-    public function test_with_method_with_page()
+    public function test_within_method_with_page()
     {
         $driver = Mockery::mock(StdClass::class);
         $driver->shouldReceive('navigate->to')->with('http://laravel.dev/login');
@@ -72,7 +72,7 @@ class BrowserTest extends TestCase
 
         $browser->visit($page = new BrowserTestPage);
 
-        $browser->with('prefix', function ($browser) use ($page) {
+        $browser->within('prefix', function ($browser) use ($page) {
             $this->assertInstanceof(Browser::class, $browser);
             $this->assertEquals('body prefix', $browser->resolver->prefix);
             $this->assertEquals($page, $browser->page);

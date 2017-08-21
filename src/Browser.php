@@ -248,7 +248,7 @@ class Browser
      * @param  \Closure  $callback
      * @return $this
      */
-    public function with($selector, Closure $callback)
+    public function within($selector, Closure $callback)
     {
         $browser = new static(
             $this->driver, new ElementResolver($this->driver, $this->resolver->format($selector))
