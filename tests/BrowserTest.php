@@ -52,7 +52,7 @@ class BrowserTest extends TestCase
         $browser->refresh();
     }
 
-    public function test_with_method()
+    public function test_within_method()
     {
         $driver = Mockery::mock(StdClass::class);
         $browser = new Browser($driver);
@@ -63,7 +63,7 @@ class BrowserTest extends TestCase
         });
     }
 
-    public function test_with_method_with_page()
+    public function test_within_method_with_page()
     {
         $driver = Mockery::mock(StdClass::class);
         $driver->shouldReceive('navigate->to')->with('http://laravel.dev/login');
