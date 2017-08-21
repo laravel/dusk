@@ -248,6 +248,18 @@ class Browser
      * @param  \Closure  $callback
      * @return $this
      */
+    public function within($selector, Closure $callback)
+    {
+        return $this->with($selector, $callback);
+    }
+
+    /**
+     * Execute a Closure with a scoped browser instance.
+     *
+     * @param  string  $selector
+     * @param  \Closure  $callback
+     * @return $this
+     */
     public function with($selector, Closure $callback)
     {
         $browser = new static(
