@@ -79,6 +79,33 @@ class BrowserTest extends TestCase
         });
     }
 
+    public function test_within_method()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $browser = new Browser($driver);
+
+        $browser->within('prefix', function ($browser) {
+            $this->assertInstanceof(Browser::class, $browser);
+            $this->assertEquals('body prefix', $browser->resolver->prefix);
+        });
+    }
+
+    public function test_within_method_with_page()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('navigate->to')->with('http://laravel.dev/login');
+        $browser = new Browser($driver);
+        Browser::$baseUrl = 'http://laravel.dev';
+
+        $browser->visit($page = new BrowserTestPage);
+
+        $browser->within('prefix', function ($browser) use ($page) {
+            $this->assertInstanceof(Browser::class, $browser);
+            $this->assertEquals('body prefix', $browser->resolver->prefix);
+            $this->assertEquals($page, $browser->page);
+        });
+    }
+
     public function test_page_macros()
     {
         $driver = Mockery::mock(StdClass::class);
