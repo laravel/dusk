@@ -57,7 +57,7 @@ class BrowserTest extends TestCase
         $driver = Mockery::mock(StdClass::class);
         $browser = new Browser($driver);
 
-        $browser->with('prefix', function ($browser) {
+        $browser->within('prefix', function ($browser) {
             $this->assertInstanceof(Browser::class, $browser);
             $this->assertEquals('body prefix', $browser->resolver->prefix);
         });
@@ -72,7 +72,7 @@ class BrowserTest extends TestCase
 
         $browser->visit($page = new BrowserTestPage);
 
-        $browser->with('prefix', function ($browser) use ($page) {
+        $browser->within('prefix', function ($browser) use ($page) {
             $this->assertInstanceof(Browser::class, $browser);
             $this->assertEquals('body prefix', $browser->resolver->prefix);
             $this->assertEquals($page, $browser->page);

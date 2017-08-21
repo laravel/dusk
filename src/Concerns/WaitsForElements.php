@@ -21,7 +21,7 @@ trait WaitsForElements
      */
     public function whenAvailable($selector, Closure $callback, $seconds = 5)
     {
-        return $this->waitFor($selector, $seconds)->with($selector, $callback);
+        return $this->waitFor($selector, $seconds)->within($selector, $callback);
     }
 
     /**
