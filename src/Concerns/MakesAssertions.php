@@ -37,14 +37,18 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the current URL path matches the given path.
+     * Assert that the current URL path matches the given pattern.
      *
      * @param  string  $path
      * @return $this
      */
     public function assertPathIs($path)
     {
-        PHPUnit::assertEquals($path, parse_url(
+        $pattern = preg_quote($path, '/');
+
+        $pattern = str_replace('\*', '.*', $pattern);
+
+        PHPUnit::assertRegExp('/^'.$pattern.'/u', parse_url(
             $this->driver->getCurrentURL()
         )['path']);
 
