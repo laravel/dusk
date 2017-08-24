@@ -364,7 +364,7 @@ trait MakesAssertions
     {
         $this->ensurejQueryIsAvailable();
 
-        $selector = trim($this->resolver->format("a:contains('{$link}')"));
+        $selector = addslashes(trim($this->resolver->format("a:contains('{$link}')")));
 
         $script = <<<JS
             var link = jQuery.find("{$selector}");
