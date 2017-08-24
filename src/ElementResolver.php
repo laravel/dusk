@@ -365,8 +365,13 @@ class ElementResolver
         })->toArray();
 
         $selector = str_replace(
-            array_keys($sortedElements), array_values($sortedElements), $selector
+            array_keys($sortedElements), array_values($sortedElements), $originalSelector = $selector
         );
+
+        // If a '@' element alias hasn't been defined, look for a data-dusk DOM hook.
+        if (starts_with($selector, '@') && $selector === $originalSelector) {
+            $selector = '[data-dusk="'.explode('@', $selector)[1].'"]';
+        }
 
         return trim($this->prefix.' '.$selector);
     }
