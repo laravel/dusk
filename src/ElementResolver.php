@@ -368,7 +368,6 @@ class ElementResolver
             array_keys($sortedElements), array_values($sortedElements), $originalSelector = $selector
         );
 
-        // If a '@' element alias hasn't been defined, look for a dusk attribute hook.
         if (starts_with($selector, '@') && $selector === $originalSelector) {
             $selector = '[dusk="'.explode('@', $selector)[1].'"]';
         }
