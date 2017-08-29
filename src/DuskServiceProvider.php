@@ -3,6 +3,7 @@
 namespace Laravel\Dusk;
 
 use Exception;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,6 +30,12 @@ class DuskServiceProvider extends ServiceProvider
             'middleware' => 'web',
             'uses' => 'Laravel\Dusk\Http\Controllers\UserController@user',
         ]);
+
+        Blade::directive('dusk', function ($expression) {
+            $selector = trim(preg_replace("/[\(\)\\\"\']/", '', $expression));
+
+            return "<?php echo 'dusk=\"{$selector}\"'; ?>";
+        });
     }
 
     /**
