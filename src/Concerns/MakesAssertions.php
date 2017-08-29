@@ -673,4 +673,24 @@ JS;
 
         return $this;
     }
+
+    /**
+     * Assert that the page contains the amount of element based on the
+     * selector and count.
+     *
+     * @param  string  $selector
+     * @param  integer $count
+     * @return $this
+     */
+    public function assertHaveSelector($selector, $count)
+    {
+        $elements = $this->resolver->all($selector);
+
+        PHPUnit::assertSame(
+            $count,
+            count($elements)
+        );
+
+        return $this;
+    }
 }
