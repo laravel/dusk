@@ -3,6 +3,7 @@
 namespace Laravel\Dusk;
 
 use Exception;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
