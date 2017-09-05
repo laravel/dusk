@@ -187,6 +187,22 @@ trait MakesAssertions
     }
 
     /**
+     * Assert that the given cookie is not present.
+     *
+     * @param  string  $name
+     * @return $this
+     */
+    public function assertCookieMissing($name)
+    {
+        PHPUnit::assertTrue(
+            is_null($this->cookie($name)),
+            "Found unexpected cookie [{$name}]."
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that an encrypted cookie has a given value.
      *
      * @param  string  $name
