@@ -4,6 +4,7 @@ namespace Laravel\Dusk;
 
 use Closure;
 use Exception;
+use Laravel\Dusk\Chrome\SupportsChrome;
 use Throwable;
 use ReflectionFunction;
 use Illuminate\Support\Collection;

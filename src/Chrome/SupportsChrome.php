@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk;
+namespace Laravel\Dusk\Chrome;
 
 use RuntimeException;
 use Symfony\Component\Process\Process;
@@ -61,17 +61,7 @@ trait SupportsChrome
      */
     protected static function buildChromeProcess()
     {
-        $driver = static::$chromeDriver
-                ?: realpath(__DIR__.'/../bin/chromedriver-'.static::driverSuffix());
-
-        if (realpath($driver) === false) {
-            throw new RuntimeException("Invalid path to Chromedriver [{$driver}].");
-        }
-
-        return (new ProcessBuilder())
-                ->setPrefix(realpath($driver))
-                ->getProcess()
-                ->setEnv(static::chromeEnvironment());
+        return (new ChromeProcess(static::$chromeDriver))->build();
     }
 
     /**
@@ -83,36 +73,5 @@ trait SupportsChrome
     public static function useChromedriver($path)
     {
         static::$chromeDriver = $path;
-    }
-
-    /**
-     * Get the Chromedriver environment variables.
-     *
-     * @return array
-     */
-    protected static function chromeEnvironment()
-    {
-        if (PHP_OS === 'Darwin' || PHP_OS === 'WINNT') {
-            return [];
-        }
-
-        return ['DISPLAY' => ':0'];
-    }
-
-    /**
-     * Get the suffix for the Chromedriver binary.
-     *
-     * @return string
-     */
-    protected static function driverSuffix()
-    {
-        switch (PHP_OS) {
-            case 'Darwin':
-                return 'mac';
-            case 'WINNT':
-                return 'win.exe';
-            default:
-                return 'linux';
-        }
     }
 }
