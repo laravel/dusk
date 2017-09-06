@@ -7,6 +7,7 @@ use BadMethodCallException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Facebook\WebDriver\WebDriverDimension;
+use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 class Browser
 {
@@ -41,6 +42,13 @@ class Browser
      * @var string
      */
     public static $storeConsoleLogAt;
+
+    /**
+     * Force retrieving of console logs even when not using Chrome.
+     *
+     * @var bool
+     */
+    public static $alwaysGetConsoleLogs = false;
 
     /**
      * Get the callback which resolves the default user to authenticate.
@@ -229,21 +237,15 @@ class Browser
      */
     public function storeConsoleLog($name)
     {
-        try {
+        if (static::$alwaysGetConsoleLogs || WebDriverBrowserType::CHROME === $this->driver->getCapabilities()->getBrowserName()) {
             $console = $this->driver->manage()->getLog('browser');
-        
+
             if (!empty($console)) {
                 file_put_contents(
                     sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name)
                     , json_encode($console, JSON_PRETTY_PRINT)
                 );
             }
-        } catch (UnknownServerException $exception) {
-            // Some drivers do not support the getLog command
-            file_put_contents(
-                sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name)
-                , json_encode(['error' => 'Console logs not supported by current driver.'], JSON_PRETTY_PRINT)
-            );
         }
 
         return $this;
