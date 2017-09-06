@@ -118,6 +118,26 @@ class BrowserTest extends TestCase
 
         $this->assertTrue($browser->page->macroed);
     }
+    
+    public function test_retrieve_console()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('manage->getLog')->with('browser')->andReturnNull();
+        $browser = new Browser($driver);
+        Browser::$storeConsoleLogAt = 'not-null';
+
+        $browser->storeConsoleLog('file');
+    }
+
+    public function test_disable_console()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldNotReceive('manage');
+        $browser = new Browser($driver);
+        Browser::$storeConsoleLogAt = null;
+
+        $browser->storeConsoleLog('file');
+    }
 }
 
 
