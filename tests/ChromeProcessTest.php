@@ -11,7 +11,7 @@ class ChromeProcessTest extends TestCase
         $process = (new \Laravel\Dusk\Chrome\ChromeProcess($driver))->build();
 
         $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
-        $this->assertEquals("'{$driver}'", $process->getCommandLine());
+        $this->assertContains("$driver", $process->getCommandLine());
     }
 
     public function test_build_process_for_windows()
@@ -36,6 +36,13 @@ class ChromeProcessTest extends TestCase
 
         $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
         $this->assertContains('chromedriver-linux', $process->getCommandLine());
+    }
+
+    public function test_invalid_path()
+    {
+        $this->expectException(RuntimeException::class);
+
+        (new \Laravel\Dusk\Chrome\ChromeProcess('/not/a/valid/path'))->build();
     }
 }
 

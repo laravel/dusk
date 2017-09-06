@@ -24,6 +24,11 @@ class ChromeProcess
         }
     }
 
+    /**
+     * Build the process to run Chromedriver.
+     *
+     * @return \Symfony\Component\Process\Process
+     */
     public function build()
     {
         // First we check if a custom driver has been provided. For backward compatibility,
@@ -32,15 +37,14 @@ class ChromeProcess
             return $this->processBuilder();
         }
 
-        // Process Builder is capable of building a process for Windows machine at the cost
-        // of not being able to terminate it after.
+        // Process Builder is capable of building a process for Windows machine.
         if ($this->isWindows()) {
             $this->driver = realpath(__DIR__.'/../../bin/chromedriver-win.exe');
             return $this->processBuilder();
         }
 
-        // For Mac and Linux we can build a process without using Process Builder.
-        // The process will automatically be killed once the execution of the script finishes.
+        // For Mac and Linux we can build a process without using Process Builder
+        // and the process will have a correct PID.
         if ($this->isDarwin()) {
             $this->driver = realpath(__DIR__.'/../../bin/chromedriver-mac');
         } else {
@@ -51,7 +55,7 @@ class ChromeProcess
     }
 
     /**
-     * Build Chrome Process.
+     * Build Chromedriver with Symfony Process.
      *
      * @return \Symfony\Component\Process\Process
      */
