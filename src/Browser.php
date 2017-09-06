@@ -229,12 +229,20 @@ class Browser
      */
     public function storeConsoleLog($name)
     {
-        $console = $this->driver->manage()->getLog('browser');
-
-        if (! empty($console)) {
+        try {
+            $console = $this->driver->manage()->getLog('browser');
+        
+            if (!empty($console)) {
+                file_put_contents(
+                    sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name)
+                    , json_encode($console, JSON_PRETTY_PRINT)
+                );
+            }
+        } catch (UnknownServerException $exception) {
+            // Some drivers do not support the getLog command
             file_put_contents(
                 sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name)
-                , json_encode($console, JSON_PRETTY_PRINT)
+                , json_encode(['error' => 'Console logs not supported by current driver.'], JSON_PRETTY_PRINT)
             );
         }
 
