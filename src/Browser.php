@@ -48,7 +48,11 @@ class Browser
      *
      * @var bool
      */
-    public static $alwaysGetConsoleLogs = false;
+    public static $supportsRemoteLogs = [
+        WebDriverBrowserType::CHROME,
+        WebDriverBrowserType::SAFARI,
+        WebDriverBrowserType::PHANTOMJS,
+    ];
 
     /**
      * Get the callback which resolves the default user to authenticate.
@@ -237,7 +241,7 @@ class Browser
      */
     public function storeConsoleLog($name)
     {
-        if (static::$alwaysGetConsoleLogs || WebDriverBrowserType::CHROME === $this->driver->getCapabilities()->getBrowserName()) {
+        if (in_array($this->driver->getCapabilities()->getBrowserName(), static::$supportsRemoteLogs)) {
             $console = $this->driver->manage()->getLog('browser');
 
             if (!empty($console)) {
