@@ -118,7 +118,7 @@ class BrowserTest extends TestCase
 
         $this->assertTrue($browser->page->macroed);
     }
-    
+
     public function test_retrieve_console()
     {
         $driver = Mockery::mock(StdClass::class);
