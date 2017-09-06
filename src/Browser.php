@@ -229,7 +229,7 @@ class Browser
      */
     public function storeConsoleLog($name)
     {
-        if (static::$storeConsoleLogAt !== false) {
+        if (! is_null(static::$storeConsoleLogAt)) {
             $console = $this->driver->manage()->getLog('browser');
 
             if (!empty($console)) {
