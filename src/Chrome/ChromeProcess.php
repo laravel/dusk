@@ -15,11 +15,17 @@ class ChromeProcess
      */
     protected $driver;
 
+    /**
+     * Create a new ChromeProcess instance.
+     *
+     * @param  string  $driver
+     * @return void
+     */
     public function __construct($driver = null)
     {
         $this->driver = $driver;
 
-        if (!is_null($driver) && realpath($driver) === false) {
+        if (! is_null($driver) && realpath($driver) === false) {
             throw new RuntimeException("Invalid path to Chromedriver [{$driver}].");
         }
     }
@@ -29,48 +35,43 @@ class ChromeProcess
      *
      * @return \Symfony\Component\Process\Process
      */
-    public function build()
+    public function toProcess()
     {
-        // First we check if a custom driver has been provided. For backward compatibility,
-        // any custom driver is handled by Symfony Process Builder.
         if ($this->driver) {
-            return $this->processBuilder();
+            return $this->fromProcessBuilder();
         }
 
-        // Process Builder is capable of building a process for Windows machine.
-        if ($this->isWindows()) {
+        if ($this->onWindows()) {
             $this->driver = realpath(__DIR__.'/../../bin/chromedriver-win.exe');
-            return $this->processBuilder();
+
+            return $this->fromProcessBuilder();
         }
 
-        // For Mac and Linux we can build a process without using Process Builder
-        // and the process will have a correct PID.
-        if ($this->isDarwin()) {
-            $this->driver = realpath(__DIR__.'/../../bin/chromedriver-mac');
-        } else {
-            $this->driver = realpath(__DIR__.'/../../bin/chromedriver-linux');
-        }
+        $this->driver = $this->onMac()
+                        ? realpath(__DIR__.'/../../bin/chromedriver-mac')
+                        : realpath(__DIR__.'/../../bin/chromedriver-linux');
 
         return $this->process();
     }
 
     /**
-     * Build Chromedriver with Symfony Process.
+     * Build the Chromedriver with Symfony Process.
      *
      * @return \Symfony\Component\Process\Process
      */
     protected function process()
     {
-        return (new Process([realpath($this->driver)], null, $this->chromeEnvironment()));
+        return (new Process(
+            [realpath($this->driver)], null, $this->chromeEnvironment()
+        ));
     }
 
     /**
-     * Build Chrome process through Symfony ProcessBuilder component.
-     * The process cannot be automatically killed afterwards.
+     * Build the Chrome process through Symfony ProcessBuilder component.
      *
      * @return \Symfony\Component\Process\Process
      */
-    protected function processBuilder()
+    protected function fromProcessBuilder()
     {
         return (new ProcessBuilder)
             ->setPrefix(realpath($this->driver))
@@ -85,19 +86,29 @@ class ChromeProcess
      */
     protected function chromeEnvironment()
     {
-        if ($this->isDarwin() || $this->isWindows()) {
+        if ($this->onMac() || $this->onWindows()) {
             return [];
         }
 
         return ['DISPLAY' => ':0'];
     }
 
-    protected function isWindows()
+    /**
+     * Determine if Dusk is running on Windows.
+     *
+     * @return bool
+     */
+    protected function onWindows()
     {
         return PHP_OS === 'WINNT';
     }
 
-    protected function isDarwin()
+    /**
+     * Determine if Dusk is running on Mac.
+     *
+     * @return bool
+     */
+    protected function onMac()
     {
         return PHP_OS === 'Darwin';
     }

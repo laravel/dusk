@@ -61,7 +61,7 @@ trait SupportsChrome
      */
     protected static function buildChromeProcess()
     {
-        return (new ChromeProcess(static::$chromeDriver))->build();
+        return (new ChromeProcess(static::$chromeDriver))->toProcess();
     }
 
     /**
