@@ -7,6 +7,7 @@ use BadMethodCallException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Facebook\WebDriver\WebDriverDimension;
+use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 class Browser
 {
@@ -41,6 +42,17 @@ class Browser
      * @var string
      */
     public static $storeConsoleLogAt;
+
+    /**
+     * The browsers that support retrieving logs.
+     *
+     * @var array
+     */
+    public static $supportsRemoteLogs = [
+        WebDriverBrowserType::CHROME,
+        WebDriverBrowserType::SAFARI,
+        WebDriverBrowserType::PHANTOMJS,
+    ];
 
     /**
      * Get the callback which resolves the default user to authenticate.
@@ -229,7 +241,7 @@ class Browser
      */
     public function storeConsoleLog($name)
     {
-        if (static::$storeConsoleLogAt) {
+        if (in_array($this->driver->getCapabilities()->getBrowserName(), static::$supportsRemoteLogs)) {
             $console = $this->driver->manage()->getLog('browser');
 
             if (!empty($console)) {
