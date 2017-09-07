@@ -44,9 +44,9 @@ class Browser
     public static $storeConsoleLogAt;
 
     /**
-     * Force retrieving of console logs even when not using Chrome.
+     * The browsers that support retrieving logs.
      *
-     * @var bool
+     * @var array
      */
     public static $supportsRemoteLogs = [
         WebDriverBrowserType::CHROME,
