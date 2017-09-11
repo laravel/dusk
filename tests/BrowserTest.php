@@ -1,9 +1,9 @@
 <?php
 
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
-use Laravel\Dusk\Browser;
 use Laravel\Dusk\Page;
+use Laravel\Dusk\Browser;
 use PHPUnit\Framework\TestCase;
+use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 class BrowserTest extends TestCase
 {
