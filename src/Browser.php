@@ -62,6 +62,13 @@ class Browser
     public static $userResolver;
 
     /**
+     * The default wait time in seconds.
+     *
+     * @var int
+     */
+    public static $waitInSeconds = 5;
+
+    /**
      * The RemoteWebDriver instance.
      *
      * @var \Facebook\WebDriver\Remote\RemoteWebDriver
