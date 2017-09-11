@@ -137,7 +137,6 @@ class BrowserTest extends TestCase
         $driver->shouldNotReceive('manage');
         $driver->shouldReceive('getCapabilities->getBrowserName')->andReturnNull();
         $browser = new Browser($driver);
-        Browser::$storeConsoleLogAt = null;
 
         $browser->storeConsoleLog('file');
     }
