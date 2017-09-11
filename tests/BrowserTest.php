@@ -3,6 +3,7 @@
 use Laravel\Dusk\Page;
 use Laravel\Dusk\Browser;
 use PHPUnit\Framework\TestCase;
+use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 class BrowserTest extends TestCase
 {
@@ -123,6 +124,7 @@ class BrowserTest extends TestCase
     {
         $driver = Mockery::mock(StdClass::class);
         $driver->shouldReceive('manage->getLog')->with('browser')->andReturnNull();
+        $driver->shouldReceive('getCapabilities->getBrowserName')->andReturn(WebDriverBrowserType::CHROME);
         $browser = new Browser($driver);
         Browser::$storeConsoleLogAt = 'not-null';
 
@@ -133,8 +135,8 @@ class BrowserTest extends TestCase
     {
         $driver = Mockery::mock(StdClass::class);
         $driver->shouldNotReceive('manage');
+        $driver->shouldReceive('getCapabilities->getBrowserName')->andReturnNull();
         $browser = new Browser($driver);
-        Browser::$storeConsoleLogAt = null;
 
         $browser->storeConsoleLog('file');
     }
