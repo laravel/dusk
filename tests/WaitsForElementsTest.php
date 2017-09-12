@@ -1,10 +1,48 @@
 <?php
 
+use Carbon\Carbon;
+use Facebook\WebDriver\Exception\TimeOutException;
 use Laravel\Dusk\Browser;
 use PHPUnit\Framework\TestCase;
 
 class WaitsForElementsTest extends TestCase
 {
+    public function test_default_wait_time()
+    {
+        Browser::$waitInSeconds = 2;
+
+        $browser = new Browser(new StdClass);
+        $then = microtime(true);
+
+        try {
+            $browser->waitUsing(null, 100, function () {
+                return false;
+            });
+        } catch (TimeOutException $e) {
+            //
+        }
+
+        $this->assertEquals(2, floor(microtime(true) - $then));
+    }
+
+    public function test_default_wait_time_can_be_overriden()
+    {
+        Browser::$waitInSeconds = 2;
+
+        $browser = new Browser(new StdClass);
+        $then = microtime(true);
+
+        try {
+            $browser->waitUsing(0, 100, function () {
+                return true;
+            });
+        } catch (TimeOutException $e) {
+            //
+        }
+
+        $this->assertEquals(0, floor(microtime(true) - $then));
+    }
+
     public function test_wait_using()
     {
         $browser = new Browser(new StdClass);

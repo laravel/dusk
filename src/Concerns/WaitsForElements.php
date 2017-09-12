@@ -19,7 +19,7 @@ trait WaitsForElements
      * @param  int  $seconds
      * @return $this
      */
-    public function whenAvailable($selector, Closure $callback, $seconds = 5)
+    public function whenAvailable($selector, Closure $callback, $seconds = null)
     {
         return $this->waitFor($selector, $seconds)->with($selector, $callback);
     }
@@ -31,11 +31,11 @@ trait WaitsForElements
      * @param  int  $seconds
      * @return $this
      */
-    public function waitFor($selector, $seconds = 5)
+    public function waitFor($selector, $seconds = null)
     {
         return $this->waitUsing($seconds, 100, function () use ($selector) {
             return $this->resolver->findOrFail($selector)->isDisplayed();
-        }, "Waited {$seconds} seconds for selector [{$selector}].");
+        }, "Waited %s seconds for selector [{$selector}].");
     }
 
     /**
@@ -45,7 +45,7 @@ trait WaitsForElements
      * @param  int  $seconds
      * @return $this
      */
-    public function waitUntilMissing($selector, $seconds = 5)
+    public function waitUntilMissing($selector, $seconds = null)
     {
         return $this->waitUsing($seconds, 100, function () use ($selector) {
             try {
@@ -55,7 +55,7 @@ trait WaitsForElements
             }
 
             return $missing;
-        }, "Waited {$seconds} seconds for removal of selector [{$selector}].");
+        }, "Waited %s seconds for removal of selector [{$selector}].");
     }
 
     /**
@@ -65,11 +65,11 @@ trait WaitsForElements
      * @param  int  $seconds
      * @return $this
      */
-    public function waitForText($text, $seconds = 5)
+    public function waitForText($text, $seconds = null)
     {
         return $this->waitUsing($seconds, 100, function () use ($text) {
             return Str::contains($this->resolver->findOrFail('')->getText(), $text);
-        }, "Waited {$seconds} seconds for text [{$text}].");
+        }, "Waited %s seconds for text [{$text}].");
     }
 
     /**
@@ -79,7 +79,7 @@ trait WaitsForElements
      * @param  int  $seconds
      * @return $this
      */
-    public function waitForLink($link, $seconds = 5)
+    public function waitForLink($link, $seconds = null)
     {
         return $this->waitUsing($seconds, 100, function () use ($link) {
             return $this->seeLink($link);
@@ -93,7 +93,7 @@ trait WaitsForElements
      * @param  int  $seconds
      * @return $this
      */
-    public function waitForLocation($path, $seconds = 5)
+    public function waitForLocation($path, $seconds = null)
     {
         return $this->waitUntil("window.location.pathname == '{$path}'", $seconds);
     }
@@ -105,7 +105,7 @@ trait WaitsForElements
      * @param  int  $seconds
      * @return $this
      */
-    public function waitUntil($script, $seconds = 5)
+    public function waitUntil($script, $seconds = null)
     {
         if (! Str::startsWith($script, 'return ')) {
             $script = 'return '.$script;
@@ -127,7 +127,7 @@ trait WaitsForElements
      * @param  int  $seconds
      * @return $this
      */
-    public function waitForReload($callback = null, $seconds = 5)
+    public function waitForReload($callback = null, $seconds = null)
     {
         $token = str_random();
 
@@ -154,6 +154,8 @@ trait WaitsForElements
      */
     public function waitUsing($seconds, $interval, Closure $callback, $message = null)
     {
+        $seconds = is_null($seconds) ? static::$waitInSeconds : $seconds;
+
         $this->pause($interval);
 
         $started = Carbon::now();
@@ -168,7 +170,10 @@ trait WaitsForElements
             }
 
             if ($started->lt(Carbon::now()->subSeconds($seconds))) {
-                throw new TimeOutException($message ?: "Waited {$seconds} seconds for callback.");
+                throw new TimeOutException($message
+                    ? sprintf($message, $seconds)
+                    : "Waited {$seconds} seconds for callback."
+                );
             }
 
             $this->pause($interval);
