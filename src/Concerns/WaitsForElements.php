@@ -154,7 +154,7 @@ trait WaitsForElements
      */
     public function waitUsing($seconds, $interval, Closure $callback, $message = null)
     {
-        $seconds = is_null($seconds) ? static::$waitInSeconds : $seconds;
+        $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
 
         $this->pause($interval);
 

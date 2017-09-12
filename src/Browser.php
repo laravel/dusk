@@ -66,7 +66,7 @@ class Browser
      *
      * @var int
      */
-    public static $waitInSeconds = 5;
+    public static $waitSeconds = 5;
 
     /**
      * The RemoteWebDriver instance.

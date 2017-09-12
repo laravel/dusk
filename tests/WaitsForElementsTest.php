@@ -9,7 +9,7 @@ class WaitsForElementsTest extends TestCase
 {
     public function test_default_wait_time()
     {
-        Browser::$waitInSeconds = 2;
+        Browser::$waitSeconds = 2;
 
         $browser = new Browser(new StdClass);
         $then = microtime(true);
@@ -27,7 +27,7 @@ class WaitsForElementsTest extends TestCase
 
     public function test_default_wait_time_can_be_overriden()
     {
-        Browser::$waitInSeconds = 2;
+        Browser::$waitSeconds = 2;
 
         $browser = new Browser(new StdClass);
         $then = microtime(true);
