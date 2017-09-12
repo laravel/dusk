@@ -166,7 +166,8 @@ class DuskCommand extends Command
         copy(base_path($this->duskFile()), base_path('.env'));
 
         $base = file_get_contents(base_path('.env.backup'));
-        file_put_contents(base_path('.env'), "\n" . $base, FILE_APPEND);
+
+        file_put_contents(base_path('.env'), PHP_EOL.$base, FILE_APPEND);
     }
 
     /**
