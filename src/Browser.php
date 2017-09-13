@@ -224,6 +224,19 @@ class Browser
 
         return $this;
     }
+    
+    /**
+     * Scroll screen to element at the given selector.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function scrollTo($selector)
+    {
+        $this->driver->executeScript("$(\"html, body\").animate({scrollTop: $(\"$selector\").offset().top}, 0);");
+
+        return $this;
+    }
 
     /**
      * Take a screenshot and store it with the given name.
