@@ -290,6 +290,10 @@ class Browser
      */
     public function with($selector, Closure $callback)
     {
+        if ($selector instanceof Component) {
+            return $this->withComponent($selector, $callback);
+        }
+
         $browser = new static(
             $this->driver, new ElementResolver($this->driver, $this->resolver->format($selector))
         );
@@ -298,16 +302,29 @@ class Browser
             $browser->on($this->page);
         }
 
-        if ($selector instanceof Component) {
-            $browser->onComponent($selector, $this->resolver);
+        call_user_func($callback, $browser);
+
+        return $this;
+    }
+
+    public function withComponent($component, Closure $callback)
+    {
+        $browser = new static(
+            $this->driver, new ElementResolver($this->driver)
+        );
+
+        if ($this->page) {
+            $browser->on($this->page);
         }
+
+        $browser->onComponent($component, $this->resolver);
 
         call_user_func($callback, $browser);
 
         return $this;
     }
 
-    public function onComponent($component, $oldResolver = null)
+    public function onComponent($component, $parentResolver)
     {
         $this->component = $component;
 
@@ -315,19 +332,18 @@ class Browser
         // the developer to access short-cuts for CSS selectors on the component which can
         // allow for more expressive navigation and interaction with all the components.
         $this->resolver->pageElements(
-            $component->elements() + ($oldResolver->elements ?? [])
+            $component->elements() + $parentResolver->elements
         );
+        $component->assert($this);
 
-        // Allow component's root selector to be an element alias or dusk hook.
-        if (starts_with($component->selector(), '@')) {
-            $this->resolver->prefix = str_replace(
+        $this->resolver->prefix = starts_with($component->selector(), '@')
+            // Allow component's root selector to be an element alias or dusk hook.
+            ? str_replace(
                 $component->selector() . ' ',
                 '',
                 $this->resolver->format($component->selector())
-            );
-        }
-
-        $component->assert($this);
+            )
+            : $parentResolver->format($component->selector());
     }
 
     /**
