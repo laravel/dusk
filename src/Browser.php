@@ -290,10 +290,6 @@ class Browser
      */
     public function with($selector, Closure $callback)
     {
-        if ($selector instanceof Component) {
-            return $this->withComponent($selector, $callback);
-        }
-
         $browser = new static(
             $this->driver, new ElementResolver($this->driver, $this->resolver->format($selector))
         );
@@ -302,22 +298,9 @@ class Browser
             $browser->on($this->page);
         }
 
-        call_user_func($callback, $browser);
-
-        return $this;
-    }
-
-    public function withComponent($component, Closure $callback)
-    {
-        $browser = new static(
-            $this->driver, new ElementResolver($this->driver)
-        );
-
-        if ($this->page) {
-            $browser->on($this->page);
+        if ($selector instanceof Component) {
+            $browser->onComponent($selector, $this->resolver);
         }
-
-        $browser->onComponent($component, $this->resolver);
 
         call_user_func($callback, $browser);
 
@@ -334,16 +317,11 @@ class Browser
         $this->resolver->pageElements(
             $component->elements() + $parentResolver->elements
         );
+
         $component->assert($this);
 
-        $this->resolver->prefix = starts_with($component->selector(), '@')
-            // Allow component's root selector to be an element alias or dusk hook.
-            ? str_replace(
-                $component->selector() . ' ',
-                '',
-                $this->resolver->format($component->selector())
-            )
-            : $parentResolver->format($component->selector());
+        // Resolve element aliases and Dusk hooks in the root selector.
+        $this->resolver->prefix = $this->resolver->format($component->selector());
     }
 
     /**

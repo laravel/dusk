@@ -39,6 +39,6 @@ abstract class Component
      */
     public function __toString()
     {
-        return $this->selector();
+        return '';
     }
 }
