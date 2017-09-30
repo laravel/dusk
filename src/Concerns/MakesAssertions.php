@@ -689,4 +689,79 @@ JS;
 
         return $this;
     }
+
+    /**
+     * Retrieve the value of the Vue component's attribute at the given key.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    public function vueAttribute($key)
+    {
+        $fullSelector = $this->resolver->format(null);
+
+        return $this->driver->executeScript(
+            "return document.querySelector('" . $fullSelector . "').__vue__." . $key
+        );
+    }
+
+    /**
+     * Assert that the Vue component's attribute at the given key has the given value.
+     *
+     * @param  string  $key
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertVueAttribute($key, $value)
+    {
+        PHPUnit::assertEquals($value, $this->vueAttribute($key));
+
+        return $this;
+    }
+
+    /**
+     * Assert that the Vue component's attribute at the given key
+     * does not have the given value.
+     *
+     * @param  string  $key
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertVueAttributeIsNot($key, $value)
+    {
+        PHPUnit::assertNotEquals($value, $this->vueAttribute($key));
+
+        return $this;
+    }
+
+    /**
+     * Assert that the Vue component's attribute at the given key
+     * is an array that contains the given value.
+     *
+     * @param  string  $key
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertVueAttributeContains($key, $value)
+    {
+        PHPUnit::assertContains($value, $this->vueAttribute($key));
+
+        return $this;
+    }
+
+    /**
+     * Assert that the Vue component's attribute at the given key
+     * is an array that contains the given value.
+     *
+     * @param  string  $key
+     * @param  string  $value
+     * @return $this
+     */
+
+    public function assertVueAttributeDoesNotContain($key, $value)
+    {
+        PHPUnit::assertNotContains($value, $this->vueAttribute($key));
+
+        return $this;
+    }
 }
