@@ -696,9 +696,9 @@ JS;
      * @param  string  $key
      * @return mixed
      */
-    public function vueAttribute($key, $component = null)
+    public function vueAttribute($componentSelector, $key)
     {
-        $fullSelector = $this->resolver->format($component);
+        $fullSelector = $this->resolver->format($componentSelector);
 
         return $this->driver->executeScript(
             "return document.querySelector('" . $fullSelector . "').__vue__." . $key
@@ -712,9 +712,9 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    public function assertVueAttribute($key, $value, $component = null)
+    public function assertVueAttribute($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertEquals($value, $this->vueAttribute($key, $component));
+        PHPUnit::assertEquals($value, $this->vueAttribute($componentSelector, $key));
 
         return $this;
     }
@@ -727,9 +727,9 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    public function assertVueAttributeIsNot($key, $value, $component = null)
+    public function assertVueAttributeIsNot($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertNotEquals($value, $this->vueAttribute($key, $component));
+        PHPUnit::assertNotEquals($value, $this->vueAttribute($componentSelector, $key));
 
         return $this;
     }
@@ -742,9 +742,9 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    public function assertVueAttributeContains($key, $value, $component = null)
+    public function assertVueAttributeContains($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertContains($value, $this->vueAttribute($key, $component));
+        PHPUnit::assertContains($value, $this->vueAttribute($componentSelector, $key));
 
         return $this;
     }
@@ -757,9 +757,9 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    public function assertVueAttributeDoesNotContain($key, $value, $component = null)
+    public function assertVueAttributeDoesNotContain($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertNotContains($value, $this->vueAttribute($key, $component));
+        PHPUnit::assertNotContains($value, $this->vueAttribute($componentSelector, $key));
 
         return $this;
     }
