@@ -696,9 +696,9 @@ JS;
      * @param  string  $key
      * @return mixed
      */
-    public function vueAttribute($key)
+    public function vueAttribute($key, $component = null)
     {
-        $fullSelector = $this->resolver->format(null);
+        $fullSelector = $this->resolver->format($component);
 
         return $this->driver->executeScript(
             "return document.querySelector('" . $fullSelector . "').__vue__." . $key
@@ -712,9 +712,9 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    public function assertVueAttribute($key, $value)
+    public function assertVueAttribute($key, $value, $component = null)
     {
-        PHPUnit::assertEquals($value, $this->vueAttribute($key));
+        PHPUnit::assertEquals($value, $this->vueAttribute($key, $component));
 
         return $this;
     }
@@ -727,9 +727,9 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    public function assertVueAttributeIsNot($key, $value)
+    public function assertVueAttributeIsNot($key, $value, $component = null)
     {
-        PHPUnit::assertNotEquals($value, $this->vueAttribute($key));
+        PHPUnit::assertNotEquals($value, $this->vueAttribute($key, $component));
 
         return $this;
     }
@@ -742,9 +742,9 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    public function assertVueAttributeContains($key, $value)
+    public function assertVueAttributeContains($key, $value, $component = null)
     {
-        PHPUnit::assertContains($value, $this->vueAttribute($key));
+        PHPUnit::assertContains($value, $this->vueAttribute($key, $component));
 
         return $this;
     }
@@ -757,10 +757,9 @@ JS;
      * @param  string  $value
      * @return $this
      */
-
-    public function assertVueAttributeDoesNotContain($key, $value)
+    public function assertVueAttributeDoesNotContain($key, $value, $component = null)
     {
-        PHPUnit::assertNotContains($value, $this->vueAttribute($key));
+        PHPUnit::assertNotContains($value, $this->vueAttribute($key, $component));
 
         return $this;
     }
