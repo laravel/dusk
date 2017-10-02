@@ -691,28 +691,13 @@ JS;
     }
 
     /**
-     * Retrieve the value of the Vue component's attribute at the given key.
-     *
-     * @param  string  $key
-     * @return mixed
-     */
-    public function vueAttribute($componentSelector, $key)
-    {
-        $fullSelector = $this->resolver->format($componentSelector);
-
-        return $this->driver->executeScript(
-            "return document.querySelector('" . $fullSelector . "').__vue__." . $key
-        );
-    }
-
-    /**
      * Assert that the Vue component's attribute at the given key has the given value.
      *
      * @param  string  $key
      * @param  string  $value
      * @return $this
      */
-    public function assertVueAttribute($key, $value, $componentSelector = null)
+    public function assertVue($key, $value, $componentSelector = null)
     {
         PHPUnit::assertEquals($value, $this->vueAttribute($componentSelector, $key));
 
@@ -727,7 +712,7 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    public function assertVueAttributeIsNot($key, $value, $componentSelector = null)
+    public function assertVueIsNot($key, $value, $componentSelector = null)
     {
         PHPUnit::assertNotEquals($value, $this->vueAttribute($componentSelector, $key));
 
@@ -742,7 +727,7 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    public function assertVueAttributeContains($key, $value, $componentSelector = null)
+    public function assertVueContains($key, $value, $componentSelector = null)
     {
         PHPUnit::assertContains($value, $this->vueAttribute($componentSelector, $key));
 
@@ -757,10 +742,25 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    public function assertVueAttributeDoesNotContain($key, $value, $componentSelector = null)
+    public function assertVueDoesNotContain($key, $value, $componentSelector = null)
     {
         PHPUnit::assertNotContains($value, $this->vueAttribute($componentSelector, $key));
 
         return $this;
+    }
+
+    /**
+     * Retrieve the value of the Vue component's attribute at the given key.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    public function vueAttribute($componentSelector, $key)
+    {
+        $fullSelector = $this->resolver->format($componentSelector);
+
+        return $this->driver->executeScript(
+            "return document.querySelector('" . $fullSelector . "').__vue__." . $key
+        );
     }
 }
