@@ -90,6 +90,13 @@ class Browser
     public $page;
 
     /**
+     * The component object currently being viewed.
+     *
+     * @var mixed
+     */
+    public $component;
+
+    /**
      * Create a browser instance.
      *
      * @param  \Facebook\WebDriver\Remote\RemoteWebDriver  $driver
@@ -291,9 +298,30 @@ class Browser
             $browser->on($this->page);
         }
 
+        if ($selector instanceof Component) {
+            $browser->onComponent($selector, $this->resolver);
+        }
+
         call_user_func($callback, $browser);
 
         return $this;
+    }
+
+    public function onComponent($component, $parentResolver)
+    {
+        $this->component = $component;
+
+        // Here we will set the component elements on the resolver instance, which will allow
+        // the developer to access short-cuts for CSS selectors on the component which can
+        // allow for more expressive navigation and interaction with all the components.
+        $this->resolver->pageElements(
+            $component->elements() + $parentResolver->elements
+        );
+
+        $component->assert($this);
+
+        // Resolve element aliases and Dusk hooks in the root selector.
+        $this->resolver->prefix = $this->resolver->format($component->selector());
     }
 
     /**
@@ -392,6 +420,14 @@ class Browser
     {
         if (static::hasMacro($method)) {
             return $this->macroCall($method, $parameters);
+        }
+
+        if ($this->component && method_exists($this->component, $method)) {
+            array_unshift($parameters, $this);
+
+            $this->component->{$method}(...$parameters);
+
+            return $this;
         }
 
         if ($this->page && method_exists($this->page, $method)) {
