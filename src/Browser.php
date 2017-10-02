@@ -320,8 +320,9 @@ class Browser
 
         $component->assert($this);
 
-        // Resolve element aliases and Dusk hooks in the root selector.
-        $this->resolver->prefix = $this->resolver->format($component->selector());
+        $this->resolver->prefix = $this->resolver->format(
+            $component->selector()
+        );
     }
 
     /**

@@ -53,15 +53,14 @@ class InstallCommand extends Command
             $this->createConsoleDirectory();
         }
 
-        $subs = [
+        $stubs = [
             'ExampleTest.stub' => base_path('tests/Browser/ExampleTest.php'),
             'HomePage.stub' => base_path('tests/Browser/Pages/HomePage.php'),
             'DuskTestCase.stub' => base_path('tests/DuskTestCase.php'),
             'Page.stub' => base_path('tests/Browser/Pages/Page.php'),
-            'LoginComponent.stub' => base_path('tests/Browser/Components/LoginComponent.php'),
         ];
 
-        foreach ($subs as $stub => $file) {
+        foreach ($stubs as $stub => $file) {
             if (! is_file($file)) {
                 copy(__DIR__.'/../../stubs/'.$stub, $file);
             }
