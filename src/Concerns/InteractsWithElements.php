@@ -68,11 +68,17 @@ trait InteractsWithElements
      */
     public function clickLink($link)
     {
-        $this->ensurejQueryIsAvailable();
-
-        $selector = addslashes(trim($this->resolver->format("a:contains({$link})")));
-
-        $this->driver->executeScript("jQuery.find(\"{$selector}\")[0].click();");
+        $script = <<<JS
+        return Array.prototype.slice
+              .call(document.querySelectorAll("a"))
+              .filter(function(link) {
+                return link.innerHTML === "{$link}" && !!(link.offsetWidth || link.offsetHeight || link.getClientRects().length);
+              })
+              .forEach(function (link){
+                link.click();
+              })
+JS;
+        $this->driver->executeScript($script);
 
         return $this;
     }
