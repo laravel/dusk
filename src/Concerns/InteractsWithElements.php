@@ -71,7 +71,7 @@ trait InteractsWithElements
         $script = <<<JS
         return Array.prototype.slice
               .call(document.querySelectorAll("a"))
-              .some(function(link) {
+              .filter(function(link) {
                 return link.innerHTML === "{$link}" && !!(link.offsetWidth || link.offsetHeight || link.getClientRects().length);
               })
               .forEach(function (link){
