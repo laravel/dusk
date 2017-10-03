@@ -382,13 +382,12 @@ trait MakesAssertions
      */
     public function seeLink($link)
     {
-        $this->ensurejQueryIsAvailable();
-
-        $selector = addslashes(trim($this->resolver->format("a:contains('{$link}')")));
-
         $script = <<<JS
-            var link = jQuery.find("{$selector}");
-            return link.length > 0 && jQuery(link).is(':visible');
+        return Array.prototype.slice
+              .call(document.querySelectorAll("a"))
+              .some(function(link) {
+                return link.innerHTML === "{$link}" && !!(link.offsetWidth || link.offsetHeight || link.getClientRects().length);
+              });
 JS;
 
         return $this->driver->executeScript($script);
