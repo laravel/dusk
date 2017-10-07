@@ -139,7 +139,7 @@ trait WaitsForElements
 
         return $this->waitUsing($seconds, 100, function () use ($token) {
             return $this->driver->executeScript("return typeof window['{$token}'] === 'undefined';");
-        });
+        }, 'Waited %s seconds for page reload.');
     }
 
     /**
