@@ -15,7 +15,7 @@ class DuskCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dusk';
+    protected $signature = 'dusk {--disable-tty : Disable direct output to tty}';
 
     /**
      * The console command description.
@@ -54,7 +54,7 @@ class DuskCommand extends Command
 
         $this->purgeConsoleLogs();
 
-        $options = array_slice($_SERVER['argv'], 2);
+        $options = array_slice($_SERVER['argv'], $this->option('disable-tty') ? 3 : 2);
 
         return $this->withDuskEnvironment(function () use ($options) {
             $process = (new ProcessBuilder())
@@ -64,7 +64,7 @@ class DuskCommand extends Command
                 ->getProcess();
 
             try {
-                $process->setTty(true);
+                $process->setTty(!$this->option('disable-tty'));
             } catch (RuntimeException $e) {
                 $this->output->writeln('Warning: '.$e->getMessage());
             }
