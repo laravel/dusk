@@ -48,7 +48,7 @@ trait MakesAssertions
 
         $pattern = str_replace('\*', '.*', $pattern);
 
-        PHPUnit::assertRegExp('/^'.$pattern.'/u', parse_url(
+        PHPUnit::assertRegExp('/^'.$pattern.'$/u', parse_url(
             $this->driver->getCurrentURL()
         )['path']);
 
