@@ -763,4 +763,25 @@ JS;
             "return document.querySelector('" . $fullSelector . "').__vue__." . $key
         );
     }
+
+
+    /**
+     * Assert that body element has the given class.
+     *
+     * @param  string  $class
+     * @return $this
+     */
+    public function assertBodyHasClass($class)
+    {
+        $script = <<<JS
+            return document.body.classList.contains('{$class}');
+JS;
+
+        PHPUnit::assertTrue(
+            $this->driver->executeScript($script),
+            'Did not see expected class attribute in body element.'
+        );
+
+        return $this;
+    }
 }
