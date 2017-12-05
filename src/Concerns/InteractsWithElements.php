@@ -64,13 +64,14 @@ trait InteractsWithElements
      * Click the link with the given text.
      *
      * @param  string  $link
+     * @param  string  $element
      * @return $this
      */
-    public function clickLink($link)
+    public function clickLink($link, $element = "a")
     {
         $this->ensurejQueryIsAvailable();
 
-        $selector = addslashes(trim($this->resolver->format("a:contains({$link})")));
+        $selector = addslashes(trim($this->resolver->format("{$element}:contains({$link})")));
 
         $this->driver->executeScript("jQuery.find(\"{$selector}\")[0].click();");
 
