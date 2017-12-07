@@ -763,4 +763,53 @@ JS;
             "return document.querySelector('" . $fullSelector . "').__vue__." . $key
         );
     }
+    
+    /**
+     * Assert that the current URL fragement matches the given pattern.
+     *
+     * @param  string  $fragement
+     * @return $this
+     */
+    public function assertUrlFragmentIs($fragement)
+    {
+        $pattern = preg_quote($fragement, '/');
+	
+        $pattern = str_replace('\*', '.*', $pattern);
+	
+        PHPUnit::assertRegExp('/^'.$pattern.'$/u', (string) parse_url(
+            $this->driver->executeScript('return window.location.href;')
+        , PHP_URL_FRAGMENT));
+	
+        return $this;
+    }
+    
+    /**
+     * Assert that the current URL fragement begins with given fragement.
+     *
+     * @param  string  $fragement
+     * @return $this
+     */
+    public function assertUrlFragmentBeginsWith($fragement)
+    {
+        PHPUnit::assertStringStartsWith($fragement, (string) parse_url(
+            $this->driver->executeScript('return window.location.href;')
+        , PHP_URL_FRAGMENT));
+        
+        return $this;
+    }
+    
+    /**
+     * Assert that the current URL fragement does not match the given fragement.
+     *
+     * @param  string  $fragement
+     * @return $this
+     */
+    public function assertUrlFragmentIsNot($fragement)
+    {
+        PHPUnit::assertNotEquals($fragement, (string) parse_url(
+            $this->driver->executeScript('return window.location.href;')
+        , PHP_URL_FRAGMENT));
+        
+        return $this;
+    }
 }
