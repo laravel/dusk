@@ -4,7 +4,6 @@ namespace Laravel\Dusk\Chrome;
 
 use RuntimeException;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 class ChromeProcess
 {
@@ -38,13 +37,13 @@ class ChromeProcess
     public function toProcess()
     {
         if ($this->driver) {
-            return $this->fromProcessBuilder();
+            return $this->process();
         }
 
         if ($this->onWindows()) {
             $this->driver = realpath(__DIR__.'/../../bin/chromedriver-win.exe');
 
-            return $this->fromProcessBuilder();
+            return $this->process();
         }
 
         $this->driver = $this->onMac()
@@ -64,19 +63,6 @@ class ChromeProcess
         return (new Process(
             [realpath($this->driver)], null, $this->chromeEnvironment()
         ));
-    }
-
-    /**
-     * Build the Chrome process through Symfony ProcessBuilder component.
-     *
-     * @return \Symfony\Component\Process\Process
-     */
-    protected function fromProcessBuilder()
-    {
-        return (new ProcessBuilder)
-            ->setPrefix(realpath($this->driver))
-            ->getProcess()
-            ->setEnv($this->chromeEnvironment());
     }
 
     /**
