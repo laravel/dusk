@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Chrome;
 
 use RuntimeException;
+use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
 
 class ChromeProcess
@@ -80,13 +81,13 @@ class ChromeProcess
     }
 
     /**
-     * Determine if Dusk is running on Windows.
+     * Determine if Dusk is running on Windows or Windows Subsystem for Linux.
      *
      * @return bool
      */
     protected function onWindows()
     {
-        return PHP_OS === 'WINNT';
+        return PHP_OS === 'WINNT' || Str::contains(php_uname(), 'Microsoft');
     }
 
     /**
