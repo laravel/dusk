@@ -34,7 +34,7 @@ abstract class Component
 
     /**
      * Allow this class to be used in place of a selector string.
-     * 
+     *
      * @return string
      */
     public function __toString()

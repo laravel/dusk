@@ -122,7 +122,7 @@ class ElementResolver
             return [];
         }
 
-        return array_filter($options, function($option) use ($values) {
+        return array_filter($options, function ($option) use ($values) {
             return in_array($option->getAttribute('value'), $values);
         });
     }
@@ -360,7 +360,7 @@ class ElementResolver
      */
     public function format($selector)
     {
-        $sortedElements = collect($this->elements)->sortByDesc(function($element, $key){
+        $sortedElements = collect($this->elements)->sortByDesc(function ($element, $key) {
             return strlen($key);
         })->toArray();
 

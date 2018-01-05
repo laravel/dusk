@@ -2,9 +2,7 @@
 
 namespace Laravel\Dusk\Chrome;
 
-use RuntimeException;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 trait SupportsChrome
 {
