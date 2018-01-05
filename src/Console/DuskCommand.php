@@ -5,7 +5,7 @@ namespace Laravel\Dusk\Console;
 use Dotenv\Dotenv;
 use Illuminate\Console\Command;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Process\ProcessBuilder;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\RuntimeException;
 
 class DuskCommand extends Command
@@ -57,11 +57,9 @@ class DuskCommand extends Command
         $options = array_slice($_SERVER['argv'], $this->option('without-tty') ? 3 : 2);
 
         return $this->withDuskEnvironment(function () use ($options) {
-            $process = (new ProcessBuilder())
-                ->setTimeout(null)
-                ->setPrefix($this->binary())
-                ->setArguments($this->phpunitArguments($options))
-                ->getProcess();
+            $process = (new Process(
+                $this->binary() + $this->phpunitArguments($options)
+            ))->setTimeout(null);
 
             try {
                 $process->setTty(! $this->option('without-tty'));
