@@ -57,9 +57,9 @@ class DuskCommand extends Command
         $options = array_slice($_SERVER['argv'], $this->option('without-tty') ? 3 : 2);
 
         return $this->withDuskEnvironment(function () use ($options) {
-            $process = (new Process(
-                $this->binary() + $this->phpunitArguments($options)
-            ))->setTimeout(null);
+            $process = (new Process(array_merge(
+                $this->binary(), $this->phpunitArguments($options)
+            )))->setTimeout(null);
 
             try {
                 $process->setTty(! $this->option('without-tty'));
