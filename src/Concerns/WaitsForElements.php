@@ -122,6 +122,23 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for a JavaScript dialog to open.
+     *
+     * @param  int  $seconds
+     * @return $this
+     */
+    public function waitForDialog($seconds = null)
+    {
+        $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
+
+        $this->driver->wait($seconds, 100)->until(
+            WebDriverExpectedCondition::alertIsPresent(), "Waited {$seconds} seconds for dialog."
+        );
+
+        return $this;
+    }
+
+    /**
      * Wait for the current page to reload.
      *
      * @param  Closure  $callback
@@ -179,23 +196,6 @@ trait WaitsForElements
 
             $this->pause($interval);
         }
-
-        return $this;
-    }
-
-    /**
-     * Wait for a JavaScript dialog to be open.
-     *
-     * @param  int  $seconds
-     * @return $this
-     */
-    public function waitForDialog($seconds = null)
-    {
-        $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
-
-        $message = "Waited {$seconds} seconds for dialog.";
-
-        $this->driver->wait($seconds, 100)->until(WebDriverExpectedCondition::alertIsPresent(), $message);
 
         return $this;
     }

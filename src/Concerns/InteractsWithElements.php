@@ -420,18 +420,6 @@ trait InteractsWithElements
     }
 
     /**
-     * Dismiss a JavaScript dialog.
-     *
-     * @return $this
-     */
-    public function dismissDialog()
-    {
-        $this->driver->switchTo()->alert()->dismiss();
-
-        return $this;
-    }
-
-    /**
      * Type the given value in an open JavaScript prompt dialog.
      *
      * @param  string  $value
@@ -440,6 +428,18 @@ trait InteractsWithElements
     public function typeInDialog($value)
     {
         $this->driver->switchTo()->alert()->sendKeys($value);
+
+        return $this;
+    }
+
+    /**
+     * Dismiss a JavaScript dialog.
+     *
+     * @return $this
+     */
+    public function dismissDialog()
+    {
+        $this->driver->switchTo()->alert()->dismiss();
 
         return $this;
     }
