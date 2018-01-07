@@ -38,6 +38,22 @@ class ChromeProcessTest extends TestCase
         $this->assertContains('chromedriver-linux', $process->getCommandLine());
     }
 
+    public function test_build_process_without_port()
+    {
+        $process = (new ChromeProcessLinux)->toProcess();
+
+        $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
+        $this->assertContains('--port=9515', $process->getCommandLine());
+    }
+
+    public function test_build_process_with_port()
+    {
+        $process = (new ChromeProcessLinux(null, 8888))->toProcess();
+
+        $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
+        $this->assertContains('--port=8888', $process->getCommandLine());
+    }
+
     public function test_invalid_path()
     {
         $this->expectException(RuntimeException::class);
