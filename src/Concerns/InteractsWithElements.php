@@ -430,4 +430,17 @@ trait InteractsWithElements
 
         return $this;
     }
+
+    /**
+     * Type the given value in an open JavaScript prompt dialog.
+     *
+     * @param  string  $value
+     * @return $this
+     */
+    public function typeInDialog($value)
+    {
+        $this->driver->switchTo()->alert()->sendKeys($value);
+
+        return $this;
+    }
 }
