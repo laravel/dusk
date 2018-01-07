@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Facebook\WebDriver\Exception\TimeOutException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
+use Facebook\WebDriver\WebDriverExpectedCondition;
 
 trait WaitsForElements
 {
@@ -178,6 +179,23 @@ trait WaitsForElements
 
             $this->pause($interval);
         }
+
+        return $this;
+    }
+
+    /**
+     * Wait for a JavaScript dialog to be open.
+     *
+     * @param  int  $seconds
+     * @return $this
+     */
+    public function waitForDialog($seconds = null)
+    {
+        $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
+
+        $message = "Waited {$seconds} seconds for dialog.";
+
+        $this->driver->wait($seconds, 100)->until(WebDriverExpectedCondition::alertIsPresent(), $message);
 
         return $this;
     }
