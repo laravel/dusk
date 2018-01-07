@@ -14,7 +14,7 @@ trait InteractsWithElements
      * Get all of the elements matching the given selector.
      *
      * @param  string  $selector
-     * @return array
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement[]
      */
     public function elements($selector)
     {
