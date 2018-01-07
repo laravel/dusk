@@ -86,7 +86,7 @@ trait InteractsWithAuthentication
     /**
      * Assert that the user is authenticated as the given user.
      *
-     * @param  $user
+     * @param  dynamic $user
      * @param  string|null  $guard
      * @return $this
      */
