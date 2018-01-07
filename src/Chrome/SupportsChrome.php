@@ -25,13 +25,15 @@ trait SupportsChrome
     /**
      * Start the Chromedriver process.
      *
+     * @param  int     $port
+     *
      * @throws \RuntimeException if the driver file path doesn't exist.
      *
      * @return void
      */
-    public static function startChromeDriver()
+    public static function startChromeDriver(int $port = null)
     {
-        static::$chromeProcess = static::buildChromeProcess();
+        static::$chromeProcess = static::buildChromeProcess($port);
 
         static::$chromeProcess->start();
 
@@ -55,13 +57,15 @@ trait SupportsChrome
     /**
      * Build the process to run the Chromedriver.
      *
+     * @param  int     $port
+     *
      * @throws \RuntimeException if the driver file path doesn't exist.
      *
      * @return \Symfony\Component\Process\Process
      */
-    protected static function buildChromeProcess()
+    protected static function buildChromeProcess(int $port = null)
     {
-        return (new ChromeProcess(static::$chromeDriver))->toProcess();
+        return (new ChromeProcess(static::$chromeDriver, $port))->toProcess();
     }
 
     /**
