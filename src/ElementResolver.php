@@ -111,7 +111,7 @@ class ElementResolver
      *
      * @param string  $field
      * @param array  $values
-     * @return array
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement[]
      */
     public function resolveSelectOptions($field, array $values)
     {
@@ -337,7 +337,7 @@ class ElementResolver
      * Find the elements by the given selector or return an empty array.
      *
      * @param  string  $selector
-     * @return array
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement[]
      */
     public function all($selector)
     {
