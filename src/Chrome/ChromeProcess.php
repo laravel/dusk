@@ -32,8 +32,8 @@ class ChromeProcess
      */
     public function __construct($driver = null, $port = 9515)
     {
-        $this->driver = $driver;
         $this->port = $port;
+        $this->driver = $driver;
 
         if (! is_null($driver) && realpath($driver) === false) {
             throw new RuntimeException("Invalid path to Chromedriver [{$driver}].");

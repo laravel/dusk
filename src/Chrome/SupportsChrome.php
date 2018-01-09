@@ -25,13 +25,12 @@ trait SupportsChrome
     /**
      * Start the Chromedriver process.
      *
-     * @param  int     $port
-     *
+     * @param  int  $port
      * @throws \RuntimeException if the driver file path doesn't exist.
      *
      * @return void
      */
-    public static function startChromeDriver(int $port = null)
+    public static function startChromeDriver($port = null)
     {
         static::$chromeProcess = static::buildChromeProcess($port);
 

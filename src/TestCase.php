@@ -17,6 +17,13 @@ abstract class TestCase extends FoundationTestCase
     use SupportsChrome;
 
     /**
+     * The port to run the browser driver on.
+     *
+     * @var int
+     */
+    protected static $port = 9515;
+
+    /**
      * All of the active browser instances.
      *
      * @var array
@@ -29,13 +36,6 @@ abstract class TestCase extends FoundationTestCase
      * @var array
      */
     protected static $afterClassCallbacks = [];
-
-    /**
-     * The port to run the ChromeDriver on.
-     *
-     * @var int
-     */
-    protected static $port = 9515;
 
     /**
      * Register the base URL with Dusk.
@@ -55,18 +55,6 @@ abstract class TestCase extends FoundationTestCase
         Browser::$userResolver = function () {
             return $this->user();
         };
-    }
-
-    /**
-     * Set the port to run the ChromeDriver on.
-     *
-     * @param  int     $port
-     *
-     * @return void
-     */
-    public static function setPort(int $port)
-    {
-        static::$port = 9515;
     }
 
     /**
@@ -238,8 +226,19 @@ abstract class TestCase extends FoundationTestCase
     protected function driver()
     {
         return RemoteWebDriver::create(
-            'http://localhost:' . static::$port, DesiredCapabilities::chrome()
+            'http://localhost:'.static::$port, DesiredCapabilities::chrome()
         );
+    }
+
+    /**
+     * Set the port to run the browser driver on.
+     *
+     * @param  int  $port
+     * @return void
+     */
+    public static function usePort($port)
+    {
+        static::$port = $port;
     }
 
     /**
