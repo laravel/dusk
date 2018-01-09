@@ -16,13 +16,22 @@ class ChromeProcess
     protected $driver;
 
     /**
+     * The port to run the Chromedriver on.
+     *
+     * @var int
+     */
+    protected $port;
+
+    /**
      * Create a new ChromeProcess instance.
      *
      * @param  string  $driver
+     * @param  int     $port
      * @return void
      */
-    public function __construct($driver = null)
+    public function __construct($driver = null, $port = 9515)
     {
+        $this->port = $port;
         $this->driver = $driver;
 
         if (! is_null($driver) && realpath($driver) === false) {
@@ -62,7 +71,7 @@ class ChromeProcess
     protected function process()
     {
         return (new Process(
-            [realpath($this->driver)], null, $this->chromeEnvironment()
+            [realpath($this->driver), " --port={$this->port}"], null, $this->chromeEnvironment()
         ));
     }
 
