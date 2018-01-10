@@ -702,7 +702,7 @@ JS;
     }
     
     /**
-     * Assert that the element with the given selector is present in DOM.
+     * Assert that the element with the given selector is present in the DOM.
      *
      * @param  string  $selector
      * @return $this
