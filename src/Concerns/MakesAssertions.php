@@ -37,6 +37,31 @@ trait MakesAssertions
     }
 
     /**
+     * Assert that the current URL matches the given URL.
+     *
+     * @param  string  $url
+     * @return $this
+     */
+    public function assertUrlIs($url)
+    {
+        $pattern = str_replace('\*', '.*', preg_quote($url, '/'));
+
+        $segments = parse_url($this->driver->getCurrentURL());
+
+        $currentUrl = sprintf(
+            '%s://%s%s%s',
+            $segments['scheme'],
+            $segments['host'],
+            array_get($segments, 'port', '') ? ':'.$segments['port'] : '',
+            array_get($segments, 'path', '')
+        );
+
+        PHPUnit::assertRegExp('/^'.$pattern.'$/u', $currentUrl);
+
+        return $this;
+    }
+
+    /**
      * Assert that the current URL path matches the given pattern.
      *
      * @param  string  $path

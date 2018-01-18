@@ -22,4 +22,19 @@ class MakesAssertionsTest extends TestCase
         $browser->assertPathIs('foo/*/bar/*');
         $browser->assertPathIs('foo/1/bar/1');
     }
+
+    public function test_assert_url_is()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getCurrentURL')->once()->andReturn(
+            'http://www.google.com?foo=bar',
+            'http://www.google.com:80/test?foo=bar',
+            'http://www.google.com:80/test?foo=bar'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertUrlIs('http://www.google.com');
+        $browser->assertUrlIs('http://www.google.com:80/test');
+        $browser->assertUrlIs('*google*');
+    }
 }
