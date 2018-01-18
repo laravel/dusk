@@ -17,13 +17,6 @@ abstract class TestCase extends FoundationTestCase
     use SupportsChrome;
 
     /**
-     * The port to run the browser driver on.
-     *
-     * @var int
-     */
-    protected static $port = 9515;
-
-    /**
      * All of the active browser instances.
      *
      * @var array
@@ -226,19 +219,8 @@ abstract class TestCase extends FoundationTestCase
     protected function driver()
     {
         return RemoteWebDriver::create(
-            'http://localhost:'.static::$port, DesiredCapabilities::chrome()
+            'http://localhost:9515', DesiredCapabilities::chrome()
         );
-    }
-
-    /**
-     * Set the port to run the browser driver on.
-     *
-     * @param  int  $port
-     * @return void
-     */
-    public static function usePort($port)
-    {
-        static::$port = $port;
     }
 
     /**
