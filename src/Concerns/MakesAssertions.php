@@ -725,6 +725,24 @@ JS;
 
         return $this;
     }
+    
+    /**
+     * Assert that the element with the given selector is present in the DOM.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function assertPresent($selector)
+    {
+        $fullSelector = $this->resolver->format($selector);
+
+        PHPUnit::assertTrue(
+            count($this->resolver->find($selector)) > 0,
+            "Element [{$fullSelector}] is not present."
+        );
+
+        return $this;
+    }
 
     /**
      * Assert that the element with the given selector is not on the page.
