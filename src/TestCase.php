@@ -4,10 +4,10 @@ namespace Laravel\Dusk;
 
 use Closure;
 use Exception;
-use Laravel\Dusk\Chrome\SupportsChrome;
 use Throwable;
 use ReflectionFunction;
 use Illuminate\Support\Collection;
+use Laravel\Dusk\Chrome\SupportsChrome;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Illuminate\Foundation\Testing\TestCase as FoundationTestCase;
@@ -15,13 +15,6 @@ use Illuminate\Foundation\Testing\TestCase as FoundationTestCase;
 abstract class TestCase extends FoundationTestCase
 {
     use SupportsChrome;
-
-    /**
-     * The port to run the browser driver on.
-     *
-     * @var int
-     */
-    protected static $port = 9515;
 
     /**
      * All of the active browser instances.
@@ -226,19 +219,8 @@ abstract class TestCase extends FoundationTestCase
     protected function driver()
     {
         return RemoteWebDriver::create(
-            'http://localhost:'.static::$port, DesiredCapabilities::chrome()
+            'http://localhost:9515', DesiredCapabilities::chrome()
         );
-    }
-
-    /**
-     * Set the port to run the browser driver on.
-     *
-     * @param  int  $port
-     * @return void
-     */
-    public static function usePort($port)
-    {
-        static::$port = $port;
     }
 
     /**
