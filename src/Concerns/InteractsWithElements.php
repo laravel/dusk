@@ -214,9 +214,7 @@ trait InteractsWithElements
 
         if (is_null($value)) {
             $options[array_rand($options)]->click();
-        }
-
-        else {
+        } else {
             foreach ($options as $option) {
                 if ((string) $option->getAttribute('value') === (string) $value) {
                     $option->click();

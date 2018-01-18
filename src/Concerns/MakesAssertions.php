@@ -554,7 +554,7 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    function assertRadioSelected($field, $value)
+    public function assertRadioSelected($field, $value)
     {
         $element = $this->resolver->resolveForRadioSelection($field, $value);
 

@@ -4,10 +4,10 @@ namespace Laravel\Dusk;
 
 use Closure;
 use Exception;
-use Laravel\Dusk\Chrome\SupportsChrome;
 use Throwable;
 use ReflectionFunction;
 use Illuminate\Support\Collection;
+use Laravel\Dusk\Chrome\SupportsChrome;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Illuminate\Foundation\Testing\TestCase as FoundationTestCase;
