@@ -6,6 +6,7 @@ use Closure;
 use Exception;
 use Throwable;
 use ReflectionFunction;
+use Laravel\Dusk\Browser;
 use Illuminate\Support\Collection;
 
 trait ProvidesBrowser
