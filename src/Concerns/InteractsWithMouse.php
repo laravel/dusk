@@ -24,8 +24,8 @@ trait InteractsWithMouse
     /**
      * Move the mouse by some offset x and y.
      * 
-     * @param integer $x
-     * @param integer $y
+     * @param integer $x_offset
+     * @param integer $y_offset
      */
     public function mouseMoveByOffset($x_offset, $y_offset)
     {
