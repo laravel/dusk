@@ -24,13 +24,14 @@ trait InteractsWithMouse
     /**
      * Move the mouse by some offset x and y.
      * 
-     * @param integer $x_offset
-     * @param integer $y_offset
+     * @param integer $xOffset
+     * @param integer $yOffset
+     * @return $this
      */
-    public function mouseMoveByOffset($x_offset, $y_offset)
+    public function mouseMoveByOffset($xOffset, $yOffset)
     {
         (new WebDriverActions($this->driver))->moveByOffset(
-            $x_offset, $y_offset
+            $xOffset, $yOffset
         )->perform();
 
         return $this;
@@ -40,6 +41,8 @@ trait InteractsWithMouse
      * Perform click action at the current mouse position.
      * Use after mouseMoveByOffset or other method 
      * which combines some selector.
+     * 
+     * @return $this
      */
     public function mouseClick()
     {
@@ -50,6 +53,8 @@ trait InteractsWithMouse
 
     /**
      * Perform click and hold mouse action at the current mouse position.
+     * 
+     * @return $this
      */
     public function mouseClickAndHold()
     {
@@ -60,6 +65,8 @@ trait InteractsWithMouse
 
     /**
      * Perform context click mouse action at the current mouse position.
+     * 
+     * @return $this
      */
     public function mouseContextClick()
     {
@@ -70,6 +77,8 @@ trait InteractsWithMouse
 
     /**
      * Perform double click action at the current mouse position.
+     * 
+     * @return $this
      */
     public function mouseDoubleClick()
     {
@@ -80,6 +89,8 @@ trait InteractsWithMouse
 
     /**
      * Release currenctly clicked mouse button.
+     * 
+     * @return $this
      */
     public function mouseRelease()
     {
