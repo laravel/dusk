@@ -2,6 +2,8 @@
 
 namespace Laravel\Dusk\Concerns;
 
+use Facebook\WebDriver\Remote\RemoteWebElement;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Facebook\WebDriver\Exception\NoSuchElementException;
@@ -628,9 +630,15 @@ JS;
      */
     public function assertSelectHasOptions($field, array $values)
     {
+        $options = $this->resolver->resolveSelectOptions($field, $values);
+
+        $options = (new Collection($options))->unique(function (RemoteWebElement $option) {
+            return $option->getAttribute('value');
+        })->all();
+
         PHPUnit::assertCount(
             count($values),
-            $this->resolver->resolveSelectOptions($field, $values),
+            $options,
             "Expected options [".implode(',', $values)."] for selection field [{$field}] to be available."
         );
 
