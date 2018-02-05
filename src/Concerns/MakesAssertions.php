@@ -2,10 +2,10 @@
 
 namespace Laravel\Dusk\Concerns;
 
-use Facebook\WebDriver\Remote\RemoteWebElement;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\Assert as PHPUnit;
+use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 
 trait MakesAssertions
@@ -632,13 +632,12 @@ JS;
     {
         $options = $this->resolver->resolveSelectOptions($field, $values);
 
-        $options = (new Collection($options))->unique(function (RemoteWebElement $option) {
+        $options = collect($options)->unique(function (RemoteWebElement $option) {
             return $option->getAttribute('value');
         })->all();
 
         PHPUnit::assertCount(
-            count($values),
-            $options,
+            count($values), $options,
             "Expected options [".implode(',', $values)."] for selection field [{$field}] to be available."
         );
 
