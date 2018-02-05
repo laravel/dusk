@@ -239,7 +239,7 @@ trait MakesAssertions
             "Did not see expected query string parameter [{$name}] in [".$this->driver->getCurrentURL()."]."
         );
 
-        return $output;
+        return $this;
     }
 
     /**
