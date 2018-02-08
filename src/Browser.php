@@ -50,7 +50,6 @@ class Browser
      */
     public static $supportsRemoteLogs = [
         WebDriverBrowserType::CHROME,
-        WebDriverBrowserType::SAFARI,
         WebDriverBrowserType::PHANTOMJS,
     ];
 
