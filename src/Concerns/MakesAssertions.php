@@ -223,7 +223,7 @@ trait MakesAssertions
      * Assert that the given query string parameter is present.
      *
      * @param  string  $name
-     * @return $this
+     * @return array
      */
     protected function assertHasQueryStringParameter($name)
     {
@@ -241,7 +241,7 @@ trait MakesAssertions
             "Did not see expected query string parameter [{$name}] in [".$this->driver->getCurrentURL()."]."
         );
 
-        return $this;
+        return $output;
     }
 
     /**
