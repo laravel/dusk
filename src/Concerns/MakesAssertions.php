@@ -180,12 +180,14 @@ trait MakesAssertions
      */
     public function assertQueryStringHas($name, $value = null)
     {
-        $output = $this->assertHasQueryStringParameter($name);
+        $this->assertHasQueryStringParameter($name);
 
         if (is_null($value)) {
             return $this;
         }
-
+        
+        parse_str(parse_url($this->driver->getCurrentURL())['query'], $output);
+        
         PHPUnit::assertEquals(
             $value, $output[$name],
             "Query string parameter [{$name}] had value [{$output[$name]}], but expected [{$value}]."
