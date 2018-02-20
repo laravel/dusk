@@ -5,7 +5,7 @@ namespace Laravel\Dusk\Http\Middleware;
 use Closure;
 use Laravel\Dusk\Facades\Faking;
 
-class SaveFaking
+class SaveFacadeFakes
 {
     /**
      * Handle an incoming request.

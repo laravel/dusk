@@ -14,7 +14,8 @@ class FakingController
      */
     public function fake(string $facade)
     {
-        Faking::fake($facade);
+        $arguments = json_decode(request('arguments'));
+        Faking::fake($facade, ...$arguments);
     }
 
     /**

@@ -42,12 +42,13 @@ abstract class Driver
      * Replace facade instance with a fake.
      *
      * @param  string   $facade
+     * @param  mixed[]  ...$arguments
      * @return void
      */
-    public function fake(string $facade)
+    public function fake(string $facade, ...$arguments)
     {
         if (!$this->has($facade)) {
-            $fake = $this->createFake($facade);
+            $fake = $this->createFake($facade, ...$arguments);
             $facade::swap($fake);
             $this->fakes[$facade] = $fake;
         }
@@ -90,11 +91,12 @@ abstract class Driver
     * Create a facade fake.
     *
     * @param $facade   string
+    * @param  mixed[]  ...$arguments
     * @return mixed
     */
-    protected function createFake(string $facade)
+    protected function createFake(string $facade, ...$arguments)
     {
-        $facade::fake();
+        $facade::fake(...$arguments);
 
         return $facade::getFacadeRoot();
     }

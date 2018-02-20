@@ -6,10 +6,10 @@ use Exception;
 use Illuminate\Support\Facades\Route;
 use Laravel\Dusk\Faking\FakingManager;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Dusk\Http\Middleware\SaveFaking;
-use Laravel\Dusk\Http\Middleware\StartFaking;
+use Laravel\Dusk\Http\Middleware\SaveFacadeFakes;
 use Laravel\Dusk\Http\Controllers\FakingController;
 use Illuminate\Contracts\Http\Kernel as HttpKernel;
+use Laravel\Dusk\Http\Middleware\StartFakingFacades;
 
 class DuskServiceProvider extends ServiceProvider
 {
@@ -50,8 +50,8 @@ class DuskServiceProvider extends ServiceProvider
             ]);
         } else {
             $kernel = $this->app->make(HttpKernel::class);
-            $kernel->pushMiddleware(StartFaking::class);
-            $kernel->pushMiddleware(SaveFaking::class);
+            $kernel->pushMiddleware(StartFakingFacades::class);
+            $kernel->pushMiddleware(SaveFacadeFakes::class);
         }
 
     }
