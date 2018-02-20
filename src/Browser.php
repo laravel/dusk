@@ -18,6 +18,7 @@ class Browser
         Concerns\InteractsWithMouse,
         Concerns\MakesAssertions,
         Concerns\WaitsForElements,
+        Concerns\FakesFacades,
         Macroable {
             __call as macroCall;
         }

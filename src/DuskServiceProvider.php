@@ -4,7 +4,12 @@ namespace Laravel\Dusk;
 
 use Exception;
 use Illuminate\Support\Facades\Route;
+use Laravel\Dusk\Faking\FakingManager;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Dusk\Http\Middleware\SaveFacadeFakes;
+use Laravel\Dusk\Http\Controllers\FakingController;
+use Illuminate\Contracts\Http\Kernel as HttpKernel;
+use Laravel\Dusk\Http\Middleware\StartFakingFacades;
 
 class DuskServiceProvider extends ServiceProvider
 {
@@ -14,6 +19,49 @@ class DuskServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
+    {
+        $this->bootAuthRoutes();
+        $this->bootFakingRoutes();
+    }
+
+    /**
+     * Register any package services.
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function register()
+    {
+        if ($this->app->environment('production')) {
+            throw new Exception('It is unsafe to run Dusk in production.');
+        }
+
+        $this->app->singleton('faking', function ($app) {
+            return new FakingManager($app);
+        });
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\InstallCommand::class,
+                Console\DuskCommand::class,
+                Console\MakeCommand::class,
+                Console\PageCommand::class,
+                Console\ComponentCommand::class,
+            ]);
+        } else {
+            $kernel = $this->app->make(HttpKernel::class);
+            $kernel->pushMiddleware(StartFakingFacades::class);
+            $kernel->pushMiddleware(SaveFacadeFakes::class);
+        }
+
+    }
+
+    /**
+     * Boot auth routes.
+     *
+     * @return void
+     */
+    protected function bootAuthRoutes()
     {
         Route::get('/_dusk/login/{userId}/{guard?}', [
             'middleware' => 'web',
@@ -32,25 +80,20 @@ class DuskServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register any package services.
+     * Boot faking routes.
      *
      * @return void
-     * @throws Exception
      */
-    public function register()
+    protected function bootFakingRoutes()
     {
-        if ($this->app->environment('production')) {
-            throw new Exception('It is unsafe to run Dusk in production.');
-        }
+        Route::get('/_dusk/fake/{facade}', [
+            'middleware' => 'web',
+            'uses' => 'Laravel\Dusk\Http\Controllers\FakingController@fake',
+        ]);
 
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                Console\InstallCommand::class,
-                Console\DuskCommand::class,
-                Console\MakeCommand::class,
-                Console\PageCommand::class,
-                Console\ComponentCommand::class,
-            ]);
-        }
+        Route::get('/_dusk/get-fake/{facade}', [
+            'middleware' => 'web',
+            'uses' => 'Laravel\Dusk\Http\Controllers\FakingController@getFake',
+        ]);
     }
 }
