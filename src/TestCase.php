@@ -2,11 +2,7 @@
 
 namespace Laravel\Dusk;
 
-use Closure;
 use Exception;
-use Throwable;
-use ReflectionFunction;
-use Illuminate\Support\Collection;
 use Laravel\Dusk\Chrome\SupportsChrome;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
