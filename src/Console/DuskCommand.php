@@ -86,6 +86,7 @@ class DuskCommand extends Command
     /**
      * Get the array of arguments for running PHPUnit.
      *
+     * @param  array  $options
      * @return array
      */
     protected function phpunitArguments($options)

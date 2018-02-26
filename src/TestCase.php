@@ -48,7 +48,7 @@ abstract class TestCase extends FoundationTestCase
     /**
      * Determine the application's base URL.
      *
-     * @var string
+     * @return string
      */
     protected function baseUrl()
     {
