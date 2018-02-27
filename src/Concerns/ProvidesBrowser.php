@@ -132,7 +132,9 @@ trait ProvidesBrowser
     protected function captureFailuresFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            $browser->screenshot('failure-'.$this->getName().'-'.$key);
+            $name = str_replace(['\\', ':'], '_', $this->toString());
+
+            $browser->screenshot('failure-'.$name.'-'.$key);
         });
     }
 
@@ -145,7 +147,9 @@ trait ProvidesBrowser
     protected function storeConsoleLogsFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            $browser->storeConsoleLog($this->getName().'-'.$key);
+            $name = str_replace(['\\', ':'], '_', $this->toString());
+
+            $browser->storeConsoleLog($name.'-'.$key);
         });
     }
 
