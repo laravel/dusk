@@ -3,7 +3,6 @@
 namespace Laravel\Dusk\Concerns;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\Exception\NoSuchElementException;
@@ -792,6 +791,7 @@ JS;
      *
      * @param  string  $key
      * @param  string  $value
+     * @param  string|null  $componentSelector
      * @return $this
      */
     public function assertVue($key, $value, $componentSelector = null)
@@ -807,6 +807,7 @@ JS;
      *
      * @param  string  $key
      * @param  string  $value
+     * @param  string|null  $componentSelector
      * @return $this
      */
     public function assertVueIsNot($key, $value, $componentSelector = null)
@@ -822,6 +823,7 @@ JS;
      *
      * @param  string  $key
      * @param  string  $value
+     * @param  string|null  $componentSelector
      * @return $this
      */
     public function assertVueContains($key, $value, $componentSelector = null)
@@ -837,6 +839,7 @@ JS;
      *
      * @param  string  $key
      * @param  string  $value
+     * @param  string|null  $componentSelector
      * @return $this
      */
     public function assertVueDoesNotContain($key, $value, $componentSelector = null)
@@ -849,6 +852,7 @@ JS;
     /**
      * Retrieve the value of the Vue component's attribute at the given key.
      *
+     * @param  string  $componentSelector
      * @param  string  $key
      * @return mixed
      */

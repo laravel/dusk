@@ -2,8 +2,6 @@
 
 namespace Laravel\Dusk\Chrome;
 
-use Symfony\Component\Process\Process;
-
 trait SupportsChrome
 {
     /**
