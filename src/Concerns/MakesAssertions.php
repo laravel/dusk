@@ -31,7 +31,8 @@ trait MakesAssertions
     public function assertTitleContains($title)
     {
         PHPUnit::assertTrue(
-            Str::contains($this->driver->getTitle(), $title)
+            Str::contains($this->driver->getTitle(), $title),
+            "Did not see expected value [{$title}] within title [{$this->driver->getTitle()}]."
         );
 
         return $this;
