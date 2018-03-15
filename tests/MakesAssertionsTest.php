@@ -6,10 +6,77 @@ use PHPUnit\Framework\TestCase;
 
 class MakesAssertionsTest extends TestCase
 {
-    public function test_assert_path_is()
+    public function test_assert_title()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getTitle')->andReturn(
+            'foo'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertTitle('foo');
+
+        try {
+            $browser->assertTitle('Foo');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                'Failed asserting that two strings are equal.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_title_contains()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getTitle')->andReturn(
+            'foo'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertTitleContains('fo');
+
+        try {
+            $browser->assertTitleContains('Fo');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringStartsWith(
+                'Did not see expected value [Fo] within title [foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_url_is()
     {
         $driver = Mockery::mock(StdClass::class);
         $driver->shouldReceive('getCurrentURL')->once()->andReturn(
+            'http://www.google.com?foo=bar',
+            'http://www.google.com:80/test?foo=bar'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertUrlIs('http://www.google.com');
+        $browser->assertUrlIs('http://www.google.com:80/test');
+        $browser->assertUrlIs('*google*');
+
+        try {
+            $browser->assertUrlIs('http://www.google.com');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                'Failed asserting that \'http://www.google.com:80/test\' matches PCRE pattern '.
+                '"/^http\:\/\/www\.google\.com$/u".',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_path_is()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getCurrentURL')->andReturn(
             '/foo',
             'foo/bar',
             'foo/1/bar',
@@ -22,21 +89,144 @@ class MakesAssertionsTest extends TestCase
         $browser->assertPathIs('foo/*/bar');
         $browser->assertPathIs('foo/*/bar/*');
         $browser->assertPathIs('foo/1/bar/1');
+
+        try {
+            $browser->assertPathIs('foo/*/');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                'Failed asserting that \'foo/1/bar/1\' matches PCRE pattern "/^foo\/.*\/$/u".',
+                $e->getMessage()
+            );
+        }
     }
 
-    public function test_assert_url_is()
+    public function test_assert_path_begins_with()
     {
         $driver = Mockery::mock(StdClass::class);
-        $driver->shouldReceive('getCurrentURL')->once()->andReturn(
-            'http://www.google.com?foo=bar',
-            'http://www.google.com:80/test?foo=bar',
-            'http://www.google.com:80/test?foo=bar'
+        $driver->shouldReceive('getCurrentURL')->andReturn(
+            'http://www.google.com/test'
         );
         $browser = new Browser($driver);
 
-        $browser->assertUrlIs('http://www.google.com');
-        $browser->assertUrlIs('http://www.google.com:80/test');
-        $browser->assertUrlIs('*google*');
+        $browser->assertPathBeginsWith('/tes');
+
+        try {
+            $browser->assertPathBeginsWith('test');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                'Failed asserting that \'/test\' starts with "test".',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_path_is_not()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getCurrentURL')->andReturn(
+            'http://www.google.com/test'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertPathIsNot('test');
+
+        try {
+            $browser->assertPathIsNot('/test');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                'Failed asserting that \'/test\' is not equal to "/test".',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_fragment_is()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
+            'http://www.google.com/#baz'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertFragmentIs('b*z');
+
+        try {
+            $browser->assertFragmentIs('ba');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                'Failed asserting that \'baz\' matches PCRE pattern "/^ba$/u".',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_fragment_begins_with()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
+            'http://www.google.com/#baz'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertFragmentBeginsWith('ba');
+
+        try {
+            $browser->assertFragmentBeginsWith('Ba');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                'Failed asserting that \'baz\' starts with "Ba".',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_fragment_is_not()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
+            'http://www.google.com/#baz'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertFragmentIsNot('Baz');
+
+        try {
+            $browser->assertFragmentIsNot('baz');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                'Failed asserting that \'baz\' is not equal to "baz".',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_route_is()
+    {
+        require_once __DIR__.'/stubs/route.php';
+
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getCurrentURL')->andReturn(
+            '/test/1'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertRouteIs('test', ['id' => 1]);
+
+        try {
+            $browser->assertRouteIs('test');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertEquals(
+                'Failed asserting that \'/test/1\' matches PCRE pattern "/^\/test\/$/u".',
+                $e->getMessage()
+            );
+        }
     }
 
     public function test_assert_query_string_has_name()
@@ -45,7 +235,7 @@ class MakesAssertionsTest extends TestCase
         $driver->shouldReceive('getCurrentURL')->andReturn(
             'http://www.google.com',
             'http://www.google.com',
-            'http://www.google.com?foo'
+            'http://www.google.com/?foo'
         );
         $browser = new Browser($driver);
 
@@ -66,7 +256,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertStringStartsWith(
-                'Did not see expected query string parameter [bar] in [http://www.google.com?foo].',
+                'Did not see expected query string parameter [bar] in [http://www.google.com/?foo].',
                 $e->getMessage()
             );
         }
@@ -76,7 +266,7 @@ class MakesAssertionsTest extends TestCase
     {
         $driver = Mockery::mock(StdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
-            'http://www.google.com?foo=bar'
+            'http://www.google.com/?foo=bar'
         );
         $browser = new Browser($driver);
 
@@ -88,6 +278,29 @@ class MakesAssertionsTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertStringStartsWith(
                 'Query string parameter [foo] had value [bar], but expected [].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_query_string_missing()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getCurrentURL')->andReturn(
+            'http://www.google.com',
+            'http://www.google.com/?foo=bar'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertQueryStringMissing('foo');
+        $browser->assertQueryStringMissing('Foo');
+
+        try {
+            $browser->assertQueryStringMissing('foo');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringStartsWith(
+                "Found unexpected query string parameter [foo] in [http://www.google.com/?foo=bar].",
                 $e->getMessage()
             );
         }
