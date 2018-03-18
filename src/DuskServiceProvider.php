@@ -50,6 +50,7 @@ class DuskServiceProvider extends ServiceProvider
                 Console\MakeCommand::class,
                 Console\PageCommand::class,
                 Console\ComponentCommand::class,
+                Console\UpdateCommand::class,
             ]);
         }
     }
