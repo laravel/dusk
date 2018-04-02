@@ -100,6 +100,8 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for the given location using a named route.
+     *
      * @param  string  $route
      * @param  array  $parameters
      * @param  int  $seconds
