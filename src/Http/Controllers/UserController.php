@@ -34,13 +34,14 @@ class UserController
      */
     public function login($userId, $guard = null)
     {
-        $provider = Auth::getProvider();
+        $guard = $guard ?: config('auth.defaults.guard');
+        $provider = Auth::guard($guard)->getProvider();
 
         $user = str_contains($userId, '@')
                     ? $provider->retrieveByCredentials(['email' => $userId])
                     : $provider->retrieveById($userId);
 
-        Auth::guard($guard ?: config('auth.defaults.guard'))->login($user);
+        Auth::guard($guard)->login($user);
     }
 
     /**
