@@ -3,9 +3,8 @@
 namespace DummyNamespace;
 
 use Laravel\Dusk\Browser;
-use Laravel\Dusk\Page as BasePage;
 
-class DummyClass extends BasePage
+class DummyClass extends Page
 {
     /**
      * Get the URL for the page.
