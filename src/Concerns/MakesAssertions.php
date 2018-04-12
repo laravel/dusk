@@ -788,6 +788,74 @@ JS;
     }
 
     /**
+     * Assert that the given field is disabled.
+     *
+     * @param  string  $field
+     * @return $this
+     */
+    public function assertDisabled($field) {
+        $element = $this->resolver->resolveForField($field);
+
+        PHPUnit::assertFalse(
+            $element->isEnabled(),
+            "Expected element [{$field}] to be disabled, but it wasn't."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given field is enabled.
+     *
+     * @param  string  $field
+     * @return $this
+     */
+    public function assertEnabled($field) {
+        $element = $this->resolver->resolveForField($field);
+
+        PHPUnit::assertTrue(
+            $element->isEnabled(),
+            "Expected element [{$field}] to be enabled, but it wasn't."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given field is focused.
+     *
+     * @param  string  $field
+     * @return $this
+     */
+    public function assertFocused($field) {
+        $element = $this->resolver->resolveForField($field);
+
+        PHPUnit::assertTrue(
+            $this->driver->switchTo()->activeElement()->equals($element),
+            "Expected element [{$field}] to be focused, but it wasn't."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given field is not focused.
+     *
+     * @param  string  $field
+     * @return $this
+     */
+    public function assertNotFocused($field) {
+        $element = $this->resolver->resolveForField($field);
+
+        PHPUnit::assertFalse(
+            $this->driver->switchTo()->activeElement()->equals($element),
+            "Expected element [{$field}] not to be focused, but it was."
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the Vue component's attribute at the given key has the given value.
      *
      * @param  string  $key

@@ -193,6 +193,24 @@ class ElementResolver
     }
 
     /**
+     * Resolve the element for a given "field".
+     *
+     * @param  string  $field
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement
+     */
+    public function resolveForField($field)
+    {
+        if (! is_null($element = $this->findById($field))) {
+            return $element;
+        }
+
+        return $this->firstOrFail([
+            $field, "input[name='{$field}']", "textarea[name='{$field}']",
+            "select[name='{$field}']", "button[name='{$field}']"
+        ]);
+    }
+
+    /**
      * Resolve the element for a given button.
      *
      * @param  string  $button
