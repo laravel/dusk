@@ -305,4 +305,98 @@ class MakesAssertionsTest extends TestCase
             );
         }
     }
+
+    public function test_assert_disabled()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $resolver = Mockery::mock(StdClass::class);
+        $resolver->shouldReceive('resolveForField->isEnabled')->andReturn(
+            false,
+            true
+        );
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertDisabled('foo');
+
+        try {
+            $browser->assertDisabled('foo');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringStartsWith(
+                "Expected element [foo] to be disabled, but it wasn't.",
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_enabled()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $resolver = Mockery::mock(StdClass::class);
+        $resolver->shouldReceive('resolveForField->isEnabled')->andReturn(
+            true,
+            false
+        );
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertEnabled('foo');
+
+        try {
+            $browser->assertEnabled('foo');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringStartsWith(
+                "Expected element [foo] to be enabled, but it wasn't.",
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_focused()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('switchTo->activeElement->equals')->with('element')->andReturn(
+            true,
+            false
+        );
+        $resolver = Mockery::mock(StdClass::class);
+        $resolver->shouldReceive('resolveForField')->with('foo')->andReturn('element');
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertFocused('foo');
+
+        try {
+            $browser->assertFocused('foo');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringStartsWith(
+                "Expected element [foo] to be focused, but it wasn't.",
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_not_focused()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('switchTo->activeElement->equals')->with('element')->andReturn(
+            false,
+            true
+        );
+        $resolver = Mockery::mock(StdClass::class);
+        $resolver->shouldReceive('resolveForField')->with('foo')->andReturn('element');
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertNotFocused('foo');
+
+        try {
+            $browser->assertNotFocused('foo');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringStartsWith(
+                "Expected element [foo] not to be focused, but it was.",
+                $e->getMessage()
+            );
+        }
+    }
 }
