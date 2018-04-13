@@ -58,7 +58,7 @@ trait MakesAssertions
             array_get($segments, 'path', '')
         );
 
-        PHPUnit::assertRegExp('/^'.$pattern.'$/u', $currentUrl);
+        PHPUnit::assertRegExp('/^'.$pattern.'$/u', $currentUrl, "Actual URL [{$currentUrl}] does not equal expected URL [{$pattern}].");
 
         return $this;
     }
@@ -75,9 +75,9 @@ trait MakesAssertions
 
         $pattern = str_replace('\*', '.*', $pattern);
 
-        PHPUnit::assertRegExp('/^'.$pattern.'$/u', parse_url(
-            $this->driver->getCurrentURL()
-        )['path']);
+        $actualPath = parse_url($this->driver->getCurrentURL())['path'];
+
+        PHPUnit::assertRegExp('/^'.$pattern.'$/u', $actualPath, "Actual path [{$actualPath}] does not equal expected path [{$pattern}].");
 
         return $this;
     }
@@ -90,9 +90,9 @@ trait MakesAssertions
      */
     public function assertPathBeginsWith($path)
     {
-        PHPUnit::assertStringStartsWith($path, parse_url(
-            $this->driver->getCurrentURL()
-        )['path']);
+        $actualPath = parse_url($this->driver->getCurrentURL())['path'];
+
+        PHPUnit::assertStringStartsWith($path, $actualPath, "Actual path [{$actualPath}] does not begin with expected path [{$path}].");
 
         return $this;
     }
@@ -105,9 +105,9 @@ trait MakesAssertions
      */
     public function assertPathIsNot($path)
     {
-        PHPUnit::assertNotEquals($path, parse_url(
-            $this->driver->getCurrentURL()
-        )['path']);
+        $actualPath = parse_url($this->driver->getCurrentURL())['path'];
+
+        PHPUnit::assertNotEquals($path, $actualPath, "Path [{$path}] should not equal the actual value.");
 
         return $this;
     }
@@ -122,9 +122,9 @@ trait MakesAssertions
     {
         $pattern = preg_quote($fragment, '/');
 
-        PHPUnit::assertRegExp('/^'.str_replace('\*', '.*', $pattern).'$/u', (string) parse_url(
-            $this->driver->executeScript('return window.location.href;')
-        , PHP_URL_FRAGMENT));
+        $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
+
+        PHPUnit::assertRegExp('/^'.str_replace('\*', '.*', $pattern).'$/u', $actualFragment, "Actual fragment [{$actualFragment}] does not equal expected fragment [{$pattern}].");
 
         return $this;
     }
@@ -137,9 +137,9 @@ trait MakesAssertions
      */
     public function assertFragmentBeginsWith($fragment)
     {
-        PHPUnit::assertStringStartsWith($fragment, (string) parse_url(
-            $this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT
-        ));
+        $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
+
+        PHPUnit::assertStringStartsWith($fragment, $actualFragment, "Actual fragment [$actualFragment] does not begin with expected fragment [$fragment].");
 
         return $this;
     }
@@ -152,9 +152,9 @@ trait MakesAssertions
      */
     public function assertFragmentIsNot($fragment)
     {
-        PHPUnit::assertNotEquals($fragment, (string) parse_url(
-            $this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT
-        ));
+        $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
+
+        PHPUnit::assertNotEquals($fragment, $actualFragment, "Fragment [{$fragment}] should not equal the actual value.");
 
         return $this;
     }
