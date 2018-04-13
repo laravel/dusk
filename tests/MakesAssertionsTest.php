@@ -65,7 +65,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertUrlIs('http://www.google.com');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
+            $this->assertContains(
                 'Failed asserting that \'http://www.google.com:80/test\' matches PCRE pattern '.
                 '"/^http\:\/\/www\.google\.com$/u".',
                 $e->getMessage()
@@ -94,7 +94,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertPathIs('foo/*/');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
+            $this->assertContains(
                 'Failed asserting that \'foo/1/bar/1\' matches PCRE pattern "/^foo\/.*\/$/u".',
                 $e->getMessage()
             );
@@ -115,7 +115,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertPathBeginsWith('test');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
+            $this->assertContains(
                 'Failed asserting that \'/test\' starts with "test".',
                 $e->getMessage()
             );
@@ -136,7 +136,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertPathIsNot('/test');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
+            $this->assertContains(
                 'Failed asserting that \'/test\' is not equal to "/test".',
                 $e->getMessage()
             );
@@ -157,7 +157,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertFragmentIs('ba');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
+            $this->assertContains(
                 'Failed asserting that \'baz\' matches PCRE pattern "/^ba$/u".',
                 $e->getMessage()
             );
@@ -178,7 +178,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertFragmentBeginsWith('Ba');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
+            $this->assertContains(
                 'Failed asserting that \'baz\' starts with "Ba".',
                 $e->getMessage()
             );
@@ -199,7 +199,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertFragmentIsNot('baz');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
+            $this->assertContains(
                 'Failed asserting that \'baz\' is not equal to "baz".',
                 $e->getMessage()
             );
@@ -222,7 +222,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertRouteIs('test');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
+            $this->assertContains(
                 'Failed asserting that \'/test/1\' matches PCRE pattern "/^\/test\/$/u".',
                 $e->getMessage()
             );
