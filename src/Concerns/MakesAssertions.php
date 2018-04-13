@@ -17,7 +17,7 @@ trait MakesAssertions
      */
     public function assertTitle($title)
     {
-        PHPUnit::assertEquals($title, $this->driver->getTitle());
+        PHPUnit::assertEquals($title, $this->driver->getTitle(), "Expected title [{$title}] does not equal actual title [{$this->driver->getTitle()}].");
 
         return $this;
     }

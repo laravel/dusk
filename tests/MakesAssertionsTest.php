@@ -20,7 +20,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertTitle('Foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
+            $this->assertContains(
                 'Failed asserting that two strings are equal.',
                 $e->getMessage()
             );
