@@ -477,7 +477,7 @@ JS;
      */
     public function assertInputValue($field, $value)
     {
-        PHPUnit::assertEquals($value, $this->inputValue($field));
+        PHPUnit::assertEquals($value, $this->inputValue($field), "Expected value [{$value}] for the [{$field}] input does not equal the actual value [{$this->inputValue($field)}].");
 
         return $this;
     }
@@ -491,7 +491,7 @@ JS;
      */
     public function assertInputValueIsNot($field, $value)
     {
-        PHPUnit::assertNotEquals($value, $this->inputValue($field));
+        PHPUnit::assertNotEquals($value, $this->inputValue($field), "Value [{$value}] for the [{$field}] input should not equal the actual value.");
 
         return $this;
     }
