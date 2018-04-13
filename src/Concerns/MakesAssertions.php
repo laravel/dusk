@@ -732,7 +732,7 @@ JS;
 
         return $this;
     }
-    
+
     /**
      * Assert that the element with the given selector is present in the DOM.
      *
@@ -788,23 +788,6 @@ JS;
     }
 
     /**
-     * Assert that the given field is disabled.
-     *
-     * @param  string  $field
-     * @return $this
-     */
-    public function assertDisabled($field) {
-        $element = $this->resolver->resolveForField($field);
-
-        PHPUnit::assertFalse(
-            $element->isEnabled(),
-            "Expected element [{$field}] to be disabled, but it wasn't."
-        );
-
-        return $this;
-    }
-
-    /**
      * Assert that the given field is enabled.
      *
      * @param  string  $field
@@ -816,6 +799,23 @@ JS;
         PHPUnit::assertTrue(
             $element->isEnabled(),
             "Expected element [{$field}] to be enabled, but it wasn't."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given field is disabled.
+     *
+     * @param  string  $field
+     * @return $this
+     */
+    public function assertDisabled($field) {
+        $element = $this->resolver->resolveForField($field);
+
+        PHPUnit::assertFalse(
+            $element->isEnabled(),
+            "Expected element [{$field}] to be disabled, but it wasn't."
         );
 
         return $this;
