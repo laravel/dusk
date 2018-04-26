@@ -306,6 +306,31 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_present()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $element = Mockery::mock(StdClass::class);
+        $resolver = Mockery::mock(StdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('find')->with('foo')->andReturn(
+            $element,
+            null
+        );
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertPresent('foo');
+
+        try {
+            $browser->assertPresent('foo');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertContains(
+                "Element [body foo] is not present.",
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_disabled()
     {
         $driver = Mockery::mock(StdClass::class);
