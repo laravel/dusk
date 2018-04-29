@@ -744,7 +744,7 @@ JS;
         $fullSelector = $this->resolver->format($selector);
 
         PHPUnit::assertTrue(
-            count($this->resolver->find($selector)) > 0,
+            ! is_null($this->resolver->find($selector)),
             "Element [{$fullSelector}] is not present."
         );
 
