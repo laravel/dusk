@@ -21,7 +21,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertContains(
-                'Failed asserting that two strings are equal.',
+                'Expected title [Foo] does not equal actual title [foo].',
                 $e->getMessage()
             );
         }
@@ -41,7 +41,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertTitleContains('Fo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertStringStartsWith(
+            $this->assertContains(
                 'Did not see expected value [Fo] within title [foo].',
                 $e->getMessage()
             );
@@ -66,8 +66,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertContains(
-                'Failed asserting that \'http://www.google.com:80/test\' matches PCRE pattern '.
-                '"/^http\:\/\/www\.google\.com$/u".',
+                'Actual URL [http://www.google.com:80/test?foo=bar] does not equal expected URL [http://www.google.com].',
                 $e->getMessage()
             );
         }
@@ -95,7 +94,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertContains(
-                'Failed asserting that \'foo/1/bar/1\' matches PCRE pattern "/^foo\/.*\/$/u".',
+                'Actual path [foo/1/bar/1] does not equal expected path [foo/*/].',
                 $e->getMessage()
             );
         }
@@ -116,7 +115,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertContains(
-                'Failed asserting that \'/test\' starts with "test".',
+                'Actual path [/test] does not begin with expected path [test].',
                 $e->getMessage()
             );
         }
@@ -137,7 +136,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertContains(
-                'Failed asserting that \'/test\' is not equal to "/test".',
+                'Path [/test] should not equal the actual value.',
                 $e->getMessage()
             );
         }
@@ -158,7 +157,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertContains(
-                'Failed asserting that \'baz\' matches PCRE pattern "/^ba$/u".',
+                'Actual fragment [baz] does not equal expected fragment [ba].',
                 $e->getMessage()
             );
         }
@@ -179,7 +178,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertContains(
-                'Failed asserting that \'baz\' starts with "Ba".',
+                'Actual fragment [baz] does not begin with expected fragment [Ba].',
                 $e->getMessage()
             );
         }
@@ -200,7 +199,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertContains(
-                'Failed asserting that \'baz\' is not equal to "baz".',
+                'Fragment [baz] should not equal the actual value.',
                 $e->getMessage()
             );
         }
@@ -223,7 +222,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertContains(
-                'Failed asserting that \'/test/1\' matches PCRE pattern "/^\/test\/$/u".',
+                'Actual path [/test/1] does not equal expected path [/test/].',
                 $e->getMessage()
             );
         }
@@ -243,7 +242,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertQueryStringHas('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertStringStartsWith(
+            $this->assertContains(
                 'Did not see expected query string in [http://www.google.com].',
                 $e->getMessage()
             );
@@ -255,7 +254,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertQueryStringHas('bar');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertStringStartsWith(
+            $this->assertContains(
                 'Did not see expected query string parameter [bar] in [http://www.google.com/?foo].',
                 $e->getMessage()
             );
@@ -276,7 +275,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertQueryStringHas('foo', '');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertStringStartsWith(
+            $this->assertContains(
                 'Query string parameter [foo] had value [bar], but expected [].',
                 $e->getMessage()
             );
@@ -299,8 +298,8 @@ class MakesAssertionsTest extends TestCase
             $browser->assertQueryStringMissing('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertStringStartsWith(
-                "Found unexpected query string parameter [foo] in [http://www.google.com/?foo=bar].",
+            $this->assertContains(
+                'Found unexpected query string parameter [foo] in [http://www.google.com/?foo=bar].',
                 $e->getMessage()
             );
         }
@@ -331,29 +330,6 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
-    public function test_assert_disabled()
-    {
-        $driver = Mockery::mock(StdClass::class);
-        $resolver = Mockery::mock(StdClass::class);
-        $resolver->shouldReceive('resolveForField->isEnabled')->andReturn(
-            false,
-            true
-        );
-        $browser = new Browser($driver, $resolver);
-
-        $browser->assertDisabled('foo');
-
-        try {
-            $browser->assertDisabled('foo');
-            $this->fail();
-        } catch (ExpectationFailedException $e) {
-            $this->assertStringStartsWith(
-                "Expected element [foo] to be disabled, but it wasn't.",
-                $e->getMessage()
-            );
-        }
-    }
-
     public function test_assert_enabled()
     {
         $driver = Mockery::mock(StdClass::class);
@@ -370,8 +346,31 @@ class MakesAssertionsTest extends TestCase
             $browser->assertEnabled('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertStringStartsWith(
+            $this->assertContains(
                 "Expected element [foo] to be enabled, but it wasn't.",
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_disabled()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $resolver = Mockery::mock(StdClass::class);
+        $resolver->shouldReceive('resolveForField->isEnabled')->andReturn(
+            false,
+            true
+        );
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertDisabled('foo');
+
+        try {
+            $browser->assertDisabled('foo');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertContains(
+                "Expected element [foo] to be disabled, but it wasn't.",
                 $e->getMessage()
             );
         }
@@ -394,7 +393,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertFocused('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertStringStartsWith(
+            $this->assertContains(
                 "Expected element [foo] to be focused, but it wasn't.",
                 $e->getMessage()
             );
@@ -418,8 +417,8 @@ class MakesAssertionsTest extends TestCase
             $browser->assertNotFocused('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertStringStartsWith(
-                "Expected element [foo] not to be focused, but it was.",
+            $this->assertContains(
+                'Expected element [foo] not to be focused, but it was.',
                 $e->getMessage()
             );
         }
