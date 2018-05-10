@@ -210,7 +210,7 @@ trait InteractsWithElements
     {
         $element = $this->resolver->resolveForSelection($field);
 
-        $options = $element->findElements(WebDriverBy::tagName('option'));
+        $options = $element->findElements(WebDriverBy::cssSelector('option:not([disabled])'));
 
         if (is_null($value)) {
             $options[array_rand($options)]->click();
