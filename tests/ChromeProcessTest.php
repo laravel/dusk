@@ -61,11 +61,21 @@ class ChromeProcessDarwin extends \Laravel\Dusk\Chrome\ChromeProcess
     {
         return true;
     }
+
+    protected function onWindows()
+    {
+        return false;
+    }
 }
 
 class ChromeProcessLinux extends \Laravel\Dusk\Chrome\ChromeProcess
 {
     protected function onMac()
+    {
+        return false;
+    }
+
+    protected function onWindows()
     {
         return false;
     }
