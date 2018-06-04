@@ -95,6 +95,22 @@ class ElementResolverTest extends TestCase
         $this->assertEquals('foo', $resolver->resolveForAttachment('foo'));
     }
 
+    public function test_resolve_for_field_resolves_by_id()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('findElement')->once()->andReturn('foo');
+        $resolver = new ElementResolver($driver);
+        $this->assertEquals('foo', $resolver->resolveForField('#foo'));
+    }
+
+    public function test_resolve_for_field_falls_back_to_selectors_without_id()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('findElement')->once()->andReturn('foo');
+        $resolver = new ElementResolver($driver);
+        $this->assertEquals('foo', $resolver->resolveForField('foo'));
+    }
+
     public function test_format_correctly_formats_selectors()
     {
         $resolver = new ElementResolver(new StdClass);

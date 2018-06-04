@@ -33,34 +33,6 @@ trait InteractsWithElements
     }
 
     /**
-     * Click the element at the given selector.
-     *
-     * @param  string  $selector
-     * @return $this
-     */
-    public function click($selector)
-    {
-        $this->resolver->findOrFail($selector)->click();
-
-        return $this;
-    }
-
-    /**
-     * Right click the element at the given selector.
-     *
-     * @param  string  $selector
-     * @return $this
-     */
-    public function rightClick($selector)
-    {
-        (new WebDriverActions($this->driver))->contextClick(
-            $this->resolver->findOrFail($selector)
-        )->perform();
-
-        return $this;
-    }
-
-    /**
      * Click the link with the given text.
      *
      * @param  string  $link

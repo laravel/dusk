@@ -15,7 +15,7 @@ class ComponentTest extends TestCase
         $browser->within($component = new TestComponent, function ($browser) {
             $this->assertTrue($browser->component->asserted);
 
-            $browser->within($nested = new TestNestedComponent, function ($browser) use ($nested) {
+            $browser->within($nested = new TestNestedComponent, function () use ($nested) {
                 $this->assertTrue($nested->asserted);
             });
         });

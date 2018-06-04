@@ -1,6 +1,5 @@
 <?php
 
-use Carbon\Carbon;
 use Facebook\WebDriver\Exception\TimeOutException;
 use Laravel\Dusk\Browser;
 use PHPUnit\Framework\TestCase;

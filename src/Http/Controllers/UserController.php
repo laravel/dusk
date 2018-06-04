@@ -31,19 +31,16 @@ class UserController
      *
      * @param  string  $userId
      * @param  string  $guard
-     * @return Response
      */
     public function login($userId, $guard = null)
     {
-        $model = $this->modelForGuard(
-            $guard = $guard ?: config('auth.defaults.guard')
-        );
+        $guard = $guard ?: config('auth.defaults.guard');
 
-        if (str_contains($userId, '@')) {
-            $user = (new $model)->where('email', $userId)->first();
-        } else {
-            $user = (new $model)->find($userId);
-        }
+        $provider = Auth::guard($guard)->getProvider();
+
+        $user = str_contains($userId, '@')
+                    ? $provider->retrieveByCredentials(['email' => $userId])
+                    : $provider->retrieveById($userId);
 
         Auth::guard($guard)->login($user);
     }
@@ -52,7 +49,6 @@ class UserController
      * Log the user out of the application.
      *
      * @param  string  $guard
-     * @return Response
      */
     public function logout($guard = null)
     {

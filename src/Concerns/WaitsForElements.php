@@ -100,6 +100,19 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for the given location using a named route.
+     *
+     * @param  string  $route
+     * @param  array  $parameters
+     * @param  int  $seconds
+     * @return $this
+     */
+    public function waitForRoute($route, $parameters = [], $seconds = null)
+    {
+        return $this->waitForLocation(route($route, $parameters), $seconds);
+    }
+
+    /**
      * Wait until the given script returns true.
      *
      * @param  string  $script
