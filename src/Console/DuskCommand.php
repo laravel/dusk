@@ -91,7 +91,11 @@ class DuskCommand extends Command
      */
     protected function phpunitArguments($options)
     {
-        return array_merge(['-c', base_path('phpunit.dusk.xml')], $options);
+        $phpUnitOptions = array_filter($options, function($option) {
+            return !starts_with($option, '--env=');
+        });
+
+        return array_merge(['-c', base_path('phpunit.dusk.xml')], $phpUnitOptions);
     }
 
     /**
