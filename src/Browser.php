@@ -112,7 +112,7 @@ class Browser
     /**
      * Browse to the given URL.
      *
-     * @param  string  $url
+     * @param  string|Page  $url
      * @return $this
      */
     public function visit($url)
