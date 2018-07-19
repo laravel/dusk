@@ -84,7 +84,7 @@ trait WaitsForElements
     {
         return $this->waitUsing($seconds, 100, function () use ($link) {
             return $this->seeLink($link);
-        });
+        }, "Waited %s seconds for link [{$link}].");
     }
 
     /**
@@ -96,7 +96,7 @@ trait WaitsForElements
      */
     public function waitForLocation($path, $seconds = null)
     {
-        return $this->waitUntil("window.location.pathname == '{$path}'", $seconds);
+        return $this->waitUntil("window.location.pathname == '{$path}'", $seconds, "Waited %s seconds for location [{$path}].");
     }
 
     /**
@@ -117,9 +117,10 @@ trait WaitsForElements
      *
      * @param  string  $script
      * @param  int  $seconds
+     * @param  string  $message
      * @return $this
      */
-    public function waitUntil($script, $seconds = null)
+    public function waitUntil($script, $seconds = null, $message = null)
     {
         if (! Str::startsWith($script, 'return ')) {
             $script = 'return '.$script;
@@ -131,7 +132,7 @@ trait WaitsForElements
 
         return $this->waitUsing($seconds, 100, function () use ($script) {
             return $this->driver->executeScript($script);
-        });
+        }, $message);
     }
 
     /**
