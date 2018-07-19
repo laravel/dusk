@@ -24,7 +24,7 @@ class WaitsForElementsTest extends TestCase
         $this->assertEquals(2, floor(microtime(true) - $then));
     }
 
-    public function test_default_wait_time_can_be_overriden()
+    public function test_default_wait_time_can_be_overridden()
     {
         Browser::$waitSeconds = 2;
 

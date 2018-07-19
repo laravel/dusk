@@ -98,7 +98,7 @@ trait InteractsWithMouse
     }
 
     /**
-     * Release the currenctly clicked mouse button.
+     * Release the currently clicked mouse button.
      *
      * @return $this
      */
