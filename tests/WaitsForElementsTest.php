@@ -62,4 +62,22 @@ class WaitsForElementsTest extends TestCase
             return false;
         });
     }
+
+    public function test_can_wait_for_location()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('executeScript')->with("return window.location.pathname == '/home';")->andReturnTrue();
+        $browser = new Browser($driver);
+
+        $browser->waitForLocation('/home');
+    }
+
+    public function test_can_wait_for_route()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('executeScript')->with("return window.location.pathname == '/home/';")->andReturnTrue();
+        $browser = new Browser($driver);
+
+        $browser->waitForRoute('home');
+    }
 }

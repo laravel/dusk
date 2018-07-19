@@ -109,7 +109,7 @@ trait WaitsForElements
      */
     public function waitForRoute($route, $parameters = [], $seconds = null)
     {
-        return $this->waitForLocation(route($route, $parameters), $seconds);
+        return $this->waitForLocation(route($route, $parameters, false), $seconds);
     }
 
     /**
