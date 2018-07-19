@@ -85,6 +85,7 @@ trait ProvidesBrowser
      *
      * @param  \Closure  $callback
      * @return array
+     * @throws \ReflectionException
      */
     protected function createBrowsersFor(Closure $callback)
     {
@@ -117,6 +118,7 @@ trait ProvidesBrowser
      *
      * @param  \Closure  $callback
      * @return int
+     * @throws \ReflectionException
      */
     protected function browsersNeededFor(Closure $callback)
     {
@@ -182,6 +184,7 @@ trait ProvidesBrowser
      * Create the remote web driver instance.
      *
      * @return \Facebook\WebDriver\Remote\RemoteWebDriver
+     * @throws \Exception
      */
     protected function createWebDriver()
     {
