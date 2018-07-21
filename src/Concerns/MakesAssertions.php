@@ -269,16 +269,48 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given cookie is present.
+     * Assert that the given encrypted cookie is present.
      *
      * @param  string  $name
      * @return $this
      */
-    public function assertHasCookie($name)
+    public function assertHasCookie($name, $decrypt = true)
     {
+        $cookie = $decrypt ? $this->cookie($name) : $this->plainCookie($name);
+
         PHPUnit::assertTrue(
-            ! is_null($this->cookie($name)),
+            ! is_null($cookie),
             "Did not find expected cookie [{$name}]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given cookie is present.
+     *
+     * @param  string  $name
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertHasPlainCookie($name)
+    {
+        return $this->assertHasCookie($name, false);
+    }
+
+    /**
+     * Assert that the given encrypted cookie is not present.
+     *
+     * @param  string  $name
+     * @return $this
+     */
+    public function assertCookieMissing($name, $decrypt = true)
+    {
+        $cookie = $decrypt ? $this->cookie($name) : $this->plainCookie($name);
+
+        PHPUnit::assertTrue(
+            is_null($cookie),
+            "Found unexpected cookie [{$name}]."
         );
 
         return $this;
@@ -288,16 +320,12 @@ trait MakesAssertions
      * Assert that the given cookie is not present.
      *
      * @param  string  $name
+     * @param  string  $value
      * @return $this
      */
-    public function assertCookieMissing($name)
+    public function assertPlainCookieMissing($name)
     {
-        PHPUnit::assertTrue(
-            is_null($this->cookie($name)),
-            "Found unexpected cookie [{$name}]."
-        );
-
-        return $this;
+        return $this->assertCookieMissing($name, false);
     }
 
     /**
@@ -537,8 +565,8 @@ JS;
         $element = $this->resolver->resolveForTyping($field);
 
         return in_array($element->getTagName(), ['input', 'textarea'])
-                        ? $element->getAttribute('value')
-                        : $element->getText();
+            ? $element->getAttribute('value')
+            : $element->getText();
     }
 
     /**
