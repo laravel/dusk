@@ -4,6 +4,8 @@ namespace Laravel\Dusk\Concerns;
 
 use Closure;
 use Exception;
+use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\WebDriverDimension;
 use Throwable;
 use ReflectionFunction;
 use Laravel\Dusk\Browser;
@@ -25,6 +27,7 @@ trait ProvidesBrowser
      */
     protected static $afterClassCallbacks = [];
 
+    private $screenShotFullPages = false;
     /**
      * Tear down the Dusk test case class.
      *
@@ -135,9 +138,25 @@ trait ProvidesBrowser
     {
         $browsers->each(function ($browser, $key) {
             $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
-
+            if ($this->screenShotFullPages) {
+                $body = $browser->driver->findElement(WebDriverBy::tagName('body'));
+                if (!empty($body)) {
+                    $currentSize = $body->getSize();
+                    $size = new WebDriverDimension($currentSize->getWidth(), $currentSize->getHeight());
+                    $browser->driver->manage()->window()->setSize($size);
+                }
+            }
             $browser->screenshot('failure-'.$name.'-'.$key);
         });
+    }
+
+    /**
+     * Force browser to screenShot full page after test failed
+     * @param Boolean $value
+     */
+    protected function setScreenShotFullPages($value)
+    {
+        $this->screenShotFullPages = (bool)$value;
     }
 
     /**
