@@ -410,6 +410,23 @@ class Browser
     }
 
     /**
+     * Switch to a specified frame in the browser.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function frame($selector = null)
+    {
+        if ($selector) {
+            $this->driver->switchTo()->frame($this->resolver->findOrFail($selector));
+        } else {
+            $this->driver->switchTo()->defaultContent();
+        }
+
+        return $this;
+    }
+
+    /**
      * Dynamically call a method on the browser.
      *
      * @param  string  $method
