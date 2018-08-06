@@ -269,6 +269,23 @@ class Browser
     }
 
     /**
+     * Switch to a specified frame in the browser.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function withinFrame($selector, Closure $callback)
+    {
+        $this->driver->switchTo()->frame($this->resolver->findOrFail($selector));
+
+        $callback($this);
+
+        $this->driver->switchTo()->defaultContent();
+
+        return $this;
+    }
+
+    /**
      * Execute a Closure with a scoped browser instance.
      *
      * @param  string  $selector
@@ -306,6 +323,13 @@ class Browser
         return $this;
     }
 
+    /**
+     * Set the current component state.
+     *
+     * @param  \Laravel\Dusk\Component  $component
+     * @param  \Laravel\Dusk\ElementResolver  $parentResolver
+     * @return void
+     */
     public function onComponent($component, $parentResolver)
     {
         $this->component = $component;
@@ -407,23 +431,6 @@ class Browser
     public function stop()
     {
         exit();
-    }
-
-    /**
-     * Switch to a specified frame in the browser.
-     *
-     * @param  string  $selector
-     * @return $this
-     */
-    public function frame($selector = null)
-    {
-        if ($selector) {
-            $this->driver->switchTo()->frame($this->resolver->findOrFail($selector));
-        } else {
-            $this->driver->switchTo()->defaultContent();
-        }
-
-        return $this;
     }
 
     /**
