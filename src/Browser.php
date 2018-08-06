@@ -269,9 +269,10 @@ class Browser
     }
 
     /**
-     * Switch to a specified frame in the browser.
+     * Switch to a specified frame in the browser and execute the given callback.
      *
      * @param  string  $selector
+     * @param  \Closure  $callback
      * @return $this
      */
     public function withinFrame($selector, Closure $callback)
