@@ -22,7 +22,7 @@ trait InteractsWithCookies
         }
 
         if ($cookie = $this->driver->manage()->getCookieNamed($name)) {
-            return decrypt(rawurldecode($cookie['value']));
+            return decrypt(rawurldecode($cookie['value']), $unserialize = false);
         }
     }
 
@@ -59,7 +59,7 @@ trait InteractsWithCookies
     public function addCookie($name, $value, $expiry = null, array $options = [], $encrypt = true)
     {
         if ($encrypt) {
-            $value = encrypt($value);
+            $value = encrypt($value, $serialize = false);
         }
 
         if ($expiry instanceof DateTimeInterface) {
