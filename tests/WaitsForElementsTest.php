@@ -24,7 +24,7 @@ class WaitsForElementsTest extends TestCase
         $this->assertEquals(2, floor(microtime(true) - $then));
     }
 
-    public function test_default_wait_time_can_be_overriden()
+    public function test_default_wait_time_can_be_overridden()
     {
         Browser::$waitSeconds = 2;
 
@@ -61,5 +61,23 @@ class WaitsForElementsTest extends TestCase
         $browser->waitUsing(1, 100, function () {
             return false;
         });
+    }
+
+    public function test_can_wait_for_location()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('executeScript')->with("return window.location.pathname == '/home';")->andReturnTrue();
+        $browser = new Browser($driver);
+
+        $browser->waitForLocation('/home');
+    }
+
+    public function test_can_wait_for_route()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('executeScript')->with("return window.location.pathname == '/home/';")->andReturnTrue();
+        $browser = new Browser($driver);
+
+        $browser->waitForRoute('home');
     }
 }

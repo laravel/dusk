@@ -271,13 +271,16 @@ trait MakesAssertions
     /**
      * Assert that the given cookie is present.
      *
-     * @param  string  $name
+     * @param  string $name
+     * @param  bool  $decrypt
      * @return $this
      */
-    public function assertHasCookie($name)
+    public function assertHasCookie($name, $decrypt = true)
     {
+        $cookie = $decrypt ? $this->cookie($name) : $this->plainCookie($name);
+
         PHPUnit::assertTrue(
-            ! is_null($this->cookie($name)),
+            ! is_null($cookie),
             "Did not find expected cookie [{$name}]."
         );
 
@@ -285,19 +288,44 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given cookie is not present.
+     * Assert that the given plain cookie is present.
      *
      * @param  string  $name
      * @return $this
      */
-    public function assertCookieMissing($name)
+    public function assertHasPlainCookie($name)
     {
+        return $this->assertHasCookie($name, false);
+    }
+
+    /**
+     * Assert that the given cookie is not present.
+     *
+     * @param  string $name
+     * @param  bool  $decrypt
+     * @return $this
+     */
+    public function assertCookieMissing($name, $decrypt = true)
+    {
+        $cookie = $decrypt ? $this->cookie($name) : $this->plainCookie($name);
+
         PHPUnit::assertTrue(
-            is_null($this->cookie($name)),
+            is_null($cookie),
             "Found unexpected cookie [{$name}]."
         );
 
         return $this;
+    }
+
+    /**
+     * Assert that the given plain cookie is not present.
+     *
+     * @param  string  $name
+     * @return $this
+     */
+    public function assertPlainCookieMissing($name)
+    {
+        return $this->assertCookieMissing($name, false);
     }
 
     /**

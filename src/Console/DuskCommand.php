@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Console;
 
 use Dotenv\Dotenv;
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
@@ -91,6 +92,10 @@ class DuskCommand extends Command
      */
     protected function phpunitArguments($options)
     {
+        $options = array_values(array_filter($options, function ($option) {
+            return ! Str::startsWith($option, '--env=');
+        }));
+
         return array_merge(['-c', base_path('phpunit.dusk.xml')], $options);
     }
 
