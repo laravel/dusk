@@ -6,6 +6,7 @@ use Closure;
 use BadMethodCallException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
+use Facebook\WebDriver\WebDriverPoint;
 use Facebook\WebDriver\WebDriverDimension;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
@@ -226,6 +227,22 @@ class Browser
     {
         $this->driver->manage()->window()->setSize(
             new WebDriverDimension($width, $height)
+        );
+
+        return $this;
+    }
+
+    /**
+     * Move the browser window.
+     *
+     * @param  int  $x
+     * @param  int  $y
+     * @return $this
+     */
+    public function move($x, $y)
+    {
+        $this->driver->manage()->window()->setPosition(
+            new WebDriverPoint($x, $y)
         );
 
         return $this;
