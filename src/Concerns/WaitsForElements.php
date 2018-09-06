@@ -65,16 +65,17 @@ trait WaitsForElements
     /**
      * Wait for the given text to be visible.
      *
-     * @param  string  $text
+     * @param  array|string  $text
      * @param  int  $seconds
      * @return $this
      * @throws \Facebook\WebDriver\Exception\TimeOutException
      */
     public function waitForText($text, $seconds = null)
     {
+        $text = array_wrap($text);
         return $this->waitUsing($seconds, 100, function () use ($text) {
             return Str::contains($this->resolver->findOrFail('')->getText(), $text);
-        }, "Waited %s seconds for text [{$text}].");
+        }, "Waited %s seconds for text ['" . implode("', '", $text) . "'].");
     }
 
     /**
