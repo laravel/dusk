@@ -5,10 +5,11 @@ namespace Laravel\Dusk\Concerns;
 use Closure;
 use Exception;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Facebook\WebDriver\Exception\TimeOutException;
-use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\WebDriverExpectedCondition;
+use Facebook\WebDriver\Exception\NoSuchElementException;
 
 trait WaitsForElements
 {
@@ -72,10 +73,11 @@ trait WaitsForElements
      */
     public function waitForText($text, $seconds = null)
     {
-        $text = array_wrap($text);
+        $text = Arr::wrap($text);
+
         return $this->waitUsing($seconds, 100, function () use ($text) {
             return Str::contains($this->resolver->findOrFail('')->getText(), $text);
-        }, "Waited %s seconds for text ['" . implode("', '", $text) . "'].");
+        }, "Waited %s seconds for text ['".implode("', '", $text)."'].");
     }
 
     /**
