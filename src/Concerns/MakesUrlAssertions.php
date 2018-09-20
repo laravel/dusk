@@ -44,13 +44,105 @@ trait MakesUrlAssertions
     {
         $pattern = str_replace('\*', '.*', preg_quote($scheme, '/'));
 
-        $segments = parse_url($this->driver->getCurrentURL());
-
-        $actualScheme = $segments['scheme'] ?? '';
+        $actual = parse_url($this->driver->getCurrentURL(), PHP_URL_SCHEME) ?? '';
 
         PHPUnit::assertRegExp(
-            '/^'.$pattern.'$/u', $actualScheme,
-            "Actual scheme [{$actualScheme}] does not equal expected scheme [{$pattern}]."
+            '/^'.$pattern.'$/u', $actual,
+            "Actual scheme [{$actual}] does not equal expected scheme [{$pattern}]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the current scheme does not match the given scheme.
+     *
+     * @param  string  $scheme
+     * @return $this
+     */
+    public function assertSchemeIsNot($scheme)
+    {
+        $actual = parse_url($this->driver->getCurrentURL(), PHP_URL_SCHEME) ?? '';
+
+        PHPUnit::assertNotEquals(
+            $scheme, $actual,
+            "Scheme [{$scheme}] should not equal the actual value."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the current host matches the given host.
+     *
+     * @param  string  $host
+     * @return $this
+     */
+    public function assertHostIs($host)
+    {
+        $pattern = str_replace('\*', '.*', preg_quote($host, '/'));
+
+        $actual = parse_url($this->driver->getCurrentURL(), PHP_URL_HOST) ?? '';
+
+        PHPUnit::assertRegExp(
+            '/^'.$pattern.'$/u', $actual,
+            "Actual host [{$actual}] does not equal expected host [{$pattern}]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the current host does not match the given host.
+     *
+     * @param  string  $host
+     * @return $this
+     */
+    public function assertHostIsNot($host)
+    {
+        $actual = parse_url($this->driver->getCurrentURL(), PHP_URL_HOST) ?? '';
+
+        PHPUnit::assertNotEquals(
+            $host, $actual,
+            "Host [{$host}] should not equal the actual value."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the current port matches the given port.
+     *
+     * @param  string  $port
+     * @return $this
+     */
+    public function assertPortIs($port)
+    {
+        $pattern = str_replace('\*', '.*', preg_quote($port, '/'));
+
+        $actual = parse_url($this->driver->getCurrentURL(), PHP_URL_PORT) ?? '';
+
+        PHPUnit::assertRegExp(
+            '/^'.$pattern.'$/u', $actual,
+            "Actual port [{$actual}] does not equal expected port [{$pattern}]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the current host does not match the given host.
+     *
+     * @param  string  $port
+     * @return $this
+     */
+    public function assertPortIsNot($port)
+    {
+        $actual = parse_url($this->driver->getCurrentURL(), PHP_URL_PORT) ?? '';
+
+        PHPUnit::assertNotEquals(
+            $port, $actual,
+            "Port [{$port}] should not equal the actual value."
         );
 
         return $this;
@@ -64,11 +156,9 @@ trait MakesUrlAssertions
      */
     public function assertPathIs($path)
     {
-        $pattern = preg_quote($path, '/');
+        $pattern = str_replace('\*', '.*', preg_quote($path, '/'));
 
-        $pattern = str_replace('\*', '.*', $pattern);
-
-        $actualPath = parse_url($this->driver->getCurrentURL())['path'];
+        $actualPath = parse_url($this->driver->getCurrentURL(), PHP_URL_PATH) ?? '';
 
         PHPUnit::assertRegExp(
             '/^'.$pattern.'$/u', $actualPath,
@@ -86,7 +176,7 @@ trait MakesUrlAssertions
      */
     public function assertPathBeginsWith($path)
     {
-        $actualPath = parse_url($this->driver->getCurrentURL())['path'];
+        $actualPath = parse_url($this->driver->getCurrentURL(), PHP_URL_PATH) ?? '';
 
         PHPUnit::assertStringStartsWith(
             $path, $actualPath,
@@ -104,7 +194,7 @@ trait MakesUrlAssertions
      */
     public function assertPathIsNot($path)
     {
-        $actualPath = parse_url($this->driver->getCurrentURL())['path'];
+        $actualPath = parse_url($this->driver->getCurrentURL(), PHP_URL_PATH) ?? '';
 
         PHPUnit::assertNotEquals(
             $path, $actualPath,
