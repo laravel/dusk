@@ -58,6 +58,134 @@ class MakesUrlAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_scheme_is_not()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getCurrentURL')->andReturn(
+            'http://www.google.com/test'.
+            'https://www.google.com/test',
+            'https://www.google.com/test'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertSchemeIsNot('https');
+        $browser->assertSchemeIsNot('http');
+
+        try {
+            $browser->assertSchemeIsNot('https');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertContains(
+                'Scheme [https] should not equal the actual value.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_host_is()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getCurrentURL')->once()->andReturn(
+            'http://www.google.com?foo=bar',
+            'http://google.com?foo=bar',
+            'https://www.laravel.com:80/test?foo=bar',
+            'https://www.laravel.com'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertHostIs('www.google.com');
+        $browser->assertHostIs('google.com');
+        $browser->assertHostIs('www.laravel.com');
+
+        try {
+            $browser->assertHostIs('testing.com');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertContains(
+                'Actual host [www.laravel.com] does not equal expected host [testing\.com].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_host_is_not()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getCurrentURL')->andReturn(
+            'http://www.google.com/test',
+            'https://www.laravel.com/test',
+            'https://laravel.com/test',
+            'https://laravel.com/test'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertHostIsNot('laravel.com');
+        $browser->assertHostIsNot('laravel.com');
+        $browser->assertHostIsNot('www.laravel.com');
+
+        try {
+            $browser->assertHostIsNot('laravel.com');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertContains(
+                'Host [laravel.com] should not equal the actual value.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_port_is()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getCurrentURL')->once()->andReturn(
+            'http://www.laravel.com:80/test?foo=bar',
+            'https://www.laravel.com:443/test?foo=bar',
+            'https://www.laravel.com',
+            'https://www.laravel.com:22'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertPortIs('80');
+        $browser->assertPortIs('443');
+        $browser->assertPortIs('');
+
+        try {
+            $browser->assertPortIs('21');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertContains(
+                'Actual port [22] does not equal expected port [21].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_port_is_not()
+    {
+        $driver = Mockery::mock(StdClass::class);
+        $driver->shouldReceive('getCurrentURL')->andReturn(
+            'http://www.laravel.com:80/test?foo=bar',
+            'https://www.laravel.com:443/test?foo=bar',
+            'https://www.laravel.com',
+            'https://www.laravel.com:22'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertPortIsNot('443');
+        $browser->assertPortIsNot('80');
+        $browser->assertPortIsNot('22');
+
+        try {
+            $browser->assertPortIsNot('22');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertContains(
+                'Port [22] should not equal the actual value.',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_path_is()
     {
         $driver = Mockery::mock(StdClass::class);
