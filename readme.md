@@ -17,4 +17,4 @@ Documentation for Dusk can be found on the [Laravel website](https://laravel.com
 
 ## License
 
-Laravel Dusk is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT)
+Laravel Dusk is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
