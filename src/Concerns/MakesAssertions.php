@@ -627,7 +627,8 @@ JS;
      * @param  string  $field
      * @return $this
      */
-    public function assertEnabled($field) {
+    public function assertEnabled($field)
+    {
         $element = $this->resolver->resolveForField($field);
 
         PHPUnit::assertTrue(
@@ -644,7 +645,8 @@ JS;
      * @param  string  $field
      * @return $this
      */
-    public function assertDisabled($field) {
+    public function assertDisabled($field)
+    {
         $element = $this->resolver->resolveForField($field);
 
         PHPUnit::assertFalse(
@@ -661,7 +663,8 @@ JS;
      * @param  string  $field
      * @return $this
      */
-    public function assertFocused($field) {
+    public function assertFocused($field)
+    {
         $element = $this->resolver->resolveForField($field);
 
         PHPUnit::assertTrue(
@@ -678,7 +681,8 @@ JS;
      * @param  string  $field
      * @return $this
      */
-    public function assertNotFocused($field) {
+    public function assertNotFocused($field)
+    {
         $element = $this->resolver->resolveForField($field);
 
         PHPUnit::assertFalse(

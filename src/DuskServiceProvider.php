@@ -47,6 +47,7 @@ class DuskServiceProvider extends ServiceProvider
             $this->commands([
                 Console\InstallCommand::class,
                 Console\DuskCommand::class,
+                Console\DuskFailsCommand::class,
                 Console\MakeCommand::class,
                 Console\PageCommand::class,
                 Console\ComponentCommand::class,
