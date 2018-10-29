@@ -92,6 +92,7 @@ trait ProvidesBrowser
         for ($i = count(static::$browsers); $i < $this->browsersNeededFor($callback); $i++) {
             static::$browsers[] = $this->newBrowser($this->createWebDriver());
         }
+
         return static::$browsers;
     }
 
