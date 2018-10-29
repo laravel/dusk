@@ -93,7 +93,6 @@ trait ProvidesBrowser
             static::$browsers[] = $this->newBrowser($this->createWebDriver());
         }
 
-
         return static::$browsers;
     }
 
