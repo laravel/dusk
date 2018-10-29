@@ -89,14 +89,8 @@ trait ProvidesBrowser
      */
     protected function createBrowsersFor(Closure $callback)
     {
-        if (count(static::$browsers) === 0) {
-            static::$browsers = collect([$this->newBrowser($this->createWebDriver())]);
-        }
-
-        $additional = $this->browsersNeededFor($callback) - 1;
-
-        for ($i = 0; $i < $additional; $i++) {
-            static::$browsers->push($this->newBrowser($this->createWebDriver()));
+        for ($i = count(static::$browsers); $i < $this->browsersNeededFor($callback); $i++) {
+            static::$browsers[] = $this->newBrowser($this->createWebDriver());
         }
 
         return static::$browsers;
