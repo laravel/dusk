@@ -106,8 +106,14 @@ class DuskCommand extends Command
      */
     protected function purgeScreenshots()
     {
+        $path = base_path('tests/Browser/screenshots');
+
+        if (! is_dir($path)) {
+            return;
+        }
+
         $files = Finder::create()->files()
-                        ->in(base_path('tests/Browser/screenshots'))
+                        ->in($path)
                         ->name('failure-*');
 
         foreach ($files as $file) {
@@ -122,8 +128,14 @@ class DuskCommand extends Command
      */
     protected function purgeConsoleLogs()
     {
+        $path = base_path('tests/Browser/console');
+
+        if (! is_dir($path)) {
+            return;
+        }
+
         $files = Finder::create()->files()
-            ->in(base_path('tests/Browser/console'))
+            ->in($path)
             ->name('*.log');
 
         foreach ($files as $file) {
