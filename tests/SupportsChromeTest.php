@@ -9,9 +9,7 @@ class SupportsChromeTest extends TestCase
 
     public function test_it_can_run_chrome_process()
     {
-        $process = static::buildChromeProcess([
-            '--disable-ipv6'
-        ]);
+        $process = static::buildChromeProcess();
 
         $process->start();
 
