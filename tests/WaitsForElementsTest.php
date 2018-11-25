@@ -80,4 +80,31 @@ class WaitsForElementsTest extends TestCase
 
         $browser->waitForRoute('home');
     }
+
+    public function test_can_wait_for_text()
+    {
+        $element = Mockery::mock(StdClass::class);
+        $element->shouldReceive('getText')->andReturn('Discount: 20%');
+        $resolver = Mockery::mock(StdClass::class);
+        $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
+        $browser = new Browser(new StdClass, $resolver);
+
+        $browser->waitForText('Discount: 20%');
+    }
+
+    public function test_wait_for_text_failure_message_containing_a_percent_character()
+    {
+        $element = Mockery::mock(StdClass::class);
+        $element->shouldReceive('getText')->andReturn('Discount: None');
+        $resolver = Mockery::mock(StdClass::class);
+        $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
+        $browser = new Browser(new StdClass, $resolver);
+
+        try {
+            $browser->waitForText('Discount: 20%', 1);
+            $this->fail('waitForText() did not timeout.');
+        } catch (TimeOutException $e) {
+            $this->assertEquals('Waited 1 seconds for text [Discount: 20%].', $e->getMessage());
+        }
+    }
 }
