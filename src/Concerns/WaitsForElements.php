@@ -37,9 +37,11 @@ trait WaitsForElements
      */
     public function waitFor($selector, $seconds = null)
     {
+        $message = $this->formatTimeOutMessage('Waited %s seconds for selector', $selector);
+
         return $this->waitUsing($seconds, 100, function () use ($selector) {
             return $this->resolver->findOrFail($selector)->isDisplayed();
-        }, "Waited %s seconds for selector [{$selector}].");
+        }, $message);
     }
 
     /**
@@ -52,6 +54,8 @@ trait WaitsForElements
      */
     public function waitUntilMissing($selector, $seconds = null)
     {
+        $message = $this->formatTimeOutMessage('Waited %s seconds for removal of selector', $selector);
+
         return $this->waitUsing($seconds, 100, function () use ($selector) {
             try {
                 $missing = ! $this->resolver->findOrFail($selector)->isDisplayed();
@@ -60,7 +64,7 @@ trait WaitsForElements
             }
 
             return $missing;
-        }, "Waited %s seconds for removal of selector [{$selector}].");
+        }, $message);
     }
 
     /**
@@ -75,9 +79,11 @@ trait WaitsForElements
     {
         $text = Arr::wrap($text);
 
+        $message = $this->formatTimeOutMessage('Waited %s seconds for text', implode("', '", $text));
+
         return $this->waitUsing($seconds, 100, function () use ($text) {
             return Str::contains($this->resolver->findOrFail('')->getText(), $text);
-        }, "Waited %s seconds for text ['".implode("', '", $text)."'].");
+        }, $message);
     }
 
     /**
@@ -90,9 +96,11 @@ trait WaitsForElements
      */
     public function waitForLink($link, $seconds = null)
     {
+        $message = $this->formatTimeOutMessage('Waited %s seconds for link', $link);
+
         return $this->waitUsing($seconds, 100, function () use ($link) {
             return $this->seeLink($link);
-        }, "Waited %s seconds for link [{$link}].");
+        }, $message);
     }
 
     /**
@@ -105,7 +113,9 @@ trait WaitsForElements
      */
     public function waitForLocation($path, $seconds = null)
     {
-        return $this->waitUntil("window.location.pathname == '{$path}'", $seconds, "Waited %s seconds for location [{$path}].");
+        $message = $this->formatTimeOutMessage('Waited %s seconds for location', $path);
+
+        return $this->waitUntil("window.location.pathname == '{$path}'", $seconds, $message);
     }
 
     /**
@@ -224,5 +234,17 @@ trait WaitsForElements
         }
 
         return $this;
+    }
+
+    /**
+     * Prepare custom TimeOutException message for sprintf().
+     *
+     * @param  string  $message
+     * @param  string  $expected
+     * @return string
+     */
+    protected function formatTimeOutMessage($message, $expected)
+    {
+        return $message.' [' .str_replace('%', '%%', $expected).'].';
     }
 }
