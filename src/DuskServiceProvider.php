@@ -39,7 +39,7 @@ class DuskServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment('production')) {
+        if ('production' === $this->app->environment()) {
             throw new Exception('It is unsafe to run Dusk in production.');
         }
 
