@@ -1,5 +1,9 @@
 <?php
 
+namespace Laravel\Dusk\Tests;
+
+use stdClass;
+use Mockery as m;
 use Laravel\Dusk\Page;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Component;
@@ -7,9 +11,14 @@ use PHPUnit\Framework\TestCase;
 
 class ComponentTest extends TestCase
 {
+    public function tearDown()
+    {
+        m::close();
+    }
+
     public function test_within_method_triggers_assertion()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $browser->within($component = new TestComponent, function ($browser) {
@@ -23,7 +32,7 @@ class ComponentTest extends TestCase
 
     public function test_resolver_prefix()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $browser->within($component = new TestComponent, function ($browser) use ($component) {
@@ -41,7 +50,7 @@ class ComponentTest extends TestCase
 
     public function test_component_macros()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $browser->within($component = new TestComponent, function ($browser) {
@@ -57,7 +66,7 @@ class ComponentTest extends TestCase
 
     public function test_component_elements()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $browser->within($component = new TestComponent, function ($browser) {
@@ -78,7 +87,7 @@ class ComponentTest extends TestCase
 
     public function test_root_selector_can_be_dusk_hook()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $component = new TestComponent;
@@ -91,7 +100,7 @@ class ComponentTest extends TestCase
 
     public function test_root_selector_can_be_element_alias()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $component = new TestComponent;
@@ -104,7 +113,7 @@ class ComponentTest extends TestCase
 
     public function test_component_overrides_page_macros()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $browser->on($page = new TestPage);

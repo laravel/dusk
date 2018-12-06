@@ -1,14 +1,18 @@
 <?php
 
+namespace Laravel\Dusk\Tests;
+
+use stdClass;
+use Mockery as m;
 use Laravel\Dusk\Browser;
-use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\ExpectationFailedException;
 
 class MakesAssertionsTest extends TestCase
 {
     public function test_assert_title()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getTitle')->andReturn(
             'foo'
         );
@@ -29,7 +33,7 @@ class MakesAssertionsTest extends TestCase
 
     public function test_assert_title_contains()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getTitle')->andReturn(
             'foo'
         );
@@ -50,9 +54,9 @@ class MakesAssertionsTest extends TestCase
 
     public function test_assert_present()
     {
-        $driver = Mockery::mock(StdClass::class);
-        $element = Mockery::mock(StdClass::class);
-        $resolver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
+        $element = m::mock(stdClass::class);
+        $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
         $resolver->shouldReceive('find')->with('foo')->andReturn(
             $element,
@@ -75,8 +79,8 @@ class MakesAssertionsTest extends TestCase
 
     public function test_assert_enabled()
     {
-        $driver = Mockery::mock(StdClass::class);
-        $resolver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
+        $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField->isEnabled')->andReturn(
             true,
             false
@@ -98,8 +102,8 @@ class MakesAssertionsTest extends TestCase
 
     public function test_assert_disabled()
     {
-        $driver = Mockery::mock(StdClass::class);
-        $resolver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
+        $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField->isEnabled')->andReturn(
             false,
             true
@@ -121,12 +125,12 @@ class MakesAssertionsTest extends TestCase
 
     public function test_assert_focused()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('switchTo->activeElement->equals')->with('element')->andReturn(
             true,
             false
         );
-        $resolver = Mockery::mock(StdClass::class);
+        $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField')->with('foo')->andReturn('element');
         $browser = new Browser($driver, $resolver);
 
@@ -145,12 +149,12 @@ class MakesAssertionsTest extends TestCase
 
     public function test_assert_not_focused()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('switchTo->activeElement->equals')->with('element')->andReturn(
             false,
             true
         );
-        $resolver = Mockery::mock(StdClass::class);
+        $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField')->with('foo')->andReturn('element');
         $browser = new Browser($driver, $resolver);
 
