@@ -1,14 +1,18 @@
 <?php
 
+namespace Laravel\Dusk\Tests;
+
+use stdClass;
+use Mockery as m;
 use Laravel\Dusk\Browser;
-use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\ExpectationFailedException;
 
 class MakesUrlAssertionsTest extends TestCase
 {
     public function test_assert_url_is()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->once()->andReturn(
             'http://www.google.com?foo=bar',
             'http://www.google.com:80/test?foo=bar'
@@ -32,7 +36,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_scheme_is()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->once()->andReturn(
             'http://www.google.com?foo=bar',
             'https://www.google.com:80/test?foo=bar',
@@ -60,7 +64,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_scheme_is_not()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
             'http://www.google.com/test'.
             'https://www.google.com/test',
@@ -84,7 +88,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_host_is()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->once()->andReturn(
             'http://www.google.com?foo=bar',
             'http://google.com?foo=bar',
@@ -110,7 +114,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_host_is_not()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
             'http://www.google.com/test',
             'https://www.laravel.com/test',
@@ -136,7 +140,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_port_is()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->once()->andReturn(
             'http://www.laravel.com:80/test?foo=bar',
             'https://www.laravel.com:443/test?foo=bar',
@@ -162,7 +166,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_port_is_not()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
             'http://www.laravel.com:80/test?foo=bar',
             'https://www.laravel.com:443/test?foo=bar',
@@ -188,7 +192,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_path_is()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
             '/foo',
             'foo/bar',
@@ -216,7 +220,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_path_begins_with()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
             'http://www.google.com/test'
         );
@@ -237,7 +241,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_path_is_not()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
             'http://www.google.com/test'
         );
@@ -258,7 +262,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_fragment_is()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
             'http://www.google.com/#baz'
         );
@@ -279,7 +283,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_fragment_begins_with()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
             'http://www.google.com/#baz'
         );
@@ -300,7 +304,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_fragment_is_not()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
             'http://www.google.com/#baz'
         );
@@ -323,7 +327,7 @@ class MakesUrlAssertionsTest extends TestCase
     {
         require_once __DIR__.'/stubs/route.php';
 
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
             '/test/1'
         );
@@ -344,7 +348,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_query_string_has_name()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
             'http://www.google.com',
             'http://www.google.com',
@@ -377,7 +381,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_query_string_has_name_value()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
             'http://www.google.com/?foo=bar'
         );
@@ -398,7 +402,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_query_string_missing()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
             'http://www.google.com',
             'http://www.google.com/?foo=bar'

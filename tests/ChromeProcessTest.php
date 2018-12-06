@@ -1,6 +1,11 @@
 <?php
 
+namespace Laravel\Dusk\Tests;
+
+use RuntimeException;
 use PHPUnit\Framework\TestCase;
+use Laravel\Dusk\Chrome\ChromeProcess;
+use Symfony\Component\Process\Process;
 
 class ChromeProcessTest extends TestCase
 {
@@ -8,9 +13,9 @@ class ChromeProcessTest extends TestCase
     {
         $driver = __DIR__;
 
-        $process = (new \Laravel\Dusk\Chrome\ChromeProcess($driver))->toProcess();
+        $process = (new ChromeProcess($driver))->toProcess();
 
-        $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
+        $this->assertInstanceOf(Process::class, $process);
         $this->assertContains("$driver", $process->getCommandLine());
     }
 
@@ -18,7 +23,7 @@ class ChromeProcessTest extends TestCase
     {
         $process = (new ChromeProcessWindows)->toProcess();
 
-        $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
+        $this->assertInstanceOf(Process::class, $process);
         $this->assertContains('chromedriver-win.exe', $process->getCommandLine());
     }
 
@@ -26,7 +31,7 @@ class ChromeProcessTest extends TestCase
     {
         $process = (new ChromeProcessDarwin)->toProcess();
 
-        $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
+        $this->assertInstanceOf(Process::class, $process);
         $this->assertContains('chromedriver-mac', $process->getCommandLine());
     }
 
@@ -34,7 +39,7 @@ class ChromeProcessTest extends TestCase
     {
         $process = (new ChromeProcessLinux)->toProcess();
 
-        $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
+        $this->assertInstanceOf(Process::class, $process);
         $this->assertContains('chromedriver-linux', $process->getCommandLine());
     }
 
@@ -42,11 +47,11 @@ class ChromeProcessTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
 
-        (new \Laravel\Dusk\Chrome\ChromeProcess('/not/a/valid/path'))->toProcess();
+        (new ChromeProcess('/not/a/valid/path'))->toProcess();
     }
 }
 
-class ChromeProcessWindows extends \Laravel\Dusk\Chrome\ChromeProcess
+class ChromeProcessWindows extends ChromeProcess
 {
     protected function onWindows()
     {
@@ -55,7 +60,7 @@ class ChromeProcessWindows extends \Laravel\Dusk\Chrome\ChromeProcess
 }
 
 
-class ChromeProcessDarwin extends \Laravel\Dusk\Chrome\ChromeProcess
+class ChromeProcessDarwin extends ChromeProcess
 {
     protected function onMac()
     {
@@ -68,7 +73,7 @@ class ChromeProcessDarwin extends \Laravel\Dusk\Chrome\ChromeProcess
     }
 }
 
-class ChromeProcessLinux extends \Laravel\Dusk\Chrome\ChromeProcess
+class ChromeProcessLinux extends ChromeProcess
 {
     protected function onMac()
     {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Dusk\Tests;
+namespace Laravel\Dusk\Tests;
 
-use Mockery;
-use StdClass;
+use stdClass;
+use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Laravel\Dusk\Concerns\ProvidesBrowser;
 
@@ -16,9 +16,9 @@ class ProvidesBrowserTest extends TestCase
      */
     public function test_capture_failures_for()
     {
-        $browser = Mockery::mock(StdClass::class);
+        $browser = m::mock(stdClass::class);
         $browser->shouldReceive('screenshot')->with(
-            'failure-Dusk_Tests_ProvidesBrowserTest_test_capture_failures_for-0'
+            'failure-Laravel_Dusk_Tests_ProvidesBrowserTest_test_capture_failures_for-0'
         );
         $browsers = collect([$browser]);
 
@@ -30,9 +30,9 @@ class ProvidesBrowserTest extends TestCase
      */
     public function test_store_console_logs_for()
     {
-        $browser = Mockery::mock(StdClass::class);
+        $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
-            'Dusk_Tests_ProvidesBrowserTest_test_store_console_logs_for-0'
+            'Laravel_Dusk_Tests_ProvidesBrowserTest_test_store_console_logs_for-0'
         );
         $browsers = collect([$browser]);
 
@@ -47,7 +47,7 @@ class ProvidesBrowserTest extends TestCase
     }
 
     /**
-     * implementation of abstract ProvidesBrowser::driver()
+     * Implementation of abstract ProvidesBrowser::driver()
      */
     protected function driver()
     {

@@ -1,8 +1,12 @@
 <?php
 
-use Facebook\WebDriver\Exception\TimeOutException;
+namespace Laravel\Dusk\Tests;
+
+use stdClass;
+use Mockery as m;
 use Laravel\Dusk\Browser;
 use PHPUnit\Framework\TestCase;
+use Facebook\WebDriver\Exception\TimeOutException;
 
 class WaitsForElementsTest extends TestCase
 {
@@ -10,7 +14,7 @@ class WaitsForElementsTest extends TestCase
     {
         Browser::$waitSeconds = 2;
 
-        $browser = new Browser(new StdClass);
+        $browser = new Browser(new stdClass);
         $then = microtime(true);
 
         try {
@@ -28,7 +32,7 @@ class WaitsForElementsTest extends TestCase
     {
         Browser::$waitSeconds = 2;
 
-        $browser = new Browser(new StdClass);
+        $browser = new Browser(new stdClass);
         $then = microtime(true);
 
         try {
@@ -44,7 +48,7 @@ class WaitsForElementsTest extends TestCase
 
     public function test_wait_using()
     {
-        $browser = new Browser(new StdClass);
+        $browser = new Browser(new stdClass);
 
         $browser->waitUsing(5, 100, function () {
             return true;
@@ -56,7 +60,7 @@ class WaitsForElementsTest extends TestCase
      */
     public function test_wait_using_failure()
     {
-        $browser = new Browser(new StdClass);
+        $browser = new Browser(new stdClass);
 
         $browser->waitUsing(1, 100, function () {
             return false;
@@ -65,7 +69,7 @@ class WaitsForElementsTest extends TestCase
 
     public function test_can_wait_for_location()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('executeScript')->with("return window.location.pathname == '/home';")->andReturnTrue();
         $browser = new Browser($driver);
 
@@ -74,7 +78,7 @@ class WaitsForElementsTest extends TestCase
 
     public function test_can_wait_for_route()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = m::mock(stdClass::class);
         $driver->shouldReceive('executeScript')->with("return window.location.pathname == '/home/';")->andReturnTrue();
         $browser = new Browser($driver);
 
@@ -83,22 +87,22 @@ class WaitsForElementsTest extends TestCase
 
     public function test_can_wait_for_text()
     {
-        $element = Mockery::mock(StdClass::class);
+        $element = m::mock(stdClass::class);
         $element->shouldReceive('getText')->andReturn('Discount: 20%');
-        $resolver = Mockery::mock(StdClass::class);
+        $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
-        $browser = new Browser(new StdClass, $resolver);
+        $browser = new Browser(new stdClass, $resolver);
 
         $browser->waitForText('Discount: 20%');
     }
 
     public function test_wait_for_text_failure_message_containing_a_percent_character()
     {
-        $element = Mockery::mock(StdClass::class);
+        $element = m::mock(stdClass::class);
         $element->shouldReceive('getText')->andReturn('Discount: None');
-        $resolver = Mockery::mock(StdClass::class);
+        $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
-        $browser = new Browser(new StdClass, $resolver);
+        $browser = new Browser(new stdClass, $resolver);
 
         try {
             $browser->waitForText('Discount: 20%', 1);
