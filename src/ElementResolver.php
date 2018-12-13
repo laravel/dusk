@@ -158,7 +158,7 @@ class ElementResolver
     /**
      * Resolve the element for a given checkbox "field".
      *
-     * @param  string  $field
+     * @param  string|null  $field
      * @param  string  $value
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      * @throws \Exception
@@ -169,7 +169,11 @@ class ElementResolver
             return $element;
         }
 
-        $selector = "input[type=checkbox][name='{$field}']";
+        $selector = "input[type=checkbox]";
+
+        if (! is_null($field)) {
+            $selector .= "[name='{$field}']";
+        }
 
         if (! is_null($value)) {
             $selector .= "[value='{$value}']";
