@@ -525,9 +525,11 @@ JS;
      */
     public function selected($field, $value)
     {
-        $element = $this->resolver->resolveForSelection($field);
+        $options = $this->resolver->resolveSelectOptions($field, (array) $value);
 
-        return (string) $element->getAttribute('value') === (string) $value;
+        return collect($options)->contains(function (RemoteWebElement $option) {
+            return $option->isSelected();
+        });
     }
 
     /**
