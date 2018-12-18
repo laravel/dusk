@@ -1,6 +1,6 @@
 # Release Notes for 4.0.x
 
-## v4.0.0 (2018-08-11)
+## [v4.0.0 (2018-08-11)](https://github.com/laravel/dusk/compare/v3.0.10...v4.0.0)
 
 Dusk 4.0.0 disables cookie serialization and is intended for use with Laravel 5.6.30 or later. If you are using a previous version of Laravel, please continue using Dusk 3.0.0.
 
