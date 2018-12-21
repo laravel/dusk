@@ -12,4 +12,6 @@ before_install:
 
 install: travis_retry composer install --no-interaction --prefer-source
 
+before_script: sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6'
+
 script: vendor/bin/phpunit --verbose
