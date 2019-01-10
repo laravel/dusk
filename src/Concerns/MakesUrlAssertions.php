@@ -287,9 +287,12 @@ trait MakesUrlAssertions
             return $this;
         }
 
+        $strOutputName = is_array($output[$name]) ? join(',', $output[$name]) : $output[$name];
+        $strValue = is_array($value) ? join(',', $value) : $value;
+
         PHPUnit::assertEquals(
             $value, $output[$name],
-            "Query string parameter [{$name}] had value [{$output[$name]}], but expected [{$value}]."
+            "Query string parameter [{$name}] had value [{$strOutputName}], but expected [{$strValue}]."
         );
 
         return $this;

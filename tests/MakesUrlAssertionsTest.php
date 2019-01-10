@@ -400,6 +400,27 @@ class MakesUrlAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_query_string_has_name_array_value()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('getCurrentURL')->andReturn(
+            'http://www.google.com/?foo[]=bar&foo[]=buzz'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertQueryStringHas('foo', ['bar', 'buzz']);
+
+        try {
+            $browser->assertQueryStringHas('foo', '');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertContains(
+                'Query string parameter [foo] had value [bar,buzz], but expected [].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_query_string_missing()
     {
         $driver = m::mock(stdClass::class);
