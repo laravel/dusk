@@ -287,9 +287,13 @@ trait MakesUrlAssertions
             return $this;
         }
 
+        $parsedOutputName = is_array($output[$name]) ? implode(',', $output[$name]) : $output[$name];
+
+        $parsedValue = is_array($value) ? implode(',', $value) : $value;
+
         PHPUnit::assertEquals(
             $value, $output[$name],
-            "Query string parameter [{$name}] had value [{$output[$name]}], but expected [{$value}]."
+            "Query string parameter [{$name}] had value [{$parsedOutputName}], but expected [{$parsedValue}]."
         );
 
         return $this;
