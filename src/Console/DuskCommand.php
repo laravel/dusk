@@ -81,6 +81,10 @@ class DuskCommand extends Command
      */
     protected function binary()
     {
+        if ('phpdbg' === \PHP_SAPI) {
+            return [PHP_BINARY, '-qrr', 'vendor/phpunit/phpunit/phpunit' ];
+        }
+
         return [PHP_BINARY, 'vendor/phpunit/phpunit/phpunit'];
     }
 
