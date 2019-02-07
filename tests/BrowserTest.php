@@ -11,7 +11,7 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 class BrowserTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
     }

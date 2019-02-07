@@ -25,7 +25,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertTitle('Foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Expected title [Foo] does not equal actual title [foo].',
                 $e->getMessage()
             );
@@ -46,7 +46,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertTitleContains('Fo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Did not see expected value [Fo] within title [foo].',
                 $e->getMessage()
             );
@@ -71,7 +71,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertPresent('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 "Element [body foo] is not present.",
                 $e->getMessage()
             );
@@ -94,7 +94,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertEnabled('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 "Expected element [foo] to be enabled, but it wasn't.",
                 $e->getMessage()
             );
@@ -117,7 +117,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertDisabled('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 "Expected element [foo] to be disabled, but it wasn't.",
                 $e->getMessage()
             );
@@ -141,7 +141,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertFocused('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 "Expected element [foo] to be focused, but it wasn't.",
                 $e->getMessage()
             );
@@ -165,7 +165,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertNotFocused('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Expected element [foo] not to be focused, but it was.',
                 $e->getMessage()
             );
@@ -192,7 +192,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertNotSelected('select[name="users"]', 2);
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Unexpected value [2] selected for [select[name="users"]].',
                 $e->getMessage()
             );

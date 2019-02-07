@@ -27,7 +27,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertUrlIs('http://www.google.com');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Actual URL [http://www.google.com:80/test?foo=bar] does not equal expected URL [http://www.google.com].',
                 $e->getMessage()
             );
@@ -55,7 +55,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertSchemeIs('https');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Actual scheme [http] does not equal expected scheme [https].',
                 $e->getMessage()
             );
@@ -79,7 +79,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertSchemeIsNot('https');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Scheme [https] should not equal the actual value.',
                 $e->getMessage()
             );
@@ -105,7 +105,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertHostIs('testing.com');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Actual host [www.laravel.com] does not equal expected host [testing\.com].',
                 $e->getMessage()
             );
@@ -131,7 +131,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertHostIsNot('laravel.com');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Host [laravel.com] should not equal the actual value.',
                 $e->getMessage()
             );
@@ -157,7 +157,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertPortIs('21');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Actual port [22] does not equal expected port [21].',
                 $e->getMessage()
             );
@@ -183,7 +183,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertPortIsNot('22');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Port [22] should not equal the actual value.',
                 $e->getMessage()
             );
@@ -211,7 +211,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertPathIs('foo/*/');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Actual path [foo/1/bar/1] does not equal expected path [foo/*/].',
                 $e->getMessage()
             );
@@ -232,7 +232,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertPathBeginsWith('test');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Actual path [/test] does not begin with expected path [test].',
                 $e->getMessage()
             );
@@ -253,7 +253,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertPathIsNot('/test');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Path [/test] should not equal the actual value.',
                 $e->getMessage()
             );
@@ -274,7 +274,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertFragmentIs('ba');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Actual fragment [baz] does not equal expected fragment [ba].',
                 $e->getMessage()
             );
@@ -295,7 +295,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertFragmentBeginsWith('Ba');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Actual fragment [baz] does not begin with expected fragment [Ba].',
                 $e->getMessage()
             );
@@ -316,7 +316,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertFragmentIsNot('baz');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Fragment [baz] should not equal the actual value.',
                 $e->getMessage()
             );
@@ -339,7 +339,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertRouteIs('test');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Actual path [/test/1] does not equal expected path [/test/].',
                 $e->getMessage()
             );
@@ -360,7 +360,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertQueryStringHas('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Did not see expected query string in [http://www.google.com].',
                 $e->getMessage()
             );
@@ -372,7 +372,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertQueryStringHas('bar');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Did not see expected query string parameter [bar] in [http://www.google.com/?foo].',
                 $e->getMessage()
             );
@@ -393,7 +393,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertQueryStringHas('foo', '');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Query string parameter [foo] had value [bar], but expected [].',
                 $e->getMessage()
             );
@@ -414,7 +414,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertQueryStringHas('foo', '');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Query string parameter [foo] had value [bar,buzz], but expected [].',
                 $e->getMessage()
             );
@@ -437,7 +437,7 @@ class MakesUrlAssertionsTest extends TestCase
             $browser->assertQueryStringMissing('foo');
             $this->fail();
         } catch (ExpectationFailedException $e) {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 'Found unexpected query string parameter [foo] in [http://www.google.com/?foo=bar].',
                 $e->getMessage()
             );

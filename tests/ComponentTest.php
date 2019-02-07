@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class ComponentTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
     }
