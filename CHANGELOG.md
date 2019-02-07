@@ -9,6 +9,7 @@
 ### Changed
 - Update minimum Laravel version ([fcb2226](https://github.com/laravel/dusk/commit/fcb2226a524f47b51b9b49316d87bc51738733d7))
 - Update Symfony dependencies to latest version ([788e79c](https://github.com/laravel/dusk/commit/788e79c4713a5706eeafaf7270986a71a4ed43be))
+- Prefer stable dependencies ([fdb2fd4](https://github.com/laravel/dusk/commit/fdb2fd4b2a2e787b08cf44649c4eef84837324ca))
 
 ## [v4.0.0 (2018-08-11)](https://github.com/laravel/dusk/compare/v3.0.10...v4.0.0)
 
