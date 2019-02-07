@@ -2,6 +2,7 @@
 
 namespace Laravel\Dusk\Concerns;
 
+use Illuminate\Support\Arr;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 trait MakesUrlAssertions
@@ -22,8 +23,8 @@ trait MakesUrlAssertions
             '%s://%s%s%s',
             $segments['scheme'],
             $segments['host'],
-            array_get($segments, 'port', '') ? ':'.$segments['port'] : '',
-            array_get($segments, 'path', '')
+            Arr::get($segments, 'port', '') ? ':'.$segments['port'] : '',
+            Arr::get($segments, 'path', '')
         );
 
         PHPUnit::assertRegExp(

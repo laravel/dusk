@@ -217,7 +217,7 @@ trait WaitsForElements
      */
     public function waitForReload($callback = null, $seconds = null)
     {
-        $token = str_random();
+        $token = Str::random();
 
         $this->driver->executeScript("window['{$token}'] = {};");
 

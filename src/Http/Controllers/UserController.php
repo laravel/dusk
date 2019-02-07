@@ -2,6 +2,7 @@
 
 namespace Laravel\Dusk\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 class UserController
@@ -38,7 +39,7 @@ class UserController
 
         $provider = Auth::guard($guard)->getProvider();
 
-        $user = str_contains($userId, '@')
+        $user = Str::contains($userId, '@')
                     ? $provider->retrieveByCredentials(['email' => $userId])
                     : $provider->retrieveById($userId);
 
