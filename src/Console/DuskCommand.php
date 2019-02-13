@@ -100,7 +100,11 @@ class DuskCommand extends Command
             return ! Str::startsWith($option, '--env=');
         }));
 
-        return array_merge(['-c', base_path('phpunit.dusk.xml')], $options);
+        if (! file_exists($file = base_path('phpunit.dusk.xml'))) {
+            $file = base_path('phpunit.dusk.xml.dist');
+        }
+
+        return array_merge(['-c', $file], $options);
     }
 
     /**
@@ -216,10 +220,13 @@ class DuskCommand extends Command
     protected function writeConfiguration()
     {
         if (! file_exists($file = base_path('phpunit.dusk.xml'))) {
-            copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
-        } else {
-            $this->hasPhpUnitConfiguration = true;
+            if (! file_exists(base_path('phpunit.dusk.xml.dist'))) {
+                copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
+                return;
+            }
         }
+
+        $this->hasPhpUnitConfiguration = true;
     }
 
     /**
