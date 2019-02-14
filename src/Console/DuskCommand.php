@@ -219,11 +219,11 @@ class DuskCommand extends Command
      */
     protected function writeConfiguration()
     {
-        if (! file_exists($file = base_path('phpunit.dusk.xml'))) {
-            if (! file_exists(base_path('phpunit.dusk.xml.dist'))) {
-                copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
-                return;
-            }
+        if (! file_exists($file = base_path('phpunit.dusk.xml')) &&
+            ! file_exists(base_path('phpunit.dusk.xml.dist'))) {
+            copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
+
+            return;
         }
 
         $this->hasPhpUnitConfiguration = true;
