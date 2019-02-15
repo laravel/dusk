@@ -1,5 +1,10 @@
 # Release Notes
 
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.0.0...5.0)
+
+### Added
+- Added support for `phpunit.dusk.xml.dist` ([#610](https://github.com/laravel/dusk/pull/610))
+
 ## [v5.0.0 (2019-02-12)](https://github.com/laravel/dusk/compare/v4.0.5...v5.0.0)
 
 ### Added
