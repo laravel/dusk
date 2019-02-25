@@ -79,7 +79,7 @@ class ChromeProcess
             return [];
         }
 
-        return ['DISPLAY' => getenv('DISPLAY') ?: ':0'];
+        return ['DISPLAY' => $_ENV['DISPLAY'] ?? ':0'];
     }
 
     /**
