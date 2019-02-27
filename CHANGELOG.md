@@ -1,9 +1,14 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.0.0...5.0)
+## [v5.0.1 (2019-02-27)](https://github.com/laravel/dusk/compare/v5.0.0...v5.0.1)
 
 ### Added
 - Added support for `phpunit.dusk.xml.dist` ([#610](https://github.com/laravel/dusk/pull/610))
+- Use custom DISPLAY variable when set on Linux ([#613](https://github.com/laravel/dusk/pull/613), [2480495](https://github.com/laravel/dusk/commit/24804953c5b521415a717afbf82ff4b938c10535))
+
+### Fixed
+- Added missing dependencies ([98eccfd](https://github.com/laravel/dusk/commit/98eccfd56e9b2b23b093b801f62c766aaf67589f))
+- Fix installation of Dotenv on Laravel 5.8 ([1f67bf2](https://github.com/laravel/dusk/commit/1f67bf204fab65a212975683b5391c2f55dd3bcf))
 
 ## [v5.0.0 (2019-02-12)](https://github.com/laravel/dusk/compare/v4.0.5...v5.0.0)
 
