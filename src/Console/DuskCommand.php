@@ -209,7 +209,14 @@ class DuskCommand extends Command
      */
     protected function refreshEnvironment()
     {
-        (new Dotenv(base_path()))->overload();
+        // BC fix to support Dotenv ^2.2
+        if (! method_exists(Dotenv::class, 'create')) {
+            (new Dotenv(base_path()))->overload();
+
+            return;
+        }
+
+        Dotenv::create(base_path())->overload();
     }
 
     /**
