@@ -205,8 +205,8 @@ trait MakesAssertions
      */
     public function assertSourceHas($code)
     {
-        PHPUnit::assertContains(
-            $code, $this->driver->getPageSource(),
+        PHPUnit::assertTrue(
+            Str::contains($this->driver->getPageSource(), $code),
             "Did not find expected source code [{$code}]"
         );
 
@@ -221,8 +221,8 @@ trait MakesAssertions
      */
     public function assertSourceMissing($code)
     {
-        PHPUnit::assertNotContains(
-            $code, $this->driver->getPageSource(),
+        PHPUnit::assertFalse(
+            Str::contains($this->driver->getPageSource(), $code),
             "Found unexpected source code [{$code}]"
         );
 
@@ -737,7 +737,9 @@ JS;
      */
     public function assertVueContains($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertContains($value, $this->vueAttribute($componentSelector, $key));
+        PHPUnit::assertTrue(
+            Str::contains($this->vueAttribute($componentSelector, $key), $value)
+        );
 
         return $this;
     }
@@ -753,7 +755,9 @@ JS;
      */
     public function assertVueDoesNotContain($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertNotContains($value, $this->vueAttribute($componentSelector, $key));
+        PHPUnit::assertFalse(
+            Str::contains($this->vueAttribute($componentSelector, $key), $value)
+        );
 
         return $this;
     }
