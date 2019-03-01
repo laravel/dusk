@@ -2,6 +2,7 @@
 
 namespace Laravel\Dusk\Concerns;
 
+use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\Exception\NoSuchElementException;
@@ -32,9 +33,8 @@ trait MakesAssertions
      */
     public function assertTitleContains($title)
     {
-        PHPUnit::assertStringContainsString(
-            $this->driver->getTitle(),
-            $title,
+        PHPUnit::assertTrue(
+            Str::contains($this->driver->getTitle(), $title),
             "Did not see expected value [{$title}] within title [{$this->driver->getTitle()}]."
         );
 
@@ -168,9 +168,8 @@ trait MakesAssertions
 
         $element = $this->resolver->findOrFail($selector);
 
-        PHPUnit::assertStringContainsString(
-            $element->getText(),
-            $text,
+        PHPUnit::assertTrue(
+            Str::contains($element->getText(), $text),
             "Did not see expected text [{$text}] within element [{$fullSelector}]."
         );
 
@@ -190,9 +189,8 @@ trait MakesAssertions
 
         $element = $this->resolver->findOrFail($selector);
 
-        PHPUnit::assertStringNotContainsString(
-            $element->getText(),
-            $text,
+        PHPUnit::assertFalse(
+            Str::contains($element->getText(), $text),
             "Saw unexpected text [{$text}] within element [{$fullSelector}]."
         );
 
@@ -207,9 +205,8 @@ trait MakesAssertions
      */
     public function assertSourceHas($code)
     {
-        PHPUnit::assertStringContainsString(
-            $code,
-            $this->driver->getPageSource(),
+        PHPUnit::assertContains(
+            $code, $this->driver->getPageSource(),
             "Did not find expected source code [{$code}]"
         );
 
@@ -224,9 +221,8 @@ trait MakesAssertions
      */
     public function assertSourceMissing($code)
     {
-        PHPUnit::assertStringNotContainsString(
-            $code,
-            $this->driver->getPageSource(),
+        PHPUnit::assertNotContains(
+            $code, $this->driver->getPageSource(),
             "Found unexpected source code [{$code}]"
         );
 
@@ -741,7 +737,7 @@ JS;
      */
     public function assertVueContains($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertStringContainsString($value, $this->vueAttribute($componentSelector, $key));
+        PHPUnit::assertContains($value, $this->vueAttribute($componentSelector, $key));
 
         return $this;
     }
@@ -757,7 +753,7 @@ JS;
      */
     public function assertVueDoesNotContain($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertStringNotContainsString($value, $this->vueAttribute($componentSelector, $key));
+        PHPUnit::assertNotContains($value, $this->vueAttribute($componentSelector, $key));
 
         return $this;
     }
