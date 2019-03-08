@@ -82,10 +82,13 @@ class BrowserTest extends TestCase
 
         $browser->visit($page = new BrowserTestPage);
 
+        $page->asserted = false;
+
         $browser->with('prefix', function ($browser) use ($page) {
             $this->assertInstanceof(Browser::class, $browser);
             $this->assertEquals('body prefix', $browser->resolver->prefix);
             $this->assertEquals($page, $browser->page);
+            $this->assertFalse($page->asserted);
         });
     }
 
@@ -109,10 +112,13 @@ class BrowserTest extends TestCase
 
         $browser->visit($page = new BrowserTestPage);
 
+        $page->asserted = false;
+
         $browser->within('prefix', function ($browser) use ($page) {
             $this->assertInstanceof(Browser::class, $browser);
             $this->assertEquals('body prefix', $browser->resolver->prefix);
             $this->assertEquals($page, $browser->page);
+            $this->assertFalse($page->asserted);
         });
     }
 
