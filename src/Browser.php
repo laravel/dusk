@@ -167,6 +167,21 @@ class Browser
      */
     public function on($page)
     {
+        $this->onWithoutAssert($page);
+
+        $page->assert($this);
+
+        return $this;
+    }
+
+    /**
+     * Set the current page object without executing the assertions.
+     *
+     * @param  mixed  $page
+     * @return $this
+     */
+    public function onWithoutAssert($page)
+    {
         $this->page = $page;
 
         // Here we will set the page elements on the resolver instance, which will allow
@@ -175,8 +190,6 @@ class Browser
         $this->resolver->pageElements(array_merge(
             $page::siteElements(), $page->elements()
         ));
-
-        $page->assert($this);
 
         return $this;
     }
@@ -330,7 +343,7 @@ class Browser
         );
 
         if ($this->page) {
-            $browser->on($this->page);
+            $browser->onWithoutAssert($this->page);
         }
 
         if ($selector instanceof Component) {
