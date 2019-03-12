@@ -163,13 +163,23 @@ class Browser
      * Set the current page object.
      *
      * @param  mixed  $page
+     * @param  bool  $assert
      * @return $this
      */
-    public function on($page)
+    public function on($page, $assert = true)
     {
-        $this->onWithoutAssert($page);
+        $this->page = $page;
 
-        $page->assert($this);
+        // Here we will set the page elements on the resolver instance, which will allow
+        // the developer to access short-cuts for CSS selectors on the page which can
+        // allow for more expressive navigation and interaction with all the pages.
+        $this->resolver->pageElements(array_merge(
+            $page::siteElements(), $page->elements()
+        ));
+
+        if ($assert) {
+            $page->assert($this);
+        }
 
         return $this;
     }
@@ -182,16 +192,7 @@ class Browser
      */
     public function onWithoutAssert($page)
     {
-        $this->page = $page;
-
-        // Here we will set the page elements on the resolver instance, which will allow
-        // the developer to access short-cuts for CSS selectors on the page which can
-        // allow for more expressive navigation and interaction with all the pages.
-        $this->resolver->pageElements(array_merge(
-            $page::siteElements(), $page->elements()
-        ));
-
-        return $this;
+        return $this->on($page, false);
     }
 
     /**
