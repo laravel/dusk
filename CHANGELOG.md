@@ -1,5 +1,16 @@
 # Release Notes
 
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.0.2...5.0)
+
+
+## [v5.0.2 (2019-03-12)](https://github.com/laravel/dusk/compare/v5.0.1...v5.0.2)
+
+### Fixed
+- Fix cookies with falsey values ([#617](https://github.com/laravel/dusk/pull/617))
+- Fix `with()` and page assertions ([#625](https://github.com/laravel/dusk/pull/625))
+- Avoid deprecation messages on PHPUnit 8 ([#620](https://github.com/laravel/dusk/pull/620))
+
+
 ## [v5.0.1 (2019-02-27)](https://github.com/laravel/dusk/compare/v5.0.0...v5.0.1)
 
 ### Added
@@ -9,6 +20,7 @@
 ### Fixed
 - Added missing dependencies ([98eccfd](https://github.com/laravel/dusk/commit/98eccfd56e9b2b23b093b801f62c766aaf67589f))
 - Fix installation of Dotenv on Laravel 5.8 ([1f67bf2](https://github.com/laravel/dusk/commit/1f67bf204fab65a212975683b5391c2f55dd3bcf))
+
 
 ## [v5.0.0 (2019-02-12)](https://github.com/laravel/dusk/compare/v4.0.5...v5.0.0)
 
@@ -22,11 +34,11 @@
 - Update Symfony dependencies to latest version ([788e79c](https://github.com/laravel/dusk/commit/788e79c4713a5706eeafaf7270986a71a4ed43be))
 - Prefer stable dependencies ([fdb2fd4](https://github.com/laravel/dusk/commit/fdb2fd4b2a2e787b08cf44649c4eef84837324ca))
 
+
 ## [v4.0.0 (2018-08-11)](https://github.com/laravel/dusk/compare/v3.0.10...v4.0.0)
 
 Dusk 4.0.0 disables cookie serialization and is intended for use with Laravel 5.6.30 or later. If you are using a previous version of Laravel, please continue using Dusk 3.0.0.
 
-# Release Notes for 1.0.x
 
 ## v1.0.13 (2017-04-20)
 
@@ -43,6 +55,7 @@ Dusk 4.0.0 disables cookie serialization and is intended for use with Laravel 5.
 - No longer throws exception when Tty is not available ([#226](https://github.com/laravel/dusk/pull/226))
 - Use `getAttribute('value')` instead of `getText()` for `textarea` elements ([#237](https://github.com/laravel/dusk/pull/237))
 - Fixed bug when giving strings with apostrophe to `clickLink()` ([#228](https://github.com/laravel/dusk/pull/228))
+
 
 ## v1.0.12 (2017-04-07)
 
@@ -66,6 +79,3 @@ Dusk 4.0.0 disables cookie serialization and is intended for use with Laravel 5.
 - Updated ChromeDriver to v2.28 so that it works with Chrome 57 ([#199](https://github.com/laravel/dusk/pull/199))
 - Comparison to `option` inside `select` will no longer be strict ([#178](https://github.com/laravel/dusk/pull/178))
 - Type-hint Browser for auto-complete support ([#174](https://github.com/laravel/dusk/pull/174))
-
-
-## v1.0.10 (2017-03-03)
