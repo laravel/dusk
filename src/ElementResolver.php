@@ -398,7 +398,7 @@ class ElementResolver
             array_keys($sortedElements), array_values($sortedElements), $originalSelector = $selector
         );
 
-        if (starts_with($selector, '@') && $selector === $originalSelector) {
+        if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
             $selector = '[dusk="'.explode('@', $selector)[1].'"]';
         }
 

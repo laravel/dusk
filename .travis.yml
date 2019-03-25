@@ -1,28 +1,43 @@
 language: php
 
+sudo: false
+
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+
+env:
+  matrix:
+    - LARAVEL=5.7.* PHPUNIT=^7.5
+    - LARAVEL=5.7.* PHPUNIT=^8.0
+    - LARAVEL=5.8.* PHPUNIT=^7.5
+    - LARAVEL=5.8.* PHPUNIT=^8.0
+    - LARAVEL=dev-master PHPUNIT=^7.5
+    - LARAVEL=dev-master PHPUNIT=^8.0
+
 matrix:
   fast_finish: true
-  include:
+  exclude:
     - php: 7.1
-      env: PHPUNIT=^7.0
-    - php: 7.2
-      env: PHPUNIT=^7.0
-    - php: 7.2
-      env: PHPUNIT=^8.0
-    - php: 7.3
-      env: PHPUNIT=^7.0
-    - php: 7.3
-      env: PHPUNIT=^8.0
-
-sudo: false
+      env: LARAVEL=5.7.* PHPUNIT=^8.0
+    - php: 7.1
+      env: LARAVEL=5.8.* PHPUNIT=^8.0
+    - php: 7.1
+      env: LARAVEL=dev-master PHPUNIT=^7.5
+    - php: 7.1
+      env: LARAVEL=dev-master PHPUNIT=^8.0
+  allow_failures:
+    - env: LARAVEL=dev-master PHPUNIT=^7.5
+    - env: LARAVEL=dev-master PHPUNIT=^8.0
 
 before_install:
   - phpenv config-rm xdebug.ini || true
 
 install:
-  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - travis_retry composer require phpunit/phpunit:$PHPUNIT --update-with-dependencies
+  - travis_retry composer require "illuminate/contracts=${LARAVEL}" "phpunit/phpunit:${PHPUNIT}" --dev --prefer-dist --no-interaction --no-suggest
 
-before_script: sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6'
+before_script:
+  - sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6'
 
 script: vendor/bin/phpunit --verbose
