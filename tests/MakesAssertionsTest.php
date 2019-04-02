@@ -198,4 +198,48 @@ class MakesAssertionsTest extends TestCase
             );
         }
     }
+
+    public function test_assert_vue_contains()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->andReturn(['john']);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('@vue-component')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertVueContains('users', 'john', '@vue-component');
+
+        try {
+            $browser->assertVueDoesNotContain('users', 'john', '@vue-component');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                "Failed asserting that an array does not contain 'john'.",
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_vue_contains_with_no_result()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->andReturn(null);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('@vue-component')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertVueContains('users', 'john', '@vue-component');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'The attribute for key [users] is not an array.',
+                $e->getMessage()
+            );
+        }
+    }
 }
