@@ -737,9 +737,10 @@ JS;
      */
     public function assertVueContains($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertTrue(
-            Str::contains($this->vueAttribute($componentSelector, $key), $value)
-        );
+        $attribute = $this->vueAttribute($componentSelector, $key);
+
+        PHPUnit::assertIsArray($attribute, "The attribute for key [$key] is not an array.");
+        PHPUnit::assertContains($value, $attribute);
 
         return $this;
     }
@@ -755,9 +756,10 @@ JS;
      */
     public function assertVueDoesNotContain($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertFalse(
-            Str::contains($this->vueAttribute($componentSelector, $key), $value)
-        );
+        $attribute = $this->vueAttribute($componentSelector, $key);
+
+        PHPUnit::assertIsArray($attribute, "The attribute for key [$key] is not an array.");
+        PHPUnit::assertNotContains($value, $attribute);
 
         return $this;
     }
