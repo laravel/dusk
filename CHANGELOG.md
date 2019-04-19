@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.0.2...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.0.3...master)
+
+
+## [v5.0.3 (2019-04-02)](https://github.com/laravel/dusk/compare/v5.0.2...v5.0.3)
+
+### Fixed
+- Fix `assertVueContains` and `assertVueDoesNotContain` ([#638](https://github.com/laravel/dusk/pull/638))
 
 
 ## [v5.0.2 (2019-03-12)](https://github.com/laravel/dusk/compare/v5.0.1...v5.0.2)
