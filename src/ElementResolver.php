@@ -43,7 +43,7 @@ class ElementResolver
         'findButtonBySelector',
         'findButtonByName',
         'findButtonByValue',
-        'findButtonByText'
+        'findButtonByText',
     ];
 
     /**
@@ -86,7 +86,7 @@ class ElementResolver
         }
 
         return $this->firstOrFail([
-            $field, "input[name='{$field}']", "textarea[name='{$field}']"
+            $field, "input[name='{$field}']", "textarea[name='{$field}']",
         ]);
     }
 
@@ -104,7 +104,7 @@ class ElementResolver
         }
 
         return $this->firstOrFail([
-            $field, "select[name='{$field}']"
+            $field, "select[name='{$field}']",
         ]);
     }
 
@@ -151,7 +151,7 @@ class ElementResolver
         }
 
         return $this->firstOrFail([
-            $field, "input[type=radio][name='{$field}'][value='{$value}']"
+            $field, "input[type=radio][name='{$field}'][value='{$value}']",
         ]);
     }
 
@@ -169,7 +169,7 @@ class ElementResolver
             return $element;
         }
 
-        $selector = "input[type=checkbox]";
+        $selector = 'input[type=checkbox]';
 
         if (! is_null($field)) {
             $selector .= "[name='{$field}']";
@@ -180,7 +180,7 @@ class ElementResolver
         }
 
         return $this->firstOrFail([
-            $field, $selector
+            $field, $selector,
         ]);
     }
 
@@ -198,7 +198,7 @@ class ElementResolver
         }
 
         return $this->firstOrFail([
-            $field, "input[type=file][name='{$field}']"
+            $field, "input[type=file][name='{$field}']",
         ]);
     }
 
@@ -217,7 +217,7 @@ class ElementResolver
 
         return $this->firstOrFail([
             $field, "input[name='{$field}']", "textarea[name='{$field}']",
-            "select[name='{$field}']", "button[name='{$field}']"
+            "select[name='{$field}']", "button[name='{$field}']",
         ]);
     }
 
@@ -276,7 +276,7 @@ class ElementResolver
      */
     protected function findButtonByValue($button)
     {
-        foreach ($this->all("input[type=submit]") as $element) {
+        foreach ($this->all('input[type=submit]') as $element) {
             if ($element->getAttribute('value') === $button) {
                 return $element;
             }

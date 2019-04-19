@@ -11,7 +11,7 @@ class ChromeProcess
     /**
      * The path to the Chromedriver.
      *
-     * @var String
+     * @var string
      */
     protected $driver;
 
@@ -63,9 +63,9 @@ class ChromeProcess
      */
     protected function process(array $arguments = [])
     {
-        return (new Process(
+        return new Process(
             array_merge([realpath($this->driver)], $arguments), null, $this->chromeEnvironment()
-        ));
+        );
     }
 
     /**
