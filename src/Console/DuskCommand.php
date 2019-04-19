@@ -28,7 +28,7 @@ class DuskCommand extends Command
     /**
      * Indicates if the project has its own PHPUnit configuration.
      *
-     * @var boolean
+     * @var bool
      */
     protected $hasPhpUnitConfiguration = false;
 
@@ -82,7 +82,7 @@ class DuskCommand extends Command
     protected function binary()
     {
         if ('phpdbg' === \PHP_SAPI) {
-            return [PHP_BINARY, '-qrr', 'vendor/phpunit/phpunit/phpunit' ];
+            return [PHP_BINARY, '-qrr', 'vendor/phpunit/phpunit/phpunit'];
         }
 
         return [PHP_BINARY, 'vendor/phpunit/phpunit/phpunit'];
@@ -108,7 +108,7 @@ class DuskCommand extends Command
     }
 
     /**
-     * Purge the failure screenshots
+     * Purge the failure screenshots.
      *
      * @return void
      */

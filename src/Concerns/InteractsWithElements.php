@@ -39,7 +39,7 @@ trait InteractsWithElements
      * @param  string  $element
      * @return $this
      */
-    public function clickLink($link, $element = "a")
+    public function clickLink($link, $element = 'a')
     {
         $this->ensurejQueryIsAvailable();
 

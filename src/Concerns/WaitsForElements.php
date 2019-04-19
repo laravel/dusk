@@ -279,6 +279,6 @@ trait WaitsForElements
      */
     protected function formatTimeOutMessage($message, $expected)
     {
-        return $message.' [' .str_replace('%', '%%', $expected).'].';
+        return $message.' ['.str_replace('%', '%%', $expected).'].';
     }
 }
