@@ -63,6 +63,6 @@ abstract class TestCase extends FoundationTestCase
      */
     protected function user()
     {
-        throw new Exception("User resolver has not been set.");
+        throw new Exception('User resolver has not been set.');
     }
 }

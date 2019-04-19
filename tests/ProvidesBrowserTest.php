@@ -42,12 +42,12 @@ class ProvidesBrowserTest extends TestCase
     public function testData()
     {
         return [
-            ['foo']
+            ['foo'],
         ];
     }
 
     /**
-     * Implementation of abstract ProvidesBrowser::driver()
+     * Implementation of abstract ProvidesBrowser::driver().
      */
     protected function driver()
     {
