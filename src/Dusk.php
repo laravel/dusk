@@ -36,7 +36,7 @@ class Dusk
         }
 
         if (! is_array($options['environments'])) {
-            throw new InvalidArgumentException("Dusk environments must be listed as an array.");
+            throw new InvalidArgumentException('Dusk environments must be listed as an array.');
         }
 
         return app()->environment(...$options['environments']);

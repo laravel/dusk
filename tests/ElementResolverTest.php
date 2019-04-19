@@ -135,7 +135,7 @@ class ElementResolverTest extends TestCase
         $resolver = new ElementResolver(new stdClass, 'prefix');
         $resolver->pageElements([
             '@modal' => '#first',
-            '@modal-second' => '#second'
+            '@modal-second' => '#second',
         ]);
         $this->assertEquals('prefix #first', $resolver->format('@modal'));
         $this->assertEquals('prefix #second', $resolver->format('@modal-second'));
