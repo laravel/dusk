@@ -3,7 +3,7 @@
 namespace Laravel\Dusk\Chrome;
 
 use RuntimeException;
-use Illuminate\Support\Str;
+use Laravel\Dusk\OperatingSystem;
 use Symfony\Component\Process\Process;
 
 class ChromeProcess
@@ -87,7 +87,7 @@ class ChromeProcess
      */
     protected function onWindows()
     {
-        return PHP_OS === 'WINNT' || Str::contains(php_uname(), 'Microsoft');
+        return OperatingSystem::onWindows();
     }
 
     /**
@@ -97,6 +97,6 @@ class ChromeProcess
      */
     protected function onMac()
     {
-        return PHP_OS === 'Darwin';
+        return OperatingSystem::onMac();
     }
 }
