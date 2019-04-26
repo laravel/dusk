@@ -60,7 +60,7 @@ class InstallCommand extends Command
 
         $this->info('Installing ChromeDriver binaries...');
 
-        $this->call('dusk:chrome-driver', ['--all']);
+        $this->call('dusk:chrome-driver', ['--all' => true]);
     }
 
     /**
