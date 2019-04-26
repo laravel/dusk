@@ -44,13 +44,11 @@ class ChromeProcess
 
         if ($this->onWindows()) {
             $this->driver = realpath(__DIR__.'/../../bin/chromedriver-win.exe');
-
-            return $this->process($arguments);
+        } elseif ($this->onMac()) {
+            $this->driver = realpath(__DIR__.'/../../bin/chromedriver-mac');
+        } else {
+            $this->driver = realpath(__DIR__.'/../../bin/chromedriver-linux');
         }
-
-        $this->driver = $this->onMac()
-                        ? realpath(__DIR__.'/../../bin/chromedriver-mac')
-                        : realpath(__DIR__.'/../../bin/chromedriver-linux');
 
         return $this->process($arguments);
     }
