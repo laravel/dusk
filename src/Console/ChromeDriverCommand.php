@@ -104,7 +104,9 @@ class ChromeDriverCommand extends Command
     public function handle()
     {
         $version = $this->version();
+
         $all = $this->option('all');
+
         $currentOS = OperatingSystem::id();
 
         foreach ($this->slugs as $os => $slug) {
@@ -145,9 +147,9 @@ class ChromeDriverCommand extends Command
             $version = $this->latestChromeVersion();
         }
 
-        $url = sprintf($this->versionUrl, $version);
-
-        return trim(file_get_contents($url));
+        return trim(file_get_contents(
+            sprintf($this->versionUrl, $version)
+        ));
     }
 
     /**
@@ -173,10 +175,12 @@ class ChromeDriverCommand extends Command
      */
     protected function download($version, $slug)
     {
-        $archive = $this->directory.'chromedriver.zip';
         $url = sprintf($this->downloadUrl, $version, $slug);
 
-        file_put_contents($archive, fopen($url, 'r'));
+        file_put_contents(
+            $archive = $this->directory.'chromedriver.zip',
+            fopen($url, 'r')
+        );
 
         return $archive;
     }
@@ -190,7 +194,9 @@ class ChromeDriverCommand extends Command
     protected function extract($archive)
     {
         $zip = new ZipArchive;
+
         $zip->open($archive);
+
         $zip->extractTo($this->directory);
 
         $binary = $zip->getNameIndex(0);

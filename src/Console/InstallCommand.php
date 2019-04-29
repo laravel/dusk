@@ -58,7 +58,7 @@ class InstallCommand extends Command
 
         $this->info('Dusk scaffolding installed successfully.');
 
-        $this->info('Installing ChromeDriver binaries...');
+        $this->comment('Downloading ChromeDriver binaries...');
 
         $this->call('dusk:chrome-driver', ['--all' => true]);
     }
