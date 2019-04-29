@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use Laravel\Dusk\OperatingSystem;
 
 /**
- * @copyright Originally created by Jonas Staudenmeir
+ * @copyright Originally created by Jonas Staudenmeir: https://github.com/staudenmeir/dusk-updater
  */
 class ChromeDriverCommand extends Command
 {
