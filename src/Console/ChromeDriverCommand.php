@@ -6,6 +6,9 @@ use ZipArchive;
 use Illuminate\Console\Command;
 use Laravel\Dusk\OperatingSystem;
 
+/**
+ * @copyright Originally created by Jonas Staudenmeir
+ */
 class ChromeDriverCommand extends Command
 {
     /**
