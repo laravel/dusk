@@ -26,11 +26,11 @@ class ChromeDriverCommand extends Command
     protected $description = 'Install the ChromeDriver binary';
 
     /**
-     * URL to the index page.
+     * URL to the home page.
      *
      * @var string
      */
-    protected $indexUrl = 'https://chromedriver.storage.googleapis.com';
+    protected $homeUrl = 'http://chromedriver.chromium.org/home';
 
     /**
      * URL to the latest release version.
@@ -136,18 +136,18 @@ class ChromeDriverCommand extends Command
     {
         $version = $this->argument('version');
 
-        if ($version) {
-            if (! ctype_digit($version)) {
-                return $version;
-            }
+        if (! $version) {
+            return $this->latestVersion();
+        }
 
-            $version = (int) $version;
+        if (! ctype_digit($version)) {
+            return $version;
+        }
 
-            if ($version < 70) {
-                return $this->legacyVersions[$version];
-            }
-        } else {
-            $version = $this->latestChromeVersion();
+        $version = (int) $version;
+
+        if ($version < 70) {
+            return $this->legacyVersions[$version];
         }
 
         return trim(file_get_contents(
@@ -156,17 +156,17 @@ class ChromeDriverCommand extends Command
     }
 
     /**
-     * Get the latest major Chrome version.
+     * Get the latest stable ChromeDriver version.
      *
-     * @return int
+     * @return string
      */
-    protected function latestChromeVersion()
+    protected function latestVersion()
     {
-        $index = file_get_contents($this->indexUrl);
+        $home = file_get_contents($this->homeUrl);
 
-        preg_match('#.*<Key>LATEST_RELEASE_(\d+)</Key>#', $index, $matches);
+        preg_match('/Latest stable release:.*?\?path=([\d.]+)/', $home, $matches);
 
-        return (int) $matches[1];
+        return $matches[1];
     }
 
     /**
