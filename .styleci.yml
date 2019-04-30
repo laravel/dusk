@@ -4,13 +4,4 @@ js:
   finder:
     exclude:
       - bin
-      - modules
-      - node_modules
-      - storage
-      - vendor
-    name:
-      - "*.js"
-      - "*.jsx"
-    not-name:
-      - "*.min.js"
 css: true
