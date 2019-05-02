@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.0.3...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.1.0...5.0)
+
+
+## [v5.1.0 (2019-05-02)](https://github.com/laravel/dusk/compare/v5.0.3...v5.1.0)
+
+### Added
+- Implement ChromeDriverCommand ([#643](https://github.com/laravel/dusk/pull/643), [60339a5](https://github.com/laravel/dusk/commit/60339a521a1b05e55af7c90b3151557100a0db4d), [#644](https://github.com/laravel/dusk/pull/644)) 
 
 
 ## [v5.0.3 (2019-04-02)](https://github.com/laravel/dusk/compare/v5.0.2...v5.0.3)
