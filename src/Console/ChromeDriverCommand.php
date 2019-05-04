@@ -5,6 +5,7 @@ namespace Laravel\Dusk\Console;
 use ZipArchive;
 use Illuminate\Console\Command;
 use Laravel\Dusk\OperatingSystem;
+use Symfony\Component\Process\Process;
 
 /**
  * @copyright Originally created by Jonas Staudenmeir: https://github.com/staudenmeir/dusk-updater
@@ -16,7 +17,9 @@ class ChromeDriverCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dusk:chrome-driver {version?} {--all : Install a ChromeDriver binary for every OS}';
+    protected $signature = 'dusk:chrome-driver {version?} '.
+    '{--all : Install a ChromeDriver binary for every OS} '.
+    '{--detect= : Automatically detect version of Google Chrome installed based on OS default or provided path}';
 
     /**
      * The console command description.
@@ -55,6 +58,17 @@ class ChromeDriverCommand extends Command
         'linux' => 'linux64',
         'mac' => 'mac64',
         'win' => 'win32',
+    ];
+
+    /**
+     * Default Chrome installation paths.
+     *
+     * @var array
+     */
+    protected $installPaths = [
+        'linux' => '/usr/bin/chromium-browser',
+        'mac' => '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+        'win' => 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe',
     ];
 
     /**
@@ -106,11 +120,11 @@ class ChromeDriverCommand extends Command
      */
     public function handle()
     {
-        $version = $this->version();
-
         $all = $this->option('all');
 
         $currentOS = OperatingSystem::id();
+
+        $version = $this->version($currentOS);
 
         foreach ($this->slugs as $os => $slug) {
             if ($all || ($os === $currentOS)) {
@@ -127,14 +141,43 @@ class ChromeDriverCommand extends Command
         $this->info(sprintf($message, $all ? 'binaries' : 'binary', $version));
     }
 
+    protected function detectVersion($currentOS, $path = null)
+    {
+        $installPath = $path ? realpath($path) : $this->installPaths[$currentOS];
+
+        if (! file_exists($installPath) || is_dir($installPath) || ! is_executable($installPath)) {
+            $this->error('Could not find a valid installation of Google Chrome at '.$installPath);
+            exit(1);
+        }
+
+        $process = new Process([$installPath, '--version']);
+        $process->run();
+
+        $output = $process->getOutput();
+
+        preg_match('/^Google Chrome ([[0-9]+).[0-9\.]+[ ]?([a-z]?+)[\w\n]+$/', $output, $matches);
+        if (! isset($matches[1])) {
+            $this->error('Could not determine version from result of `'.$installPath.' --version`');
+            exit(1);
+        }
+        $this->info('Detected Google Chrome version to be '.$matches[1]);
+
+        return $matches[1];
+    }
+
     /**
      * Get the desired ChromeDriver version.
      *
+     * @param string $currentOS
      * @return string
      */
-    protected function version()
+    protected function version($currentOS)
     {
         $version = $this->argument('version');
+
+        if ($this->hasOption('detect')) {
+            $version = $this->detectVersion($currentOS, $this->option('detect'));
+        }
 
         if (! $version) {
             return $this->latestVersion();
