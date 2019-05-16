@@ -2,6 +2,7 @@
 
 namespace Laravel\Dusk\Concerns;
 
+use Exception;
 use Illuminate\Support\Str;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverKeys;
@@ -261,6 +262,30 @@ trait InteractsWithElements
         $element = $this->resolver->resolveForAttachment($field);
 
         $element->setFileDetector(new LocalFileDetector)->sendKeys($path);
+
+        return $this;
+    }
+
+    /**
+     * Attach the given files into to the field.
+     *
+     * @param  string  $field
+     * @param  array  $paths
+     * @return $this
+     */
+    public function attachMultiple($field, array $paths = [])
+    {
+        $element = $this->resolver->resolveForAttachment($field);
+
+        $files = array_map(function($local_file){
+            if (!is_file($local_file) || !file_exists($local_file)) {
+                throw new Exception('You may only upload existing files: ' . $local_file);
+            }
+
+            return realpath($local_file);
+        }, $paths);
+
+        $element->sendKeys(implode("\n ", $files));
 
         return $this;
     }
