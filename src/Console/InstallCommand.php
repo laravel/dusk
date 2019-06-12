@@ -49,7 +49,7 @@ class InstallCommand extends Command
             $this->createConsoleDirectory();
         }
 
-        
+        $this->copyStubs();
 
         $this->info('Dusk scaffolding installed successfully.');
     }
