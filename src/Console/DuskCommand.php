@@ -100,7 +100,7 @@ class DuskCommand extends Command
     }
 
     /**
-     * Purge the failure screenshots
+     * Purge the failure screenshots.
      *
      * @return void
      */
