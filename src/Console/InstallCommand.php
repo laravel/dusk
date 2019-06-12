@@ -37,9 +37,7 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        if (! is_dir(base_path('tests/Browser/Pages'))) {
-            mkdir(base_path('tests/Browser/Pages'), 0755, true);
-        }
+        $this->createPagesDirectory();
 
         if (! is_dir(base_path('tests/Browser/Components'))) {
             mkdir(base_path('tests/Browser/Components'), 0755, true);
@@ -68,7 +66,19 @@ class InstallCommand extends Command
 
         $this->info('Dusk scaffolding installed successfully.');
     }
-
+    
+    /**
+     * Create `Pages` directory.
+     *
+     * @return void
+     */
+    protected function createPagesDirectory() 
+    {
+        if (! is_dir(base_path('tests/Browser/Pages'))) {
+            mkdir(base_path('tests/Browser/Pages'), 0755, true);
+        }
+    }
+    
     /**
      * Create the screenshots directory.
      *
