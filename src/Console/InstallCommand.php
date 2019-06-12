@@ -49,18 +49,7 @@ class InstallCommand extends Command
             $this->createConsoleDirectory();
         }
 
-        $stubs = [
-            'ExampleTest.stub' => base_path('tests/Browser/ExampleTest.php'),
-            'HomePage.stub' => base_path('tests/Browser/Pages/HomePage.php'),
-            'DuskTestCase.stub' => base_path('tests/DuskTestCase.php'),
-            'Page.stub' => base_path('tests/Browser/Pages/Page.php'),
-        ];
-
-        foreach ($stubs as $stub => $file) {
-            if (! is_file($file)) {
-                copy(__DIR__.'/../../stubs/'.$stub, $file);
-            }
-        }
+        
 
         $this->info('Dusk scaffolding installed successfully.');
     }
@@ -115,5 +104,26 @@ class InstallCommand extends Command
         file_put_contents(base_path('tests/Browser/console/.gitignore'), '*
 !.gitignore
 ');
+    }
+    
+    /**
+     * Copy stubs.
+     *
+     * @return void
+     */
+    protected function copyStubs() 
+    {
+        $stubs = [
+            'ExampleTest.stub' => base_path('tests/Browser/ExampleTest.php'),
+            'HomePage.stub' => base_path('tests/Browser/Pages/HomePage.php'),
+            'DuskTestCase.stub' => base_path('tests/DuskTestCase.php'),
+            'Page.stub' => base_path('tests/Browser/Pages/Page.php'),
+        ];
+
+        foreach ($stubs as $stub => $file) {
+            if (! is_file($file)) {
+                copy(__DIR__.'/../../stubs/'.$stub, $file);
+            }
+        }
     }
 }
