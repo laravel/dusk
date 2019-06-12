@@ -39,9 +39,7 @@ class InstallCommand extends Command
     {
         $this->createPagesDirectory();
 
-        if (! is_dir(base_path('tests/Browser/Components'))) {
-            mkdir(base_path('tests/Browser/Components'), 0755, true);
-        }
+        $this->createComponentsDirectory();
 
         if (! is_dir(base_path('tests/Browser/screenshots'))) {
             $this->createScreenshotsDirectory();
@@ -76,6 +74,18 @@ class InstallCommand extends Command
     {
         if (! is_dir(base_path('tests/Browser/Pages'))) {
             mkdir(base_path('tests/Browser/Pages'), 0755, true);
+        }
+    }
+    
+    /**
+     * Create `Components` directory.
+     *
+     * @return void
+     */
+    protected function createComponentsDirectory() 
+    {
+       if (! is_dir(base_path('tests/Browser/Components'))) {
+            mkdir(base_path('tests/Browser/Components'), 0755, true);
         }
     }
     
