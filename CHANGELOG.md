@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.1.0...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.1.1...5.0)
+
+
+## [v5.1.1 (2019-06-14)](https://github.com/laravel/dusk/compare/v5.1.0...v5.1.1)
+
+### Fixed
+- Add latest version of Facebook Webdriver ([#654](https://github.com/laravel/dusk/pull/654))
 
 
 ## [v5.1.0 (2019-05-02)](https://github.com/laravel/dusk/compare/v5.0.3...v5.1.0)
