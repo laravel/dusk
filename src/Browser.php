@@ -256,7 +256,7 @@ class Browser
     {
         $body = $this->driver->findElement(WebDriverBy::tagName('body'));
 
-        if (!empty($body)) {
+        if (! empty($body)) {
             $this->resize($body->getSize()->getWidth(), $body->getSize()->getHeight());
         }
 
