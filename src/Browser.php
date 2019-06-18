@@ -252,7 +252,7 @@ class Browser
      *
      * @return $this
      */
-    public function fullsize()
+    public function fitContent()
     {
         $body = $this->driver->findElement(WebDriverBy::tagName('body'));
 
