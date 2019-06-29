@@ -7,7 +7,7 @@ use InvalidArgumentException;
 class Dusk
 {
     /**
-     * Attribute name for hooking a selector
+     * Attribute name for hooking a selector.
      *
      * @var string
      */
@@ -50,7 +50,7 @@ class Dusk
     }
 
     /**
-     * Customize attribute name for hooking a selector
+     * Customize attribute name for hooking a selector.
      *
      * @param string $name
      */
