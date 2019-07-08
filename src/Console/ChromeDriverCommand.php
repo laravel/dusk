@@ -231,13 +231,13 @@ class ChromeDriverCommand extends Command
     }
 
     /**
-     * Get URL using the 'proxy' and 'ssl-no-verify' command options
+     * Get URL using the 'proxy' and 'ssl-no-verify' command options.
      *
      * @return false|string
      */
     protected function get($url)
     {
-        $contextOptions  = array();
+        $contextOptions  = [];
 
         if ($this->option('proxy')) {
             $contextOptions['http'] = ['proxy' => $this->option('proxy'), 'request_fulluri' => true];
