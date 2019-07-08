@@ -237,7 +237,7 @@ class ChromeDriverCommand extends Command
      */
     protected function get($url)
     {
-        $contextOptions  = [];
+        $contextOptions = [];
 
         if ($this->option('proxy')) {
             $contextOptions['http'] = ['proxy' => $this->option('proxy'), 'request_fulluri' => true];
