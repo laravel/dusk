@@ -233,7 +233,7 @@ class ChromeDriverCommand extends Command
     /**
      * Get URL using the 'proxy' and 'ssl-no-verify' command options.
      *
-     * @return false|string
+     * @return string|bool
      */
     protected function get($url)
     {
