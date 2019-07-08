@@ -69,7 +69,7 @@ class InstallCommand extends Command
         }
 
         if ($this->option('ssl-no-verify')) {
-            $driverCommandArgs += ['--ssl-no-verify' => true];
+            $driverCommandArgs['--ssl-no-verify'] = true;
         }
 
         $this->call('dusk:chrome-driver', $driverCommandArgs);
