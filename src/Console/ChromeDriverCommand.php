@@ -165,7 +165,7 @@ class ChromeDriverCommand extends Command
      */
     protected function latestVersion()
     {
-        $home = $this->get($this->homeUrl);
+        $home = $this->getUrl($this->homeUrl);
 
         preg_match('/Latest stable release:.*?\?path=([\d.]+)/', $home, $matches);
 
@@ -185,7 +185,7 @@ class ChromeDriverCommand extends Command
 
         file_put_contents(
             $archive = $this->directory.'chromedriver.zip',
-            $this->get($url)
+            $this->getUrl($url)
         );
 
         return $archive;
@@ -235,7 +235,7 @@ class ChromeDriverCommand extends Command
      *
      * @return string|bool
      */
-    protected function get($url)
+    protected function getUrl($url)
     {
         $contextOptions = [];
 
