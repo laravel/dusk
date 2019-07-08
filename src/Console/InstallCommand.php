@@ -65,11 +65,11 @@ class InstallCommand extends Command
         $driverCommandArgs = ['--all' => true];
 
         if ($this->option('proxy')) {
-            $driverCommandArgs += ['--proxy' => $this->option('proxy')];
+            $driverCommandArgs['--proxy'] = $this->option('proxy');
         }
 
         if ($this->option('ssl-no-verify')) {
-            $driverCommandArgs += ['--ssl-no-verify' => true];
+            $driverCommandArgs['--ssl-no-verify'] = true;
         }
 
         $this->call('dusk:chrome-driver', $driverCommandArgs);
