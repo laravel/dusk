@@ -12,8 +12,8 @@ class InstallCommand extends Command
      * @var string
      */
     protected $signature = 'dusk:install
-        {--proxy= : Proxy address e.g. "tcp://127.0.0.1:9000"}
-        {--ssl-no-verify : Bypass SSL certificate verification}';
+                {--proxy= : The proxy to download the binary through (example: "tcp://127.0.0.1:9000")}
+                {--ssl-no-verify : Bypass SSL certificate verification when installing through a proxy}';
 
     /**
      * The console command description.

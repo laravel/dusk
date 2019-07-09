@@ -17,9 +17,9 @@ class ChromeDriverCommand extends Command
      * @var string
      */
     protected $signature = 'dusk:chrome-driver {version?}
-        {--all : Install a ChromeDriver binary for every OS}
-        {--proxy= : Proxy address e.g. "tcp://127.0.0.1:9000"}
-        {--ssl-no-verify : Bypass SSL certificate verification}';
+                    {--all : Install a ChromeDriver binary for every OS}
+                    {--proxy= : The proxy to download the binary through (example: "tcp://127.0.0.1:9000")}
+                    {--ssl-no-verify : Bypass SSL certificate verification when installing through a proxy}';
 
     /**
      * The console command description.
@@ -231,7 +231,7 @@ class ChromeDriverCommand extends Command
     }
 
     /**
-     * Get URL using the 'proxy' and 'ssl-no-verify' command options.
+     * Get the contents of a URL using the 'proxy' and 'ssl-no-verify' command options.
      *
      * @param string $url
      * @return string|bool
