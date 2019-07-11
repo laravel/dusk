@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.2.0...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.3.0...5.0)
+
+
+## [v5.3.0 (2019-07-11)](https://github.com/laravel/dusk/compare/v5.2.0...v5.3.0)
+
+### Added
+- Add proxy support to the `dusk:install` command ([#659](https://github.com/laravel/dusk/pull/659))
 
 
 ## [v5.2.0 (2019-06-25)](https://github.com/laravel/dusk/compare/v5.1.1...v5.2.0)
