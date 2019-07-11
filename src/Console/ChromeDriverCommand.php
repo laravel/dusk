@@ -16,7 +16,10 @@ class ChromeDriverCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dusk:chrome-driver {version?} {--all : Install a ChromeDriver binary for every OS}';
+    protected $signature = 'dusk:chrome-driver {version?}
+                    {--all : Install a ChromeDriver binary for every OS}
+                    {--proxy= : The proxy to download the binary through (example: "tcp://127.0.0.1:9000")}
+                    {--ssl-no-verify : Bypass SSL certificate verification when installing through a proxy}';
 
     /**
      * The console command description.
@@ -26,11 +29,11 @@ class ChromeDriverCommand extends Command
     protected $description = 'Install the ChromeDriver binary';
 
     /**
-     * URL to the index page.
+     * URL to the home page.
      *
      * @var string
      */
-    protected $indexUrl = 'https://chromedriver.storage.googleapis.com';
+    protected $homeUrl = 'http://chromedriver.chromium.org/home';
 
     /**
      * URL to the latest release version.
@@ -136,37 +139,37 @@ class ChromeDriverCommand extends Command
     {
         $version = $this->argument('version');
 
-        if ($version) {
-            if (! ctype_digit($version)) {
-                return $version;
-            }
-
-            $version = (int) $version;
-
-            if ($version < 70) {
-                return $this->legacyVersions[$version];
-            }
-        } else {
-            $version = $this->latestChromeVersion();
+        if (! $version) {
+            return $this->latestVersion();
         }
 
-        return trim(file_get_contents(
+        if (! ctype_digit($version)) {
+            return $version;
+        }
+
+        $version = (int) $version;
+
+        if ($version < 70) {
+            return $this->legacyVersions[$version];
+        }
+
+        return trim($this->getUrl(
             sprintf($this->versionUrl, $version)
         ));
     }
 
     /**
-     * Get the latest major Chrome version.
+     * Get the latest stable ChromeDriver version.
      *
-     * @return int
+     * @return string
      */
-    protected function latestChromeVersion()
+    protected function latestVersion()
     {
-        $index = file_get_contents($this->indexUrl);
+        $home = $this->getUrl($this->homeUrl);
 
-        preg_match('#.*<Key>LATEST_RELEASE_(\d+)</Key>#', $index, $matches);
+        preg_match('/Latest stable release:.*?\?path=([\d.]+)/', $home, $matches);
 
-        return (int) $matches[1];
+        return $matches[1];
     }
 
     /**
@@ -182,7 +185,7 @@ class ChromeDriverCommand extends Command
 
         file_put_contents(
             $archive = $this->directory.'chromedriver.zip',
-            fopen($url, 'r')
+            $this->getUrl($url)
         );
 
         return $archive;
@@ -225,5 +228,28 @@ class ChromeDriverCommand extends Command
         rename($this->directory.$binary, $this->directory.$newName);
 
         chmod($this->directory.$newName, 0755);
+    }
+
+    /**
+     * Get the contents of a URL using the 'proxy' and 'ssl-no-verify' command options.
+     *
+     * @param string $url
+     * @return string|bool
+     */
+    protected function getUrl(string $url)
+    {
+        $contextOptions = [];
+
+        if ($this->option('proxy')) {
+            $contextOptions['http'] = ['proxy' => $this->option('proxy'), 'request_fulluri' => true];
+        }
+
+        if ($this->option('ssl-no-verify')) {
+            $contextOptions['ssl'] = ['verify_peer' => false];
+        }
+
+        $streamContext = stream_context_create($contextOptions);
+
+        return file_get_contents($url, false, $streamContext);
     }
 }

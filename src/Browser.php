@@ -5,6 +5,7 @@ namespace Laravel\Dusk;
 use Closure;
 use BadMethodCallException;
 use Illuminate\Support\Str;
+use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverPoint;
 use Illuminate\Support\Traits\Macroable;
 use Facebook\WebDriver\WebDriverDimension;
@@ -242,6 +243,22 @@ class Browser
         $this->driver->manage()->window()->setSize(
             new WebDriverDimension($width, $height)
         );
+
+        return $this;
+    }
+
+    /**
+     * Make the browser window as large as the content.
+     *
+     * @return $this
+     */
+    public function fitContent()
+    {
+        $body = $this->driver->findElement(WebDriverBy::tagName('body'));
+
+        if (! empty($body)) {
+            $this->resize($body->getSize()->getWidth(), $body->getSize()->getHeight());
+        }
 
         return $this;
     }

@@ -11,7 +11,9 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dusk:install';
+    protected $signature = 'dusk:install
+                {--proxy= : The proxy to download the binary through (example: "tcp://127.0.0.1:9000")}
+                {--ssl-no-verify : Bypass SSL certificate verification when installing through a proxy}';
 
     /**
      * The console command description.
@@ -60,7 +62,17 @@ class InstallCommand extends Command
 
         $this->comment('Downloading ChromeDriver binaries...');
 
-        $this->call('dusk:chrome-driver', ['--all' => true]);
+        $driverCommandArgs = ['--all' => true];
+
+        if ($this->option('proxy')) {
+            $driverCommandArgs['--proxy'] = $this->option('proxy');
+        }
+
+        if ($this->option('ssl-no-verify')) {
+            $driverCommandArgs['--ssl-no-verify'] = true;
+        }
+
+        $this->call('dusk:chrome-driver', $driverCommandArgs);
     }
 
     /**
