@@ -665,7 +665,7 @@ JS;
      * @param  string  $button
      * @return $this
      */
-    public function assertButtonIsEnabled($button)
+    public function assertButtonEnabled($button)
     {
         $element = $this->resolver->resolveForButtonPress($button);
 
@@ -683,7 +683,7 @@ JS;
      * @param  string  $button
      * @return $this
      */
-    public function assertButtonIsDisabled($button)
+    public function assertButtonDisabled($button)
     {
         $element = $this->resolver->resolveForButtonPress($button);
 

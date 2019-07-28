@@ -137,9 +137,9 @@ class MakesAssertionsTest extends TestCase
         );
         $browser = new Browser($driver, $resolver);
 
-        $browser->assertButtonIsEnabled('Press me');
+        $browser->assertButtonEnabled('Press me');
 
-        $browser->assertButtonIsEnabled('Cant press me');
+        $browser->assertButtonEnabled('Cant press me');
     }
 
     public function test_assert_button_is_disabled()
@@ -155,9 +155,9 @@ class MakesAssertionsTest extends TestCase
         );
         $browser = new Browser($driver, $resolver);
 
-        $browser->assertButtonIsDisabled('Cant press me');
+        $browser->assertButtonDisabled('Cant press me');
 
-        $browser->assertButtonIsDisabled('Press me');
+        $browser->assertButtonDisabled('Press me');
     }
 
     public function test_assert_focused()
