@@ -6,7 +6,6 @@ use stdClass;
 use Mockery as m;
 use Laravel\Dusk\Browser;
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\AssertionFailedError;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use PHPUnit\Framework\ExpectationFailedException;
 
@@ -127,7 +126,7 @@ class MakesAssertionsTest extends TestCase
 
     public function test_assert_button_is_enabled()
     {
-        $this->expectException(AssertionFailedError::class);
+        $this->expectException(ExpectationFailedException::class);
         $this->expectExceptionMessage("Expected button [Cant press me] to be enabled, but it wasn't.");
 
         $driver = m::mock(stdClass::class);
@@ -145,7 +144,7 @@ class MakesAssertionsTest extends TestCase
 
     public function test_assert_button_is_disabled()
     {
-        $this->expectException(AssertionFailedError::class);
+        $this->expectException(ExpectationFailedException::class);
         $this->expectExceptionMessage("Expected button [Press me] to be disabled, but it wasn't.");
 
         $driver = m::mock(stdClass::class);
