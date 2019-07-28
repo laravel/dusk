@@ -6,6 +6,7 @@ use stdClass;
 use Mockery as m;
 use Laravel\Dusk\Browser;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\AssertionFailedError;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use PHPUnit\Framework\ExpectationFailedException;
 
@@ -122,6 +123,42 @@ class MakesAssertionsTest extends TestCase
                 $e->getMessage()
             );
         }
+    }
+
+    public function test_assert_button_is_enabled()
+    {
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage("Expected button [Cant press me] to be enabled, but it wasn't.");
+
+        $driver = m::mock(stdClass::class);
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForButtonPress->isEnabled')->andReturn(
+            true,
+            false
+        );
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertButtonIsEnabled('Press me');
+
+        $browser->assertButtonIsEnabled('Cant press me');
+    }
+
+    public function test_assert_button_is_disabled()
+    {
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage("Expected button [Press me] to be disabled, but it wasn't.");
+
+        $driver = m::mock(stdClass::class);
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForButtonPress->isEnabled')->twice()->andReturn(
+            false,
+            true
+        );
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertButtonIsDisabled('Cant press me');
+
+        $browser->assertButtonIsDisabled('Press me');
     }
 
     public function test_assert_focused()
