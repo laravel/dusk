@@ -124,7 +124,7 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
-    public function test_assert_button_is_enabled()
+    public function test_assert_button_enabled()
     {
         $this->expectException(ExpectationFailedException::class);
         $this->expectExceptionMessage("Expected button [Cant press me] to be enabled, but it wasn't.");
