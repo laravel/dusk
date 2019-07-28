@@ -142,7 +142,7 @@ class MakesAssertionsTest extends TestCase
         $browser->assertButtonEnabled('Cant press me');
     }
 
-    public function test_assert_button_is_disabled()
+    public function test_assert_button_disabled()
     {
         $this->expectException(ExpectationFailedException::class);
         $this->expectExceptionMessage("Expected button [Press me] to be disabled, but it wasn't.");
