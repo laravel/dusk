@@ -9,8 +9,6 @@ php:
 
 env:
   matrix:
-    - LARAVEL=5.7.* PHPUNIT=^7.5
-    - LARAVEL=5.7.* PHPUNIT=^8.0
     - LARAVEL=5.8.* PHPUNIT=^7.5
     - LARAVEL=5.8.* PHPUNIT=^8.0
     - LARAVEL=dev-master PHPUNIT=^7.5
@@ -19,8 +17,6 @@ env:
 matrix:
   fast_finish: true
   exclude:
-    - php: 7.1
-      env: LARAVEL=5.7.* PHPUNIT=^8.0
     - php: 7.1
       env: LARAVEL=5.8.* PHPUNIT=^8.0
     - php: 7.1
