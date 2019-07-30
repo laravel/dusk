@@ -660,6 +660,42 @@ JS;
     }
 
     /**
+     * Assert that the given button is enabled.
+     *
+     * @param  string  $button
+     * @return $this
+     */
+    public function assertButtonEnabled($button)
+    {
+        $element = $this->resolver->resolveForButtonPress($button);
+
+        PHPUnit::assertTrue(
+            $element->isEnabled(),
+            "Expected button [{$button}] to be enabled, but it wasn't."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given button is disabled.
+     *
+     * @param  string  $button
+     * @return $this
+     */
+    public function assertButtonDisabled($button)
+    {
+        $element = $this->resolver->resolveForButtonPress($button);
+
+        PHPUnit::assertFalse(
+            $element->isEnabled(),
+            "Expected button [{$button}] to be disabled, but it wasn't."
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the given field is focused.
      *
      * @param  string  $field
