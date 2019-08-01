@@ -7,6 +7,7 @@ use Mockery as m;
 use Laravel\Dusk\Page;
 use Laravel\Dusk\Browser;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\ExpectationFailedException;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 class BrowserTest extends TestCase
@@ -154,6 +155,71 @@ class BrowserTest extends TestCase
         $browser = new Browser($driver);
 
         $browser->storeConsoleLog('file');
+    }
+
+    public function test_assert_console_missing_errors()
+    {
+        $this->expectException(ExpectationFailedException::class);
+        $this->expectExceptionMessageRegExp('/Console log had unexpected errors/');
+
+        Browser::$assertConsoleLogFilter = function ($consoleLog) {
+            return $consoleLog;
+        };
+
+        $driver = m::mock(stdClass::class);
+
+        $driver->shouldReceive('getCapabilities->getBrowserName')->andReturn(WebDriverBrowserType::CHROME);
+
+        $driver->shouldReceive('manage->getLog')->andReturn(
+            [],
+            [
+                [
+                    'level' => 'SEVERE',
+                    'message' => "http://example.test/js/vendors~app.js?28f8d5a6622d03b99bae 91554:31 \"Warning: Each child in a list should have a unique \\\"key\\\" prop .%s % s See https://fb.me/react-warning-keys for more information.%s\" \"\n\nCheck the render method of `Summary`.\" \"\" \"\n    in table (created by Summary)\n    in Summary (created by Context.Consumer)\n    in Connect(Summary) (created by Route)\n    in Route (created by CreateEmployerWizard)\n    in Switch (created by CreateEmployerWizard)\n    in Transition (created by CSSTransition)",
+                    'source' => 'console-api',
+                    'timestamp' => 1564655342641,
+                ],
+            ]
+        );
+
+        $browser = new Browser($driver);
+
+        $browser->assertConsoleLogMissingErrors();
+        $browser->assertConsoleLogMissingErrors();
+    }
+
+    public function test_assert_console_missing_errors_filtered()
+    {
+        Browser::$assertConsoleLogFilter = function ($consoleLog) {
+            $ignoreIfMessageContains = [
+                'Warning: Each child in a list should have a unique \"key\" prop.',
+            ];
+
+            foreach ($ignoreIfMessageContains as $ignoreText) {
+                if (stripos($consoleLog['message'], $ignoreText) !== false) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
+        $driver = m::mock(stdClass::class);
+
+        $driver->shouldReceive('getCapabilities->getBrowserName')->andReturn(WebDriverBrowserType::CHROME);
+
+        $driver->shouldReceive('manage->getLog')->andReturn([
+            [
+                'level' => 'SEVERE',
+                'message' => "http://example.test/js/vendors~app.js?28f8d5a6622d03b99bae 91554:31 \"Warning: Each child in a list should have a unique \\\"key\\\" prop.%s %s See https://fb.me/react-warning-keys for more information.%s\" \"\n\nCheck the render method of `Summary`.\" \"\" \"\n    in table (created by Summary)\n    in Summary (created by Context.Consumer)\n    in Connect(Summary) (created by Route)\n    in Route (created by CreateEmployerWizard)\n    in Switch (created by CreateEmployerWizard)\n    in Transition (created by CSSTransition)",
+                'source' => 'console-api',
+                'timestamp' => 1564655342641,
+            ],
+        ]);
+
+        $browser = new Browser($driver);
+
+        $browser->assertConsoleLogMissingErrors();
     }
 }
 

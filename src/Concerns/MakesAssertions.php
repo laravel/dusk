@@ -2,7 +2,9 @@
 
 namespace Laravel\Dusk\Concerns;
 
+use Laravel\Dusk\Browser;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\Exception\NoSuchElementException;
@@ -814,5 +816,28 @@ JS;
         return $this->driver->executeScript(
             "return document.querySelector('".$fullSelector."').__vue__.".$key
         );
+    }
+
+    public function assertConsoleLogMissingErrors()
+    {
+        $consoleLog = $this->getConsoleLog();
+
+        if ($consoleLog === false) {
+            PHPUnit::fail('Your browser type does not support retrieving the console log');
+        }
+
+        $errors = array_filter($consoleLog, Browser::$assertConsoleLogFilter);
+
+        $messages = array_map(function ($message) {
+            return explode("\n", $message)[0];
+        }, array_column($errors, 'message'));
+
+        Assert::assertEmpty(
+            $errors,
+            'Console log had unexpected errors: '.PHP_EOL.PHP_EOL.
+            json_encode($messages, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE |JSON_UNESCAPED_SLASHES)
+        );
+
+        return $this;
     }
 }

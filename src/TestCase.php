@@ -28,6 +28,10 @@ abstract class TestCase extends FoundationTestCase
 
         Browser::$storeConsoleLogAt = base_path('tests/Browser/console');
 
+        Browser::$assertConsoleLogFilter = function ($consoleLog) {
+            return $consoleLog;
+        };
+
         Browser::$userResolver = function () {
             return $this->user();
         };

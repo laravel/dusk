@@ -47,6 +47,13 @@ class Browser
     public static $storeConsoleLogAt;
 
     /**
+     * The closure that is used to filter console messages for console log assertions.
+     *
+     * @var Closure
+     */
+    public static $assertConsoleLogFilter;
+
+    /**
      * The browsers that support retrieving logs.
      *
      * @var array
@@ -302,17 +309,27 @@ class Browser
      */
     public function storeConsoleLog($name)
     {
-        if (in_array($this->driver->getCapabilities()->getBrowserName(), static::$supportsRemoteLogs)) {
-            $console = $this->driver->manage()->getLog('browser');
-
-            if (! empty($console)) {
-                file_put_contents(
-                    sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name), json_encode($console, JSON_PRETTY_PRINT)
-                );
-            }
+        if ($consoleLog = $this->getConsoleLog()) {
+            file_put_contents(
+                sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name), json_encode($consoleLog, JSON_PRETTY_PRINT)
+            );
         }
 
         return $this;
+    }
+
+    /**
+     * Get the console log entries.
+     *
+     * @return array|false The list of log entries.
+     */
+    public function getConsoleLog()
+    {
+        if (! in_array($this->driver->getCapabilities()->getBrowserName(), static::$supportsRemoteLogs)) {
+            return false;
+        }
+
+        return $this->driver->manage()->getLog('browser');
     }
 
     /**
