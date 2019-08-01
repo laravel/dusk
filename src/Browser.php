@@ -291,7 +291,7 @@ class Browser
 
         $directoryPath = dirname($filePath);
 
-        if (! file_exists($directoryPath)) {
+        if (! is_dir($directoryPath)) {
             mkdir($directoryPath, 0777, true);
         }
 
