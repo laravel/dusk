@@ -11,6 +11,19 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 class BrowserTest extends TestCase
 {
+    /** @var \Mockery\MockInterface */
+    private $driver;
+
+    /** @var Browser */
+    private $browser;
+
+    protected function setUp(): void
+    {
+        $this->driver = m::mock(stdClass::class);
+
+        $this->browser = new Browser($this->driver);
+    }
+
     protected function tearDown(): void
     {
         m::close();
@@ -154,6 +167,36 @@ class BrowserTest extends TestCase
         $browser = new Browser($driver);
 
         $browser->storeConsoleLog('file');
+    }
+
+    public function test_screenshot()
+    {
+        $this->driver->shouldReceive('takeScreenshot')->andReturnUsing(function ($filePath) {
+            touch($filePath);
+        });
+
+        Browser::$storeScreenshotsAt = sys_get_temp_dir();
+
+        $this->browser->screenshot(
+            $name = 'screenshot-01'
+        );
+
+        $this->assertFileExists(Browser::$storeScreenshotsAt.'/'.$name.'.png');
+    }
+
+    public function test_screenshot_in_subdirectory()
+    {
+        $this->driver->shouldReceive('takeScreenshot')->andReturnUsing(function ($filePath) {
+            touch($filePath);
+        });
+
+        Browser::$storeScreenshotsAt = sys_get_temp_dir();
+
+        $this->browser->screenshot(
+            $name = uniqid('random').'/sub/dir/screenshot-01'
+        );
+
+        $this->assertFileExists(Browser::$storeScreenshotsAt.'/'.$name.'.png');
     }
 }
 
