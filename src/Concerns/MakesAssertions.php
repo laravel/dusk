@@ -829,7 +829,7 @@ JS;
         $errors = array_filter($consoleLog, Browser::$assertConsoleLogFilter);
 
         $messages = array_map(function ($message) {
-            return explode("\n", $message)[0];
+            return explode('\n', $message)[0];
         }, array_column($errors, 'message'));
 
         Assert::assertEmpty(

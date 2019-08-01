@@ -175,7 +175,7 @@ class BrowserTest extends TestCase
             [
                 [
                     'level' => 'SEVERE',
-                    'message' => "http://example.test/js/vendors~app.js?28f8d5a6622d03b99bae 91554:31 \"Warning: Each child in a list should have a unique \\\"key\\\" prop .%s % s See https://fb.me/react-warning-keys for more information.%s\" \"\n\nCheck the render method of `Summary`.\" \"\" \"\n    in table (created by Summary)\n    in Summary (created by Context.Consumer)\n    in Connect(Summary) (created by Route)\n    in Route (created by CreateEmployerWizard)\n    in Switch (created by CreateEmployerWizard)\n    in Transition (created by CSSTransition)",
+                    'message' => "http://example.test/js/vendors~app.js?28f8d5a6622d03b99bae 91554:31 \"Warning: Each child in a list should have a unique \\\"key\\\" prop .%s % s See https://fb.me/react-warning-keys for more information.%s\" \"\\n\\nCheck the render method of `Summary`.\" \"\" \"\\n    in table (created by Summary)\\n    in Summary (created by Context.Consumer)\\n    in Connect(Summary) (created by Route)\\n    in Route (created by CreateEmployerWizard)\\n    in Switch (created by CreateEmployerWizard)\\n    in Transition (created by CSSTransition)",
                     'source' => 'console-api',
                     'timestamp' => 1564655342641,
                 ],
@@ -211,7 +211,7 @@ class BrowserTest extends TestCase
         $driver->shouldReceive('manage->getLog')->andReturn([
             [
                 'level' => 'SEVERE',
-                'message' => "http://example.test/js/vendors~app.js?28f8d5a6622d03b99bae 91554:31 \"Warning: Each child in a list should have a unique \\\"key\\\" prop.%s %s See https://fb.me/react-warning-keys for more information.%s\" \"\n\nCheck the render method of `Summary`.\" \"\" \"\n    in table (created by Summary)\n    in Summary (created by Context.Consumer)\n    in Connect(Summary) (created by Route)\n    in Route (created by CreateEmployerWizard)\n    in Switch (created by CreateEmployerWizard)\n    in Transition (created by CSSTransition)",
+                'message' => "http://example.test/js/vendors~app.js?28f8d5a6622d03b99bae 91554:31 \"Warning: Each child in a list should have a unique \\\"key\\\" prop.%s %s See https://fb.me/react-warning-keys for more information.%s\" \"\\n\\nCheck the render method of `Summary`.\" \"\" \"\\n    in table (created by Summary)\\n    in Summary (created by Context.Consumer)\\n    in Connect(Summary) (created by Route)\\n    in Route (created by CreateEmployerWizard)\\n    in Switch (created by CreateEmployerWizard)\\n    in Transition (created by CSSTransition)",
                 'source' => 'console-api',
                 'timestamp' => 1564655342641,
             ],
