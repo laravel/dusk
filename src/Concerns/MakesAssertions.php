@@ -835,7 +835,7 @@ JS;
         Assert::assertEmpty(
             $errors,
             'Console log had unexpected errors: '.PHP_EOL.PHP_EOL.
-            json_encode($messages, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE |JSON_UNESCAPED_SLASHES)
+            json_encode($messages, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
         );
 
         return $this;
