@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.4.0...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.5.0...5.0)
+
+
+## [v5.5.0 (2019-08-06)](https://github.com/laravel/dusk/compare/v5.4.0...v5.5.0)
+
+### Added
+- Allow saving screenshots in a subdirectory ([#662](https://github.com/laravel/dusk/pull/662))
 
 
 ## [v5.4.0 (2019-07-30)](https://github.com/laravel/dusk/compare/v5.3.0...v5.4.0)
