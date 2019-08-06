@@ -287,9 +287,15 @@ class Browser
      */
     public function screenshot($name)
     {
-        $this->driver->takeScreenshot(
-            sprintf('%s/%s.png', rtrim(static::$storeScreenshotsAt, '/'), $name)
-        );
+        $filePath = sprintf('%s/%s.png', rtrim(static::$storeScreenshotsAt, '/'), $name);
+
+        $directoryPath = dirname($filePath);
+
+        if (! is_dir($directoryPath)) {
+            mkdir($directoryPath, 0777, true);
+        }
+
+        $this->driver->takeScreenshot($filePath);
 
         return $this;
     }
