@@ -85,7 +85,7 @@ trait WaitsForElements
             return Str::contains($this->resolver->findOrFail('')->getText(), $text);
         }, $message);
     }
-    
+
     /**
      * @param string $selector
      * @param string $text
@@ -95,7 +95,7 @@ trait WaitsForElements
      */
     public function waitForTextIn($selector, $text, $seconds = null)
     {
-        $message = 'Waited %s seconds for text "'.$text.'" in selector ' . $selector;
+        $message = 'Waited %s seconds for text "'.$text.'" in selector '.$selector;
 
         return $this->waitUsing($seconds, 100, function () use ($selector, $text) {
             return $this->assertSeeIn($selector, $text);
