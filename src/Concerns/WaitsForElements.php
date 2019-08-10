@@ -85,6 +85,22 @@ trait WaitsForElements
             return Str::contains($this->resolver->findOrFail('')->getText(), $text);
         }, $message);
     }
+    
+    /**
+     * @param string $selector
+     * @param string $text
+     * @param int|null $seconds
+     * @return WaitsForElements
+     * @throws TimeOutException
+     */
+    public function waitForTextIn($selector, $text, $seconds = null)
+    {
+        $message = 'Waited %s seconds for text "'.$text.'" in selector ' . $selector;
+
+        return $this->waitUsing($seconds, 100, function () use ($selector, $text) {
+            return $this->assertSeeIn($selector, $text);
+        }, $message);
+    }
 
     /**
      * Wait for the given link to be visible.
