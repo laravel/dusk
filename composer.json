@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1.0",
+        "php": "^7.2",
         "ext-json": "*",
         "ext-zip": "*",
         "facebook/webdriver": "^1.7",
