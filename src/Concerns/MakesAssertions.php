@@ -2,10 +2,10 @@
 
 namespace Laravel\Dusk\Concerns;
 
+use Facebook\WebDriver\Exception\NoSuchElementException;
+use Facebook\WebDriver\Remote\RemoteWebElement;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Assert as PHPUnit;
-use Facebook\WebDriver\Remote\RemoteWebElement;
-use Facebook\WebDriver\Exception\NoSuchElementException;
 
 trait MakesAssertions
 {

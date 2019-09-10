@@ -2,11 +2,11 @@
 
 namespace Laravel\Dusk\Tests;
 
-use stdClass;
-use Mockery as m;
-use Laravel\Dusk\Browser;
-use PHPUnit\Framework\TestCase;
 use Facebook\WebDriver\Exception\TimeOutException;
+use Laravel\Dusk\Browser;
+use Mockery as m;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class WaitsForElementsTest extends TestCase
 {

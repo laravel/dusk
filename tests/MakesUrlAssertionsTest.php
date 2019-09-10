@@ -2,11 +2,11 @@
 
 namespace Laravel\Dusk\Tests;
 
-use stdClass;
-use Mockery as m;
 use Laravel\Dusk\Browser;
-use PHPUnit\Framework\TestCase;
+use Mockery as m;
 use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class MakesUrlAssertionsTest extends TestCase
 {

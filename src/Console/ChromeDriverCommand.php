@@ -2,9 +2,9 @@
 
 namespace Laravel\Dusk\Console;
 
-use ZipArchive;
 use Illuminate\Console\Command;
 use Laravel\Dusk\OperatingSystem;
+use ZipArchive;
 
 /**
  * @copyright Originally created by Jonas Staudenmeir: https://github.com/staudenmeir/dusk-updater

@@ -2,14 +2,14 @@
 
 namespace Laravel\Dusk;
 
-use Closure;
 use BadMethodCallException;
-use Illuminate\Support\Str;
-use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\WebDriverPoint;
-use Illuminate\Support\Traits\Macroable;
-use Facebook\WebDriver\WebDriverDimension;
+use Closure;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
+use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\WebDriverDimension;
+use Facebook\WebDriver\WebDriverPoint;
+use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Macroable;
 
 class Browser
 {

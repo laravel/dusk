@@ -2,11 +2,11 @@
 
 namespace Laravel\Dusk\Concerns;
 
-use Illuminate\Support\Str;
+use Facebook\WebDriver\Interactions\WebDriverActions;
+use Facebook\WebDriver\Remote\LocalFileDetector;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverKeys;
-use Facebook\WebDriver\Remote\LocalFileDetector;
-use Facebook\WebDriver\Interactions\WebDriverActions;
+use Illuminate\Support\Str;
 
 trait InteractsWithElements
 {

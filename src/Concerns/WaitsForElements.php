@@ -2,14 +2,14 @@
 
 namespace Laravel\Dusk\Concerns;
 
+use Carbon\Carbon;
 use Closure;
 use Exception;
-use Carbon\Carbon;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\TimeOutException;
 use Facebook\WebDriver\WebDriverExpectedCondition;
-use Facebook\WebDriver\Exception\NoSuchElementException;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 trait WaitsForElements
 {

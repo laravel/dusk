@@ -3,10 +3,10 @@
 namespace Laravel\Dusk;
 
 use Exception;
-use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Facebook\WebDriver\WebDriverBy;
+use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
+use InvalidArgumentException;
 
 class ElementResolver
 {
