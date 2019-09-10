@@ -2,8 +2,8 @@
 
 namespace Laravel\Dusk\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Laravel\Dusk\Chrome\SupportsChrome;
+use PHPUnit\Framework\TestCase;
 
 class SupportsChromeTest extends TestCase
 {

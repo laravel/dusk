@@ -2,8 +2,8 @@
 
 namespace Laravel\Dusk\Chrome;
 
-use RuntimeException;
 use Laravel\Dusk\OperatingSystem;
+use RuntimeException;
 use Symfony\Component\Process\Process;
 
 class ChromeProcess

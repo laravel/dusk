@@ -2,12 +2,12 @@
 
 namespace Laravel\Dusk\Tests;
 
-use stdClass;
-use Mockery as m;
-use Laravel\Dusk\Browser;
-use PHPUnit\Framework\TestCase;
 use Facebook\WebDriver\Remote\RemoteWebElement;
+use Laravel\Dusk\Browser;
+use Mockery as m;
 use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class MakesAssertionsTest extends TestCase
 {

@@ -2,12 +2,12 @@
 
 namespace Laravel\Dusk\Tests;
 
-use stdClass;
-use Mockery as m;
-use ReflectionClass;
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
 use Laravel\Dusk\ElementResolver;
+use Mockery as m;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use stdClass;
 
 class ElementResolverTest extends TestCase
 {

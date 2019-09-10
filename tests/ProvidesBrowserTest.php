@@ -2,10 +2,10 @@
 
 namespace Laravel\Dusk\Tests;
 
-use stdClass;
+use Laravel\Dusk\Concerns\ProvidesBrowser;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
-use Laravel\Dusk\Concerns\ProvidesBrowser;
+use stdClass;
 
 class ProvidesBrowserTest extends TestCase
 {
