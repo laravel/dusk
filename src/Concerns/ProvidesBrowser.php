@@ -4,10 +4,10 @@ namespace Laravel\Dusk\Concerns;
 
 use Closure;
 use Exception;
-use Throwable;
-use ReflectionFunction;
-use Laravel\Dusk\Browser;
 use Illuminate\Support\Collection;
+use Laravel\Dusk\Browser;
+use ReflectionFunction;
+use Throwable;
 
 trait ProvidesBrowser
 {

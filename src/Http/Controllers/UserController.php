@@ -2,8 +2,8 @@
 
 namespace Laravel\Dusk\Http\Controllers;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class UserController
 {

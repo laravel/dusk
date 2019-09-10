@@ -2,8 +2,8 @@
 
 namespace Laravel\Dusk\Console;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 
 class MakeCommand extends GeneratorCommand
 {

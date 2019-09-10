@@ -2,12 +2,12 @@
 
 namespace Laravel\Dusk\Tests;
 
-use stdClass;
-use Mockery as m;
-use Laravel\Dusk\Page;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Component;
+use Laravel\Dusk\Page;
+use Mockery as m;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class ComponentTest extends TestCase
 {
