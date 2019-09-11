@@ -399,7 +399,7 @@ class ElementResolver
         );
 
         if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
-            $selector = sprintf('[%s="%s"]', \Config::get('dusk.selector_prefix'), explode('@', $selector)[1]);
+            $selector = sprintf('[%s="%s"]', config('dusk.selector_prefix'), explode('@', $selector)[1]);
         }
 
         return trim($this->prefix.' '.$selector);
