@@ -18,7 +18,7 @@ class DuskServiceProvider extends ServiceProvider
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
             $this->publishes([__DIR__.'/../config/dusk.php' => config_path('dusk.php')]);
         }
-        
+
         Route::get('/_dusk/login/{userId}/{guard?}', [
             'middleware' => 'web',
             'uses' => 'Laravel\Dusk\Http\Controllers\UserController@login',
@@ -46,7 +46,7 @@ class DuskServiceProvider extends ServiceProvider
         if ($this->app->environment('production')) {
             throw new Exception('It is unsafe to run Dusk in production.');
         }
-        
+
         $this->mergeConfigFrom(
             __DIR__.'/../config/dusk.php', 'dusk'
         );
