@@ -167,7 +167,7 @@ class ChromeDriverCommand extends Command
     {
         $home = $this->getUrl($this->homeUrl);
 
-        preg_match('/Latest stable release:.*?\?path=([\d.]+)/', $home, $matches);
+        preg_match('/release:.*?\?path=([\d.]+)/', $home, $matches);
 
         return $matches[1];
     }
