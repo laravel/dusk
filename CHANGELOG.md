@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.5.0...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.5.1...5.0)
+
+
+## [v5.5.1 (2019-09-12)](https://github.com/laravel/dusk/compare/v5.5.0...v5.5.1)
+
+### Fixed
+- Update regular expression base on website changes ([#674](https://github.com/laravel/dusk/pull/674))
 
 
 ## [v5.5.0 (2019-08-06)](https://github.com/laravel/dusk/compare/v5.4.0...v5.5.0)
