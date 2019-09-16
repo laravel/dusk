@@ -29,14 +29,14 @@ class ChromeDriverCommand extends Command
     protected $description = 'Install the ChromeDriver binary';
 
     /**
-     * URL to the home page.
+     * URL to the latest stable release version.
      *
      * @var string
      */
-    protected $homeUrl = 'http://chromedriver.chromium.org/home';
+    protected $latestVersionUrl = 'https://chromedriver.storage.googleapis.com/LATEST_RELEASE';
 
     /**
-     * URL to the latest release version.
+     * URL to the latest release version for a major Chrome version.
      *
      * @var string
      */
@@ -165,11 +165,7 @@ class ChromeDriverCommand extends Command
      */
     protected function latestVersion()
     {
-        $home = $this->getUrl($this->homeUrl);
-
-        preg_match('/release:.*?\?path=([\d.]+)/', $home, $matches);
-
-        return $matches[1];
+        return trim(file_get_contents($this->latestVersionUrl));
     }
 
     /**
