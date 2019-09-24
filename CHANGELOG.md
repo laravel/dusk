@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.5.1...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.5.2...5.0)
+
+
+## [v5.5.2 (2019-09-24)](https://github.com/laravel/dusk/compare/v5.5.1...v5.5.2)
+
+### Fixed
+- Improve detection of latest stable ChromeDriver release ([#677](https://github.com/laravel/dusk/pull/677))
 
 
 ## [v5.5.1 (2019-09-12)](https://github.com/laravel/dusk/compare/v5.5.0...v5.5.1)
