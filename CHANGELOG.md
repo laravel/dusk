@@ -8,7 +8,6 @@
 - Bumped minimum Symfony dependencies to 4.3 ([1ee28e1](https://github.com/laravel/dusk/commit/1ee28e1bfcce1de4a3ad83253394d964690602c4))
 
 
-
 ## [v5.5.2 (2019-09-24)](https://github.com/laravel/dusk/compare/v5.5.1...v5.5.2)
 
 ### Fixed
