@@ -288,8 +288,8 @@ class DuskCommand extends Command
      */
     protected function removeConfiguration()
     {
-        if (! $this->hasPhpUnitConfiguration) {
-            unlink(base_path('phpunit.dusk.xml'));
+        if (! $this->hasPhpUnitConfiguration && file_exists($file = base_path('phpunit.dusk.xml'))) {
+            unlink($file);
         }
     }
 
