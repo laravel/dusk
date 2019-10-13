@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Exception\RuntimeException;
+use Symfony\Component\Process\Exception\ProcessSignaledException;
 use Symfony\Component\Process\Process;
 
 class DuskCommand extends Command
@@ -68,9 +69,15 @@ class DuskCommand extends Command
                 $this->output->writeln('Warning: '.$e->getMessage());
             }
 
-            return $process->run(function ($type, $line) {
-                $this->output->write($line);
-            });
+            try {
+                return $process->run(function ($type, $line) {
+                    $this->output->write($line);
+                });
+            } catch (ProcessSignaledException $e) {
+                if ($e->getSignal() !== 2) {
+                    throw $e;
+                }
+            }
         });
     }
 
@@ -159,6 +166,22 @@ class DuskCommand extends Command
      */
     protected function withDuskEnvironment($callback)
     {
+        $this->setupDuskEnvironment();
+
+        try {
+            $callback();
+        } finally {
+            $this->teardownDuskEnviroment();
+        }
+    }
+
+    /**
+     * Restore the original environment.
+     *
+     * @return void
+     */
+    protected function setupDuskEnvironment()
+    {
         if (file_exists(base_path($this->duskFile()))) {
             if (file_get_contents(base_path('.env')) !== file_get_contents(base_path($this->duskFile()))) {
                 $this->backupEnvironment();
@@ -169,13 +192,35 @@ class DuskCommand extends Command
 
         $this->writeConfiguration();
 
-        return tap($callback(), function () {
-            $this->removeConfiguration();
+        $this->setupSignalHandler();
+    }
 
-            if (file_exists(base_path($this->duskFile())) && file_exists(base_path('.env.backup'))) {
-                $this->restoreEnvironment();
-            }
+    /**
+     * Setup the SIGINT signal handler for CTRL+C exits.
+     *
+     * @return void
+     */
+    protected function setupSignalHandler()
+    {
+        declare(ticks=1);
+
+        pcntl_signal(SIGINT, function () {
+            $this->teardownDuskEnviroment();
         });
+    }
+
+    /**
+     * Setup the dusk environment.
+     *
+     * @return void
+     */
+    protected function teardownDuskEnviroment()
+    {
+        $this->removeConfiguration();
+
+        if (file_exists(base_path($this->duskFile())) && file_exists(base_path('.env.backup'))) {
+            $this->restoreEnvironment();
+        }
     }
 
     /**
