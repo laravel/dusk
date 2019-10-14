@@ -74,7 +74,7 @@ class DuskCommand extends Command
                     $this->output->write($line);
                 });
             } catch (ProcessSignaledException $e) {
-                if ($e->getSignal() !== 2) {
+                if ($e->getSignal() !== SIGINT) {
                     throw $e;
                 }
             }
