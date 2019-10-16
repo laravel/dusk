@@ -202,7 +202,7 @@ class DuskCommand extends Command
      */
     protected function setupSignalHandler()
     {
-        declare(ticks=1);
+        pcntl_async_signals(true);
 
         pcntl_signal(SIGINT, function () {
             $this->teardownDuskEnviroment();
