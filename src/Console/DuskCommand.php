@@ -176,7 +176,7 @@ class DuskCommand extends Command
     }
 
     /**
-     * Restore the original environment.
+     * Setup the Dusk environment.
      *
      * @return void
      */
@@ -210,7 +210,7 @@ class DuskCommand extends Command
     }
 
     /**
-     * Setup the dusk environment.
+     * Restore the original environment.
      *
      * @return void
      */
