@@ -196,6 +196,52 @@ class DuskCommand extends Command
     }
 
     /**
+     * Backup the current environment file.
+     *
+     * @return void
+     */
+    protected function backupEnvironment()
+    {
+        copy(base_path('.env'), base_path('.env.backup'));
+
+        copy(base_path($this->duskFile()), base_path('.env'));
+    }
+
+    /**
+     * Refresh the current environment variables.
+     *
+     * @return void
+     */
+    protected function refreshEnvironment()
+    {
+        // BC fix to support Dotenv ^2.2...
+        if (! method_exists(Dotenv::class, 'create')) {
+            (new Dotenv(base_path()))->overload();
+
+            return;
+        }
+
+        Dotenv::create(base_path())->overload();
+    }
+
+    /**
+     * Write the Dusk PHPUnit configuration.
+     *
+     * @return void
+     */
+    protected function writeConfiguration()
+    {
+        if (! file_exists($file = base_path('phpunit.dusk.xml')) &&
+            ! file_exists(base_path('phpunit.dusk.xml.dist'))) {
+            copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
+
+            return;
+        }
+
+        $this->hasPhpUnitConfiguration = true;
+    }
+
+    /**
      * Setup the SIGINT signal handler for CTRL+C exits.
      *
      * @return void
@@ -224,15 +270,15 @@ class DuskCommand extends Command
     }
 
     /**
-     * Backup the current environment file.
+     * Remove the Dusk PHPUnit configuration.
      *
      * @return void
      */
-    protected function backupEnvironment()
+    protected function removeConfiguration()
     {
-        copy(base_path('.env'), base_path('.env.backup'));
-
-        copy(base_path($this->duskFile()), base_path('.env'));
+        if (! $this->hasPhpUnitConfiguration && file_exists($file = base_path('phpunit.dusk.xml'))) {
+            unlink($file);
+        }
     }
 
     /**
@@ -245,52 +291,6 @@ class DuskCommand extends Command
         copy(base_path('.env.backup'), base_path('.env'));
 
         unlink(base_path('.env.backup'));
-    }
-
-    /**
-     * Refresh the current environment variables.
-     *
-     * @return void
-     */
-    protected function refreshEnvironment()
-    {
-        // BC fix to support Dotenv ^2.2
-        if (! method_exists(Dotenv::class, 'create')) {
-            (new Dotenv(base_path()))->overload();
-
-            return;
-        }
-
-        Dotenv::create(base_path())->overload();
-    }
-
-    /**
-     * Write the Dusk PHPUnit configuration.
-     *
-     * @return void
-     */
-    protected function writeConfiguration()
-    {
-        if (! file_exists($file = base_path('phpunit.dusk.xml')) &&
-            ! file_exists(base_path('phpunit.dusk.xml.dist'))) {
-            copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
-
-            return;
-        }
-
-        $this->hasPhpUnitConfiguration = true;
-    }
-
-    /**
-     * Remove the Dusk PHPUnit configuration.
-     *
-     * @return void
-     */
-    protected function removeConfiguration()
-    {
-        if (! $this->hasPhpUnitConfiguration && file_exists($file = base_path('phpunit.dusk.xml'))) {
-            unlink($file);
-        }
     }
 
     /**
