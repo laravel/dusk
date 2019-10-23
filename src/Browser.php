@@ -250,6 +250,19 @@ class Browser
     }
 
     /**
+     * Scroll screen to element at the given selector.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function scrollTo($selector)
+    {
+        $this->driver->executeScript("document.querySelector('$selector').scrollIntoView();");
+
+        return $this;
+    }
+
+    /**
      * Take a screenshot and store it with the given name.
      *
      * @param  string  $name
