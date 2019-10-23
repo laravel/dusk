@@ -257,6 +257,8 @@ class Browser
      */
     public function scrollTo($selector)
     {
+        $selector = $this->resolver->format($selector);
+
         $this->driver->executeScript("$(\"html, body\").animate({scrollTop: $(\"$selector\").offset().top}, 0);");
 
         return $this;
