@@ -1,6 +1,15 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.5.2...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.6.0...5.0)
+
+
+## [v5.6.0 (2019-10-29)](https://github.com/laravel/dusk/compare/v5.5.2...v5.6.0)
+
+### Added
+- Add scrollTo method ([#684](https://github.com/laravel/dusk/pull/684))
+
+### Fixed
+- Add graceful handler for `SIGINT` for .env restoration ([#682](https://github.com/laravel/dusk/pull/682), [f843b8a](https://github.com/laravel/dusk/commit/f843b8a51ae96933cefcc74dec515377d3135611))
 
 
 ## [v5.5.2 (2019-09-24)](https://github.com/laravel/dusk/compare/v5.5.1...v5.5.2)
