@@ -169,7 +169,7 @@ class DuskCommand extends Command
         $this->setupDuskEnvironment();
 
         try {
-            $callback();
+            return $callback();
         } finally {
             $this->teardownDuskEnviroment();
         }
