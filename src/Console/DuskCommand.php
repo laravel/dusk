@@ -74,7 +74,7 @@ class DuskCommand extends Command
                     $this->output->write($line);
                 });
             } catch (ProcessSignaledException $e) {
-                if ($e->getSignal() !== SIGINT) {
+                if (extension_loaded('pcntl') && $e->getSignal() !== SIGINT) {
                     throw $e;
                 }
             }
@@ -88,7 +88,7 @@ class DuskCommand extends Command
      */
     protected function binary()
     {
-        if ('phpdbg' === \PHP_SAPI) {
+        if ('phpdbg' === PHP_SAPI) {
             return [PHP_BINARY, '-qrr', 'vendor/phpunit/phpunit/phpunit'];
         }
 
@@ -169,7 +169,7 @@ class DuskCommand extends Command
         $this->setupDuskEnvironment();
 
         try {
-            $callback();
+            return $callback();
         } finally {
             $this->teardownDuskEnviroment();
         }
@@ -248,11 +248,13 @@ class DuskCommand extends Command
      */
     protected function setupSignalHandler()
     {
-        pcntl_async_signals(true);
+        if (extension_loaded('pcntl')) {
+            pcntl_async_signals(true);
 
-        pcntl_signal(SIGINT, function () {
-            $this->teardownDuskEnviroment();
-        });
+            pcntl_signal(SIGINT, function () {
+                $this->teardownDuskEnviroment();
+            });
+        }
     }
 
     /**
