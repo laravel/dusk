@@ -13,7 +13,6 @@
         "php": ">=7.1.0",
         "ext-json": "*",
         "ext-zip": "*",
-        "ext-pcntl": "*",
         "facebook/webdriver": "^1.7",
         "nesbot/carbon": "^1.20|^2.0",
         "illuminate/console": "~5.7.0|~5.8.0|^6.0|^7.0",
@@ -26,6 +25,9 @@
     "require-dev": {
         "mockery/mockery": "^1.0",
         "phpunit/phpunit": "^7.5|^8.0"
+    },
+    "suggest": {
+        "ext-pcntl": "Used to gracefully terminate Dusk when tests are running."
     },
     "autoload": {
         "psr-4": {
