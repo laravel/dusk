@@ -1,6 +1,14 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.6.0...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.6.1...5.0)
+
+
+## [v5.6.1 (2019-11-12)](https://github.com/laravel/dusk/compare/v5.6.0...v5.6.1)
+
+### Fixed
+- Ensure jQuery for scrollTo ([#686](https://github.com/laravel/dusk/pull/686))
+- Added missing return statement in withDuskEnvironment ([#691](https://github.com/laravel/dusk/pull/691))
+- Prevent using pcntl when not installed ([#692](https://github.com/laravel/dusk/pull/692))
 
 
 ## [v5.6.0 (2019-10-29)](https://github.com/laravel/dusk/compare/v5.5.2...v5.6.0)
