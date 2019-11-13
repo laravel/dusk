@@ -62,7 +62,7 @@ trait InteractsWithElements
         if (is_null($value)) {
             return $this->resolver->findOrFail($selector)->getAttribute('value');
         }
-
+        $value = addslashes($value);
         $selector = $this->resolver->format($selector);
 
         $this->driver->executeScript(
