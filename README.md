@@ -13,7 +13,7 @@ Laravel Dusk provides an expressive, easy-to-use browser automation and testing 
 
 ## Official Documentation
 
-Documentation for Dusk can be found on the [Laravel website](https://laravel.com/docs/master/dusk).
+Documentation for Dusk can be found on the [Laravel website](https://laravel.com/docs/dusk).
 
 ## Contributing
 
