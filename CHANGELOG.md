@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.6.1...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.6.2...5.0)
+
+
+## [v5.6.2 (2019-11-26)](https://github.com/laravel/dusk/compare/v5.6.1...v5.6.2)
+
+### Changed
+- Allow for Symfony 5 ([#696](https://github.com/laravel/dusk/pull/696))
 
 
 ## [v5.6.1 (2019-11-12)](https://github.com/laravel/dusk/compare/v5.6.0...v5.6.1)
