@@ -289,7 +289,7 @@ class Browser
     {
         $this->ensurejQueryIsAvailable();
 
-        $selector = $this->resolver->format($selector);
+        $selector = addslashes($this->resolver->format($selector));
 
         $this->driver->executeScript("jQuery(\"html, body\").animate({scrollTop: jQuery(\"$selector\").offset().top}, 0);");
 
