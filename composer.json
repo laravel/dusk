@@ -20,7 +20,7 @@
         "symfony/console": "^4.0|^5.0",
         "symfony/finder": "^4.0|^5.0",
         "symfony/process": "^4.0|^5.0",
-        "vlucas/phpdotenv": "^2.2|^3.3"
+        "vlucas/phpdotenv": "^2.2|^3.0|^4.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",

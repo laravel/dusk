@@ -221,7 +221,14 @@ class DuskCommand extends Command
             return;
         }
 
-        Dotenv::create(base_path())->overload();
+        // BC fix to support Dotenv ^3.0...
+        if (! method_exists(Dotenv::class, 'createMutable')) {
+            Dotenv::create(base_path())->overload();
+
+            return;
+        }
+
+        Dotenv::createMutable(base_path())->load();
     }
 
     /**
