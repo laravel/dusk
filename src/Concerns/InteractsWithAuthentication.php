@@ -21,7 +21,7 @@ trait InteractsWithAuthentication
      * Log into the application using a given user ID or email.
      *
      * @param  object|string  $userId
-     * @param  string         $guard
+     * @param  string  $guard
      * @return $this
      */
     public function loginAs($userId, $guard = null)
