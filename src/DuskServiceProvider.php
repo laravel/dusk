@@ -35,6 +35,7 @@ class DuskServiceProvider extends ServiceProvider
      * Register any package services.
      *
      * @return void
+     *
      * @throws \Exception
      */
     public function register()
