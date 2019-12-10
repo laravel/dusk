@@ -32,6 +32,7 @@ class UserController
      *
      * @param  string  $userId
      * @param  string  $guard
+     * @return void
      */
     public function login($userId, $guard = null)
     {
@@ -50,6 +51,7 @@ class UserController
      * Log the user out of the application.
      *
      * @param  string  $guard
+     * @return void
      */
     public function logout($guard = null)
     {

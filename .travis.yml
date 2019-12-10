@@ -1,10 +1,10 @@
+dist: bionic
 language: php
-
-sudo: false
 
 php:
   - 7.2
   - 7.3
+  - 7.4
 
 env:
   matrix:
@@ -26,4 +26,5 @@ install:
 before_script:
   - sudo sh -c 'echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6'
 
-script: vendor/bin/phpunit --verbose
+script:
+  - vendor/bin/phpunit --verbose
