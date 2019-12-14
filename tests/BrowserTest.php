@@ -198,6 +198,20 @@ class BrowserTest extends TestCase
 
         $this->assertFileExists(Browser::$storeScreenshotsAt.'/'.$name.'.png');
     }
+
+    public function test_source()
+    {
+        $this->driver->shouldReceive('getPageSource')->andReturn('source content');
+
+        Browser::$storeSourceAt = sys_get_temp_dir();
+
+        $this->browser->storeSource(
+            $name = 'screenshot-01'
+        );
+
+        $this->assertFileExists(Browser::$storeSourceAt.'/'.$name.'.txt');
+        $this->assertStringEqualsFile(Browser::$storeSourceAt.'/'.$name.'.txt', 'source content');
+    }
 }
 
 class BrowserTestPage extends Page

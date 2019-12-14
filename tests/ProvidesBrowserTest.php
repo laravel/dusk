@@ -39,6 +39,17 @@ class ProvidesBrowserTest extends TestCase
         $this->storeConsoleLogsFor($browsers);
     }
 
+    public function test_store_source_for()
+    {
+        $browser = m::mock(stdClass::class);
+        $browser->shouldReceive('storeSource')->with(
+            'Laravel_Dusk_Tests_ProvidesBrowserTest_test_store_source_for-0'
+        );
+        $browsers = collect([$browser]);
+
+        $this->storeSourceFor($browsers);
+    }
+
     public function testData()
     {
         return [

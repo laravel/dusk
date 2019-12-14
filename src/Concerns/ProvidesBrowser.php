@@ -76,6 +76,7 @@ trait ProvidesBrowser
             throw $e;
         } finally {
             $this->storeConsoleLogsFor($browsers);
+            $this->storeSourceFor($browsers);
 
             static::$browsers = $this->closeAllButPrimary($browsers);
         }
@@ -155,6 +156,21 @@ trait ProvidesBrowser
             $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
 
             $browser->storeConsoleLog($name.'-'.$key);
+        });
+    }
+
+    /**
+     * Store the source for the given browsers.
+     *
+     * @param  \Illuminate\Support\Collection  $browsers
+     * @return void
+     */
+    protected function storeSourceFor($browsers)
+    {
+        $browsers->each(function ($browser, $key) {
+            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
+
+            $browser->storeSource($name.'-'.$key);
         });
     }
 
