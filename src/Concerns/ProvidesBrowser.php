@@ -137,7 +137,6 @@ trait ProvidesBrowser
     protected function captureFailuresFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-
             if (property_exists($browser, 'fitOnFailure') && $browser->fitOnFailure) {
                 $browser->fitContent();
             }
