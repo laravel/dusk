@@ -99,6 +99,13 @@ class Browser
     public $component;
 
     /**
+     * Indicates that the browser should be resized to fit the entire "body" before screenshotting failures.
+     *
+     * @var bool
+     */
+    public $fitOnFailure = true;
+
+    /**
      * Create a browser instance.
      *
      * @param  \Facebook\WebDriver\Remote\RemoteWebDriver  $driver
@@ -259,6 +266,30 @@ class Browser
         if (! empty($body)) {
             $this->resize($body->getSize()->getWidth(), $body->getSize()->getHeight());
         }
+
+        return $this;
+    }
+
+    /**
+     * Disable fit on failures.
+     *
+     * @return $this
+     */
+    public function disableFitOnFailure()
+    {
+        $this->fitOnFailure = false;
+
+        return $this;
+    }
+
+    /**
+     * Enable fit on failures.
+     *
+     * @return $this
+     */
+    public function enableFitOnFailure()
+    {
+        $this->fitOnFailure = true;
 
         return $this;
     }
