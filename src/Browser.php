@@ -99,7 +99,7 @@ class Browser
     public $component;
 
     /**
-     * Flag to fit the browser before taking screenshots for failures.
+     * Indicates that the browser should be resized to fit the entire "body" before screenshotting failures.
      *
      * @var bool
      */
