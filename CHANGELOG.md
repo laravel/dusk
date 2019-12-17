@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.6.3...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.7.0...5.0)
+
+
+## [v5.7.0](https://github.com/laravel/dusk/compare/v5.6.3...v5.7.0)
+
+### Added
+- Automatically fit content on failures ([#704](https://github.com/laravel/dusk/pull/704))
 
 
 ## [v5.6.3 (2019-12-03)](https://github.com/laravel/dusk/compare/v5.6.2...v5.6.3)
