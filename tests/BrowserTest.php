@@ -212,7 +212,7 @@ class BrowserTest extends TestCase
         $this->assertFileExists(Browser::$storeSourceAt.'/'.$name.'.txt');
         $this->assertStringEqualsFile(Browser::$storeSourceAt.'/'.$name.'.txt', 'source content');
     }
-  
+
     public function test_can_disable_fit_on_failure()
     {
         $this->browser->fitOnFailure = true;
