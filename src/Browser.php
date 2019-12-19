@@ -391,6 +391,7 @@ class Browser
                 sprintf('%s/%s.txt', rtrim(static::$storeSourceAt, '/'), $name), $source
             );
         }
+
         return $this;
     }
 
