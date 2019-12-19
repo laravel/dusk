@@ -47,7 +47,7 @@ class Browser
     public static $storeConsoleLogAt;
 
     /**
-     * The directory that will contain any source files.
+     * The directory where source code snapshots will be stored.
      *
      * @var string
      */
@@ -377,7 +377,7 @@ class Browser
     }
 
     /**
-     * Store the source with the given name.
+     * Store a snapshot of the page's current source code with the given name.
      *
      * @param  string  $name
      * @return $this
