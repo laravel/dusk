@@ -76,6 +76,7 @@ trait WaitsForElements
      * @param  string  $text
      * @param  int  $seconds
      * @return $this
+     *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
      */
     public function waitUntilMissingText($text, $seconds = null)
