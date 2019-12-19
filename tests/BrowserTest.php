@@ -214,6 +214,17 @@ class BrowserTest extends TestCase
 
         $this->assertTrue($this->browser->fitOnFailure);
     }
+
+    public function test_source()
+    {
+        $this->driver->shouldReceive('getPageSource')->andReturn('source content');
+        Browser::$storeSourceAt = sys_get_temp_dir();
+        $this->browser->source(
+            $name = 'screenshot-01'
+        );
+        $this->assertFileExists(Browser::$storeSourceAt.'/'.$name.'.txt');
+        $this->assertStringEqualsFile(Browser::$storeSourceAt.'/'.$name.'.txt', 'source content');
+    }
 }
 
 class BrowserTestPage extends Page

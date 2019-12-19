@@ -47,6 +47,13 @@ class Browser
     public static $storeConsoleLogAt;
 
     /**
+     * The directory that will contain any source files.
+     *
+     * @var string
+     */
+    public static $storeSourceAt;
+
+    /**
      * The browsers that support retrieving logs.
      *
      * @var array
@@ -364,6 +371,25 @@ class Browser
                     sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name), json_encode($console, JSON_PRETTY_PRINT)
                 );
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Store the source with the given name.
+     *
+     * @param  string  $name
+     * @return $this
+     */
+    public function source($name)
+    {
+        $source = $this->driver->getPageSource();
+
+        if (! empty($source)) {
+            file_put_contents(
+                sprintf('%s/%s.txt', rtrim(static::$storeSourceAt, '/'), $name), $source
+            );
         }
 
         return $this;

@@ -28,6 +28,8 @@ abstract class TestCase extends FoundationTestCase
 
         Browser::$storeConsoleLogAt = base_path('tests/Browser/console');
 
+        Browser::$storeSourceAt = base_path('tests/Browser/source');
+
         Browser::$userResolver = function () {
             return $this->user();
         };
