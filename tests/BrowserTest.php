@@ -215,11 +215,11 @@ class BrowserTest extends TestCase
         $this->assertTrue($this->browser->fitOnFailure);
     }
 
-    public function test_source()
+    public function test_source_code_can_be_stored()
     {
         $this->driver->shouldReceive('getPageSource')->andReturn('source content');
         Browser::$storeSourceAt = sys_get_temp_dir();
-        $this->browser->source(
+        $this->browser->storeSource(
             $name = 'screenshot-01'
         );
         $this->assertFileExists(Browser::$storeSourceAt.'/'.$name.'.txt');

@@ -382,7 +382,7 @@ class Browser
      * @param  string  $name
      * @return $this
      */
-    public function source($name)
+    public function storeSource($name)
     {
         $source = $this->driver->getPageSource();
 
