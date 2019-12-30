@@ -198,6 +198,33 @@ class BrowserTest extends TestCase
 
         $this->assertFileExists(Browser::$storeScreenshotsAt.'/'.$name.'.png');
     }
+
+    public function test_can_disable_fit_on_failure()
+    {
+        $this->browser->fitOnFailure = true;
+        $this->browser->disableFitOnFailure();
+
+        $this->assertFalse($this->browser->fitOnFailure);
+    }
+
+    public function test_can_enable_fit_on_failure()
+    {
+        $this->browser->fitOnFailure = false;
+        $this->browser->enableFitOnFailure();
+
+        $this->assertTrue($this->browser->fitOnFailure);
+    }
+
+    public function test_source_code_can_be_stored()
+    {
+        $this->driver->shouldReceive('getPageSource')->andReturn('source content');
+        Browser::$storeSourceAt = sys_get_temp_dir();
+        $this->browser->storeSource(
+            $name = 'screenshot-01'
+        );
+        $this->assertFileExists(Browser::$storeSourceAt.'/'.$name.'.txt');
+        $this->assertStringEqualsFile(Browser::$storeSourceAt.'/'.$name.'.txt', 'source content');
+    }
 }
 
 class BrowserTestPage extends Page

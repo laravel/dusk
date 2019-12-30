@@ -1,11 +1,24 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.6.3...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.8.0...master)
 
 ### Changed
 - Dropped support for Laravel 5.8 ([e0c173a](https://github.com/laravel/dusk/commit/e0c173af6deaeda6170e017eb3ce225d8d4c5964))
 - Dropped support for PHP 7.1 ([210e03e](https://github.com/laravel/dusk/commit/210e03ec2c121517b99bd6163859bbdc5cce564a))
 - Bumped minimum Symfony dependencies to 4.3 ([1ee28e1](https://github.com/laravel/dusk/commit/1ee28e1bfcce1de4a3ad83253394d964690602c4))
+
+
+## [v5.8.0 (2019-12-30)](https://github.com/laravel/dusk/compare/v5.7.0...v5.8.0)
+
+### Added
+- Add "waitUntilMissingText" ([#706](https://github.com/laravel/dusk/pull/706))
+- Add ability to store source from browser ([#707](https://github.com/laravel/dusk/pull/707), [9c90e2a](https://github.com/laravel/dusk/commit/9c90e2a716030c9a36e6306c3f67d606a254bbb7), [1d5bc20](https://github.com/laravel/dusk/commit/1d5bc203b67ffc5a17eb1b89f3e22547e3ea174b))
+
+
+## [v5.7.0 (2019-12-17)](https://github.com/laravel/dusk/compare/v5.6.3...v5.7.0)
+
+### Added
+- Automatically fit content on failures ([#704](https://github.com/laravel/dusk/pull/704))
 
 
 ## [v5.6.3 (2019-12-03)](https://github.com/laravel/dusk/compare/v5.6.2...v5.6.3)

@@ -71,6 +71,26 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for the given text to be removed.
+     *
+     * @param  string  $text
+     * @param  int  $seconds
+     * @return $this
+     *
+     * @throws \Facebook\WebDriver\Exception\TimeOutException
+     */
+    public function waitUntilMissingText($text, $seconds = null)
+    {
+        $text = Arr::wrap($text);
+
+        $message = $this->formatTimeOutMessage('Waited %s seconds for removal of text', implode("', '", $text));
+
+        return $this->waitUsing($seconds, 100, function () use ($text) {
+            return ! Str::contains($this->resolver->findOrFail('')->getText(), $text);
+        }, $message);
+    }
+
+    /**
      * Wait for the given text to be visible.
      *
      * @param  array|string  $text

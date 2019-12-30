@@ -47,6 +47,13 @@ class Browser
     public static $storeConsoleLogAt;
 
     /**
+     * The directory where source code snapshots will be stored.
+     *
+     * @var string
+     */
+    public static $storeSourceAt;
+
+    /**
      * The browsers that support retrieving logs.
      *
      * @var array
@@ -80,7 +87,7 @@ class Browser
     /**
      * The element resolver instance.
      *
-     * @var ElementResolver
+     * @var \Laravel\Dusk\ElementResolver
      */
     public $resolver;
 
@@ -99,10 +106,17 @@ class Browser
     public $component;
 
     /**
+     * Indicates that the browser should be resized to fit the entire "body" before screenshotting failures.
+     *
+     * @var bool
+     */
+    public $fitOnFailure = true;
+
+    /**
      * Create a browser instance.
      *
      * @param  \Facebook\WebDriver\Remote\RemoteWebDriver  $driver
-     * @param  ElementResolver  $resolver
+     * @param  \Laravel\Dusk\ElementResolver  $resolver
      * @return void
      */
     public function __construct($driver, $resolver = null)
@@ -264,6 +278,30 @@ class Browser
     }
 
     /**
+     * Disable fit on failures.
+     *
+     * @return $this
+     */
+    public function disableFitOnFailure()
+    {
+        $this->fitOnFailure = false;
+
+        return $this;
+    }
+
+    /**
+     * Enable fit on failures.
+     *
+     * @return $this
+     */
+    public function enableFitOnFailure()
+    {
+        $this->fitOnFailure = true;
+
+        return $this;
+    }
+
+    /**
      * Move the browser window.
      *
      * @param  int  $x
@@ -333,6 +371,25 @@ class Browser
                     sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name), json_encode($console, JSON_PRETTY_PRINT)
                 );
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Store a snapshot of the page's current source code with the given name.
+     *
+     * @param  string  $name
+     * @return $this
+     */
+    public function storeSource($name)
+    {
+        $source = $this->driver->getPageSource();
+
+        if (! empty($source)) {
+            file_put_contents(
+                sprintf('%s/%s.txt', rtrim(static::$storeSourceAt, '/'), $name), $source
+            );
         }
 
         return $this;

@@ -137,6 +137,10 @@ trait ProvidesBrowser
     protected function captureFailuresFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
+            if (property_exists($browser, 'fitOnFailure') && $browser->fitOnFailure) {
+                $browser->fitContent();
+            }
+
             $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
 
             $browser->screenshot('failure-'.$name.'-'.$key);
