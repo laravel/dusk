@@ -87,7 +87,7 @@ class Browser
     /**
      * The element resolver instance.
      *
-     * @var ElementResolver
+     * @var \Laravel\Dusk\ElementResolver
      */
     public $resolver;
 
@@ -116,7 +116,7 @@ class Browser
      * Create a browser instance.
      *
      * @param  \Facebook\WebDriver\Remote\RemoteWebDriver  $driver
-     * @param  ElementResolver  $resolver
+     * @param  \Laravel\Dusk\ElementResolver  $resolver
      * @return void
      */
     public function __construct($driver, $resolver = null)
