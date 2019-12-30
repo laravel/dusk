@@ -1,6 +1,13 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.7.0...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.8.0...5.0)
+
+
+## [v5.8.0](https://github.com/laravel/dusk/compare/v5.7.0...v5.8.0)
+
+### Added
+- Add "waitUntilMissingText" ([#706](https://github.com/laravel/dusk/pull/706))
+- Add ability to store source from browser ([#707](https://github.com/laravel/dusk/pull/707), [9c90e2a](https://github.com/laravel/dusk/commit/9c90e2a716030c9a36e6306c3f67d606a254bbb7), [1d5bc20](https://github.com/laravel/dusk/commit/1d5bc203b67ffc5a17eb1b89f3e22547e3ea174b))
 
 
 ## [v5.7.0](https://github.com/laravel/dusk/compare/v5.6.3...v5.7.0)
