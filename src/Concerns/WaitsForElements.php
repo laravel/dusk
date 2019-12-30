@@ -238,7 +238,7 @@ trait WaitsForElements
     /**
      * Wait for the current page to reload.
      *
-     * @param  Closure  $callback
+     * @param  \Closure  $callback
      * @param  int  $seconds
      * @return $this
      *
