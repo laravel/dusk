@@ -24,6 +24,8 @@ class Dusk
      *
      * @param  array  $options
      * @return bool
+     *
+     * @throws \InvalidArgumentException
      */
     protected static function duskEnvironment($options)
     {

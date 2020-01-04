@@ -141,6 +141,7 @@ class ElementResolver
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      *
      * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function resolveForRadioSelection($field, $value = null)
     {
@@ -233,6 +234,8 @@ class ElementResolver
      *
      * @param  string  $button
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
+     *
+     * @throws \InvalidArgumentException
      */
     public function resolveForButtonPress($button)
     {
