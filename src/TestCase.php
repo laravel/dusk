@@ -7,11 +7,11 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Foundation\Testing\TestCase as FoundationTestCase;
 use Laravel\Dusk\Chrome\SupportsChrome;
+use Laravel\Dusk\Concerns\ProvidesBrowser;
 
 abstract class TestCase extends FoundationTestCase
 {
-    use Concerns\ProvidesBrowser,
-        SupportsChrome;
+    use ProvidesBrowser, SupportsChrome;
 
     /**
      * Register the base URL with Dusk.
@@ -61,6 +61,7 @@ abstract class TestCase extends FoundationTestCase
      * Return the default user to authenticate.
      *
      * @return \App\User|int|null
+     *
      * @throws \Exception
      */
     protected function user()
