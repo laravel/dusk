@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.8.0...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.8.1...5.0)
+
+
+## [v5.8.1 (2020-01-07)](https://github.com/laravel/dusk/compare/v5.8.0...v5.8.1)
+
+### Fixed
+- Cast boolean values to appropriate string ([#713](https://github.com/laravel/dusk/pull/713))
 
 
 ## [v5.8.0 (2019-12-30)](https://github.com/laravel/dusk/compare/v5.7.0...v5.8.0)
