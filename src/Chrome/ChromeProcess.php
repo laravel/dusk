@@ -20,6 +20,8 @@ class ChromeProcess
      *
      * @param  string  $driver
      * @return void
+     *
+     * @throws \RuntimeException
      */
     public function __construct($driver = null)
     {
