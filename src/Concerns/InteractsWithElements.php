@@ -190,7 +190,7 @@ trait InteractsWithElements
             if (is_bool($value)) {
                 $value = $value ? '1' : '0';
             }
-            
+
             foreach ($options as $option) {
                 if ((string) $option->getAttribute('value') === (string) $value) {
                     $option->click();
