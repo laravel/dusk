@@ -187,7 +187,6 @@ trait InteractsWithElements
         if (is_null($value)) {
             $options[array_rand($options)]->click();
         } else {
-            
             if (is_bool($value)) {
                 $value = $value ? '1' : '0';
             }
