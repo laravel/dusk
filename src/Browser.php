@@ -268,6 +268,8 @@ class Browser
      */
     public function fitContent()
     {
+        $this->driver->switchTo()->defaultContent();
+
         $body = $this->driver->findElement(WebDriverBy::tagName('body'));
 
         if (! empty($body)) {
