@@ -1,6 +1,16 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.8.1...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.8.2...5.0)
+
+
+## [v5.8.2 (2020-01-21)](https://github.com/laravel/dusk/compare/v5.8.1...v5.8.2)
+
+### Changed
+- Rename php-webdriver package ([#720](https://github.com/laravel/dusk/pull/720))
+- Update jQuery file ([#721](https://github.com/laravel/dusk/pull/721))
+
+### Fixed
+- Update `fitContent()` ([#717](https://github.com/laravel/dusk/pull/717))
 
 
 ## [v5.8.1 (2020-01-07)](https://github.com/laravel/dusk/compare/v5.8.0...v5.8.1)
