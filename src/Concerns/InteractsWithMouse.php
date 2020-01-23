@@ -53,7 +53,7 @@ trait InteractsWithMouse
 
         return $this;
     }
-    
+
     /**
      * Click the element at the given XPath expression.
      *
