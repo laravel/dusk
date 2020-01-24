@@ -60,7 +60,7 @@ trait InteractsWithMouse
      * @param  string  $selector
      * @return $this
      */
-    public function clickByXPath($expression)
+    public function clickAtXPath($expression)
     {
         $this->driver
             ->findElement(WebDriverBy::xpath($expression))
