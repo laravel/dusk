@@ -141,7 +141,7 @@ trait ProvidesBrowser
                 $browser->fitContent();
             }
 
-            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
+            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getBrowserCallerName();
 
             $browser->screenshot('failure-'.$name.'-'.$key);
         });
@@ -156,7 +156,7 @@ trait ProvidesBrowser
     protected function storeConsoleLogsFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
+            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getBrowserCallerName();
 
             $browser->storeConsoleLog($name.'-'.$key);
         });
@@ -199,6 +199,20 @@ trait ProvidesBrowser
         return retry(5, function () {
             return $this->driver();
         }, 50);
+    }
+
+    /**
+     * Get the browser caller name.
+     *
+     * @return string
+     */
+    protected function getBrowserCallerName()
+    {
+        if (! method_exists($this, 'getName')) {
+            throw new RuntimeException('Override getBrowserCallerName() method to use ProvidesBrowser outside of PHPUnit');
+        }
+
+        return $this->getName(false);
     }
 
     /**
