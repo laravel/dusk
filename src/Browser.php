@@ -270,10 +270,10 @@ class Browser
     {
         $this->driver->switchTo()->defaultContent();
 
-        $body = $this->driver->findElement(WebDriverBy::tagName('body'));
+        $html = $this->driver->findElement(WebDriverBy::tagName('html'));
 
-        if (! empty($body)) {
-            $this->resize($body->getSize()->getWidth(), $body->getSize()->getHeight());
+        if (! empty($html)) {
+            $this->resize($html->getSize()->getWidth(), $html->getSize()->getHeight());
         }
 
         return $this;
