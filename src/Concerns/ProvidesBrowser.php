@@ -141,7 +141,7 @@ trait ProvidesBrowser
                 $browser->fitContent();
             }
 
-            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
+            $name = $this->getCallerName();
 
             $browser->screenshot('failure-'.$name.'-'.$key);
         });
@@ -156,7 +156,7 @@ trait ProvidesBrowser
     protected function storeConsoleLogsFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
+            $name = $this->getCallerName();
 
             $browser->storeConsoleLog($name.'-'.$key);
         });
@@ -199,6 +199,16 @@ trait ProvidesBrowser
         return retry(5, function () {
             return $this->driver();
         }, 50);
+    }
+
+    /**
+     * Get the browser caller name.
+     *
+     * @return string
+     */
+    protected function getCallerName()
+    {
+        return str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
     }
 
     /**

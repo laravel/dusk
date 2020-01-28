@@ -1,11 +1,31 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.8.1...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.9.0...master)
 
 ### Changed
 - Dropped support for Laravel 5.8 ([e0c173a](https://github.com/laravel/dusk/commit/e0c173af6deaeda6170e017eb3ce225d8d4c5964))
 - Dropped support for PHP 7.1 ([210e03e](https://github.com/laravel/dusk/commit/210e03ec2c121517b99bd6163859bbdc5cce564a))
 - Bumped minimum Symfony dependencies to 4.3 ([1ee28e1](https://github.com/laravel/dusk/commit/1ee28e1bfcce1de4a3ad83253394d964690602c4))
+
+
+## [v5.9.0 (2020-01-28)](https://github.com/laravel/dusk/compare/v5.8.2...v5.9.0)
+
+### Added
+- Add `clickAtXPath` ([#723](https://github.com/laravel/dusk/pull/723), [effe73d](https://github.com/laravel/dusk/commit/effe73d6eb61b4bd77f88814bcd679e4fceb6f25))
+- Add `ProvidesBrowser::getCallerName()` ([#725](https://github.com/laravel/dusk/pull/725))
+
+### Fixed
+- Fit content to `<html>` instead of `<body>` ([#726](https://github.com/laravel/dusk/pull/726))
+
+
+## [v5.8.2 (2020-01-21)](https://github.com/laravel/dusk/compare/v5.8.1...v5.8.2)
+
+### Changed
+- Rename php-webdriver package ([#720](https://github.com/laravel/dusk/pull/720))
+- Update jQuery file ([#721](https://github.com/laravel/dusk/pull/721))
+
+### Fixed
+- Update `fitContent()` ([#717](https://github.com/laravel/dusk/pull/717))
 
 
 ## [v5.8.1 (2020-01-07)](https://github.com/laravel/dusk/compare/v5.8.0...v5.8.1)

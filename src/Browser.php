@@ -268,10 +268,12 @@ class Browser
      */
     public function fitContent()
     {
-        $body = $this->driver->findElement(WebDriverBy::tagName('body'));
+        $this->driver->switchTo()->defaultContent();
 
-        if (! empty($body)) {
-            $this->resize($body->getSize()->getWidth(), $body->getSize()->getHeight());
+        $html = $this->driver->findElement(WebDriverBy::tagName('html'));
+
+        if (! empty($html)) {
+            $this->resize($html->getSize()->getWidth(), $html->getSize()->getHeight());
         }
 
         return $this;

@@ -55,6 +55,21 @@ trait InteractsWithMouse
     }
 
     /**
+     * Click the element at the given XPath expression.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function clickAtXPath($expression)
+    {
+        $this->driver
+            ->findElement(WebDriverBy::xpath($expression))
+            ->click();
+
+        return $this;
+    }
+
+    /**
      * Perform a mouse click and hold the mouse button down.
      *
      * @return $this
