@@ -2,8 +2,8 @@
 
 namespace Laravel\Dusk\Concerns;
 
-use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\Interactions\WebDriverActions;
+use Facebook\WebDriver\WebDriverBy;
 
 trait InteractsWithMouse
 {
