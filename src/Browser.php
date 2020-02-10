@@ -276,6 +276,7 @@ class Browser
             if ($html->getSize()->getWidth() <= 0 || $html->getSize()->getHeight() <= 0) {
                 return $this;
             }
+
             $this->resize($html->getSize()->getWidth(), $html->getSize()->getHeight());
         }
 
