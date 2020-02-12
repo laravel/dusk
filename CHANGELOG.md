@@ -1,6 +1,14 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.9.0...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.9.1...5.0)
+
+
+## [v5.9.1 (2020-02-12)](https://github.com/laravel/dusk/compare/v5.9.0...v5.9.1)
+
+### Fixed
+- Adds the missing import for `InteractsWithMouse@clickAtXPath` ([#728](https://github.com/laravel/dusk/pull/728))
+- Size sanity check at fitContent ([#730](https://github.com/laravel/dusk/pull/730))
+- Lock php-webdriver constraints for now ([#733](https://github.com/laravel/dusk/pull/733))
 
 
 ## [v5.9.0 (2020-01-28)](https://github.com/laravel/dusk/compare/v5.8.2...v5.9.0)
