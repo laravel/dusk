@@ -272,7 +272,7 @@ class Browser
 
         $html = $this->driver->findElement(WebDriverBy::tagName('html'));
 
-        if (! empty($html)) {
+        if (! empty($html) && ($html->getSize()->getWidth() <= 0 || $html->getSize()->getHeight() <= 0)) {
             $this->resize($html->getSize()->getWidth(), $html->getSize()->getHeight());
         }
 
