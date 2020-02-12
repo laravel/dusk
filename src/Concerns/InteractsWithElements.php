@@ -63,12 +63,10 @@ trait InteractsWithElements
             return $this->resolver->findOrFail($selector)->getAttribute('value');
         }
 
-        $value = addslashes($value);
-
         $selector = $this->resolver->format($selector);
 
         $this->driver->executeScript(
-            "document.querySelector('{$selector}').value = '{$value}';"
+            'document.querySelector('.json_encode($selector).').value = '.json_encode($value).';'
         );
 
         return $this;
