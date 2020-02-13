@@ -66,7 +66,7 @@ trait InteractsWithElements
         $selector = $this->resolver->format($selector);
 
         $this->driver->executeScript(
-            "document.querySelector('{$selector}').value = '{$value}';"
+            'document.querySelector('.json_encode($selector).').value = '.json_encode($value).';'
         );
 
         return $this;
