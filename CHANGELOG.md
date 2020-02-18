@@ -1,6 +1,13 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.9.1...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.9.2...5.0)
+
+
+## [v5.9.2 (2020-02-18)](https://github.com/laravel/dusk/compare/v5.9.1...v5.9.2)
+
+### Fixed
+- Bugfix quoting for `InteractsWithElements::value` ([#735](https://github.com/laravel/dusk/pull/735))
+- Remove php-webdriver constraints ([#737](https://github.com/laravel/dusk/pull/737))
 
 
 ## [v5.9.1 (2020-02-12)](https://github.com/laravel/dusk/compare/v5.9.0...v5.9.1)
