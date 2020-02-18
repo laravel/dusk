@@ -1,11 +1,18 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.9.1...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.9.2...master)
 
 ### Changed
 - Dropped support for Laravel 5.8 ([e0c173a](https://github.com/laravel/dusk/commit/e0c173af6deaeda6170e017eb3ce225d8d4c5964))
 - Dropped support for PHP 7.1 ([210e03e](https://github.com/laravel/dusk/commit/210e03ec2c121517b99bd6163859bbdc5cce564a))
 - Bumped minimum Symfony dependencies to 4.3 ([1ee28e1](https://github.com/laravel/dusk/commit/1ee28e1bfcce1de4a3ad83253394d964690602c4))
+
+
+## [v5.9.2 (2020-02-18)](https://github.com/laravel/dusk/compare/v5.9.1...v5.9.2)
+
+### Fixed
+- Bugfix quoting for `InteractsWithElements::value` ([#735](https://github.com/laravel/dusk/pull/735))
+- Remove php-webdriver constraints ([#737](https://github.com/laravel/dusk/pull/737))
 
 
 ## [v5.9.1 (2020-02-12)](https://github.com/laravel/dusk/compare/v5.9.0...v5.9.1)
