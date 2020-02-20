@@ -5,9 +5,9 @@ namespace Innobird\Dusky;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-use McCaulay\Duskless\Chrome\SupportsChrome;
+use Innobird\Dusky\Chrome\SupportsChrome;
 
-class Duskless
+class Dusky
 {
     use Concerns\ProvidesBrowser,
         SupportsChrome;
