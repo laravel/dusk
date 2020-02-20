@@ -5,7 +5,7 @@ namespace Innobird\Dusky;
 use Exception;
 use Illuminate\Support\ServiceProvider;
 
-class DuskServiceProvider extends ServiceProvider
+class DuskyServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any package services.
