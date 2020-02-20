@@ -1,16 +1,16 @@
 <?php
 
-namespace Laravel\Dusk\Tests\Conserns;
+namespace Innobird\Dusky\Tests\Conserns;
 
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
-use Laravel\Dusk\Concerns\InteractsWithElements;
-use Laravel\Dusk\ElementResolver;
+use Innobird\Dusky\Concerns\InteractsWithElements;
+use Innobird\Dusky\ElementResolver;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \Laravel\Dusk\Concerns\InteractsWithElements
+ * @coversDefaultClass \Innobird\Dusky\Concerns\InteractsWithElements
  */
 class InteractsWithElementsTest extends TestCase
 {
@@ -44,7 +44,8 @@ class InteractsWithElementsTest extends TestCase
         $this->resolver = $this->getMockBuilder(ElementResolver::class)->setMethods(['findOrFail', 'format'])->disableOriginalConstructor()->getMock();
         $this->driver = $this->getMockBuilder(RemoteWebDriver::class)->setMethods(['executeScript'])->disableOriginalConstructor()->getMock();
 
-        $this->trait = new class($this->resolver, $this->driver) {
+        $this->trait = new class ($this->resolver, $this->driver)
+        {
             use InteractsWithElements;
 
             /** @var ElementResolver|MockObject */

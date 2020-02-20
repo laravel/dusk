@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk\Concerns;
+namespace Innobird\Dusky\Concerns;
 
 use DateTimeInterface;
 
@@ -17,7 +17,7 @@ trait InteractsWithCookies
      */
     public function cookie($name, $value = null, $expiry = null, array $options = [])
     {
-        if (! is_null($value)) {
+        if (!is_null($value)) {
             return $this->addCookie($name, $value, $expiry, $options);
         }
 
@@ -37,7 +37,7 @@ trait InteractsWithCookies
      */
     public function plainCookie($name, $value = null, $expiry = null, array $options = [])
     {
-        if (! is_null($value)) {
+        if (!is_null($value)) {
             return $this->addCookie($name, $value, $expiry, $options, false);
         }
 

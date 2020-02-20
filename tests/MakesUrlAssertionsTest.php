@@ -1,8 +1,8 @@
 <?php
 
-namespace Laravel\Dusk\Tests;
+namespace Innobird\Dusky\Tests;
 
-use Laravel\Dusk\Browser;
+use Innobird\Dusky\Browser;
 use Mockery as m;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
@@ -66,8 +66,8 @@ class MakesUrlAssertionsTest extends TestCase
     {
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
-            'http://www.google.com/test'.
-            'https://www.google.com/test',
+            'http://www.google.com/test' .
+                'https://www.google.com/test',
             'https://www.google.com/test'
         );
         $browser = new Browser($driver);
@@ -325,7 +325,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_route_is()
     {
-        require_once __DIR__.'/stubs/route.php';
+        require_once __DIR__ . '/stubs/route.php';
 
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(

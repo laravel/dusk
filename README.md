@@ -7,6 +7,14 @@
 <a href="https://packagist.org/packages/laravel/dusk"><img src="https://poser.pugx.org/laravel/dusk/license.svg" alt="License"></a>
 </p>
 
+## Overview
+
+Based on McCaulay\Duskless, I modified laravel/dusk up to v5.9.2 and created it.
+Methods such as loginAs have been removed to work in a production environment.
+Testing tools have also been removed.
+
+Please use at your own risk.
+
 ## Introduction
 
 Laravel Dusk provides an expressive, easy-to-use browser automation and testing API. By default, Dusk does not require you to install JDK or Selenium on your machine. Instead, Dusk uses a standalone Chromedriver. However, you are free to utilize any other Selenium driver you wish.

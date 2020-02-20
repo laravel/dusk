@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk\Concerns;
+namespace Innobird\Dusky\Concerns;
 
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\WebDriverBy;
@@ -17,7 +17,8 @@ trait InteractsWithMouse
     public function moveMouse($xOffset, $yOffset)
     {
         (new WebDriverActions($this->driver))->moveByOffset(
-            $xOffset, $yOffset
+            $xOffset,
+            $yOffset
         )->perform();
 
         return $this;

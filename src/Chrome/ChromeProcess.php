@@ -1,8 +1,8 @@
 <?php
 
-namespace Laravel\Dusk\Chrome;
+namespace Innobird\Dusky\Chrome;
 
-use Laravel\Dusk\OperatingSystem;
+use Innobird\Dusky\OperatingSystem;
 use RuntimeException;
 use Symfony\Component\Process\Process;
 
@@ -27,7 +27,7 @@ class ChromeProcess
     {
         $this->driver = $driver;
 
-        if (! is_null($driver) && realpath($driver) === false) {
+        if (!is_null($driver) && realpath($driver) === false) {
             throw new RuntimeException("Invalid path to Chromedriver [{$driver}].");
         }
     }
@@ -45,11 +45,11 @@ class ChromeProcess
         }
 
         if ($this->onWindows()) {
-            $this->driver = realpath(__DIR__.'/../../bin/chromedriver-win.exe');
+            $this->driver = realpath(__DIR__ . '/../../bin/chromedriver-win.exe');
         } elseif ($this->onMac()) {
-            $this->driver = realpath(__DIR__.'/../../bin/chromedriver-mac');
+            $this->driver = realpath(__DIR__ . '/../../bin/chromedriver-mac');
         } else {
-            $this->driver = realpath(__DIR__.'/../../bin/chromedriver-linux');
+            $this->driver = realpath(__DIR__ . '/../../bin/chromedriver-linux');
         }
 
         return $this->process($arguments);
@@ -64,7 +64,9 @@ class ChromeProcess
     protected function process(array $arguments = [])
     {
         return new Process(
-            array_merge([realpath($this->driver)], $arguments), null, $this->chromeEnvironment()
+            array_merge([realpath($this->driver)], $arguments),
+            null,
+            $this->chromeEnvironment()
         );
     }
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\Dusk\Tests;
+namespace Innobird\Dusky\Tests;
 
-use Laravel\Dusk\Browser;
-use Laravel\Dusk\Component;
-use Laravel\Dusk\Page;
+use Innobird\Dusky\Browser;
+use Innobird\Dusky\Component;
+use Innobird\Dusky\Page;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use stdClass;

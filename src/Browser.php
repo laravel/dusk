@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk;
+namespace Innobird\Dusky;
 
 use BadMethodCallException;
 use Closure;
@@ -13,24 +13,14 @@ use Illuminate\Support\Traits\Macroable;
 
 class Browser
 {
-    use Concerns\InteractsWithAuthentication,
-        Concerns\InteractsWithCookies,
+    use Concerns\InteractsWithCookies,
         Concerns\InteractsWithElements,
         Concerns\InteractsWithJavascript,
         Concerns\InteractsWithMouse,
-        Concerns\MakesAssertions,
-        Concerns\MakesUrlAssertions,
         Concerns\WaitsForElements,
         Macroable {
-            __call as macroCall;
-        }
-
-    /**
-     * The base URL for all URLs.
-     *
-     * @var string
-     */
-    public static $baseUrl;
+        __call as macroCall;
+    }
 
     /**
      * The directory that will contain any screenshots.
@@ -87,7 +77,7 @@ class Browser
     /**
      * The element resolver instance.
      *
-     * @var \Laravel\Dusk\ElementResolver
+     * @var \Innobird\Dusky\ElementResolver
      */
     public $resolver;
 
@@ -116,7 +106,7 @@ class Browser
      * Create a browser instance.
      *
      * @param  \Facebook\WebDriver\Remote\RemoteWebDriver  $driver
-     * @param  \Laravel\Dusk\ElementResolver  $resolver
+     * @param  \Innobird\Dusky\ElementResolver  $resolver
      * @return void
      */
     public function __construct($driver, $resolver = null)
@@ -146,8 +136,8 @@ class Browser
         // If the URL does not start with http or https, then we will prepend the base
         // URL onto the URL and navigate to the URL. This will actually navigate to
         // the URL in the browser. Then we will be ready to make assertions, etc.
-        if (! Str::startsWith($url, ['http://', 'https://'])) {
-            $url = static::$baseUrl.'/'.ltrim($url, '/');
+        if (!Str::startsWith($url, ['http://', 'https://'])) {
+            $url = config('app.url') . '/' . ltrim($url, '/');
         }
 
         $this->driver->navigate()->to($url);
@@ -203,7 +193,8 @@ class Browser
         // the developer to access short-cuts for CSS selectors on the page which can
         // allow for more expressive navigation and interaction with all the pages.
         $this->resolver->pageElements(array_merge(
-            $page::siteElements(), $page->elements()
+            $page::siteElements(),
+            $page->elements()
         ));
 
         return $this;
@@ -272,7 +263,7 @@ class Browser
 
         $html = $this->driver->findElement(WebDriverBy::tagName('html'));
 
-        if (! empty($html) && ($html->getSize()->getWidth() <= 0 || $html->getSize()->getHeight() <= 0)) {
+        if (!empty($html) && ($html->getSize()->getWidth() <= 0 || $html->getSize()->getHeight() <= 0)) {
             $this->resize($html->getSize()->getWidth(), $html->getSize()->getHeight());
         }
 
@@ -348,7 +339,7 @@ class Browser
 
         $directoryPath = dirname($filePath);
 
-        if (! is_dir($directoryPath)) {
+        if (!is_dir($directoryPath)) {
             mkdir($directoryPath, 0777, true);
         }
 
@@ -368,9 +359,10 @@ class Browser
         if (in_array($this->driver->getCapabilities()->getBrowserName(), static::$supportsRemoteLogs)) {
             $console = $this->driver->manage()->getLog('browser');
 
-            if (! empty($console)) {
+            if (!empty($console)) {
                 file_put_contents(
-                    sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name), json_encode($console, JSON_PRETTY_PRINT)
+                    sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name),
+                    json_encode($console, JSON_PRETTY_PRINT)
                 );
             }
         }
@@ -388,9 +380,10 @@ class Browser
     {
         $source = $this->driver->getPageSource();
 
-        if (! empty($source)) {
+        if (!empty($source)) {
             file_put_contents(
-                sprintf('%s/%s.txt', rtrim(static::$storeSourceAt, '/'), $name), $source
+                sprintf('%s/%s.txt', rtrim(static::$storeSourceAt, '/'), $name),
+                $source
             );
         }
 
@@ -437,7 +430,8 @@ class Browser
     public function with($selector, Closure $callback)
     {
         $browser = new static(
-            $this->driver, new ElementResolver($this->driver, $this->resolver->format($selector))
+            $this->driver,
+            new ElementResolver($this->driver, $this->resolver->format($selector))
         );
 
         if ($this->page) {
@@ -456,8 +450,8 @@ class Browser
     /**
      * Set the current component state.
      *
-     * @param  \Laravel\Dusk\Component  $component
-     * @param  \Laravel\Dusk\ElementResolver  $parentResolver
+     * @param  \Innobird\Dusky\Component  $component
+     * @param  \Innobird\Dusky\ElementResolver  $parentResolver
      * @return void
      */
     public function onComponent($component, $parentResolver)
@@ -486,7 +480,7 @@ class Browser
     public function ensurejQueryIsAvailable()
     {
         if ($this->driver->executeScript('return window.jQuery == null')) {
-            $this->driver->executeScript(file_get_contents(__DIR__.'/../bin/jquery.js'));
+            $this->driver->executeScript(file_get_contents(__DIR__ . '/../bin/jquery.js'));
         }
     }
 
@@ -551,16 +545,6 @@ class Browser
         ], $this);
 
         return $this;
-    }
-
-    /**
-     * Stop running tests but leave the browser open.
-     *
-     * @return void
-     */
-    public function stop()
-    {
-        exit();
     }
 
     /**

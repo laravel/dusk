@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\Dusk\Tests;
+namespace Innobird\Dusky\Tests;
 
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
-use Laravel\Dusk\Browser;
-use Laravel\Dusk\Page;
+use Innobird\Dusky\Browser;
+use Innobird\Dusky\Page;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -181,7 +181,7 @@ class BrowserTest extends TestCase
             $name = 'screenshot-01'
         );
 
-        $this->assertFileExists(Browser::$storeScreenshotsAt.'/'.$name.'.png');
+        $this->assertFileExists(Browser::$storeScreenshotsAt . '/' . $name . '.png');
     }
 
     public function test_screenshot_in_subdirectory()
@@ -193,10 +193,10 @@ class BrowserTest extends TestCase
         Browser::$storeScreenshotsAt = sys_get_temp_dir();
 
         $this->browser->screenshot(
-            $name = uniqid('random').'/sub/dir/screenshot-01'
+            $name = uniqid('random') . '/sub/dir/screenshot-01'
         );
 
-        $this->assertFileExists(Browser::$storeScreenshotsAt.'/'.$name.'.png');
+        $this->assertFileExists(Browser::$storeScreenshotsAt . '/' . $name . '.png');
     }
 
     public function test_can_disable_fit_on_failure()
@@ -222,8 +222,8 @@ class BrowserTest extends TestCase
         $this->browser->storeSource(
             $name = 'screenshot-01'
         );
-        $this->assertFileExists(Browser::$storeSourceAt.'/'.$name.'.txt');
-        $this->assertStringEqualsFile(Browser::$storeSourceAt.'/'.$name.'.txt', 'source content');
+        $this->assertFileExists(Browser::$storeSourceAt . '/' . $name . '.txt');
+        $this->assertStringEqualsFile(Browser::$storeSourceAt . '/' . $name . '.txt', 'source content');
     }
 }
 

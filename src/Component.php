@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk;
+namespace Innobird\Dusky;
 
 abstract class Component
 {
@@ -10,17 +10,6 @@ abstract class Component
      * @return string
      */
     abstract public function selector();
-
-    /**
-     * Assert that the current page contains this component.
-     *
-     * @param  \Laravel\Dusk\Browser  $browser
-     * @return void
-     */
-    public function assert(Browser $browser)
-    {
-        //
-    }
 
     /**
      * Get the element shortcuts for the page.

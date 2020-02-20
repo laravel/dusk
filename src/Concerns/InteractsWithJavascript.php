@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk\Concerns;
+namespace Innobird\Dusky\Concerns;
 
 trait InteractsWithJavascript
 {

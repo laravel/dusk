@@ -2,8 +2,8 @@
 
 namespace DummyNamespace;
 
-use Laravel\Dusk\Browser;
-use Laravel\Dusk\Component as BaseComponent;
+use Innobird\Dusky\Browser;
+use Innobird\Dusky\Component as BaseComponent;
 
 class DummyClass extends BaseComponent
 {
@@ -15,17 +15,6 @@ class DummyClass extends BaseComponent
     public function selector()
     {
         return '#selector';
-    }
-
-    /**
-     * Assert that the browser page contains the component.
-     *
-     * @param  Browser  $browser
-     * @return void
-     */
-    public function assert(Browser $browser)
-    {
-        $browser->assertVisible($this->selector());
     }
 
     /**

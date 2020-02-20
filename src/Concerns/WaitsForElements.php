@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk\Concerns;
+namespace Innobird\Dusky\Concerns;
 
 use Carbon\Carbon;
 use Closure;
@@ -61,7 +61,7 @@ trait WaitsForElements
 
         return $this->waitUsing($seconds, 100, function () use ($selector) {
             try {
-                $missing = ! $this->resolver->findOrFail($selector)->isDisplayed();
+                $missing = !$this->resolver->findOrFail($selector)->isDisplayed();
             } catch (NoSuchElementException $e) {
                 $missing = true;
             }
@@ -86,7 +86,7 @@ trait WaitsForElements
         $message = $this->formatTimeOutMessage('Waited %s seconds for removal of text', implode("', '", $text));
 
         return $this->waitUsing($seconds, 100, function () use ($text) {
-            return ! Str::contains($this->resolver->findOrFail('')->getText(), $text);
+            return !Str::contains($this->resolver->findOrFail('')->getText(), $text);
         }, $message);
     }
 
@@ -171,12 +171,12 @@ trait WaitsForElements
      */
     public function waitUntil($script, $seconds = null, $message = null)
     {
-        if (! Str::startsWith($script, 'return ')) {
-            $script = 'return '.$script;
+        if (!Str::startsWith($script, 'return ')) {
+            $script = 'return ' . $script;
         }
 
-        if (! Str::endsWith($script, ';')) {
-            $script = $script.';';
+        if (!Str::endsWith($script, ';')) {
+            $script = $script . ';';
         }
 
         return $this->waitUsing($seconds, 100, function () use ($script) {
@@ -229,7 +229,8 @@ trait WaitsForElements
         $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
 
         $this->driver->wait($seconds, 100)->until(
-            WebDriverExpectedCondition::alertIsPresent(), "Waited {$seconds} seconds for dialog."
+            WebDriverExpectedCondition::alertIsPresent(),
+            "Waited {$seconds} seconds for dialog."
         );
 
         return $this;
@@ -288,9 +289,10 @@ trait WaitsForElements
             }
 
             if ($started->lt(Carbon::now()->subSeconds($seconds))) {
-                throw new TimeOutException($message
-                    ? sprintf($message, $seconds)
-                    : "Waited {$seconds} seconds for callback."
+                throw new TimeOutException(
+                    $message
+                        ? sprintf($message, $seconds)
+                        : "Waited {$seconds} seconds for callback."
                 );
             }
 
@@ -309,6 +311,6 @@ trait WaitsForElements
      */
     protected function formatTimeOutMessage($message, $expected)
     {
-        return $message.' ['.str_replace('%', '%%', $expected).'].';
+        return $message . ' [' . str_replace('%', '%%', $expected) . '].';
     }
 }

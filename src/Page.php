@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk;
+namespace Innobird\Dusky;
 
 abstract class Page
 {
@@ -10,17 +10,6 @@ abstract class Page
      * @return string
      */
     abstract public function url();
-
-    /**
-     * Assert that the browser is on the page.
-     *
-     * @param  \Laravel\Dusk\Browser  $browser
-     * @return void
-     */
-    public function assert(Browser $browser)
-    {
-        //
-    }
 
     /**
      * Get the element shortcuts for the page.

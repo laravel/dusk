@@ -1,9 +1,9 @@
 <?php
 
-namespace Laravel\Dusk\Tests;
+namespace Innobird\Dusky\Tests;
 
 use InvalidArgumentException;
-use Laravel\Dusk\ElementResolver;
+use Innobird\Dusky\ElementResolver;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;

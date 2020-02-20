@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk\Chrome;
+namespace Innobird\Dusky\Chrome;
 
 trait SupportsChrome
 {

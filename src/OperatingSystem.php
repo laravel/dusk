@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk;
+namespace Innobird\Dusky;
 
 use Illuminate\Support\Str;
 

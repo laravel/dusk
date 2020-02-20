@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk\Concerns;
+namespace Innobird\Dusky\Concerns;
 
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\Remote\LocalFileDetector;
@@ -66,7 +66,7 @@ trait InteractsWithElements
         $selector = $this->resolver->format($selector);
 
         $this->driver->executeScript(
-            'document.querySelector('.json_encode($selector).').value = '.json_encode($value).';'
+            'document.querySelector(' . json_encode($selector) . ').value = ' . json_encode($value) . ';'
         );
 
         return $this;
@@ -119,11 +119,11 @@ trait InteractsWithElements
     {
         return collect($keys)->map(function ($key) {
             if (is_string($key) && Str::startsWith($key, '{') && Str::endsWith($key, '}')) {
-                $key = constant(WebDriverKeys::class.'::'.strtoupper(trim($key, '{}')));
+                $key = constant(WebDriverKeys::class . '::' . strtoupper(trim($key, '{}')));
             }
 
             if (is_array($key) && Str::startsWith($key[0], '{')) {
-                $key[0] = constant(WebDriverKeys::class.'::'.strtoupper(trim($key[0], '{}')));
+                $key[0] = constant(WebDriverKeys::class . '::' . strtoupper(trim($key[0], '{}')));
             }
 
             return $key;
@@ -228,7 +228,7 @@ trait InteractsWithElements
     {
         $element = $this->resolver->resolveForChecking($field, $value);
 
-        if (! $element->isSelected()) {
+        if (!$element->isSelected()) {
             $element->click();
         }
 
@@ -310,7 +310,8 @@ trait InteractsWithElements
     public function drag($from, $to)
     {
         (new WebDriverActions($this->driver))->dragAndDrop(
-            $this->resolver->findOrFail($from), $this->resolver->findOrFail($to)
+            $this->resolver->findOrFail($from),
+            $this->resolver->findOrFail($to)
         )->perform();
 
         return $this;
@@ -375,7 +376,9 @@ trait InteractsWithElements
     public function dragOffset($selector, $x = 0, $y = 0)
     {
         (new WebDriverActions($this->driver))->dragAndDropBy(
-            $this->resolver->findOrFail($selector), $x, $y
+            $this->resolver->findOrFail($selector),
+            $x,
+            $y
         )->perform();
 
         return $this;

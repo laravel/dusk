@@ -1,11 +1,11 @@
 <?php
 
-namespace Laravel\Dusk\Concerns;
+namespace Innobird\Dusky\Concerns;
 
 use Closure;
 use Exception;
 use Illuminate\Support\Collection;
-use Laravel\Dusk\Browser;
+use Innobird\Dusky\Browser;
 use ReflectionFunction;
 use Throwable;
 
@@ -19,43 +19,10 @@ trait ProvidesBrowser
     protected static $browsers = [];
 
     /**
-     * The callbacks that should be run on class tear down.
-     *
-     * @var array
-     */
-    protected static $afterClassCallbacks = [];
-
-    /**
-     * Tear down the Dusk test case class.
-     *
-     * @afterClass
-     * @return void
-     */
-    public static function tearDownDuskClass()
-    {
-        static::closeAll();
-
-        foreach (static::$afterClassCallbacks as $callback) {
-            $callback();
-        }
-    }
-
-    /**
-     * Register an "after class" tear down callback.
-     *
-     * @param  \Closure  $callback
-     * @return void
-     */
-    public static function afterClass(Closure $callback)
-    {
-        static::$afterClassCallbacks[] = $callback;
-    }
-
-    /**
      * Create a new browser instance.
      *
      * @param  \Closure  $callback
-     * @return \Laravel\Dusk\Browser|void
+     * @return \Innobird\Dusky\Browser|void
      *
      * @throws \Exception
      * @throws \Throwable
@@ -79,6 +46,7 @@ trait ProvidesBrowser
 
             static::$browsers = $this->closeAllButPrimary($browsers);
         }
+        return $this;
     }
 
     /**
@@ -108,7 +76,7 @@ trait ProvidesBrowser
      * Create a new Browser instance.
      *
      * @param  \Facebook\WebDriver\Remote\RemoteWebDriver  $driver
-     * @return \Laravel\Dusk\Browser
+     * @return \Innobird\Dusky\Browser
      */
     protected function newBrowser($driver)
     {
@@ -143,7 +111,7 @@ trait ProvidesBrowser
 
             $name = $this->getCallerName();
 
-            $browser->screenshot('failure-'.$name.'-'.$key);
+            $browser->screenshot('failure-' . $name . '-' . $key);
         });
     }
 
@@ -158,7 +126,7 @@ trait ProvidesBrowser
         $browsers->each(function ($browser, $key) {
             $name = $this->getCallerName();
 
-            $browser->storeConsoleLog($name.'-'.$key);
+            $browser->storeConsoleLog($name . '-' . $key);
         });
     }
 
@@ -208,7 +176,7 @@ trait ProvidesBrowser
      */
     protected function getCallerName()
     {
-        return str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
+        return str_replace('\\', '_', get_class($this)) . '_' . $this->getName(false);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk;
+namespace Innobird\Dusky;
 
 use Exception;
 use Facebook\WebDriver\WebDriverBy;
@@ -82,7 +82,7 @@ class ElementResolver
      */
     public function resolveForTyping($field)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
@@ -101,7 +101,7 @@ class ElementResolver
      */
     public function resolveForSelection($field)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
@@ -122,7 +122,7 @@ class ElementResolver
     public function resolveSelectOptions($field, array $values)
     {
         $options = $this->resolveForSelection($field)
-                ->findElements(WebDriverBy::tagName('option'));
+            ->findElements(WebDriverBy::tagName('option'));
 
         if (empty($options)) {
             return [];
@@ -145,7 +145,7 @@ class ElementResolver
      */
     public function resolveForRadioSelection($field, $value = null)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
@@ -171,17 +171,17 @@ class ElementResolver
      */
     public function resolveForChecking($field, $value = null)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
         $selector = 'input[type=checkbox]';
 
-        if (! is_null($field)) {
+        if (!is_null($field)) {
             $selector .= "[name='{$field}']";
         }
 
-        if (! is_null($value)) {
+        if (!is_null($value)) {
             $selector .= "[value='{$value}']";
         }
 
@@ -200,7 +200,7 @@ class ElementResolver
      */
     public function resolveForAttachment($field)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
@@ -219,7 +219,7 @@ class ElementResolver
      */
     public function resolveForField($field)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
@@ -240,7 +240,7 @@ class ElementResolver
     public function resolveForButtonPress($button)
     {
         foreach ($this->buttonFinders as $method) {
-            if (! is_null($element = $this->{$method}($button))) {
+            if (!is_null($element = $this->{$method}($button))) {
                 return $element;
             }
         }
@@ -258,7 +258,7 @@ class ElementResolver
      */
     protected function findButtonBySelector($button)
     {
-        if (! is_null($element = $this->find($button))) {
+        if (!is_null($element = $this->find($button))) {
             return $element;
         }
     }
@@ -271,9 +271,11 @@ class ElementResolver
      */
     protected function findButtonByName($button)
     {
-        if (! is_null($element = $this->find("input[type=submit][name='{$button}']")) ||
-            ! is_null($element = $this->find("input[type=button][value='{$button}']")) ||
-            ! is_null($element = $this->find("button[name='{$button}']"))) {
+        if (
+            !is_null($element = $this->find("input[type=submit][name='{$button}']")) ||
+            !is_null($element = $this->find("input[type=button][value='{$button}']")) ||
+            !is_null($element = $this->find("button[name='{$button}']"))
+        ) {
             return $element;
         }
     }
@@ -365,7 +367,7 @@ class ElementResolver
      */
     public function findOrFail($selector)
     {
-        if (! is_null($element = $this->findById($selector))) {
+        if (!is_null($element = $this->findById($selector))) {
             return $element;
         }
 
@@ -406,13 +408,15 @@ class ElementResolver
         })->toArray();
 
         $selector = str_replace(
-            array_keys($sortedElements), array_values($sortedElements), $originalSelector = $selector
+            array_keys($sortedElements),
+            array_values($sortedElements),
+            $originalSelector = $selector
         );
 
         if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
-            $selector = '[dusk="'.explode('@', $selector)[1].'"]';
+            $selector = '[dusk="' . explode('@', $selector)[1] . '"]';
         }
 
-        return trim($this->prefix.' '.$selector);
+        return trim($this->prefix . ' ' . $selector);
     }
 }

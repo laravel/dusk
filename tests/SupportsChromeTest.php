@@ -1,8 +1,8 @@
 <?php
 
-namespace Laravel\Dusk\Tests;
+namespace Innobird\Dusky\Tests;
 
-use Laravel\Dusk\Chrome\SupportsChrome;
+use Innobird\Dusky\Chrome\SupportsChrome;
 use PHPUnit\Framework\TestCase;
 
 class SupportsChromeTest extends TestCase

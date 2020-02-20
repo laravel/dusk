@@ -1,8 +1,8 @@
 <?php
 
-namespace Laravel\Dusk\Tests;
+namespace Innobird\Dusky\Tests;
 
-use Laravel\Dusk\Chrome\ChromeProcess;
+use Innobird\Dusky\Chrome\ChromeProcess;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Symfony\Component\Process\Process;
