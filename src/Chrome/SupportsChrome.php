@@ -31,10 +31,6 @@ trait SupportsChrome
         static::$chromeProcess = static::buildChromeProcess($arguments);
 
         static::$chromeProcess->start();
-
-        static::afterClass(function () {
-            static::stopChromeDriver();
-        });
     }
 
     /**
