@@ -183,9 +183,7 @@ class DuskCommand extends Command
     protected function setupDuskEnvironment()
     {
         if (file_exists(base_path($this->duskFile()))) {
-            if (file_get_contents(base_path('.env')) !== file_get_contents(base_path($this->duskFile()))) {
-                $this->backupEnvironment();
-            }
+            $this->backupEnvironment(); // Always back up the environment, no reason not to.
 
             $this->refreshEnvironment();
         }
@@ -202,9 +200,26 @@ class DuskCommand extends Command
      */
     protected function backupEnvironment()
     {
-        copy(base_path('.env'), base_path('.env.backup'));
+        $fileNamesInBasePath = scandir(base_path());
+        foreach ($fileNamesInBasePath as $fileNameToCheck) {
+            if (stripos($fileNameToCheck, '.env') === 0) {
 
-        copy(base_path($this->duskFile()), base_path('.env'));
+                // We have a .env file that might be loaded by laravel,
+                // back it up if it's not the dusk file
+                if ($fileNameToCheck != $this->duskFile()) {
+
+                    $backupFileName =   ".dusk.backup{$fileNameToCheck}";
+                    // dusk.backup.{name} means we can test for files starting with .env,
+                    // and then to restore we look for files starting with .dusk.backup
+                    // using dusk. also helps clarify where the file is coming from
+
+                    copy(base_path($fileNameToCheck), base_path($backupFileName));
+                }
+            }
+        }
+
+        copy(base_path($this->duskFile()), base_path('.env')); // We should only have $this->duskFile() and .env
+
     }
 
     /**
@@ -273,9 +288,8 @@ class DuskCommand extends Command
     {
         $this->removeConfiguration();
 
-        if (file_exists(base_path($this->duskFile())) && file_exists(base_path('.env.backup'))) {
-            $this->restoreEnvironment();
-        }
+
+        $this->restoreEnvironment(); // Always back up and restore.
     }
 
     /**
@@ -297,9 +311,17 @@ class DuskCommand extends Command
      */
     protected function restoreEnvironment()
     {
-        copy(base_path('.env.backup'), base_path('.env'));
+        // Now we reverse the process
+        $fileNamesInBasePath = scandir(base_path());
+        foreach ($fileNamesInBasePath as $fileNameToCheck) {
+            if (stripos($fileNameToCheck, '.dusk.backup') === 0) {
 
-        unlink(base_path('.env.backup'));
+                // This is a file backup up by dusk on a previous run, just restore it
+                $restoredFileName = str_ireplace('.dusk.backup', '', $fileNameToCheck);
+                copy(base_path($fileNameToCheck), base_path($restoredFileName));
+                unlink(base_path($fileNameToCheck));
+            }
+        }
     }
 
     /**
