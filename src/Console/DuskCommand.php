@@ -208,7 +208,7 @@ class DuskCommand extends Command
                 // back it up if it's not the dusk file
                 if ($fileNameToCheck != $this->duskFile()) {
 
-                    $backupFileName =   ".dusk.backup{$fileNameToCheck}";
+                    $backupFileName = ".dusk.backup{$fileNameToCheck}";
                     // dusk.backup.{name} means we can test for files starting with .env,
                     // and then to restore we look for files starting with .dusk.backup
                     // using dusk. also helps clarify where the file is coming from
