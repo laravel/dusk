@@ -207,19 +207,16 @@ class DuskCommand extends Command
                 // We have a .env file that might be loaded by laravel,
                 // back it up if it's not the dusk file
                 if ($fileNameToCheck != $this->duskFile()) {
-
                     $backupFileName = ".dusk.backup{$fileNameToCheck}";
                     // dusk.backup.{name} means we can test for files starting with .env,
                     // and then to restore we look for files starting with .dusk.backup
                     // using dusk. also helps clarify where the file is coming from
-
                     copy(base_path($fileNameToCheck), base_path($backupFileName));
                 }
             }
         }
 
         copy(base_path($this->duskFile()), base_path('.env')); // We should only have $this->duskFile() and .env
-
     }
 
     /**
@@ -287,8 +284,7 @@ class DuskCommand extends Command
     protected function teardownDuskEnviroment()
     {
         $this->removeConfiguration();
-
-
+        
         $this->restoreEnvironment(); // Always back up and restore.
     }
 
