@@ -284,7 +284,7 @@ class DuskCommand extends Command
     protected function teardownDuskEnviroment()
     {
         $this->removeConfiguration();
-        
+
         $this->restoreEnvironment(); // Always back up and restore.
     }
 
