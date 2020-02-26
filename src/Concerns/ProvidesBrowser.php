@@ -176,7 +176,7 @@ trait ProvidesBrowser
      */
     protected function getCallerName()
     {
-        return str_replace('\\', '_', get_class($this)) . '_' . $this->getName(false);
+        return str_replace('\\', '_', get_class($this));
     }
 
     /**
