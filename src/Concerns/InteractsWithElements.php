@@ -143,7 +143,7 @@ trait InteractsWithElements
 
         return $this;
     }
-    
+
     /**
      * Type the given value in the given field with pauses.
      *
