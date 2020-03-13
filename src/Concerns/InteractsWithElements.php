@@ -145,14 +145,14 @@ trait InteractsWithElements
     }
 
     /**
-     * Type the given value in the given field with pauses.
+     * Type the given value in the given field slowly.
      *
      * @param  string  $field
      * @param  string  $value
      * @param  int  $pause
      * @return $this
      */
-    public function typeWithPauses($field, $value, $pause = 100)
+    public function typeSlowly($field, $value, $pause = 100)
     {
         $this->clear($field)->appendWithPauses($field, $value, $pause);
 
@@ -174,14 +174,14 @@ trait InteractsWithElements
     }
 
     /**
-     * Type the given value in the given field with pauses without clearing it.
+     * Type the given value in the given field slowly without clearing it.
      *
      * @param  string  $field
      * @param  string  $value
      * @param  int  $pause
      * @return $this
      */
-    public function appendWithPauses($field, $value, $pause = 100)
+    public function appendSlowly($field, $value, $pause = 100)
     {
         foreach (str_split($value) as $char) {
             $this->append($field, $char)->pause($pause);
