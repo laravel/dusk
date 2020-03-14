@@ -145,6 +145,21 @@ trait InteractsWithElements
     }
 
     /**
+     * Type the given value in the given field slowly.
+     *
+     * @param  string  $field
+     * @param  string  $value
+     * @param  int  $pause
+     * @return $this
+     */
+    public function typeSlowly($field, $value, $pause = 100)
+    {
+        $this->clear($field)->appendWithPauses($field, $value, $pause);
+
+        return $this;
+    }
+
+    /**
      * Type the given value in the given field without clearing it.
      *
      * @param  string  $field
@@ -154,6 +169,23 @@ trait InteractsWithElements
     public function append($field, $value)
     {
         $this->resolver->resolveForTyping($field)->sendKeys($value);
+
+        return $this;
+    }
+
+    /**
+     * Type the given value in the given field slowly without clearing it.
+     *
+     * @param  string  $field
+     * @param  string  $value
+     * @param  int  $pause
+     * @return $this
+     */
+    public function appendSlowly($field, $value, $pause = 100)
+    {
+        foreach (str_split($value) as $char) {
+            $this->append($field, $char)->pause($pause);
+        }
 
         return $this;
     }
