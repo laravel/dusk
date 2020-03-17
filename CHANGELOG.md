@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.9.2...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.10.0...5.0)
+
+
+## [v5.10.0 (2020-02-18)](https://github.com/laravel/dusk/compare/v5.9.2...v5.10.0)
+
+### Added
+- Adds `typeSlowly` & `appendSlowly` ([#748](https://github.com/laravel/dusk/pull/748))
 
 
 ## [v5.9.2 (2020-02-18)](https://github.com/laravel/dusk/compare/v5.9.1...v5.9.2)
