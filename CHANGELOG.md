@@ -1,11 +1,17 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.9.2...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.10.0...master)
 
 ### Changed
 - Dropped support for Laravel 5.8 ([e0c173a](https://github.com/laravel/dusk/commit/e0c173af6deaeda6170e017eb3ce225d8d4c5964))
 - Dropped support for PHP 7.1 ([210e03e](https://github.com/laravel/dusk/commit/210e03ec2c121517b99bd6163859bbdc5cce564a))
 - Bumped minimum Symfony dependencies to 4.3 ([1ee28e1](https://github.com/laravel/dusk/commit/1ee28e1bfcce1de4a3ad83253394d964690602c4))
+
+
+## [v5.10.0 (2020-02-18)](https://github.com/laravel/dusk/compare/v5.9.2...v5.10.0)
+
+### Added
+- Adds `typeSlowly` & `appendSlowly` ([#748](https://github.com/laravel/dusk/pull/748))
 
 
 ## [v5.9.2 (2020-02-18)](https://github.com/laravel/dusk/compare/v5.9.1...v5.9.2)
