@@ -154,7 +154,7 @@ trait InteractsWithElements
      */
     public function typeSlowly($field, $value, $pause = 100)
     {
-        $this->clear($field)->appendWithPauses($field, $value, $pause);
+        $this->clear($field)->appendSlowly($field, $value, $pause);
 
         return $this;
     }
