@@ -589,6 +589,19 @@ JS;
     }
 
     /**
+     * Assert that the element at the given selector has the given aria attribute value.
+     *
+     * @param  string  $selector
+     * @param  string  $attribute
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertAriaAttribute($selector, $attribute, $value)
+    {
+        return $this->assertAttribute($selector, 'aria-' . $attribute, $value);
+    }
+
+    /**
      * Assert that the element with the given selector is visible.
      *
      * @param  string  $selector
