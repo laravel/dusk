@@ -576,6 +576,19 @@ JS;
     }
 
     /**
+     * Assert that the element at the given selector has the given data attribute value.
+     *
+     * @param  string  $selector
+     * @param  string  $attribute
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertDataAttribute($selector, $attribute, $value)
+    {
+        return $this->assertAttribute($selector, 'data-' . $attribute, $value);
+    }
+
+    /**
      * Assert that the element with the given selector is visible.
      *
      * @param  string  $selector
