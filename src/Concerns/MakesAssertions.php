@@ -549,6 +549,33 @@ JS;
     }
 
     /**
+     * Assert that the element at the given selector has the given attribute value.
+     *
+     * @param  string  $selector
+     * @param  string  $attribute
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertAttribute($selector, $attribute, $value)
+    {
+        $fullSelector = $this->resolver->format($selector);
+
+        $actual = $this->resolver->findOrFail($selector)->getAttribute($attribute);
+
+        PHPUnit::assertNotNull(
+            $actual,
+            "Did not see expected attribute [{$attribute}] within element [{$fullSelector}]."
+        );
+
+        PHPUnit::assertEquals(
+            $value, $actual,
+            "Expected '$attribute' attribute [{$value}] does not equal actual value [$actual]."
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the element with the given selector is visible.
      *
      * @param  string  $selector
