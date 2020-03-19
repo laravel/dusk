@@ -585,7 +585,7 @@ JS;
      */
     public function assertDataAttribute($selector, $attribute, $value)
     {
-        return $this->assertAttribute($selector, 'data-' . $attribute, $value);
+        return $this->assertAttribute($selector, 'data-'.$attribute, $value);
     }
 
     /**
@@ -598,7 +598,7 @@ JS;
      */
     public function assertAriaAttribute($selector, $attribute, $value)
     {
-        return $this->assertAttribute($selector, 'aria-' . $attribute, $value);
+        return $this->assertAttribute($selector, 'aria-'.$attribute, $value);
     }
 
     /**
