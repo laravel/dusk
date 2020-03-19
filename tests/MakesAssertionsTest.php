@@ -74,7 +74,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
-                "Did not see expected attribute [bar] within element [Foo].",
+                'Did not see expected attribute [bar] within element [Foo].',
                 $e->getMessage()
             );
         }
@@ -111,7 +111,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
-                "Did not see expected attribute [data-bar] within element [Foo].",
+                'Did not see expected attribute [data-bar] within element [Foo].',
                 $e->getMessage()
             );
         }
@@ -148,7 +148,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
-                "Did not see expected attribute [aria-bar] within element [Foo].",
+                'Did not see expected attribute [aria-bar] within element [Foo].',
                 $e->getMessage()
             );
         }
