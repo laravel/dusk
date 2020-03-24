@@ -1,6 +1,16 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.10.0...5.0)
+## [Unreleased](https://github.com/laravel/dusk/compare/v5.11.0...5.0)
+
+
+## [v5.11.0 (2020-03-24)](https://github.com/laravel/dusk/compare/v5.10.0...v5.11.0)
+
+### Added
+- Add assert attribute methods ([#751](https://github.com/laravel/dusk/pull/751))
+
+### Fixed
+- Fix Call to undefined method ([#750](https://github.com/laravel/dusk/pull/750))
+- Avoid throwing exception on production ([#755](https://github.com/laravel/dusk/pull/755))
 
 
 ## [v5.10.0 (2020-03-17)](https://github.com/laravel/dusk/compare/v5.9.2...v5.10.0)
