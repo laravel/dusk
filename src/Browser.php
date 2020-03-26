@@ -323,15 +323,20 @@ class Browser
      * Scroll screen to element at the given selector.
      *
      * @param  string  $selector
+     * @param  int  $modifier
      * @return $this
      */
-    public function scrollTo($selector)
+    public function scrollTo($selector, $modifier = 0)
     {
         $this->ensurejQueryIsAvailable();
 
         $selector = addslashes($this->resolver->format($selector));
 
-        $this->driver->executeScript("jQuery(\"html, body\").animate({scrollTop: jQuery(\"$selector\").offset().top}, 0);");
+        $modifier = $modifier ? '+'.$modifier : '';
+
+        $script = "jQuery(\"html, body\").animate({scrollTop: jQuery(\"$selector\").offset().top$modifier}, 0);";
+
+        $this->driver->executeScript($script);
 
         return $this;
     }
