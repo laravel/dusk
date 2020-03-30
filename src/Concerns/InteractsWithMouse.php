@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Concerns;
 
 use Facebook\WebDriver\Interactions\WebDriverActions;
+use Facebook\WebDriver\WebDriverBy;
 
 trait InteractsWithMouse
 {
@@ -50,6 +51,21 @@ trait InteractsWithMouse
         } else {
             $this->resolver->findOrFail($selector)->click();
         }
+
+        return $this;
+    }
+
+    /**
+     * Click the element at the given XPath expression.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function clickAtXPath($expression)
+    {
+        $this->driver
+            ->findElement(WebDriverBy::xpath($expression))
+            ->click();
 
         return $this;
     }
