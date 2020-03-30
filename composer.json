@@ -15,11 +15,11 @@
         "ext-zip": "*",
         "facebook/webdriver": "^1.7",
         "nesbot/carbon": "^2.0",
-        "illuminate/console": "^6.0|^7.0",
-        "illuminate/support": "^6.0|^7.0",
-        "symfony/console": "^4.3",
-        "symfony/finder": "^4.3",
-        "symfony/process": "^4.3",
+        "illuminate/console": "^6.0|^7.0|^8.0",
+        "illuminate/support": "^6.0|^7.0|^8.0",
+        "symfony/console": "^4.3|^5.0",
+        "symfony/finder": "^4.3|^5.0",
+        "symfony/process": "^4.3|^5.0",
         "vlucas/phpdotenv": "^2.2|^3.0|^4.0"
     },
     "require-dev": {
