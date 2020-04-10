@@ -127,7 +127,7 @@ trait MakesUrlAssertions
     {
         $pattern = str_replace('\*', '.*', preg_quote($port, '/'));
 
-        $actual = parse_url($this->driver->getCurrentURL(), PHP_URL_PORT) ?? '';
+        $actual = (string) parse_url($this->driver->getCurrentURL(), PHP_URL_PORT) ?? '';
 
         PHPUnit::assertThat(
             $actual, new RegularExpression('/^'.$pattern.'$/u'),
