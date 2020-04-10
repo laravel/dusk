@@ -7,8 +7,7 @@ use PHPUnit\Framework\Assert as PHPUnit;
 use PHPUnit\Framework\Constraint\RegularExpression;
 
 /**
- * Trait MakesUrlAssertions
- * @package Laravel\Dusk\Concerns
+ * Trait MakesUrlAssertions.
  * @property \Facebook\WebDriver\Remote\RemoteWebDriver $driver
  */
 trait MakesUrlAssertions
