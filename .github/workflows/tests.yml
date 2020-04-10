@@ -26,11 +26,26 @@ jobs:
           - php: 7.1
             laravel: 5.8.*
             phpunit: ^9.0
+          - php: 7.2
+            laravel: 5.8.*
+            phpunit: ^9.0
           - php: 7.1
             laravel: 5.9.*
             phpunit: ^9.0
           - php: 7.2
             laravel: 5.9.*
+            phpunit: ^9.0
+          - php: 7.1
+            laravel: ^6.0
+            phpunit: ^9.0
+          - php: 7.2
+            laravel: ^6.0
+            phpunit: ^9.0
+          - php: 7.1
+            laravel: ^7.0
+            phpunit: ^9.0
+          - php: 7.2
+            laravel: ^7.0
             phpunit: ^9.0
           - php: 7.1
             laravel: 5.7.*
