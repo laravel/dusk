@@ -4,6 +4,7 @@ namespace Laravel\Dusk\Concerns;
 
 use Illuminate\Support\Arr;
 use PHPUnit\Framework\Assert as PHPUnit;
+use PHPUnit\Framework\Constraint\RegularExpression;
 
 trait MakesUrlAssertions
 {
@@ -27,8 +28,8 @@ trait MakesUrlAssertions
             Arr::get($segments, 'path', '')
         );
 
-        PHPUnit::assertRegExp(
-            '/^'.$pattern.'$/u', $currentUrl,
+        PHPUnit::assertThat(
+            $currentUrl, new RegularExpression('/^'.$pattern.'$/u'),
             "Actual URL [{$this->driver->getCurrentURL()}] does not equal expected URL [{$url}]."
         );
 
@@ -47,8 +48,8 @@ trait MakesUrlAssertions
 
         $actual = parse_url($this->driver->getCurrentURL(), PHP_URL_SCHEME) ?? '';
 
-        PHPUnit::assertRegExp(
-            '/^'.$pattern.'$/u', $actual,
+        PHPUnit::assertThat(
+            $actual, new RegularExpression('/^'.$pattern.'$/u'),
             "Actual scheme [{$actual}] does not equal expected scheme [{$pattern}]."
         );
 
@@ -85,8 +86,8 @@ trait MakesUrlAssertions
 
         $actual = parse_url($this->driver->getCurrentURL(), PHP_URL_HOST) ?? '';
 
-        PHPUnit::assertRegExp(
-            '/^'.$pattern.'$/u', $actual,
+        PHPUnit::assertThat(
+            $actual, new RegularExpression('/^'.$pattern.'$/u'),
             "Actual host [{$actual}] does not equal expected host [{$pattern}]."
         );
 
@@ -121,10 +122,10 @@ trait MakesUrlAssertions
     {
         $pattern = str_replace('\*', '.*', preg_quote($port, '/'));
 
-        $actual = parse_url($this->driver->getCurrentURL(), PHP_URL_PORT) ?? '';
+        $actual = (string) parse_url($this->driver->getCurrentURL(), PHP_URL_PORT) ?? '';
 
-        PHPUnit::assertRegExp(
-            '/^'.$pattern.'$/u', $actual,
+        PHPUnit::assertThat(
+            $actual, new RegularExpression('/^'.$pattern.'$/u'),
             "Actual port [{$actual}] does not equal expected port [{$pattern}]."
         );
 
@@ -161,8 +162,8 @@ trait MakesUrlAssertions
 
         $actualPath = parse_url($this->driver->getCurrentURL(), PHP_URL_PATH) ?? '';
 
-        PHPUnit::assertRegExp(
-            '/^'.$pattern.'$/u', $actualPath,
+        PHPUnit::assertThat(
+            $actualPath, new RegularExpression('/^'.$pattern.'$/u'),
             "Actual path [{$actualPath}] does not equal expected path [{$path}]."
         );
 
@@ -217,8 +218,8 @@ trait MakesUrlAssertions
 
         $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
 
-        PHPUnit::assertRegExp(
-            '/^'.str_replace('\*', '.*', $pattern).'$/u', $actualFragment,
+        PHPUnit::assertThat(
+            $actualFragment, new RegularExpression('/^'.str_replace('\*', '.*', $pattern).'$/u'),
             "Actual fragment [{$actualFragment}] does not equal expected fragment [{$fragment}]."
         );
 
