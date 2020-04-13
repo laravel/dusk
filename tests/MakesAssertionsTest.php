@@ -53,6 +53,117 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_attribute()
+    {
+        $driver = m::mock(stdClass::class);
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getAttribute')->with('bar')->andReturn(
+            'joe',
+            null,
+            'sue'
+        );
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertAttribute('foo', 'bar', 'joe');
+
+        try {
+            $browser->assertAttribute('foo', 'bar', 'joe');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected attribute [bar] within element [Foo].',
+                $e->getMessage()
+            );
+        }
+
+        try {
+            $browser->assertAttribute('foo', 'bar', 'joe');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                "Expected 'bar' attribute [joe] does not equal actual value [sue].",
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_data_attribute()
+    {
+        $driver = m::mock(stdClass::class);
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getAttribute')->with('data-bar')->andReturn(
+            'joe',
+            null,
+            'sue'
+        );
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertDataAttribute('foo', 'bar', 'joe');
+
+        try {
+            $browser->assertDataAttribute('foo', 'bar', 'joe');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected attribute [data-bar] within element [Foo].',
+                $e->getMessage()
+            );
+        }
+
+        try {
+            $browser->assertDataAttribute('foo', 'bar', 'joe');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                "Expected 'data-bar' attribute [joe] does not equal actual value [sue].",
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_aria_attribute()
+    {
+        $driver = m::mock(stdClass::class);
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getAttribute')->with('aria-bar')->andReturn(
+            'joe',
+            null,
+            'sue'
+        );
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertAriaAttribute('foo', 'bar', 'joe');
+
+        try {
+            $browser->assertAriaAttribute('foo', 'bar', 'joe');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected attribute [aria-bar] within element [Foo].',
+                $e->getMessage()
+            );
+        }
+
+        try {
+            $browser->assertAriaAttribute('foo', 'bar', 'joe');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                "Expected 'aria-bar' attribute [joe] does not equal actual value [sue].",
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_present()
     {
         $driver = m::mock(stdClass::class);
