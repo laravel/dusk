@@ -2,9 +2,13 @@
 
 ## [Unreleased](https://github.com/laravel/dusk/compare/v5.11.0...master)
 
+### Added
+- PHPUnit 9 support ([2770f25](https://github.com/laravel/dusk/commit/2770f256bd0ccd9b4c8a892fb9fb5b134e6f7c3a), [45ae210](https://github.com/laravel/dusk/commit/45ae210a3edd7d2ed3f712cd1aab59037266c21c))
+
 ### Changed
-- Dropped support for Laravel 5.8 ([e0c173a](https://github.com/laravel/dusk/commit/e0c173af6deaeda6170e017eb3ce225d8d4c5964))
+- Dropped support for Laravel 5.7 & 5.8 ([98af698](https://github.com/laravel/dusk/commit/98af6989532ad6ecb420cae8a6e2864335c2dd9a), [e0c173a](https://github.com/laravel/dusk/commit/e0c173af6deaeda6170e017eb3ce225d8d4c5964))
 - Dropped support for PHP 7.1 ([210e03e](https://github.com/laravel/dusk/commit/210e03ec2c121517b99bd6163859bbdc5cce564a))
+- Dropped support for Carbon v1 ([0b880e9](https://github.com/laravel/dusk/commit/0b880e9300257dd08aa25deef3e831a3deb3df44))
 - Bumped minimum Symfony dependencies to 4.3 ([1ee28e1](https://github.com/laravel/dusk/commit/1ee28e1bfcce1de4a3ad83253394d964690602c4))
 
 
