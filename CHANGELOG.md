@@ -1,6 +1,9 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v5.11.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.0.0...6.x)
+
+
+## [v6.0.0 (2020-04-14)](https://github.com/laravel/dusk/compare/v5.11.0...v6.0.0)
 
 ### Added
 - PHPUnit 9 support ([2770f25](https://github.com/laravel/dusk/commit/2770f256bd0ccd9b4c8a892fb9fb5b134e6f7c3a), [45ae210](https://github.com/laravel/dusk/commit/45ae210a3edd7d2ed3f712cd1aab59037266c21c))
