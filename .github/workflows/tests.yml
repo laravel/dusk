@@ -56,7 +56,7 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer require "illuminate/contracts=${{ matrix.laravel }}" "phpunit/phpunit:${{ matrix.phpunit }}" --dev --prefer-dist --no-interaction --no-suggest
+        run: composer require "illuminate/contracts=${{ matrix.laravel }}" "phpunit/phpunit:${{ matrix.phpunit }}" --dev --prefer-dist --no-interaction
 
       - name: Execute tests
         run: vendor/bin/phpunit --verbose
