@@ -54,7 +54,7 @@ abstract class TestCase extends FoundationTestCase
      */
     protected function baseUrl()
     {
-        return config('app.url');
+        return rtrim(config('app.url'), '/');
     }
 
     /**
