@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.0.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.0.1...6.x)
+
+
+## [v6.0.1 (2020-04-21)](https://github.com/laravel/dusk/compare/v6.0.0...v6.0.1)
+
+### Fixed
+- Trim trailing slash ([#764](https://github.com/laravel/dusk/pull/764))
 
 
 ## [v6.0.0 (2020-04-14)](https://github.com/laravel/dusk/compare/v5.11.0...v6.0.0)
