@@ -320,6 +320,21 @@ class Browser
     }
 
     /**
+     * Scroll element into view at the given selector.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function scrollIntoView($selector)
+    {
+        $selector = addslashes($this->resolver->format($selector));
+
+        $this->driver->executeScript("document.querySelector(\"$selector\").scrollIntoView();");
+
+        return $this;
+    }
+
+    /**
      * Scroll screen to element at the given selector.
      *
      * @param  string  $selector
