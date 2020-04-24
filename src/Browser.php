@@ -234,6 +234,18 @@ class Browser
     }
 
     /**
+     * Navigate to the next page.
+     *
+     * @return $this
+     */
+    public function forward()
+    {
+        $this->driver->navigate()->forward();
+
+        return $this;
+    }
+
+    /**
      * Maximize the browser window.
      *
      * @return $this
