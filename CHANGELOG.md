@@ -1,6 +1,13 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.0.1...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.1.0...6.x)
+
+
+## [v6.1.0 (2020-04-28)](https://github.com/laravel/dusk/compare/v6.0.1...v6.1.0)
+
+### Added
+- Support scrolling an element into view ([#766](https://github.com/laravel/dusk/pull/766))
+- Support navigating forward in the browser ([#767](https://github.com/laravel/dusk/pull/767))
 
 
 ## [v6.0.1 (2020-04-21)](https://github.com/laravel/dusk/compare/v6.0.0...v6.0.1)
