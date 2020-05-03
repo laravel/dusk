@@ -99,7 +99,7 @@ trait InteractsWithElements
      * Send the given keys to the element matching the given selector.
      *
      * @param  string  $selector
-     * @param  dynamic  $keys
+     * @param  mixed  $keys
      * @return $this
      */
     public function keys($selector, ...$keys)
