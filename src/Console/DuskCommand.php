@@ -88,11 +88,15 @@ class DuskCommand extends Command
      */
     protected function binary()
     {
+        $command = class_exists(\Pest\Laravel\PestServiceProvider::class)
+            ? 'vendor/pestphp/pest/bin/pest'
+            : 'vendor/phpunit/phpunit/phpunit';
+
         if ('phpdbg' === PHP_SAPI) {
-            return [PHP_BINARY, '-qrr', 'vendor/phpunit/phpunit/phpunit'];
+            return [PHP_BINARY, '-qrr', $command];
         }
 
-        return [PHP_BINARY, 'vendor/phpunit/phpunit/phpunit'];
+        return [PHP_BINARY, $command];
     }
 
     /**
