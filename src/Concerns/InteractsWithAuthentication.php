@@ -28,7 +28,7 @@ trait InteractsWithAuthentication
     {
         $userId = method_exists($userId, 'getKey') ? $userId->getKey() : $userId;
 
-        return $this->visit(rtrim('/_dusk/login/'.$userId.'/'.$guard, '/'));
+        return $this->visit(rtrim(route('dusk.login', ['userId' => $userId, 'guard' => $guard])));
     }
 
     /**
@@ -39,7 +39,7 @@ trait InteractsWithAuthentication
      */
     public function logout($guard = null)
     {
-        return $this->visit(rtrim('/_dusk/logout/'.$guard, '/'));
+        return $this->visit(rtrim(route('dusk.logout', ['guard' => $guard]), '/'));
     }
 
     /**
@@ -50,7 +50,7 @@ trait InteractsWithAuthentication
      */
     protected function currentUserInfo($guard = null)
     {
-        $response = $this->visit("/_dusk/user/{$guard}");
+        $response = $this->visit(route('dusk.user', ['guard' => $guard]));
 
         return json_decode(strip_tags($response->driver->getPageSource()), true);
     }

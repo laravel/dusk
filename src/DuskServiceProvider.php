@@ -15,20 +15,25 @@ class DuskServiceProvider extends ServiceProvider
     public function boot()
     {
         if (! $this->app->environment('production')) {
-            Route::get('/_dusk/login/{userId}/{guard?}', [
-                'middleware' => 'web',
-                'uses' => 'Laravel\Dusk\Http\Controllers\UserController@login',
-            ]);
+            Route::group(['prefix' => env('LARAVEL_DUSK_PATH', '_dusk')], function () {
+                Route::get('/login/{userId}/{guard?}', [
+                    'middleware' => 'web',
+                    'uses' => 'Laravel\Dusk\Http\Controllers\UserController@login',
+                    'as' => 'dusk.login',
+                ]);
 
-            Route::get('/_dusk/logout/{guard?}', [
-                'middleware' => 'web',
-                'uses' => 'Laravel\Dusk\Http\Controllers\UserController@logout',
-            ]);
+                Route::get('/logout/{guard?}', [
+                    'middleware' => 'web',
+                    'uses' => 'Laravel\Dusk\Http\Controllers\UserController@logout',
+                    'as' => 'dusk.logout',
+                ]);
 
-            Route::get('/_dusk/user/{guard?}', [
-                'middleware' => 'web',
-                'uses' => 'Laravel\Dusk\Http\Controllers\UserController@user',
-            ]);
+                Route::get('/user/{guard?}', [
+                    'middleware' => 'web',
+                    'uses' => 'Laravel\Dusk\Http\Controllers\UserController@user',
+                    'as' => 'dusk.user',
+                ]);
+            });
         }
     }
 
