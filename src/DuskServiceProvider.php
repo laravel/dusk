@@ -15,7 +15,10 @@ class DuskServiceProvider extends ServiceProvider
     public function boot()
     {
         if (! $this->app->environment('production')) {
-            Route::group(['prefix' => env('LARAVEL_DUSK_PATH', '_dusk')], function () {
+            Route::group([
+                'prefix' => config('dusk.path'),
+                'domain' => config('dusk.domain', null),
+                ], function () {
                 Route::get('/login/{userId}/{guard?}', [
                     'middleware' => 'web',
                     'uses' => 'Laravel\Dusk\Http\Controllers\UserController@login',
@@ -46,16 +49,23 @@ class DuskServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                Console\InstallCommand::class,
-                Console\DuskCommand::class,
-                Console\DuskFailsCommand::class,
-                Console\MakeCommand::class,
-                Console\PageCommand::class,
-                Console\ComponentCommand::class,
-                Console\ChromeDriverCommand::class,
-            ]);
+        if (! $this->app->environment('production')) {
+            $this->mergeConfigFrom(__DIR__.'/../config/dusk.php', 'dusk');
+            $this->publishes([
+                __DIR__.'/../config/dusk.php' => config_path('dusk.php'),
+            ], 'dusk-config');
+
+            if ($this->app->runningInConsole()) {
+                $this->commands([
+                    Console\InstallCommand::class,
+                    Console\DuskCommand::class,
+                    Console\DuskFailsCommand::class,
+                    Console\MakeCommand::class,
+                    Console\PageCommand::class,
+                    Console\ComponentCommand::class,
+                    Console\ChromeDriverCommand::class,
+                ]);
+            }
         }
     }
 }
