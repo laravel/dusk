@@ -16,7 +16,7 @@ class DuskServiceProvider extends ServiceProvider
     {
         if (! $this->app->environment('production')) {
             Route::group([
-                'prefix' => config('dusk.path'),
+                'prefix' => config('dusk.path', '_dusk'),
                 'domain' => config('dusk.domain', null),
                 'middleware' => 'web',
             ], function () {
@@ -47,23 +47,16 @@ class DuskServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (! $this->app->environment('production')) {
-            $this->mergeConfigFrom(__DIR__.'/../config/dusk.php', 'dusk');
-            $this->publishes([
-                __DIR__.'/../config/dusk.php' => config_path('dusk.php'),
-            ], 'dusk-config');
-
-            if ($this->app->runningInConsole()) {
-                $this->commands([
-                    Console\InstallCommand::class,
-                    Console\DuskCommand::class,
-                    Console\DuskFailsCommand::class,
-                    Console\MakeCommand::class,
-                    Console\PageCommand::class,
-                    Console\ComponentCommand::class,
-                    Console\ChromeDriverCommand::class,
-                ]);
-            }
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\InstallCommand::class,
+                Console\DuskCommand::class,
+                Console\DuskFailsCommand::class,
+                Console\MakeCommand::class,
+                Console\PageCommand::class,
+                Console\ComponentCommand::class,
+                Console\ChromeDriverCommand::class,
+            ]);
         }
     }
 }
