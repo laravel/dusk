@@ -20,21 +20,21 @@ class DuskServiceProvider extends ServiceProvider
                 'domain' => config('dusk.domain', null),
                 'middleware' => 'web',
             ], function () {
-                    Route::get('/login/{userId}/{guard?}', [
-                        'uses' => 'Laravel\Dusk\Http\Controllers\UserController@login',
-                        'as' => 'dusk.login',
-                    ]);
+                Route::get('/login/{userId}/{guard?}', [
+                    'uses' => 'Laravel\Dusk\Http\Controllers\UserController@login',
+                    'as' => 'dusk.login',
+                ]);
 
-                    Route::get('/logout/{guard?}', [
-                        'uses' => 'Laravel\Dusk\Http\Controllers\UserController@logout',
-                        'as' => 'dusk.logout',
-                    ]);
+                Route::get('/logout/{guard?}', [
+                    'uses' => 'Laravel\Dusk\Http\Controllers\UserController@logout',
+                    'as' => 'dusk.logout',
+                ]);
 
-                    Route::get('/user/{guard?}', [
-                        'uses' => 'Laravel\Dusk\Http\Controllers\UserController@user',
-                        'as' => 'dusk.user',
-                    ]);
-                });
+                Route::get('/user/{guard?}', [
+                    'uses' => 'Laravel\Dusk\Http\Controllers\UserController@user',
+                    'as' => 'dusk.user',
+                ]);
+            });
         }
     }
 
