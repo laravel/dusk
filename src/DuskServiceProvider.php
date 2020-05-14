@@ -15,11 +15,11 @@ class DuskServiceProvider extends ServiceProvider
     public function boot()
     {
         if (! $this->app->environment('production')) {
-            Route::group([
+            Route::group(array_filter([
                 'prefix' => config('dusk.path', '_dusk'),
                 'domain' => config('dusk.domain', null),
                 'middleware' => 'web',
-            ], function () {
+            ]), function () {
                 Route::get('/login/{userId}/{guard?}', [
                     'uses' => 'Laravel\Dusk\Http\Controllers\UserController@login',
                     'as' => 'dusk.login',
