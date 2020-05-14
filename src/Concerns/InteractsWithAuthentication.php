@@ -106,7 +106,7 @@ trait InteractsWithAuthentication
     }
 
     /**
-     * Check if route() should use absolute path or just relative path.
+     * Determine if route() should use an absolute path.
      *
      * @return bool
      */
