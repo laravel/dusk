@@ -85,7 +85,7 @@ class InstallCommand extends Command
         $storeScreenshotsAt = config('dusk.screenshots_path', base_path('tests/Browser/screenshots'));
         mkdir($storeScreenshotsAt, 0755, true);
 
-        file_put_contents($storeScreenshotsAt . DIRECTORY_SEPARATOR . '.gitignore', '*
+        file_put_contents($storeScreenshotsAt.DIRECTORY_SEPARATOR.'.gitignore', '*
 !.gitignore
 ');
     }
@@ -100,7 +100,7 @@ class InstallCommand extends Command
         $storeConsoleLogAt = config('dusk.console_log_path', base_path('tests/Browser/console'));
         mkdir($storeConsoleLogAt, 0755, true);
 
-        file_put_contents($storeConsoleLogAt . DIRECTORY_SEPARATOR . '.gitignore', '*
+        file_put_contents($storeConsoleLogAt.DIRECTORY_SEPARATOR.'.gitignore', '*
 !.gitignore
 ');
     }
