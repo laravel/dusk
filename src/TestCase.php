@@ -24,11 +24,11 @@ abstract class TestCase extends FoundationTestCase
 
         Browser::$baseUrl = $this->baseUrl();
 
-        Browser::$storeScreenshotsAt = base_path('tests/Browser/screenshots');
+        Browser::$storeScreenshotsAt = config('dusk.screenshots_path', base_path('tests/Browser/screenshots'));
 
-        Browser::$storeConsoleLogAt = base_path('tests/Browser/console');
+        Browser::$storeConsoleLogAt = config('dusk.console_log_path', base_path('tests/Browser/console'));
 
-        Browser::$storeSourceAt = base_path('tests/Browser/source');
+        Browser::$storeSourceAt = config('dusk.source_path', base_path('tests/Browser/source'));
 
         Browser::$userResolver = function () {
             return $this->user();

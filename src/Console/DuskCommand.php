@@ -121,7 +121,7 @@ class DuskCommand extends Command
      */
     protected function purgeScreenshots()
     {
-        $path = base_path('tests/Browser/screenshots');
+        $path = config('dusk.screenshots_path', base_path('tests/Browser/screenshots'));
 
         if (! is_dir($path)) {
             return;

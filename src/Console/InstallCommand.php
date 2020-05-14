@@ -37,11 +37,11 @@ class InstallCommand extends Command
             mkdir(base_path('tests/Browser/Components'), 0755, true);
         }
 
-        if (! is_dir(base_path('tests/Browser/screenshots'))) {
+        if (! is_dir(config('dusk.screenshots_path', base_path('tests/Browser/screenshots')))) {
             $this->createScreenshotsDirectory();
         }
 
-        if (! is_dir(base_path('tests/Browser/console'))) {
+        if (! is_dir(config('dusk.console_log_path', base_path('tests/Browser/console')))) {
             $this->createConsoleDirectory();
         }
 
@@ -82,9 +82,10 @@ class InstallCommand extends Command
      */
     protected function createScreenshotsDirectory()
     {
-        mkdir(base_path('tests/Browser/screenshots'), 0755, true);
+        $storeScreenshotsAt = config('dusk.screenshots_path', base_path('tests/Browser/screenshots'));
+        mkdir($storeScreenshotsAt, 0755, true);
 
-        file_put_contents(base_path('tests/Browser/screenshots/.gitignore'), '*
+        file_put_contents($storeScreenshotsAt . DIRECTORY_SEPARATOR . '.gitignore', '*
 !.gitignore
 ');
     }
@@ -96,9 +97,10 @@ class InstallCommand extends Command
      */
     protected function createConsoleDirectory()
     {
-        mkdir(base_path('tests/Browser/console'), 0755, true);
+        $storeConsoleLogAt = config('dusk.console_log_path', base_path('tests/Browser/console'));
+        mkdir($storeConsoleLogAt, 0755, true);
 
-        file_put_contents(base_path('tests/Browser/console/.gitignore'), '*
+        file_put_contents($storeConsoleLogAt . DIRECTORY_SEPARATOR . '.gitignore', '*
 !.gitignore
 ');
     }
