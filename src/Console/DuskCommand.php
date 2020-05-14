@@ -143,7 +143,7 @@ class DuskCommand extends Command
      */
     protected function purgeConsoleLogs()
     {
-        $path = base_path('tests/Browser/console');
+        $path = config('dusk.console_log_path', base_path('tests/Browser/console'));
 
         if (! is_dir($path)) {
             return;
