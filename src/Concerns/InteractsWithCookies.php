@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Concerns;
 
 use DateTimeInterface;
+use Facebook\WebDriver\Exception\NoSuchCookieException;
 
 trait InteractsWithCookies
 {
@@ -21,7 +22,13 @@ trait InteractsWithCookies
             return $this->addCookie($name, $value, $expiry, $options);
         }
 
-        if ($cookie = $this->driver->manage()->getCookieNamed($name)) {
+        try {
+            $cookie = $this->driver->manage()->getCookieNamed($name);
+        } catch (NoSuchCookieException $e) {
+            $cookie = null;
+        }
+
+        if ($cookie) {
             return decrypt(rawurldecode($cookie['value']), $unserialize = false);
         }
     }
@@ -41,7 +48,13 @@ trait InteractsWithCookies
             return $this->addCookie($name, $value, $expiry, $options, false);
         }
 
-        if ($cookie = $this->driver->manage()->getCookieNamed($name)) {
+        try {
+            $cookie = $this->driver->manage()->getCookieNamed($name);
+        } catch (NoSuchCookieException $e) {
+            $cookie = null;
+        }
+
+        if ($cookie) {
             return rawurldecode($cookie['value']);
         }
     }
