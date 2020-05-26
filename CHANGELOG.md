@@ -1,6 +1,16 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.1.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.2.0...6.x)
+
+
+## [v6.2.0 (2020-05-26)](https://github.com/laravel/dusk/compare/v6.1.0...v6.2.0)
+
+### Changed
+- Allow Dusk route to be configurable ([#774](https://github.com/laravel/dusk/pull/774), [668289a](https://github.com/laravel/dusk/commit/668289a3a323f79eb42b19a391ed33768aa82791))
+
+### Fixed
+- Domain routing should only be optional ([#776](https://github.com/laravel/dusk/pull/776))
+- Fix for cookie assertions ([#778](https://github.com/laravel/dusk/pull/778))
 
 
 ## [v6.1.0 (2020-04-28)](https://github.com/laravel/dusk/compare/v6.0.1...v6.1.0)
