@@ -135,6 +135,19 @@ class BrowserTest extends TestCase
         });
     }
 
+    public function test_elsewhere_method()
+    {
+        $driver = m::mock(stdClass::class);
+        $browser = new Browser($driver);
+
+        $browser->with('prefix', function ($browser) {
+            $browser->elsewhere('.my-class', function($browser) {
+                $this->assertInstanceof(Browser::class, $browser);
+                $this->assertEquals('body .my-class', $browser->resolver->prefix);
+            });
+        });
+    }
+
     public function test_page_macros()
     {
         $driver = m::mock(stdClass::class);
