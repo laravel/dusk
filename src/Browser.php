@@ -490,7 +490,7 @@ class Browser
     public function elsewhere($selector, Closure $callback)
     {
         $browser = new static(
-            $this->driver, new ElementResolver($this->driver, 'body ' . $selector)
+            $this->driver, new ElementResolver($this->driver, 'body '.$selector)
         );
 
         if ($this->page) {
