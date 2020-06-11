@@ -141,7 +141,7 @@ class BrowserTest extends TestCase
         $browser = new Browser($driver);
 
         $browser->with('prefix', function ($browser) {
-            $browser->elsewhere('.my-class', function($browser) {
+            $browser->elsewhere('.my-class', function ($browser) {
                 $this->assertInstanceof(Browser::class, $browser);
                 $this->assertEquals('body .my-class', $browser->resolver->prefix);
             });
