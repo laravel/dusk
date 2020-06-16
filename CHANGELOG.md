@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.2.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.3.0...6.x)
+
+
+## [v6.3.0 (2020-06-16)](https://github.com/laravel/dusk/compare/v6.2.0...v6.3.0)
+
+### Added
+- Support executing closures outside of the current selector scope ([#784](https://github.com/laravel/dusk/pull/784))
 
 
 ## [v6.2.0 (2020-05-26)](https://github.com/laravel/dusk/compare/v6.1.0...v6.2.0)
