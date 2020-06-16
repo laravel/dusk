@@ -481,6 +481,32 @@ class Browser
     }
 
     /**
+     * Execute a Closure outside of the current browser scope.
+     *
+     * @param  string  $selector
+     * @param  \Closure  $callback
+     * @return $this
+     */
+    public function elsewhere($selector, Closure $callback)
+    {
+        $browser = new static(
+            $this->driver, new ElementResolver($this->driver, 'body '.$selector)
+        );
+
+        if ($this->page) {
+            $browser->onWithoutAssert($this->page);
+        }
+
+        if ($selector instanceof Component) {
+            $browser->onComponent($selector, $this->resolver);
+        }
+
+        call_user_func($callback, $browser);
+
+        return $this;
+    }
+
+    /**
      * Set the current component state.
      *
      * @param  \Laravel\Dusk\Component  $component
