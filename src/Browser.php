@@ -190,6 +190,20 @@ class Browser
     }
 
     /**
+     * Click the topmost element at the given pair of coordinates.
+     *
+     * @param  int  $x
+     * @param  int  $y
+     * @return $this
+     */
+    public function clickAtPoint($x, $y)
+    {
+        $this->driver->executeScript("document.elementFromPoint({$x}, {$y}).click()");
+
+        return $this;
+    }
+
+    /**
      * Set the current page object without executing the assertions.
      *
      * @param  mixed  $page
