@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.3.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.4.0...6.x)
+
+
+## [v6.4.0 (2020-06-30)](https://github.com/laravel/dusk/compare/v6.3.0...v6.4.0)
+
+### Added
+- Support clicking the topmost element at a given pair of coordinates ([#788](https://github.com/laravel/dusk/pull/788))
 
 
 ## [v6.3.0 (2020-06-16)](https://github.com/laravel/dusk/compare/v6.2.0...v6.3.0)
