@@ -42,7 +42,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given cookie is present.
+     * Assert that the given encrypted cookie is present.
      *
      * @param  string $name
      * @param  bool  $decrypt
@@ -61,7 +61,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given plain cookie is present.
+     * Assert that the given unencrypted cookie is present.
      *
      * @param  string  $name
      * @return $this
@@ -72,7 +72,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given cookie is not present.
+     * Assert that the given encrypted cookie is not present.
      *
      * @param  string $name
      * @param  bool  $decrypt
@@ -91,7 +91,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given plain cookie is not present.
+     * Assert that the given unencrypted cookie is not present.
      *
      * @param  string  $name
      * @return $this
@@ -122,7 +122,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that a cookie has a given value.
+     * Assert that an unencrypted cookie has a given value.
      *
      * @param  string  $name
      * @param  string  $value
