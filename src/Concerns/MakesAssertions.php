@@ -42,7 +42,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given cookie is present.
+     * Assert that the given encrypted cookie is present.
      *
      * @param  string $name
      * @param  bool  $decrypt
@@ -72,7 +72,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given cookie is not present.
+     * Assert that the given encrypted cookie is not present.
      *
      * @param  string $name
      * @param  bool  $decrypt
