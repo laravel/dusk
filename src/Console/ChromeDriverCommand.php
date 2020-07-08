@@ -168,9 +168,9 @@ class ChromeDriverCommand extends Command
         $streamOptions = [];
         if ($this->option('ssl-no-verify')) {
             $streamOptions = [
-                "ssl" => [
-                    "verify_peer"      => false,
-                    "verify_peer_name" => false,
+                'ssl' => [
+                    'verify_peer'      => false,
+                    'verify_peer_name' => false,
                 ],
             ];
         }
