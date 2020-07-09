@@ -166,7 +166,7 @@ class ChromeDriverCommand extends Command
     protected function latestVersion()
     {
         $streamOptions = [];
-        
+
         if ($this->option('ssl-no-verify')) {
             $streamOptions = [
                 'ssl' => [
