@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.4.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.4.1...6.x)
+
+
+## [v6.4.1 (2020-07-14)](https://github.com/laravel/dusk/compare/v6.4.0...v6.4.1)
+
+### Fixed
+- Pass ssl-no-verify option into latestVersion of ChromeDriver install ([#794](https://github.com/laravel/dusk/pull/794))
 
 
 ## [v6.4.0 (2020-06-30)](https://github.com/laravel/dusk/compare/v6.3.0...v6.4.0)
