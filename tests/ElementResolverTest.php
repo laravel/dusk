@@ -144,7 +144,7 @@ class ElementResolverTest extends TestCase
         $resolver = new ElementResolver(new stdClass, 'prefix');
         $resolver->pageElements([
             'title' => '.title-class',
-            'subtitle' => '.subtitle-class'
+            'subtitle' => '.subtitle-class',
         ]);
         $this->assertEquals('prefix .title-class', $resolver->format('title'));
         $this->assertEquals('prefix .subtitle-class', $resolver->format('subtitle'));

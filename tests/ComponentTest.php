@@ -94,7 +94,7 @@ class ComponentTest extends TestCase
 
         $browser->resolver->elements = [
             'title' => '.title-class',
-            'subtitle' => '.subtitle-class'
+            'subtitle' => '.subtitle-class',
         ];
 
         $browser->within($component, function ($browser) {
