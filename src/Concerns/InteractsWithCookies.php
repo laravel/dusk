@@ -34,7 +34,7 @@ trait InteractsWithCookies
     }
 
     /**
-     * Get or set a plain cookie's value.
+     * Get or set an unencrypted cookie's value.
      *
      * @param  string  $name
      * @param  string|null  $value
