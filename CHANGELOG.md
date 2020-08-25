@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.4.1...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.5.0...6.x)
+
+
+## [v6.5.0 (2020-08-25](https://github.com/laravel/dusk/compare/v6.4.1...v6.5.0)
+
+### Added
+- Support Laravel 8 ([#800](https://github.com/laravel/dusk/pull/800))
 
 
 ## [v6.4.1 (2020-07-14)](https://github.com/laravel/dusk/compare/v6.4.0...v6.4.1)
