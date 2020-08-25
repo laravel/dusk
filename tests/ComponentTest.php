@@ -85,6 +85,24 @@ class ComponentTest extends TestCase
         });
     }
 
+    public function test_component_element_alias_formatter()
+    {
+        $driver = m::mock(stdClass::class);
+        $browser = new Browser($driver);
+
+        $component = new TestComponent;
+
+        $browser->resolver->elements = [
+            'title' => '.title-class',
+            'subtitle' => '.subtitle-class'
+        ];
+
+        $browser->within($component, function ($browser) {
+            $this->assertEquals('body #component-root .title-class', $browser->resolver->format('title'));
+            $this->assertEquals('body #component-root .subtitle-class', $browser->resolver->format('subtitle'));
+        });
+    }
+
     public function test_root_selector_can_be_dusk_hook()
     {
         $driver = m::mock(stdClass::class);

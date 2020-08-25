@@ -405,9 +405,15 @@ class ElementResolver
             return strlen($key);
         })->toArray();
 
-        $selector = str_replace(
-            array_keys($sortedElements), array_values($sortedElements), $originalSelector = $selector
-        );
+        $originalSelector = $selector;
+
+        if (is_string($selector)) {
+            $selector = array_key_exists($selector, $sortedElements) ? $sortedElements[$selector] : $selector;
+        } else {
+            $selector = str_replace(
+                array_keys($sortedElements), array_values($sortedElements), $originalSelector
+            );
+        }
 
         if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
             $selector = '[dusk="'.explode('@', $selector)[1].'"]';
