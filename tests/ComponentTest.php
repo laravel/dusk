@@ -35,10 +35,10 @@ class ComponentTest extends TestCase
         $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
 
-        $browser->within($component = new TestComponent, function ($browser) use ($component) {
+        $browser->within($component = new TestComponent, function ($browser) {
             $this->assertEquals('body #component-root', $browser->resolver->prefix);
 
-            $browser->within($nested = new TestNestedComponent, function ($browser) use ($nested) {
+            $browser->within($nested = new TestNestedComponent, function ($browser) {
                 $this->assertEquals('body #component-root #nested-root', $browser->resolver->prefix);
 
                 $browser->with('prefix', function ($browser) {
@@ -75,7 +75,7 @@ class ComponentTest extends TestCase
                 '@overridden-alias' => '#not-overridden',
             ], $browser->resolver->elements);
 
-            $browser->within($nested = new TestNestedComponent, function ($browser) use ($nested) {
+            $browser->within($nested = new TestNestedComponent, function ($browser) {
                 $this->assertEquals([
                     '@nested-alias' => '#nested-alias',
                     '@overridden-alias' => '#overridden',
