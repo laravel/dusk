@@ -31,10 +31,11 @@ trait InteractsWithCookies
         }
 
         if ($cookie) {
-            $decryptedValueCookieValue = decrypt(rawurldecode($cookie['value']), $unserialize = false);
-            $hasValuePrefix = strpos($decryptedValueCookieValue, CookieValuePrefix::create($name, Crypt::getKey())) === 0;
+            $decryptedValue = decrypt(rawurldecode($cookie['value']), $unserialize = false);
 
-            return ($hasValuePrefix) ? CookieValuePrefix::remove($decryptedValueCookieValue) : $decryptedValueCookieValue;
+            $hasValuePrefix = strpos($decryptedValue, CookieValuePrefix::create($name, Crypt::getKey())) === 0;
+
+            return $hasValuePrefix ? CookieValuePrefix::remove($decryptedValue) : $decryptedValue;
         }
     }
 
