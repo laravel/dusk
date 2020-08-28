@@ -1,6 +1,6 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.5.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.5.1...6.x)
 
 
 ## [v6.5.1 (2020-08-28](https://github.com/laravel/dusk/compare/v6.5.0...v6.5.1)
