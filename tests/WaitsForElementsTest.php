@@ -25,7 +25,7 @@ class WaitsForElementsTest extends TestCase
             //
         }
 
-        $this->assertEquals(2, floor(microtime(true) - $then));
+        $this->assertSame(2.0, floor(microtime(true) - $then));
     }
 
     public function test_default_wait_time_can_be_overridden()
@@ -43,7 +43,7 @@ class WaitsForElementsTest extends TestCase
             //
         }
 
-        $this->assertEquals(0, floor(microtime(true) - $then));
+        $this->assertSame(0.0, floor(microtime(true) - $then));
     }
 
     public function test_wait_using()
@@ -120,7 +120,7 @@ class WaitsForElementsTest extends TestCase
             $browser->waitForText('Discount: 20%', 1);
             $this->fail('waitForText() did not timeout.');
         } catch (TimeOutException $e) {
-            $this->assertEquals('Waited 1 seconds for text [Discount: 20%].', $e->getMessage());
+            $this->assertSame('Waited 1 seconds for text [Discount: 20%].', $e->getMessage());
         }
     }
 }
