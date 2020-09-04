@@ -19,7 +19,7 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForTyping('#foo'));
+        $this->assertSame('foo', $resolver->resolveForTyping('#foo'));
     }
 
     public function test_resolve_for_typing_falls_back_to_selectors_without_id()
@@ -27,7 +27,7 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForTyping('foo'));
+        $this->assertSame('foo', $resolver->resolveForTyping('foo'));
     }
 
     public function test_resolve_for_selection_resolves_by_id()
@@ -35,7 +35,7 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForSelection('#foo'));
+        $this->assertSame('foo', $resolver->resolveForSelection('#foo'));
     }
 
     public function test_resolve_for_selection_falls_back_to_selectors_without_id()
@@ -43,7 +43,7 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForSelection('foo'));
+        $this->assertSame('foo', $resolver->resolveForSelection('foo'));
     }
 
     public function test_resolve_for_radio_selection_resolves_by_id()
@@ -51,7 +51,7 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForRadioSelection('#foo'));
+        $this->assertSame('foo', $resolver->resolveForRadioSelection('#foo'));
     }
 
     public function test_resolve_for_radio_selection_falls_back_to_selectors_without_id()
@@ -59,7 +59,7 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForRadioSelection('foo', 'value'));
+        $this->assertSame('foo', $resolver->resolveForRadioSelection('foo', 'value'));
     }
 
     public function test_resolve_for_radio_selection_throws_exception_without_id_and_without_value()
@@ -77,7 +77,7 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForChecking('#foo'));
+        $this->assertSame('foo', $resolver->resolveForChecking('#foo'));
     }
 
     public function test_resolve_for_checking_falls_back_to_selectors_without_id()
@@ -85,7 +85,7 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForChecking('foo'));
+        $this->assertSame('foo', $resolver->resolveForChecking('foo'));
     }
 
     public function test_resolve_for_attachment_resolves_by_id()
@@ -93,7 +93,7 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForAttachment('#foo'));
+        $this->assertSame('foo', $resolver->resolveForAttachment('#foo'));
     }
 
     public function test_resolve_for_attachment_falls_back_to_selectors_without_id()
@@ -101,7 +101,7 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForAttachment('foo'));
+        $this->assertSame('foo', $resolver->resolveForAttachment('foo'));
     }
 
     public function test_resolve_for_field_resolves_by_id()
@@ -109,7 +109,7 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForField('#foo'));
+        $this->assertSame('foo', $resolver->resolveForField('#foo'));
     }
 
     public function test_resolve_for_field_falls_back_to_selectors_without_id()
@@ -117,30 +117,30 @@ class ElementResolverTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
-        $this->assertEquals('foo', $resolver->resolveForField('foo'));
+        $this->assertSame('foo', $resolver->resolveForField('foo'));
     }
 
     public function test_format_correctly_formats_selectors()
     {
         $resolver = new ElementResolver(new stdClass);
-        $this->assertEquals('body #modal', $resolver->format('#modal'));
+        $this->assertSame('body #modal', $resolver->format('#modal'));
 
         $resolver = new ElementResolver(new stdClass, 'prefix');
-        $this->assertEquals('prefix #modal', $resolver->format('#modal'));
+        $this->assertSame('prefix #modal', $resolver->format('#modal'));
 
         $resolver = new ElementResolver(new stdClass, 'prefix');
         $resolver->pageElements(['@modal' => '#modal']);
-        $this->assertEquals('prefix #modal', $resolver->format('@modal'));
+        $this->assertSame('prefix #modal', $resolver->format('@modal'));
 
         $resolver = new ElementResolver(new stdClass, 'prefix');
         $resolver->pageElements([
             '@modal' => '#first',
             '@modal-second' => '#second',
         ]);
-        $this->assertEquals('prefix #first', $resolver->format('@modal'));
-        $this->assertEquals('prefix #second', $resolver->format('@modal-second'));
-        $this->assertEquals('prefix #first-third', $resolver->format('@modal-third'));
-        $this->assertEquals('prefix [dusk="missing-element"]', $resolver->format('@missing-element'));
+        $this->assertSame('prefix #first', $resolver->format('@modal'));
+        $this->assertSame('prefix #second', $resolver->format('@modal-second'));
+        $this->assertSame('prefix #first-third', $resolver->format('@modal-third'));
+        $this->assertSame('prefix [dusk="missing-element"]', $resolver->format('@missing-element'));
     }
 
     public function test_find_by_id_with_colon()
@@ -154,6 +154,6 @@ class ElementResolverTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($resolver, '#frmLogin:strCustomerLogin_userID');
 
-        $this->assertEquals('foo', $result);
+        $this->assertSame('foo', $result);
     }
 }

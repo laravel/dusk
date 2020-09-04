@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk\Tests\Conserns;
+namespace Laravel\Dusk\Tests\Concerns;
 
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;

@@ -36,13 +36,13 @@ class ComponentTest extends TestCase
         $browser = new Browser($driver);
 
         $browser->within($component = new TestComponent, function ($browser) {
-            $this->assertEquals('body #component-root', $browser->resolver->prefix);
+            $this->assertSame('body #component-root', $browser->resolver->prefix);
 
             $browser->within($nested = new TestNestedComponent, function ($browser) {
-                $this->assertEquals('body #component-root #nested-root', $browser->resolver->prefix);
+                $this->assertSame('body #component-root #nested-root', $browser->resolver->prefix);
 
                 $browser->with('prefix', function ($browser) {
-                    $this->assertEquals('body #component-root #nested-root prefix', $browser->resolver->prefix);
+                    $this->assertSame('body #component-root #nested-root prefix', $browser->resolver->prefix);
                 });
             });
         });
@@ -94,7 +94,7 @@ class ComponentTest extends TestCase
         $component->selector = '@dusk-hook-root';
 
         $browser->within($component, function ($browser) {
-            $this->assertEquals('body [dusk="dusk-hook-root"]', $browser->resolver->prefix);
+            $this->assertSame('body [dusk="dusk-hook-root"]', $browser->resolver->prefix);
         });
     }
 
@@ -107,7 +107,7 @@ class ComponentTest extends TestCase
         $component->selector = '@component-alias';
 
         $browser->within($component, function ($browser) {
-            $this->assertEquals('body #component-alias', $browser->resolver->prefix);
+            $this->assertSame('body #component-alias', $browser->resolver->prefix);
         });
     }
 
