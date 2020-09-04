@@ -175,7 +175,7 @@ class ChromeDriverCommand extends Command
                 ],
             ];
         }
-        
+
         if ($this->option('proxy')) {
             $streamOptions['http'] = ['proxy' => $this->option('proxy'), 'request_fulluri' => true];
         }
