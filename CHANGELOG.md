@@ -3,14 +3,14 @@
 ## [Unreleased](https://github.com/laravel/dusk/compare/v6.5.1...6.x)
 
 
-## [v6.5.1 (2020-08-28](https://github.com/laravel/dusk/compare/v6.5.0...v6.5.1)
+## [v6.5.1 (2020-08-28)](https://github.com/laravel/dusk/compare/v6.5.0...v6.5.1)
 
 ### Fixed
 - Add CookieValuePrefix detection for encrypted cookies ([#804](https://github.com/laravel/dusk/pull/804))
 - Allow dotenv 5.0 to be installed ([#803](https://github.com/laravel/dusk/pull/803))
 
 
-## [v6.5.0 (2020-08-25](https://github.com/laravel/dusk/compare/v6.4.1...v6.5.0)
+## [v6.5.0 (2020-08-25)](https://github.com/laravel/dusk/compare/v6.4.1...v6.5.0)
 
 ### Added
 - Support Laravel 8 ([#800](https://github.com/laravel/dusk/pull/800))
