@@ -18,4 +18,9 @@
             <directory suffix=".php">./app</directory>
         </whitelist>
     </filter>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./app</directory>
+        </include>
+    </coverage>
 </phpunit>
