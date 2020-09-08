@@ -82,7 +82,7 @@ class BrowserTest extends TestCase
 
         $browser->with('prefix', function ($browser) {
             $this->assertInstanceof(Browser::class, $browser);
-            $this->assertEquals('body prefix', $browser->resolver->prefix);
+            $this->assertSame('body prefix', $browser->resolver->prefix);
         });
     }
 
@@ -99,7 +99,7 @@ class BrowserTest extends TestCase
 
         $browser->with('prefix', function ($browser) use ($page) {
             $this->assertInstanceof(Browser::class, $browser);
-            $this->assertEquals('body prefix', $browser->resolver->prefix);
+            $this->assertSame('body prefix', $browser->resolver->prefix);
             $this->assertEquals($page, $browser->page);
             $this->assertFalse($page->asserted);
         });
@@ -112,7 +112,7 @@ class BrowserTest extends TestCase
 
         $browser->within('prefix', function ($browser) {
             $this->assertInstanceof(Browser::class, $browser);
-            $this->assertEquals('body prefix', $browser->resolver->prefix);
+            $this->assertSame('body prefix', $browser->resolver->prefix);
         });
     }
 
@@ -129,7 +129,7 @@ class BrowserTest extends TestCase
 
         $browser->within('prefix', function ($browser) use ($page) {
             $this->assertInstanceof(Browser::class, $browser);
-            $this->assertEquals('body prefix', $browser->resolver->prefix);
+            $this->assertSame('body prefix', $browser->resolver->prefix);
             $this->assertEquals($page, $browser->page);
             $this->assertFalse($page->asserted);
         });
@@ -143,7 +143,7 @@ class BrowserTest extends TestCase
         $browser->with('prefix', function ($browser) {
             $browser->elsewhere('.my-class', function ($browser) {
                 $this->assertInstanceof(Browser::class, $browser);
-                $this->assertEquals('body .my-class', $browser->resolver->prefix);
+                $this->assertSame('body .my-class', $browser->resolver->prefix);
             });
         });
     }

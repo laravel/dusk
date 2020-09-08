@@ -4,6 +4,8 @@ namespace Laravel\Dusk\Concerns;
 
 use DateTimeInterface;
 use Facebook\WebDriver\Exception\NoSuchCookieException;
+use Illuminate\Cookie\CookieValuePrefix;
+use Illuminate\Support\Facades\Crypt;
 
 trait InteractsWithCookies
 {
@@ -29,7 +31,11 @@ trait InteractsWithCookies
         }
 
         if ($cookie) {
-            return decrypt(rawurldecode($cookie['value']), $unserialize = false);
+            $decryptedValue = decrypt(rawurldecode($cookie['value']), $unserialize = false);
+
+            $hasValuePrefix = strpos($decryptedValue, CookieValuePrefix::create($name, Crypt::getKey())) === 0;
+
+            return $hasValuePrefix ? CookieValuePrefix::remove($decryptedValue) : $decryptedValue;
         }
     }
 
