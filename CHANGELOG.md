@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.6.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.6.1...6.x)
+
+
+## [v6.6.1 (2020-09-22)](https://github.com/laravel/dusk/compare/v6.6.0...v6.6.1)
+
+### Fixed
+- Fix the `fitContent()` method ([#815](https://github.com/laravel/dusk/pull/815))
 
 
 ## [v6.6.0 (2020-09-08)](https://github.com/laravel/dusk/compare/v6.5.1...v6.6.0)
