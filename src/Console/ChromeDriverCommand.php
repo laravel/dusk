@@ -308,10 +308,6 @@ class ChromeDriverCommand extends Command
                 continue;
             }
 
-            $this->comment(
-                sprintf('Chrome version %s detected.', $matches[0])
-            );
-
             return $matches[1];
         }
 
