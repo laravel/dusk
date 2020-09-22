@@ -304,7 +304,7 @@ class ChromeDriverCommand extends Command
 
             preg_match('/(\d+)(\.\d+){3}/', $process->getOutput(), $matches);
 
-            if (!isset($matches[1])) {
+            if (! isset($matches[1])) {
                 continue;
             }
 
