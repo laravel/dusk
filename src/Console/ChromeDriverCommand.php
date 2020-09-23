@@ -19,7 +19,7 @@ class ChromeDriverCommand extends Command
      */
     protected $signature = 'dusk:chrome-driver {version?}
                     {--all : Install a ChromeDriver binary for every OS}
-                    {--detect : Detect the installed Chrome/Chromium version}
+                    {--detect : Detect the installed Chrome / Chromium version}
                     {--proxy= : The proxy to download the binary through (example: "tcp://127.0.0.1:9000")}
                     {--ssl-no-verify : Bypass SSL certificate verification when installing through a proxy}';
 
