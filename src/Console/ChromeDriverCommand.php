@@ -105,11 +105,11 @@ class ChromeDriverCommand extends Command
     protected $directory = __DIR__.'/../../bin/';
 
     /**
-     * The default commands to detect the installed Chrome/Chromium version.
+     * The default commands to detect the installed Chrome / Chromium version.
      *
      * @var array
      */
-    protected $chromeCommands = [
+    protected $chromeVersionCommands = [
         'linux' => [
             '/usr/bin/google-chrome --version',
             '/usr/bin/chromium-browser --version',
@@ -161,7 +161,7 @@ class ChromeDriverCommand extends Command
         $version = $this->argument('version');
 
         if ($this->option('detect')) {
-            $version = $this->chromeVersion(OperatingSystem::id());
+            $version = $this->detectChromeVersion(OperatingSystem::id());
         }
 
         if (! $version) {
@@ -206,6 +206,33 @@ class ChromeDriverCommand extends Command
         }
 
         return trim(file_get_contents($this->latestVersionUrl, false, stream_context_create($streamOptions)));
+    }
+
+    /**
+     * Detect the installed Chrome / Chromium major version.
+     *
+     * @param  string  $os
+     * @return int|bool
+     */
+    protected function detectChromeVersion($os)
+    {
+        foreach ($this->chromeVersionCommands[$os] as $command) {
+            $process = Process::fromShellCommandline($command);
+
+            $process->run();
+
+            preg_match('/(\d+)(\.\d+){3}/', $process->getOutput(), $matches);
+
+            if (! isset($matches[1])) {
+                continue;
+            }
+
+            return $matches[1];
+        }
+
+        $this->error('Chrome version could not be detected.');
+
+        return false;
     }
 
     /**
@@ -287,32 +314,5 @@ class ChromeDriverCommand extends Command
         $streamContext = stream_context_create($contextOptions);
 
         return file_get_contents($url, false, $streamContext);
-    }
-
-    /**
-     * Detect the installed Chrome/Chromium major version.
-     *
-     * @param string $os
-     * @return int|bool
-     */
-    protected function chromeVersion($os)
-    {
-        foreach ($this->chromeCommands[$os] as $command) {
-            $process = Process::fromShellCommandline($command);
-
-            $process->run();
-
-            preg_match('/(\d+)(\.\d+){3}/', $process->getOutput(), $matches);
-
-            if (! isset($matches[1])) {
-                continue;
-            }
-
-            return $matches[1];
-        }
-
-        $this->error('Chrome version could not be detected.');
-
-        return false;
     }
 }
