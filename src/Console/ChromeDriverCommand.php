@@ -4,6 +4,7 @@ namespace Laravel\Dusk\Console;
 
 use Illuminate\Console\Command;
 use Laravel\Dusk\OperatingSystem;
+use Symfony\Component\Process\Process;
 use ZipArchive;
 
 /**
@@ -18,6 +19,7 @@ class ChromeDriverCommand extends Command
      */
     protected $signature = 'dusk:chrome-driver {version?}
                     {--all : Install a ChromeDriver binary for every OS}
+                    {--detect : Detect the installed Chrome / Chromium version}
                     {--proxy= : The proxy to download the binary through (example: "tcp://127.0.0.1:9000")}
                     {--ssl-no-verify : Bypass SSL certificate verification when installing through a proxy}';
 
@@ -103,6 +105,25 @@ class ChromeDriverCommand extends Command
     protected $directory = __DIR__.'/../../bin/';
 
     /**
+     * The default commands to detect the installed Chrome / Chromium version.
+     *
+     * @var array
+     */
+    protected $chromeVersionCommands = [
+        'linux' => [
+            '/usr/bin/google-chrome --version',
+            '/usr/bin/chromium-browser --version',
+            '/usr/bin/google-chrome-stable --version',
+        ],
+        'mac' => [
+            '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version',
+        ],
+        'win' => [
+            'reg query "HKEY_CURRENT_USER\Software\Google\Chrome\BLBeacon" /v version',
+        ],
+    ];
+
+    /**
      * Execute the console command.
      *
      * @return void
@@ -138,6 +159,10 @@ class ChromeDriverCommand extends Command
     protected function version()
     {
         $version = $this->argument('version');
+
+        if ($this->option('detect')) {
+            $version = $this->detectChromeVersion(OperatingSystem::id());
+        }
 
         if (! $version) {
             return $this->latestVersion();
@@ -181,6 +206,33 @@ class ChromeDriverCommand extends Command
         }
 
         return trim(file_get_contents($this->latestVersionUrl, false, stream_context_create($streamOptions)));
+    }
+
+    /**
+     * Detect the installed Chrome / Chromium major version.
+     *
+     * @param  string  $os
+     * @return int|bool
+     */
+    protected function detectChromeVersion($os)
+    {
+        foreach ($this->chromeVersionCommands[$os] as $command) {
+            $process = Process::fromShellCommandline($command);
+
+            $process->run();
+
+            preg_match('/(\d+)(\.\d+){3}/', $process->getOutput(), $matches);
+
+            if (! isset($matches[1])) {
+                continue;
+            }
+
+            return $matches[1];
+        }
+
+        $this->error('Chrome version could not be detected.');
+
+        return false;
     }
 
     /**
