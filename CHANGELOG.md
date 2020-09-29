@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.6.1...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.7.0...6.x)
+
+
+## [v6.7.0 (2020-09-29](https://github.com/laravel/dusk/compare/v6.6.1...v6.7.0)
+
+### Added
+- Add Chrome driver auto detection ([#816](https://github.com/laravel/dusk/pull/816))
 
 
 ## [v6.6.1 (2020-09-22)](https://github.com/laravel/dusk/compare/v6.6.0...v6.6.1)
