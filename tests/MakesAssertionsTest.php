@@ -389,4 +389,35 @@ class MakesAssertionsTest extends TestCase
             );
         }
     }
+
+    public function test_assert_script()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->withArgs(['return 1==1'])->andReturn(true);
+        $driver->shouldReceive('executeScript')->withArgs(['return 1==1'])->andReturn(true);
+        $driver->shouldReceive('executeScript')->withArgs(['return 1==2'])->andReturn(false);
+        $driver->shouldReceive('executeScript')->withArgs(["return 'some string'"])->andReturn('some string');
+
+        $resolver = m::mock(stdClass::class);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertScript('return 1==1');
+        $browser->assertScript('1==1');
+        $browser->assertScript("'some string'", 'some string');
+
+        try {
+            $browser->assertScript('1==2');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'JavaScript expression [return 1==2] mismatched.',
+                $e->getMessage()
+            );
+            $this->assertStringContainsString(
+                'Failed asserting that false matches expected true.',
+                $e->getMessage()
+            );
+        }
+    }
 }

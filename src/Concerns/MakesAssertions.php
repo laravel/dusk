@@ -868,4 +868,23 @@ JS;
             "return document.querySelector('".$fullSelector."').__vue__.".$key
         );
     }
+
+    /**
+     * Assert that the given JavaScript expression has a given value.
+     *
+     * @param  string  $expression
+     * @param  mixed  $expected
+     * @return $this
+     */
+    public function assertScript($expression, $expected = true)
+    {
+        $expression = Str::start($expression, 'return ');
+
+        PHPUnit::assertEquals(
+            $expected, $this->driver->executeScript($expression),
+            "JavaScript expression [{$expression}] mismatched."
+        );
+
+        return $this;
+    }
 }
