@@ -165,7 +165,7 @@ trait ProvidesBrowser
     }
 
     /**
-     * Store the source code for the given browsers.
+     * Store the source code for the given browsers (if necessary).
      *
      * @param  \Illuminate\Support\Collection  $browsers
      * @return void
@@ -173,10 +173,9 @@ trait ProvidesBrowser
     protected function storeSourceLogsFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            if (property_exists($browser, 'makesSourceAssertion') && $browser->makesSourceAssertion) {
-                $name = $this->getCallerName();
-
-                $browser->storeSource($name.'-'.$key);
+            if (property_exists($browser, 'makesSourceAssertion') &&
+                $browser->makesSourceAssertion) {
+                $browser->storeSource($this->getCallerName().'-'.$key);
             }
         });
     }

@@ -14,7 +14,7 @@ trait MakesAssertions
      *
      * @var bool
      */
-    public $makesSourceAssertion = false;
+    public $madeSourceAssertion = false;
 
     /**
      * Assert that the page title is the given value.
@@ -212,7 +212,7 @@ trait MakesAssertions
      */
     public function assertSourceHas($code)
     {
-        $this->makesSourceAssertion = true;
+        $this->madeSourceAssertion = true;
 
         PHPUnit::assertTrue(
             Str::contains($this->driver->getPageSource(), $code),
@@ -230,7 +230,7 @@ trait MakesAssertions
      */
     public function assertSourceMissing($code)
     {
-        $this->makesSourceAssertion = true;
+        $this->madeSourceAssertion = true;
 
         PHPUnit::assertFalse(
             Str::contains($this->driver->getPageSource(), $code),
