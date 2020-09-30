@@ -10,6 +10,13 @@ use PHPUnit\Framework\Assert as PHPUnit;
 trait MakesAssertions
 {
     /**
+     * Indicates the browser has made an assertion about the source code of the page.
+     *
+     * @var bool
+     */
+    public $madeSourceAssertion = false;
+
+    /**
      * Assert that the page title is the given value.
      *
      * @param  string  $title
@@ -205,6 +212,8 @@ trait MakesAssertions
      */
     public function assertSourceHas($code)
     {
+        $this->madeSourceAssertion = true;
+
         PHPUnit::assertTrue(
             Str::contains($this->driver->getPageSource(), $code),
             "Did not find expected source code [{$code}]"
@@ -221,6 +230,8 @@ trait MakesAssertions
      */
     public function assertSourceMissing($code)
     {
+        $this->madeSourceAssertion = true;
+
         PHPUnit::assertFalse(
             Str::contains($this->driver->getPageSource(), $code),
             "Found unexpected source code [{$code}]"

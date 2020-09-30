@@ -56,6 +56,8 @@ class DuskCommand extends Command
 
         $this->purgeConsoleLogs();
 
+        $this->purgeSourceLogs();
+
         $options = array_slice($_SERVER['argv'], $this->option('without-tty') ? 3 : 2);
 
         return $this->withDuskEnvironment(function () use ($options) {
@@ -152,6 +154,28 @@ class DuskCommand extends Command
         $files = Finder::create()->files()
             ->in($path)
             ->name('*.log');
+
+        foreach ($files as $file) {
+            @unlink($file->getRealPath());
+        }
+    }
+
+    /**
+     * Purge the source logs.
+     *
+     * @return void
+     */
+    protected function purgeSourceLogs()
+    {
+        $path = base_path('tests/Browser/source');
+
+        if (! is_dir($path)) {
+            return;
+        }
+
+        $files = Finder::create()->files()
+                       ->in($path)
+                       ->name('*.txt');
 
         foreach ($files as $file) {
             @unlink($file->getRealPath());
