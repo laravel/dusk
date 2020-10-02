@@ -175,7 +175,7 @@ class Browser
     }
 
     /**
-     * Browse to "about:blank" page.
+     * Browse to the "about:blank" page.
      *
      * @return $this
      */
