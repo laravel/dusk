@@ -39,6 +39,16 @@ class BrowserTest extends TestCase
         $browser->visit('/login');
     }
 
+    public function test_blank_page()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('navigate->to')->with('about:blank');
+        $browser = new Browser($driver);
+        Browser::$baseUrl = 'http://laravel.dev';
+
+        $browser->blank();
+    }
+
     public function test_visit_with_page_object()
     {
         $driver = m::mock(stdClass::class);
