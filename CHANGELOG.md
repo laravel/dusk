@@ -1,6 +1,18 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.7.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.8.0...6.x)
+
+
+## [v6.8.0 (2020-10-06](https://github.com/laravel/dusk/compare/v6.7.0...v6.8.0)
+
+### Added
+- Add `assertScript()` ([#821](https://github.com/laravel/dusk/pull/821))
+- Added `waitForTextIn` Function ([#823](https://github.com/laravel/dusk/pull/823))
+- Allow to utilise browser "about:blank" page  ([#824](https://github.com/laravel/dusk/pull/824))
+
+### Fixed
+- Fix choosing random elements on `<select>` ([#822](https://github.com/laravel/dusk/pull/822))
+- Fix `logout()` when using AuthenticateSession middleware ([#826](https://github.com/laravel/dusk/pull/826))
 
 
 ## [v6.7.0 (2020-09-29](https://github.com/laravel/dusk/compare/v6.6.1...v6.7.0)
