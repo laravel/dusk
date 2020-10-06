@@ -6,6 +6,7 @@
 ## [v6.8.0 (2020-10-06](https://github.com/laravel/dusk/compare/v6.7.0...v6.8.0)
 
 ### Added
+- Capture source code on failure ([#819](https://github.com/laravel/dusk/pull/819))
 - Add `assertScript()` ([#821](https://github.com/laravel/dusk/pull/821))
 - Added `waitForTextIn` Function ([#823](https://github.com/laravel/dusk/pull/823))
 - Allow to utilise browser "about:blank" page  ([#824](https://github.com/laravel/dusk/pull/824))
