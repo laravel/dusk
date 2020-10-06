@@ -216,7 +216,7 @@ trait InteractsWithElements
 
         $options = $element->findElements(WebDriverBy::cssSelector('option:not([disabled])'));
 
-        if (is_null($value)) {
+        if (func_num_args() === 1) {
             $options[array_rand($options)]->click();
         } else {
             if (is_bool($value)) {

@@ -10,6 +10,13 @@ use PHPUnit\Framework\Assert as PHPUnit;
 trait MakesAssertions
 {
     /**
+     * Indicates the browser has made an assertion about the source code of the page.
+     *
+     * @var bool
+     */
+    public $madeSourceAssertion = false;
+
+    /**
      * Assert that the page title is the given value.
      *
      * @param  string  $title
@@ -205,6 +212,8 @@ trait MakesAssertions
      */
     public function assertSourceHas($code)
     {
+        $this->madeSourceAssertion = true;
+
         PHPUnit::assertTrue(
             Str::contains($this->driver->getPageSource(), $code),
             "Did not find expected source code [{$code}]"
@@ -221,6 +230,8 @@ trait MakesAssertions
      */
     public function assertSourceMissing($code)
     {
+        $this->madeSourceAssertion = true;
+
         PHPUnit::assertFalse(
             Str::contains($this->driver->getPageSource(), $code),
             "Found unexpected source code [{$code}]"
@@ -867,5 +878,24 @@ JS;
         return $this->driver->executeScript(
             "return document.querySelector('".$fullSelector."').__vue__.".$key
         );
+    }
+
+    /**
+     * Assert that the given JavaScript expression has a given value.
+     *
+     * @param  string  $expression
+     * @param  mixed  $expected
+     * @return $this
+     */
+    public function assertScript($expression, $expected = true)
+    {
+        $expression = Str::start($expression, 'return ');
+
+        PHPUnit::assertEquals(
+            $expected, $this->driver->executeScript($expression),
+            "JavaScript expression [{$expression}] mismatched."
+        );
+
+        return $this;
     }
 }

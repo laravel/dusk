@@ -111,6 +111,25 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for the given text to be visible inside the given selector.
+     *
+     * @param  string  $selector
+     * @param  array|string  $text
+     * @param  int  $seconds
+     * @return $this
+     *
+     * @throws \Facebook\WebDriver\Exception\TimeOutException
+     */
+    public function waitForTextIn($selector, $text, $seconds = null)
+    {
+        $message = 'Waited %s seconds for text "'.$text.'" in selector '.$selector;
+
+        return $this->waitUsing($seconds, 100, function () use ($selector, $text) {
+            return $this->assertSeeIn($selector, $text);
+        }, $message);
+    }
+
+    /**
      * Wait for the given link to be visible.
      *
      * @param  string  $link

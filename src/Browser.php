@@ -175,6 +175,18 @@ class Browser
     }
 
     /**
+     * Browse to the "about:blank" page.
+     *
+     * @return $this
+     */
+    public function blank()
+    {
+        $this->driver->navigate()->to('about:blank');
+
+        return $this;
+    }
+
+    /**
      * Set the current page object.
      *
      * @param  mixed  $page
