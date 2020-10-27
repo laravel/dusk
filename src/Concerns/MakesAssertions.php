@@ -881,7 +881,7 @@ JS;
     }
 
     /**
-     * Assert that the given JavaScript expression has a given value.
+     * Assert that the given JavaScript expression evaluates to the given value.
      *
      * @param  string  $expression
      * @param  mixed  $expected
