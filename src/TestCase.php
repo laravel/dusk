@@ -76,6 +76,6 @@ abstract class TestCase extends FoundationTestCase
      */
     protected function runningInSail()
     {
-        return isset($_ENV['LARAVEL_SAIL']) == '1';
+        return isset($_ENV['LARAVEL_SAIL']) && $_ENV['LARAVEL_SAIL'] == '1';
     }
 }
