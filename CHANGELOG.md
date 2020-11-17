@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.8.0...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.8.1...master)
+
+
+## [v6.8.1 (2020-11-17](https://github.com/laravel/dusk/compare/v6.8.0...v6.8.1)
+
+### Changed
+- Changes in preparation for Laravel Sail
 
 
 ## [v6.8.0 (2020-10-06](https://github.com/laravel/dusk/compare/v6.7.0...v6.8.0)
