@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.8.1...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.9.0...master)
+
+
+## [v6.9.0 (2020-11-19](https://github.com/laravel/dusk/compare/v6.8.1...v6.9.0)
+
+### Added
+- PHP 8 Support ([#833](https://github.com/laravel/dusk/pull/833))
 
 
 ## [v6.8.1 (2020-11-17](https://github.com/laravel/dusk/compare/v6.8.0...v6.8.1)

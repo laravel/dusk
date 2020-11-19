@@ -10,10 +10,10 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.2|^8.0",
         "ext-json": "*",
         "ext-zip": "*",
-        "php-webdriver/webdriver": "^1.8.1",
+        "php-webdriver/webdriver": "^1.9.0",
         "nesbot/carbon": "^2.0",
         "illuminate/console": "^6.0|^7.0|^8.0",
         "illuminate/support": "^6.0|^7.0|^8.0",
