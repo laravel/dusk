@@ -346,6 +346,24 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_vue_contains_formats_vue_prop_query()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')
+            ->with(
+                'var el = document.querySelector(\'body [dusk="vue-component"]\');'.
+                "return typeof el.__vue__ === 'undefined' ".
+                    '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).name'.
+                    ': el.__vue__.name'
+            )
+            ->once()
+            ->andReturn(['john']);
+
+        $browser = new Browser($driver);
+
+        $browser->assertVueContains('name', 'john', '@vue-component');
+    }
+
     public function test_assert_vue_contains()
     {
         $driver = m::mock(stdClass::class);
