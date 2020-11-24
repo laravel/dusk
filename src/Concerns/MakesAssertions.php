@@ -876,7 +876,10 @@ JS;
         $fullSelector = $this->resolver->format($componentSelector);
 
         return $this->driver->executeScript(
-            "return document.querySelector('".$fullSelector."').__vue__.".$key
+            "var el = document.querySelector('".$fullSelector."');".
+            "return typeof el.__vue__ === 'undefined' ".
+                '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).'.$key.
+                ': el.__vue__.'.$key
         );
     }
 
