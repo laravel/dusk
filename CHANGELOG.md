@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.9.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.9.1...6.x)
+
+
+## [v6.9.1 (2020-11-24](https://github.com/laravel/dusk/compare/v6.9.0...v6.9.1)
+
+### Fixed
+- Add Vue 3 support to the `assertVue*()` methods ([#834](https://github.com/laravel/dusk/pull/834))
 
 
 ## [v6.9.0 (2020-11-19](https://github.com/laravel/dusk/compare/v6.8.1...v6.9.0)
