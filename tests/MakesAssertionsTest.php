@@ -563,16 +563,57 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_visible_and_element_is_displayed()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isDisplayed')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertVisible('foo');
+    }
+
+    public function test_assert_visible_and_element_is_not_displayed()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isDisplayed')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertVisible('foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Element [body foo] is not visible.',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_present()
     {
         $driver = m::mock(stdClass::class);
         $element = m::mock(stdClass::class);
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
         $resolver->shouldReceive('find')->with('foo')->andReturn(
             $element,
             null
         );
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertPresent('foo');
@@ -586,6 +627,45 @@ class MakesAssertionsTest extends TestCase
                 $e->getMessage()
             );
         }
+    }
+
+    public function test_assert_missing_and_element_is_displayed()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isDisplayed')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertMissing('foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Saw unexpected element [body foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_missing_and_element_is_not_displayed()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isDisplayed')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertMissing('foo');
     }
 
     public function test_assert_enabled()
