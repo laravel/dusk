@@ -304,6 +304,154 @@ class MakesAssertionsTest extends TestCase
         $browser->assertNotSelected('select[name="users"]', 2);
     }
 
+    public function test_assert_select_has_options_and_option_exists()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $option = m::mock(RemoteWebElement::class);
+        $option->shouldReceive('getAttribute')
+            ->andReturn(1);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([$option]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSelectHasOptions('select[name="users"]', [1]);
+    }
+
+    public function test_assert_select_has_options_and_option_empty()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([]);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertSelectHasOptions('select[name="users"]', [1]);
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected options [1] for selection field [select[name="users"]] to be available.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_select_missing_options_and_option_exists()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $option = m::mock(RemoteWebElement::class);
+        $option->shouldReceive('getAttribute')
+            ->andReturn(1);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([$option]);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertSelectMissingOptions('select[name="users"]', [2]);
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Unexpected options [2] for selection field [select[name="users"]].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_select_missing_options_and_option_empty()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSelectMissingOptions('select[name="users"]', [1]);
+    }
+
+    public function test_assert_select_has_option_and_option_exists()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $option = m::mock(RemoteWebElement::class);
+        $option->shouldReceive('getAttribute')
+            ->andReturn(1);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([$option]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSelectHasOption('select[name="users"]', 1);
+    }
+
+    public function test_assert_select_has_option_and_option_empty()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([]);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertSelectHasOption('select[name="users"]', 1);
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected options [1] for selection field [select[name="users"]] to be available.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_select_missing_option_and_option_exists()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $option = m::mock(RemoteWebElement::class);
+        $option->shouldReceive('getAttribute')
+            ->andReturn(1);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([$option]);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertSelectMissingOption('select[name="users"]', 2);
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Unexpected options [2] for selection field [select[name="users"]].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_select_missing_option_and_option_empty()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSelectMissingOption('select[name="users"]', 1);
+    }
+
     public function test_assert_attribute()
     {
         $driver = m::mock(stdClass::class);
