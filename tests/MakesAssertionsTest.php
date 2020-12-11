@@ -137,6 +137,90 @@ class MakesAssertionsTest extends TestCase
         $browser->assertNotChecked('input[type="checkbox"]', 1);
     }
 
+    public function test_assert_radio_selected_and_element_is_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForRadioSelection')
+            ->with('input[type="radio"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertRadioSelected('input[type="radio"]', 1);
+    }
+
+    public function test_assert_radio_selected_and_element_is_not_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForRadioSelection')
+            ->with('input[type="radio"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertRadioSelected('input[type="radio"]', 1);
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected radio [input[type="radio"]] to be selected, but it wasn\'t.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_radio_not_selected_and_element_is_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForRadioSelection')
+            ->with('input[type="radio"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertRadioNotSelected('input[type="radio"]', 1);
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Radio [input[type="radio"]] was unexpectedly selected.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_radio_not_selected_and_element_is_not_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForRadioSelection')
+            ->with('input[type="radio"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertRadioNotSelected('input[type="radio"]', 1);
+    }
+
     public function test_assert_attribute()
     {
         $driver = m::mock(stdClass::class);
