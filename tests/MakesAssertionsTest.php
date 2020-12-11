@@ -53,6 +53,90 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_checked_and_element_is_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForChecking')
+            ->with('input[type="checkbox"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertChecked('input[type="checkbox"]', 1);
+    }
+
+    public function test_assert_checked_and_element_is_not_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForChecking')
+            ->with('input[type="checkbox"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertChecked('input[type="checkbox"]', 1);
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected checkbox [input[type="checkbox"]] to be checked, but it wasn\'t.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_not_checked_and_element_is_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForChecking')
+            ->with('input[type="checkbox"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertNotChecked('input[type="checkbox"]', 1);
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Checkbox [input[type="checkbox"]] was unexpectedly checked.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_not_checked_and_element_is_not_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForChecking')
+            ->with('input[type="checkbox"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertNotChecked('input[type="checkbox"]', 1);
+    }
+
     public function test_assert_attribute()
     {
         $driver = m::mock(stdClass::class);
