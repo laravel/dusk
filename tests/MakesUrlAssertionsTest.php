@@ -190,6 +190,27 @@ class MakesUrlAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_path_begins_with()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('getCurrentURL')->andReturn(
+            'http://www.google.com/test'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertPathBeginsWith('/tes');
+
+        try {
+            $browser->assertPathBeginsWith('test');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Actual path [/test] does not begin with expected path [test].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_path_is()
     {
         $driver = m::mock(stdClass::class);
@@ -218,27 +239,6 @@ class MakesUrlAssertionsTest extends TestCase
         }
     }
 
-    public function test_assert_path_begins_with()
-    {
-        $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('getCurrentURL')->andReturn(
-            'http://www.google.com/test'
-        );
-        $browser = new Browser($driver);
-
-        $browser->assertPathBeginsWith('/tes');
-
-        try {
-            $browser->assertPathBeginsWith('test');
-            $this->fail();
-        } catch (ExpectationFailedException $e) {
-            $this->assertStringContainsString(
-                'Actual path [/test] does not begin with expected path [test].',
-                $e->getMessage()
-            );
-        }
-    }
-
     public function test_assert_path_is_not()
     {
         $driver = m::mock(stdClass::class);
@@ -255,69 +255,6 @@ class MakesUrlAssertionsTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
                 'Path [/test] should not equal the actual value.',
-                $e->getMessage()
-            );
-        }
-    }
-
-    public function test_assert_fragment_is()
-    {
-        $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
-            'http://www.google.com/#baz'
-        );
-        $browser = new Browser($driver);
-
-        $browser->assertFragmentIs('b*z');
-
-        try {
-            $browser->assertFragmentIs('ba');
-            $this->fail();
-        } catch (ExpectationFailedException $e) {
-            $this->assertStringContainsString(
-                'Actual fragment [baz] does not equal expected fragment [ba].',
-                $e->getMessage()
-            );
-        }
-    }
-
-    public function test_assert_fragment_begins_with()
-    {
-        $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
-            'http://www.google.com/#baz'
-        );
-        $browser = new Browser($driver);
-
-        $browser->assertFragmentBeginsWith('ba');
-
-        try {
-            $browser->assertFragmentBeginsWith('Ba');
-            $this->fail();
-        } catch (ExpectationFailedException $e) {
-            $this->assertStringContainsString(
-                'Actual fragment [baz] does not begin with expected fragment [Ba].',
-                $e->getMessage()
-            );
-        }
-    }
-
-    public function test_assert_fragment_is_not()
-    {
-        $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
-            'http://www.google.com/#baz'
-        );
-        $browser = new Browser($driver);
-
-        $browser->assertFragmentIsNot('Baz');
-
-        try {
-            $browser->assertFragmentIsNot('baz');
-            $this->fail();
-        } catch (ExpectationFailedException $e) {
-            $this->assertStringContainsString(
-                'Fragment [baz] should not equal the actual value.',
                 $e->getMessage()
             );
         }
@@ -439,6 +376,69 @@ class MakesUrlAssertionsTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
                 'Found unexpected query string parameter [foo] in [http://www.google.com/?foo=bar].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_fragment_is()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
+            'http://www.google.com/#baz'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertFragmentIs('b*z');
+
+        try {
+            $browser->assertFragmentIs('ba');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Actual fragment [baz] does not equal expected fragment [ba].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_fragment_begins_with()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
+            'http://www.google.com/#baz'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertFragmentBeginsWith('ba');
+
+        try {
+            $browser->assertFragmentBeginsWith('Ba');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Actual fragment [baz] does not begin with expected fragment [Ba].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_fragment_is_not()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->with('return window.location.href;')->andReturn(
+            'http://www.google.com/#baz'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertFragmentIsNot('Baz');
+
+        try {
+            $browser->assertFragmentIsNot('baz');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Fragment [baz] should not equal the actual value.',
                 $e->getMessage()
             );
         }
