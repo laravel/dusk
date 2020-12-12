@@ -121,7 +121,8 @@ trait MakesAssertions
         $actual = $decrypt ? $this->cookie($name) : $this->plainCookie($name);
 
         PHPUnit::assertEquals(
-            $value, $actual,
+            $value,
+            $actual,
             "Cookie [{$name}] had value [{$actual}], but expected [{$value}]."
         );
 
@@ -314,7 +315,8 @@ JS;
     public function assertInputValue($field, $value)
     {
         PHPUnit::assertEquals(
-            $value, $this->inputValue($field),
+            $value,
+            $this->inputValue($field),
             "Expected value [{$value}] for the [{$field}] input does not equal the actual value [{$this->inputValue($field)}]."
         );
 
@@ -331,7 +333,8 @@ JS;
     public function assertInputValueIsNot($field, $value)
     {
         PHPUnit::assertNotEquals(
-            $value, $this->inputValue($field),
+            $value,
+            $this->inputValue($field),
             "Value [{$value}] for the [{$field}] input should not equal the actual value."
         );
 
@@ -554,9 +557,15 @@ JS;
      */
     public function assertValue($selector, $value)
     {
+        $fullSelector = $this->resolver->format($selector);
+
         $actual = $this->resolver->findOrFail($selector)->getAttribute('value');
 
-        PHPUnit::assertEquals($value, $actual);
+        PHPUnit::assertEquals(
+            $value,
+            $actual,
+            "Did not see expected value [{$value}] within element [{$fullSelector}]."
+        );
 
         return $this;
     }
@@ -581,7 +590,8 @@ JS;
         );
 
         PHPUnit::assertEquals(
-            $value, $actual,
+            $value,
+            $actual,
             "Expected '$attribute' attribute [{$value}] does not equal actual value [$actual]."
         );
 
@@ -685,7 +695,8 @@ JS;
         $actualMessage = $this->driver->switchTo()->alert()->getText();
 
         PHPUnit::assertEquals(
-            $message, $actualMessage,
+            $message,
+            $actualMessage,
             "Expected dialog message [{$message}] does not equal actual message [{$actualMessage}]."
         );
 
@@ -810,7 +821,11 @@ JS;
      */
     public function assertVue($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertEquals($value, $this->vueAttribute($componentSelector, $key));
+        PHPUnit::assertEquals(
+            $value,
+            $this->vueAttribute($componentSelector, $key),
+            "Did not see expected value [{$value}] at the key [{$key}]."
+        );
 
         return $this;
     }
@@ -826,7 +841,11 @@ JS;
      */
     public function assertVueIsNot($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertNotEquals($value, $this->vueAttribute($componentSelector, $key));
+        PHPUnit::assertNotEquals(
+            $value,
+            $this->vueAttribute($componentSelector, $key),
+            "Saw unexpected value [{$value}] at the key [{$key}]."
+        );
 
         return $this;
     }

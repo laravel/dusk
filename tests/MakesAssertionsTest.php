@@ -452,18 +452,47 @@ class MakesAssertionsTest extends TestCase
         $browser->assertSelectMissingOption('select[name="users"]', 1);
     }
 
+    public function test_assert_value()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('getAttribute')
+            ->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertValue('foo', 'bar');
+
+        try {
+            $browser->assertValue('foo', 'foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected value [foo] within element [body foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_attribute()
     {
         $driver = m::mock(stdClass::class);
+
         $element = m::mock(stdClass::class);
         $element->shouldReceive('getAttribute')->with('bar')->andReturn(
             'joe',
             null,
             'sue'
         );
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
         $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertAttribute('foo', 'bar', 'joe');
@@ -492,15 +521,18 @@ class MakesAssertionsTest extends TestCase
     public function test_assert_data_attribute()
     {
         $driver = m::mock(stdClass::class);
+
         $element = m::mock(stdClass::class);
         $element->shouldReceive('getAttribute')->with('data-bar')->andReturn(
             'joe',
             null,
             'sue'
         );
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
         $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertDataAttribute('foo', 'bar', 'joe');
@@ -529,15 +561,18 @@ class MakesAssertionsTest extends TestCase
     public function test_assert_aria_attribute()
     {
         $driver = m::mock(stdClass::class);
+
         $element = m::mock(stdClass::class);
         $element->shouldReceive('getAttribute')->with('aria-bar')->andReturn(
             'joe',
             null,
             'sue'
         );
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
         $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertAriaAttribute('foo', 'bar', 'joe');
@@ -668,14 +703,37 @@ class MakesAssertionsTest extends TestCase
         $browser->assertMissing('foo');
     }
 
+    public function test_assert_dialog_opened()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('switchTo->alert->getText')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertDialogOpened('foo');
+
+        try {
+            $browser->assertDialogOpened('bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected dialog message [bar] does not equal actual message [foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_enabled()
     {
         $driver = m::mock(stdClass::class);
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField->isEnabled')->andReturn(
             true,
             false
         );
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertEnabled('foo');
@@ -694,11 +752,13 @@ class MakesAssertionsTest extends TestCase
     public function test_assert_disabled()
     {
         $driver = m::mock(stdClass::class);
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField->isEnabled')->andReturn(
             false,
             true
         );
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertDisabled('foo');
@@ -725,6 +785,7 @@ class MakesAssertionsTest extends TestCase
             true,
             false
         );
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertButtonEnabled('Press me');
@@ -738,11 +799,13 @@ class MakesAssertionsTest extends TestCase
         $this->expectExceptionMessage("Expected button [Press me] to be disabled, but it wasn't.");
 
         $driver = m::mock(stdClass::class);
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForButtonPress->isEnabled')->twice()->andReturn(
             false,
             true
         );
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertButtonDisabled('Cant press me');
@@ -757,8 +820,10 @@ class MakesAssertionsTest extends TestCase
             true,
             false
         );
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField')->with('foo')->andReturn('element');
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertFocused('foo');
@@ -781,8 +846,10 @@ class MakesAssertionsTest extends TestCase
             false,
             true
         );
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField')->with('foo')->andReturn('element');
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertNotFocused('foo');
@@ -793,6 +860,66 @@ class MakesAssertionsTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
                 'Expected element [foo] not to be focused, but it was.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_vue()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')
+            ->with(
+                'var el = document.querySelector(\'body foo\');'.
+                "return typeof el.__vue__ === 'undefined' ".
+                    '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).foo'.
+                    ': el.__vue__.foo'
+            )
+            ->once()
+            ->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertVue('foo', 'foo', 'foo');
+
+        try {
+            $browser->assertVue('foo', 'bar', 'foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected value [bar] at the key [foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_vue_is_not()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')
+            ->with(
+                'var el = document.querySelector(\'body foo\');'.
+                "return typeof el.__vue__ === 'undefined' ".
+                    '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).foo'.
+                    ': el.__vue__.foo'
+            )
+            ->once()
+            ->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertVueIsNot('foo', 'bar', 'foo');
+
+        try {
+            $browser->assertVueIsNot('foo', 'foo', 'foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Saw unexpected value [foo] at the key [foo].',
                 $e->getMessage()
             );
         }
@@ -1028,6 +1155,60 @@ class MakesAssertionsTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
                 'Found unexpected source code [foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_input_value()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getTagName')->andReturn('input');
+        $element->shouldReceive('getAttribute')->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForTyping')
+            ->with('foo')
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertInputValue('foo', 'bar');
+
+        try {
+            $browser->assertInputValue('foo', 'foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected value [foo] for the [foo] input does not equal the actual value [bar].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_input_value_is_not()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getTagName')->andReturn('input');
+        $element->shouldReceive('getAttribute')->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForTyping')
+            ->with('foo')
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertInputValueIsNot('foo', 'foo');
+
+        try {
+            $browser->assertInputValueIsNot('foo', 'bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Value [bar] for the [foo] input should not equal the actual value.',
                 $e->getMessage()
             );
         }
