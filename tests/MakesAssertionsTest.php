@@ -53,6 +53,405 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_checked_and_element_is_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForChecking')
+            ->with('input[type="checkbox"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertChecked('input[type="checkbox"]', 1);
+    }
+
+    public function test_assert_checked_and_element_is_not_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForChecking')
+            ->with('input[type="checkbox"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertChecked('input[type="checkbox"]', 1);
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected checkbox [input[type="checkbox"]] to be checked, but it wasn\'t.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_not_checked_and_element_is_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForChecking')
+            ->with('input[type="checkbox"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertNotChecked('input[type="checkbox"]', 1);
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Checkbox [input[type="checkbox"]] was unexpectedly checked.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_not_checked_and_element_is_not_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForChecking')
+            ->with('input[type="checkbox"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertNotChecked('input[type="checkbox"]', 1);
+    }
+
+    public function test_assert_radio_selected_and_element_is_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForRadioSelection')
+            ->with('input[type="radio"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertRadioSelected('input[type="radio"]', 1);
+    }
+
+    public function test_assert_radio_selected_and_element_is_not_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForRadioSelection')
+            ->with('input[type="radio"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertRadioSelected('input[type="radio"]', 1);
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected radio [input[type="radio"]] to be selected, but it wasn\'t.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_radio_not_selected_and_element_is_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForRadioSelection')
+            ->with('input[type="radio"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertRadioNotSelected('input[type="radio"]', 1);
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Radio [input[type="radio"]] was unexpectedly selected.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_radio_not_selected_and_element_is_not_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForRadioSelection')
+            ->with('input[type="radio"]', 1)
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertRadioNotSelected('input[type="radio"]', 1);
+    }
+
+    public function test_assert_selected_and_element_is_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->with('select[name="users"]', [2])
+            ->andReturn([$element]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSelected('select[name="users"]', 2);
+    }
+
+    public function test_assert_selected_and_element_is_not_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->with('select[name="users"]', [2])
+            ->andReturn([$element]);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertSelected('select[name="users"]', 2);
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected value [2] to be selected for [select[name="users"]], but it wasn\'t.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_not_selected_and_element_is_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->with('select[name="users"]', [2])
+            ->andReturn([$element]);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertNotSelected('select[name="users"]', 2);
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Unexpected value [2] selected for [select[name="users"]].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_not_selected_and_element_is_not_selected()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isSelected')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->with('select[name="users"]', [2])
+            ->andReturn([$element]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertNotSelected('select[name="users"]', 2);
+    }
+
+    public function test_assert_select_has_options_and_option_exists()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $option = m::mock(RemoteWebElement::class);
+        $option->shouldReceive('getAttribute')
+            ->andReturn(1);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([$option]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSelectHasOptions('select[name="users"]', [1]);
+    }
+
+    public function test_assert_select_has_options_and_option_empty()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([]);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertSelectHasOptions('select[name="users"]', [1]);
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected options [1] for selection field [select[name="users"]] to be available.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_select_missing_options_and_option_exists()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $option = m::mock(RemoteWebElement::class);
+        $option->shouldReceive('getAttribute')
+            ->andReturn(1);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([$option]);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertSelectMissingOptions('select[name="users"]', [2]);
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Unexpected options [2] for selection field [select[name="users"]].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_select_missing_options_and_option_empty()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSelectMissingOptions('select[name="users"]', [1]);
+    }
+
+    public function test_assert_select_has_option_and_option_exists()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $option = m::mock(RemoteWebElement::class);
+        $option->shouldReceive('getAttribute')
+            ->andReturn(1);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([$option]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSelectHasOption('select[name="users"]', 1);
+    }
+
+    public function test_assert_select_has_option_and_option_empty()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([]);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertSelectHasOption('select[name="users"]', 1);
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected options [1] for selection field [select[name="users"]] to be available.',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_select_missing_option_and_option_exists()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $option = m::mock(RemoteWebElement::class);
+        $option->shouldReceive('getAttribute')
+            ->andReturn(1);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([$option]);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertSelectMissingOption('select[name="users"]', 2);
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Unexpected options [2] for selection field [select[name="users"]].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_select_missing_option_and_option_empty()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveSelectOptions')
+            ->andReturn([]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSelectMissingOption('select[name="users"]', 1);
+    }
+
     public function test_assert_attribute()
     {
         $driver = m::mock(stdClass::class);
@@ -164,16 +563,57 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_visible_and_element_is_displayed()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isDisplayed')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertVisible('foo');
+    }
+
+    public function test_assert_visible_and_element_is_not_displayed()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isDisplayed')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertVisible('foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Element [body foo] is not visible.',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_present()
     {
         $driver = m::mock(stdClass::class);
         $element = m::mock(stdClass::class);
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
         $resolver->shouldReceive('find')->with('foo')->andReturn(
             $element,
             null
         );
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertPresent('foo');
@@ -187,6 +627,45 @@ class MakesAssertionsTest extends TestCase
                 $e->getMessage()
             );
         }
+    }
+
+    public function test_assert_missing_and_element_is_displayed()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isDisplayed')->andReturn(true);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertMissing('foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Saw unexpected element [body foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_missing_and_element_is_not_displayed()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isDisplayed')->andReturn(false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertMissing('foo');
     }
 
     public function test_assert_enabled()
@@ -319,33 +798,6 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
-    public function test_assert_selected()
-    {
-        $driver = m::mock(stdClass::class);
-
-        $element = m::mock(RemoteWebElement::class);
-        $element->shouldReceive('isSelected')->andReturn(true);
-
-        $resolver = m::mock(stdClass::class);
-        $resolver->shouldReceive('resolveSelectOptions')
-            ->with('select[name="users"]', [2])
-            ->andReturn([$element]);
-
-        $browser = new Browser($driver, $resolver);
-
-        $browser->assertSelected('select[name="users"]', 2);
-
-        try {
-            $browser->assertNotSelected('select[name="users"]', 2);
-            $this->fail();
-        } catch (ExpectationFailedException $e) {
-            $this->assertStringContainsString(
-                'Unexpected value [2] selected for [select[name="users"]].',
-                $e->getMessage()
-            );
-        }
-    }
-
     public function test_assert_vue_contains_formats_vue_prop_query()
     {
         $driver = m::mock(stdClass::class);
@@ -439,16 +891,66 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_see()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('')->andReturn('body');
+        $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSee('foo');
+
+        try {
+            $browser->assertSee('bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected text [bar] within element [body].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_dont_see()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('')->andReturn('body');
+        $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertDontSee('bar');
+
+        try {
+            $browser->assertDontSee('foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Saw unexpected text [foo] within element [body].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_see_in()
     {
         $driver = m::mock(stdClass::class);
-        $element = m::mock(stdClass::class);
-        $resolver = m::mock(stdClass::class);
 
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
         $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
-
-        $element->shouldReceive('getText')->andReturn('foo');
 
         $browser = new Browser($driver, $resolver);
 
@@ -467,13 +969,13 @@ class MakesAssertionsTest extends TestCase
     public function test_assert_dont_see_in()
     {
         $driver = m::mock(stdClass::class);
-        $element = m::mock(stdClass::class);
-        $resolver = m::mock(stdClass::class);
 
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
         $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
-
-        $element->shouldReceive('getText')->andReturn('foo');
 
         $browser = new Browser($driver, $resolver);
 
@@ -484,6 +986,48 @@ class MakesAssertionsTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
                 'Saw unexpected text [foo] within element [body foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_source_has()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('getPageSource')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSourceHas('foo');
+
+        try {
+            $browser->assertSourceHas('bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not find expected source code [bar].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_source_missing()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('getPageSource')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSourceMissing('bar');
+
+        try {
+            $browser->assertSourceMissing('foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Found unexpected source code [foo].',
                 $e->getMessage()
             );
         }

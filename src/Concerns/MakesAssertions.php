@@ -216,7 +216,7 @@ trait MakesAssertions
 
         PHPUnit::assertTrue(
             Str::contains($this->driver->getPageSource(), $code),
-            "Did not find expected source code [{$code}]"
+            "Did not find expected source code [{$code}]."
         );
 
         return $this;
@@ -234,7 +234,7 @@ trait MakesAssertions
 
         PHPUnit::assertFalse(
             Str::contains($this->driver->getPageSource(), $code),
-            "Found unexpected source code [{$code}]"
+            "Found unexpected source code [{$code}]."
         );
 
         return $this;
@@ -479,7 +479,8 @@ JS;
         })->all();
 
         PHPUnit::assertCount(
-            count($values), $options,
+            count($values),
+            $options,
             'Expected options ['.implode(',', $values)."] for selection field [{$field}] to be available."
         );
 
@@ -496,7 +497,8 @@ JS;
     public function assertSelectMissingOptions($field, array $values)
     {
         PHPUnit::assertCount(
-            0, $this->resolver->resolveSelectOptions($field, $values),
+            0,
+            $this->resolver->resolveSelectOptions($field, $values),
             'Unexpected options ['.implode(',', $values)."] for selection field [{$field}]."
         );
 
@@ -664,7 +666,10 @@ JS;
             $missing = true;
         }
 
-        PHPUnit::assertTrue($missing, "Saw unexpected element [{$fullSelector}].");
+        PHPUnit::assertTrue(
+            $missing,
+            "Saw unexpected element [{$fullSelector}]."
+        );
 
         return $this;
     }
@@ -839,7 +844,11 @@ JS;
     {
         $attribute = $this->vueAttribute($componentSelector, $key);
 
-        PHPUnit::assertIsArray($attribute, "The attribute for key [$key] is not an array.");
+        PHPUnit::assertIsArray(
+            $attribute,
+            "The attribute for key [{$key}] is not an array."
+        );
+
         PHPUnit::assertContains($value, $attribute);
 
         return $this;
@@ -858,7 +867,11 @@ JS;
     {
         $attribute = $this->vueAttribute($componentSelector, $key);
 
-        PHPUnit::assertIsArray($attribute, "The attribute for key [$key] is not an array.");
+        PHPUnit::assertIsArray(
+            $attribute,
+            "The attribute for key [{$key}] is not an array."
+        );
+
         PHPUnit::assertNotContains($value, $attribute);
 
         return $this;
@@ -895,7 +908,8 @@ JS;
         $expression = Str::start($expression, 'return ');
 
         PHPUnit::assertEquals(
-            $expected, $this->driver->executeScript($expression),
+            $expected,
+            $this->driver->executeScript($expression),
             "JavaScript expression [{$expression}] mismatched."
         );
 
