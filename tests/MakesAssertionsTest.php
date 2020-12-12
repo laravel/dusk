@@ -47,7 +47,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
-                'Did not see expected value [Fo] within title [foo].',
+                'Did not see expected text [Fo] within title [foo].',
                 $e->getMessage()
             );
         }

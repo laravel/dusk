@@ -17,7 +17,7 @@ trait MakesAssertions
     public $madeSourceAssertion = false;
 
     /**
-     * Assert that the page title is the given value.
+     * Assert that the page title matches the given text.
      *
      * @param  string  $title
      * @return $this
@@ -33,7 +33,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the page title contains the given value.
+     * Assert that the page title contains the given text.
      *
      * @param  string  $title
      * @return $this
@@ -42,7 +42,7 @@ trait MakesAssertions
     {
         PHPUnit::assertTrue(
             Str::contains($this->driver->getTitle(), $title),
-            "Did not see expected value [{$title}] within title [{$this->driver->getTitle()}]."
+            "Did not see expected text [{$title}] within title [{$this->driver->getTitle()}]."
         );
 
         return $this;
@@ -142,7 +142,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given text appears on the page.
+     * Assert that the given text is present on the page.
      *
      * @param  string  $text
      * @return $this
@@ -153,7 +153,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given text does not appear on the page.
+     * Assert that the given text is not present on the page.
      *
      * @param  string  $text
      * @return $this
@@ -164,7 +164,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given text appears within the given selector.
+     * Assert that the given text is present within the selector.
      *
      * @param  string  $selector
      * @param  string  $text
@@ -185,7 +185,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given text does not appear within the given selector.
+     * Assert that the given text is not present within the selector.
      *
      * @param  string  $selector
      * @param  string  $text
@@ -200,6 +200,26 @@ trait MakesAssertions
         PHPUnit::assertFalse(
             Str::contains($element->getText(), $text),
             "Saw unexpected text [{$text}] within element [{$fullSelector}]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given JavaScript expression evaluates to the given value.
+     *
+     * @param  string  $expression
+     * @param  mixed  $expected
+     * @return $this
+     */
+    public function assertScript($expression, $expected = true)
+    {
+        $expression = Str::start($expression, 'return ');
+
+        PHPUnit::assertEquals(
+            $expected,
+            $this->driver->executeScript($expression),
+            "JavaScript expression [{$expression}] mismatched."
         );
 
         return $this;
@@ -242,7 +262,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given link is visible.
+     * Assert that the given link is present on the page.
      *
      * @param  string  $link
      * @return $this
@@ -264,7 +284,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given link is not visible.
+     * Assert that the given link is not present on the page.
      *
      * @param  string  $link
      * @return $this
@@ -306,7 +326,7 @@ JS;
     }
 
     /**
-     * Assert that the given input or text area contains the given value.
+     * Assert that the given input field has the given value.
      *
      * @param  string  $field
      * @param  string  $value
@@ -324,7 +344,7 @@ JS;
     }
 
     /**
-     * Assert that the given input or text area does not contain the given value.
+     * Assert that the given input field does not have the given value.
      *
      * @param  string  $field
      * @param  string  $value
@@ -357,7 +377,7 @@ JS;
     }
 
     /**
-     * Assert that the given checkbox field is checked.
+     * Assert that the given checkbox is checked.
      *
      * @param  string  $field
      * @param  string  $value
@@ -376,7 +396,7 @@ JS;
     }
 
     /**
-     * Assert that the given checkbox field is not checked.
+     * Assert that the given checkbox is not checked.
      *
      * @param  string  $field
      * @param  string  $value
@@ -433,7 +453,7 @@ JS;
     }
 
     /**
-     * Assert that the given select field has the given value selected.
+     * Assert that the given dropdown has the given value selected.
      *
      * @param  string  $field
      * @param  string  $value
@@ -450,7 +470,7 @@ JS;
     }
 
     /**
-     * Assert that the given select field does not have the given value selected.
+     * Assert that the given dropdown does not have the given value selected.
      *
      * @param  string  $field
      * @param  string  $value
@@ -521,7 +541,7 @@ JS;
     }
 
     /**
-     * Assert that the given value is not available to be selected on the given field.
+     * Assert that the given value is not available to be selected.
      *
      * @param  string  $field
      * @param  string  $value
@@ -549,7 +569,7 @@ JS;
     }
 
     /**
-     * Assert that the element at the given selector has the given value.
+     * Assert that the element matching the given selector has the given value.
      *
      * @param  string  $selector
      * @param  string  $value
@@ -571,7 +591,7 @@ JS;
     }
 
     /**
-     * Assert that the element at the given selector has the given attribute value.
+     * Assert that the element matching the given selector has the given value in the provided attribute.
      *
      * @param  string  $selector
      * @param  string  $attribute
@@ -599,20 +619,7 @@ JS;
     }
 
     /**
-     * Assert that the element at the given selector has the given data attribute value.
-     *
-     * @param  string  $selector
-     * @param  string  $attribute
-     * @param  string  $value
-     * @return $this
-     */
-    public function assertDataAttribute($selector, $attribute, $value)
-    {
-        return $this->assertAttribute($selector, 'data-'.$attribute, $value);
-    }
-
-    /**
-     * Assert that the element at the given selector has the given aria attribute value.
+     * Assert that the element matching the given selector has the given value in the provided aria attribute.
      *
      * @param  string  $selector
      * @param  string  $attribute
@@ -625,7 +632,20 @@ JS;
     }
 
     /**
-     * Assert that the element with the given selector is visible.
+     * Assert that the element matching the given selector has the given value in the provided data attribute.
+     *
+     * @param  string  $selector
+     * @param  string  $attribute
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertDataAttribute($selector, $attribute, $value)
+    {
+        return $this->assertAttribute($selector, 'data-'.$attribute, $value);
+    }
+
+    /**
+     * Assert that the element matching the given selector is visible.
      *
      * @param  string  $selector
      * @return $this
@@ -643,7 +663,7 @@ JS;
     }
 
     /**
-     * Assert that the element with the given selector is present in the DOM.
+     * Assert that the element matching the given selector is present.
      *
      * @param  string  $selector
      * @return $this
@@ -661,7 +681,7 @@ JS;
     }
 
     /**
-     * Assert that the element with the given selector is not on the page.
+     * Assert that the element matching the given selector is not visible.
      *
      * @param  string  $selector
      * @return $this
@@ -685,7 +705,7 @@ JS;
     }
 
     /**
-     * Assert that a JavaScript dialog with given message has been opened.
+     * Assert that a JavaScript dialog with the given message has been opened.
      *
      * @param  string  $message
      * @return $this
@@ -831,8 +851,8 @@ JS;
     }
 
     /**
-     * Assert that the Vue component's attribute at the given key
-     * does not have the given value.
+     * Assert that a given Vue component data property
+     * does not match the given value.
      *
      * @param  string  $key
      * @param  string  $value
@@ -851,8 +871,8 @@ JS;
     }
 
     /**
-     * Assert that the Vue component's attribute at the given key
-     * is an array that contains the given value.
+     * Assert that a given Vue component data property
+     * is an array and contains the given value.
      *
      * @param  string  $key
      * @param  string  $value
@@ -874,8 +894,8 @@ JS;
     }
 
     /**
-     * Assert that the Vue component's attribute at the given key
-     * is an array that does not contain the given value.
+     * Assert that a given Vue component data property
+     * is an array and does not contain the given value.
      *
      * @param  string  $key
      * @param  string  $value
@@ -913,25 +933,5 @@ JS;
                 '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).'.$key.
                 ': el.__vue__.'.$key
         );
-    }
-
-    /**
-     * Assert that the given JavaScript expression evaluates to the given value.
-     *
-     * @param  string  $expression
-     * @param  mixed  $expected
-     * @return $this
-     */
-    public function assertScript($expression, $expected = true)
-    {
-        $expression = Str::start($expression, 'return ');
-
-        PHPUnit::assertEquals(
-            $expected,
-            $this->driver->executeScript($expression),
-            "JavaScript expression [{$expression}] mismatched."
-        );
-
-        return $this;
     }
 }
