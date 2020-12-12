@@ -121,7 +121,8 @@ trait MakesAssertions
         $actual = $decrypt ? $this->cookie($name) : $this->plainCookie($name);
 
         PHPUnit::assertEquals(
-            $value, $actual,
+            $value,
+            $actual,
             "Cookie [{$name}] had value [{$actual}], but expected [{$value}]."
         );
 
@@ -314,7 +315,8 @@ JS;
     public function assertInputValue($field, $value)
     {
         PHPUnit::assertEquals(
-            $value, $this->inputValue($field),
+            $value,
+            $this->inputValue($field),
             "Expected value [{$value}] for the [{$field}] input does not equal the actual value [{$this->inputValue($field)}]."
         );
 
@@ -331,7 +333,8 @@ JS;
     public function assertInputValueIsNot($field, $value)
     {
         PHPUnit::assertNotEquals(
-            $value, $this->inputValue($field),
+            $value,
+            $this->inputValue($field),
             "Value [{$value}] for the [{$field}] input should not equal the actual value."
         );
 
@@ -581,7 +584,8 @@ JS;
         );
 
         PHPUnit::assertEquals(
-            $value, $actual,
+            $value,
+            $actual,
             "Expected '$attribute' attribute [{$value}] does not equal actual value [$actual]."
         );
 
@@ -685,7 +689,8 @@ JS;
         $actualMessage = $this->driver->switchTo()->alert()->getText();
 
         PHPUnit::assertEquals(
-            $message, $actualMessage,
+            $message,
+            $actualMessage,
             "Expected dialog message [{$message}] does not equal actual message [{$actualMessage}]."
         );
 

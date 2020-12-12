@@ -455,15 +455,18 @@ class MakesAssertionsTest extends TestCase
     public function test_assert_attribute()
     {
         $driver = m::mock(stdClass::class);
+
         $element = m::mock(stdClass::class);
         $element->shouldReceive('getAttribute')->with('bar')->andReturn(
             'joe',
             null,
             'sue'
         );
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
         $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertAttribute('foo', 'bar', 'joe');
@@ -492,15 +495,18 @@ class MakesAssertionsTest extends TestCase
     public function test_assert_data_attribute()
     {
         $driver = m::mock(stdClass::class);
+
         $element = m::mock(stdClass::class);
         $element->shouldReceive('getAttribute')->with('data-bar')->andReturn(
             'joe',
             null,
             'sue'
         );
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
         $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertDataAttribute('foo', 'bar', 'joe');
@@ -529,15 +535,18 @@ class MakesAssertionsTest extends TestCase
     public function test_assert_aria_attribute()
     {
         $driver = m::mock(stdClass::class);
+
         $element = m::mock(stdClass::class);
         $element->shouldReceive('getAttribute')->with('aria-bar')->andReturn(
             'joe',
             null,
             'sue'
         );
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
         $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertAriaAttribute('foo', 'bar', 'joe');
@@ -671,11 +680,13 @@ class MakesAssertionsTest extends TestCase
     public function test_assert_enabled()
     {
         $driver = m::mock(stdClass::class);
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField->isEnabled')->andReturn(
             true,
             false
         );
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertEnabled('foo');
@@ -694,11 +705,13 @@ class MakesAssertionsTest extends TestCase
     public function test_assert_disabled()
     {
         $driver = m::mock(stdClass::class);
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField->isEnabled')->andReturn(
             false,
             true
         );
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertDisabled('foo');
@@ -725,6 +738,7 @@ class MakesAssertionsTest extends TestCase
             true,
             false
         );
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertButtonEnabled('Press me');
@@ -738,11 +752,13 @@ class MakesAssertionsTest extends TestCase
         $this->expectExceptionMessage("Expected button [Press me] to be disabled, but it wasn't.");
 
         $driver = m::mock(stdClass::class);
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForButtonPress->isEnabled')->twice()->andReturn(
             false,
             true
         );
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertButtonDisabled('Cant press me');
@@ -757,8 +773,10 @@ class MakesAssertionsTest extends TestCase
             true,
             false
         );
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField')->with('foo')->andReturn('element');
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertFocused('foo');
@@ -781,8 +799,10 @@ class MakesAssertionsTest extends TestCase
             false,
             true
         );
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('resolveForField')->with('foo')->andReturn('element');
+
         $browser = new Browser($driver, $resolver);
 
         $browser->assertNotFocused('foo');
