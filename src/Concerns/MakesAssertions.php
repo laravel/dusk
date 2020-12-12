@@ -557,9 +557,15 @@ JS;
      */
     public function assertValue($selector, $value)
     {
+        $fullSelector = $this->resolver->format($selector);
+
         $actual = $this->resolver->findOrFail($selector)->getAttribute('value');
 
-        PHPUnit::assertEquals($value, $actual);
+        PHPUnit::assertEquals(
+            $value,
+            $actual,
+            "Did not see expected value [{$value}] within element [{$fullSelector}]."
+        );
 
         return $this;
     }

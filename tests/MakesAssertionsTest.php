@@ -452,6 +452,32 @@ class MakesAssertionsTest extends TestCase
         $browser->assertSelectMissingOption('select[name="users"]', 1);
     }
 
+    public function test_assert_value()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('getAttribute')
+            ->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertValue('foo', 'bar');
+
+        try {
+            $browser->assertValue('foo', 'foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected value [foo] within element [body foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_attribute()
     {
         $driver = m::mock(stdClass::class);
