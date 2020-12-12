@@ -1159,4 +1159,58 @@ class MakesAssertionsTest extends TestCase
             );
         }
     }
+
+    public function test_assert_input_value()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getTagName')->andReturn('input');
+        $element->shouldReceive('getAttribute')->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForTyping')
+            ->with('foo')
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertInputValue('foo', 'bar');
+
+        try {
+            $browser->assertInputValue('foo', 'foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected value [foo] for the [foo] input does not equal the actual value [bar].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_input_value_is_not()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getTagName')->andReturn('input');
+        $element->shouldReceive('getAttribute')->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('resolveForTyping')
+            ->with('foo')
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertInputValueIsNot('foo', 'foo');
+
+        try {
+            $browser->assertInputValueIsNot('foo', 'bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Value [bar] for the [foo] input should not equal the actual value.',
+                $e->getMessage()
+            );
+        }
+    }
 }
