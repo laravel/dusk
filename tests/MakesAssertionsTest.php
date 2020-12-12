@@ -703,6 +703,27 @@ class MakesAssertionsTest extends TestCase
         $browser->assertMissing('foo');
     }
 
+    public function test_assert_dialog_opened()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('switchTo->alert->getText')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertDialogOpened('foo');
+
+        try {
+            $browser->assertDialogOpened('bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected dialog message [bar] does not equal actual message [foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_enabled()
     {
         $driver = m::mock(stdClass::class);
