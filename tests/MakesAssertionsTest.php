@@ -990,4 +990,46 @@ class MakesAssertionsTest extends TestCase
             );
         }
     }
+
+    public function test_assert_source_has()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('getPageSource')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSourceHas('foo');
+
+        try {
+            $browser->assertSourceHas('bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not find expected source code [bar].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_source_missing()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('getPageSource')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSourceMissing('bar');
+
+        try {
+            $browser->assertSourceMissing('foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Found unexpected source code [foo].',
+                $e->getMessage()
+            );
+        }
+    }
 }
