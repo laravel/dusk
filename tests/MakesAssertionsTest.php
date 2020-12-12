@@ -865,6 +865,66 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_vue()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')
+            ->with(
+                'var el = document.querySelector(\'body foo\');'.
+                "return typeof el.__vue__ === 'undefined' ".
+                    '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).foo'.
+                    ': el.__vue__.foo'
+            )
+            ->once()
+            ->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertVue('foo', 'foo', 'foo');
+
+        try {
+            $browser->assertVue('foo', 'bar', 'foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected value [bar] at the key [foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_vue_is_not()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')
+            ->with(
+                'var el = document.querySelector(\'body foo\');'.
+                "return typeof el.__vue__ === 'undefined' ".
+                    '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).foo'.
+                    ': el.__vue__.foo'
+            )
+            ->once()
+            ->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertVueIsNot('foo', 'bar', 'foo');
+
+        try {
+            $browser->assertVueIsNot('foo', 'foo', 'foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Saw unexpected value [foo] at the key [foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_vue_contains_formats_vue_prop_query()
     {
         $driver = m::mock(stdClass::class);

@@ -821,7 +821,11 @@ JS;
      */
     public function assertVue($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertEquals($value, $this->vueAttribute($componentSelector, $key));
+        PHPUnit::assertEquals(
+            $value,
+            $this->vueAttribute($componentSelector, $key),
+            "Did not see expected value [{$value}] at the key [{$key}]."
+        );
 
         return $this;
     }
@@ -837,7 +841,11 @@ JS;
      */
     public function assertVueIsNot($key, $value, $componentSelector = null)
     {
-        PHPUnit::assertNotEquals($value, $this->vueAttribute($componentSelector, $key));
+        PHPUnit::assertNotEquals(
+            $value,
+            $this->vueAttribute($componentSelector, $key),
+            "Saw unexpected value [{$value}] at the key [{$key}]."
+        );
 
         return $this;
     }
