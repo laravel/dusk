@@ -1118,6 +1118,84 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_see_empty_text_in_element_with_empty_text()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSeeEmptyTextIn('foo');
+    }
+
+    public function test_assert_see_empty_text_in_element_without_empty_text()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertSeeEmptyTextIn('foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected text [\'\'] within element [body foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_dont_see_empty_text_in_element_with_empty_text()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertDontSeeEmptyTextIn('foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Saw unexpected text [\'\'] within element [body foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_dont_see_empty_text_in_element_without_empty_text()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('foo');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertDontSeeEmptyTextIn('foo');
+    }
+
     public function test_assert_source_has()
     {
         $driver = m::mock(stdClass::class);
