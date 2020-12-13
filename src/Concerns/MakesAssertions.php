@@ -851,8 +851,7 @@ JS;
     }
 
     /**
-     * Assert that a given Vue component data property
-     * does not match the given value.
+     * Assert that a given Vue component data property does not match the given value.
      *
      * @param  string  $key
      * @param  string  $value
@@ -871,8 +870,7 @@ JS;
     }
 
     /**
-     * Assert that a given Vue component data property
-     * is an array and contains the given value.
+     * Assert that a given Vue component data propertys is an array and contains the given value.
      *
      * @param  string  $key
      * @param  string  $value
@@ -894,8 +892,7 @@ JS;
     }
 
     /**
-     * Assert that a given Vue component data property
-     * is an array and does not contain the given value.
+     * Assert that a given Vue component data property is an array and does not contain the given value.
      *
      * @param  string  $key
      * @param  string  $value
