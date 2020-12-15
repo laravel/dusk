@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.9.1...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.10.0...6.x)
+
+
+## [v6.10.0 (2020-12-15](https://github.com/laravel/dusk/compare/v6.9.1...v6.10.0)
+
+### Added
+- Add new assertions `assertSeeAnythingIn()` and `assertSeeNothingIn()` ([#843](https://github.com/laravel/dusk/pull/843), [dc683ee](https://github.com/laravel/dusk/commit/dc683eeb551456d69b3207ef13daf03d3f1f2dea))
 
 
 ## [v6.9.1 (2020-11-24](https://github.com/laravel/dusk/compare/v6.9.0...v6.9.1)
