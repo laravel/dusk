@@ -206,32 +206,12 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given selector has no text.
-     *
-     * @param  string  $selector
-     * @return $this
-     */
-    public function assertSeeEmptyTextIn($selector)
-    {
-        $fullSelector = $this->resolver->format($selector);
-
-        $element = $this->resolver->findOrFail($selector);
-
-        PHPUnit::assertTrue(
-            $element->getText() === '',
-            "Did not see expected text [''] within element [{$fullSelector}]."
-        );
-
-        return $this;
-    }
-
-    /**
      * Assert that the given selector has some text.
      *
      * @param  string  $selector
      * @return $this
      */
-    public function assertDontSeeEmptyTextIn($selector)
+    public function assertSeeAnythingIn($selector)
     {
         $fullSelector = $this->resolver->format($selector);
 
@@ -240,6 +220,26 @@ trait MakesAssertions
         PHPUnit::assertTrue(
             $element->getText() !== '',
             "Saw unexpected text [''] within element [{$fullSelector}]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given selector has no text.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function assertSeeNothingIn($selector)
+    {
+        $fullSelector = $this->resolver->format($selector);
+
+        $element = $this->resolver->findOrFail($selector);
+
+        PHPUnit::assertTrue(
+            $element->getText() === '',
+            "Did not see expected text [''] within element [{$fullSelector}]."
         );
 
         return $this;
