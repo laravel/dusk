@@ -1131,7 +1131,7 @@ class MakesAssertionsTest extends TestCase
 
         $browser = new Browser($driver, $resolver);
 
-        $browser->assertSeeEmptyTextIn('foo');
+        $browser->assertSeeNothingIn('foo');
     }
 
     public function test_assert_see_empty_text_in_element_without_empty_text()
@@ -1148,7 +1148,7 @@ class MakesAssertionsTest extends TestCase
         $browser = new Browser($driver, $resolver);
 
         try {
-            $browser->assertSeeEmptyTextIn('foo');
+            $browser->assertSeeNothingIn('foo');
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
                 'Did not see expected text [\'\'] within element [body foo].',
@@ -1171,7 +1171,7 @@ class MakesAssertionsTest extends TestCase
         $browser = new Browser($driver, $resolver);
 
         try {
-            $browser->assertDontSeeEmptyTextIn('foo');
+            $browser->assertSeeAnythingIn('foo');
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
                 'Saw unexpected text [\'\'] within element [body foo].',
@@ -1193,7 +1193,7 @@ class MakesAssertionsTest extends TestCase
 
         $browser = new Browser($driver, $resolver);
 
-        $browser->assertDontSeeEmptyTextIn('foo');
+        $browser->assertSeeAnythingIn('foo');
     }
 
     public function test_assert_source_has()
