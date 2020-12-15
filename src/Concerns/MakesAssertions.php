@@ -206,7 +206,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given selector has some text.
+     * Assert that any text is present within the selector.
      *
      * @param  string  $selector
      * @return $this
@@ -226,7 +226,7 @@ trait MakesAssertions
     }
 
     /**
-     * Assert that the given selector has no text.
+     * Assert that no text is present within the selector.
      *
      * @param  string  $selector
      * @return $this
