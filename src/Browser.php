@@ -528,7 +528,7 @@ class Browser
     public function elsewhereWhenAvailable($selector, Closure $callback)
     {
         return $this->elsewhere('', function ($browser) use ($selector, $callback) {
-            $this->whenAvailable($selector, $callback);
+            $browser->whenAvailable($selector, $callback);
         });
     }
 
