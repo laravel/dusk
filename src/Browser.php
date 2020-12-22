@@ -519,6 +519,20 @@ class Browser
     }
 
     /**
+     * Execute a Closure outside of the current browser scope when the selector is available.
+     *
+     * @param  string  $selector
+     * @param  \Closure  $callback
+     * @return $this
+     */
+    public function elsewhereWhenAvailable($selector, Closure $callback)
+    {
+        return $this->elsewhere('', function ($browser) use ($selector, $callback) {
+            $browser->whenAvailable($selector, $callback);
+        });
+    }
+
+    /**
      * Set the current component state.
      *
      * @param  \Laravel\Dusk\Component  $component

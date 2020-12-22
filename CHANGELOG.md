@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.10.0...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.11.0...master)
+
+
+## [v6.11.0 (2020-12-15](https://github.com/laravel/dusk/compare/v6.10.01...v6.11.0)
+
+### Added
+- Add `Browser::elsewhereWhenAvailable()` ([#846](https://github.com/laravel/dusk/pull/846))
 
 
 ## [v6.10.0 (2020-12-15](https://github.com/laravel/dusk/compare/v6.9.1...v6.10.0)
