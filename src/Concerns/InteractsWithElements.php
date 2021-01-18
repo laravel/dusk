@@ -73,6 +73,18 @@ trait InteractsWithElements
     }
 
     /**
+     * Directly get or set the value attribute of an input field.
+     *
+     * @param  string  $selector
+     * @param  string  $value
+     * @return $this
+     */
+    public function setInputValue($selector, $value)
+    {
+        return $this->value($selector, $value);
+    }
+
+    /**
      * Get the text of the element matching the given selector.
      *
      * @param  string  $selector

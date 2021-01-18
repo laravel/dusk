@@ -91,6 +91,19 @@ class InteractsWithElementsTest extends TestCase
     }
 
     /**
+     * @dataProvider dataProviderValueWithValue
+     */
+    public function testSetInputValue($selector, $value, string $js)
+    {
+        $this->resolver->expects(static::never())->method('findOrFail');
+        $this->resolver->expects(static::once())->method('format')->with($selector)->willReturn($selector);
+
+        $this->driver->expects(static::once())->method('executeScript')->with($js)->willReturn(42);
+
+        static::assertSame($this->trait, $this->trait->setInputValue($selector, $value));
+    }
+
+    /**
      * @covers ::value
      */
     public function testValueWithoutValue()
