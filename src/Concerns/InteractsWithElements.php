@@ -73,7 +73,7 @@ trait InteractsWithElements
     }
 
     /**
-     * Directly get or set the value attribute of an input field.
+     * Directly set the value attribute of an input field.
      *
      * @param  string  $selector
      * @param  string  $value
