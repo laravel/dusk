@@ -875,16 +875,18 @@ JS;
      * Assert that the Vue component's attribute at the given key has the given value.
      *
      * @param  string  $key
-     * @param  string  $value
+     * @param  mixed  $value
      * @param  string|null  $componentSelector
      * @return $this
      */
     public function assertVue($key, $value, $componentSelector = null)
     {
+        $formattedValue = json_encode($value);
+
         PHPUnit::assertEquals(
             $value,
             $this->vueAttribute($componentSelector, $key),
-            "Did not see expected value [{$value}] at the key [{$key}]."
+            "Did not see expected value [{$formattedValue}] at the key [{$key}]."
         );
 
         return $this;
@@ -894,16 +896,18 @@ JS;
      * Assert that a given Vue component data property does not match the given value.
      *
      * @param  string  $key
-     * @param  string  $value
+     * @param  mixed  $value
      * @param  string|null  $componentSelector
      * @return $this
      */
     public function assertVueIsNot($key, $value, $componentSelector = null)
     {
+        $formattedValue = json_encode($value);
+
         PHPUnit::assertNotEquals(
             $value,
             $this->vueAttribute($componentSelector, $key),
-            "Saw unexpected value [{$value}] at the key [{$key}]."
+            "Saw unexpected value [{$formattedValue}] at the key [{$key}]."
         );
 
         return $this;

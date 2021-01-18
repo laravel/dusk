@@ -889,7 +889,30 @@ class MakesAssertionsTest extends TestCase
             $browser->assertVue('foo', 'bar', 'foo');
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
-                'Did not see expected value [bar] at the key [foo].',
+                'Did not see expected value ["bar"] at the key [foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_vue_with_array()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->andReturn(['john', 'jane']);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('@vue-component')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertVue('users', ['john', 'jane'], '@vue-component');
+
+        try {
+            $browser->assertVue('users', ['john'], '@vue-component');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected value [["john"]] at the key [users].',
                 $e->getMessage()
             );
         }
@@ -919,7 +942,30 @@ class MakesAssertionsTest extends TestCase
             $browser->assertVueIsNot('foo', 'foo', 'foo');
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
-                'Saw unexpected value [foo] at the key [foo].',
+                'Saw unexpected value ["foo"] at the key [foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_vue_is_not_with_array()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->andReturn(['john', 'jane']);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('@vue-component')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertVueIsNot('users', ['jane', 'john'], '@vue-component');
+
+        try {
+            $browser->assertVueIsNot('users', ['john', 'jane'], '@vue-component');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Saw unexpected value [["john","jane"]] at the key [users].',
                 $e->getMessage()
             );
         }
