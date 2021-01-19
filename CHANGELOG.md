@@ -1,9 +1,15 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.11.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.11.1...6.x)
 
 
-## [v6.11.0 (2020-12-15)](https://github.com/laravel/dusk/compare/v6.10.01...v6.11.0)
+## [v6.11.1 (2021-01-19)](https://github.com/laravel/dusk/compare/v6.11.0...v6.11.1)
+
+### Changed
+- Allow passing mixed to assertVue and assertVueIsNot ([#853](https://github.com/laravel/dusk/pull/853))
+
+
+## [v6.11.0 (2020-12-15)](https://github.com/laravel/dusk/compare/v6.10.0...v6.11.0)
 
 ### Added
 - Add `Browser::elsewhereWhenAvailable()` ([#846](https://github.com/laravel/dusk/pull/846))
