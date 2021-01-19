@@ -1,27 +1,45 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.9.1...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.11.1...master)
 
 
-## [v6.9.1 (2020-11-24](https://github.com/laravel/dusk/compare/v6.9.0...v6.9.1)
+## [v6.11.1 (2021-01-19)](https://github.com/laravel/dusk/compare/v6.11.0...v6.11.1)
+
+### Changed
+- Allow passing mixed to assertVue and assertVueIsNot ([#853](https://github.com/laravel/dusk/pull/853))
+
+
+## [v6.11.0 (2020-12-15)](https://github.com/laravel/dusk/compare/v6.10.0...v6.11.0)
+
+### Added
+- Add `Browser::elsewhereWhenAvailable()` ([#846](https://github.com/laravel/dusk/pull/846))
+
+
+## [v6.10.0 (2020-12-15)](https://github.com/laravel/dusk/compare/v6.9.1...v6.10.0)
+
+### Added
+- Add new assertions `assertSeeAnythingIn()` and `assertSeeNothingIn()` ([#843](https://github.com/laravel/dusk/pull/843), [dc683ee](https://github.com/laravel/dusk/commit/dc683eeb551456d69b3207ef13daf03d3f1f2dea))
+
+
+## [v6.9.1 (2020-11-24)](https://github.com/laravel/dusk/compare/v6.9.0...v6.9.1)
 
 ### Fixed
 - Add Vue 3 support to the `assertVue*()` methods ([#834](https://github.com/laravel/dusk/pull/834))
 
 
-## [v6.9.0 (2020-11-19](https://github.com/laravel/dusk/compare/v6.8.1...v6.9.0)
+## [v6.9.0 (2020-11-19)](https://github.com/laravel/dusk/compare/v6.8.1...v6.9.0)
 
 ### Added
 - PHP 8 Support ([#833](https://github.com/laravel/dusk/pull/833))
 
 
-## [v6.8.1 (2020-11-17](https://github.com/laravel/dusk/compare/v6.8.0...v6.8.1)
+## [v6.8.1 (2020-11-17)](https://github.com/laravel/dusk/compare/v6.8.0...v6.8.1)
 
 ### Changed
 - Changes in preparation for Laravel Sail
 
 
-## [v6.8.0 (2020-10-06](https://github.com/laravel/dusk/compare/v6.7.0...v6.8.0)
+## [v6.8.0 (2020-10-06)](https://github.com/laravel/dusk/compare/v6.7.0...v6.8.0)
 
 ### Added
 - Capture source code on failure ([#819](https://github.com/laravel/dusk/pull/819), [3c59a5c](https://github.com/laravel/dusk/commit/3c59a5c698a6c4a3f06a3da174a1f0f3a01df8f5))
@@ -34,7 +52,7 @@
 - Fix `logout()` when using AuthenticateSession middleware ([#826](https://github.com/laravel/dusk/pull/826))
 
 
-## [v6.7.0 (2020-09-29](https://github.com/laravel/dusk/compare/v6.6.1...v6.7.0)
+## [v6.7.0 (2020-09-29)](https://github.com/laravel/dusk/compare/v6.6.1...v6.7.0)
 
 ### Added
 - Add Chrome driver auto detection ([#816](https://github.com/laravel/dusk/pull/816), [3ca17f1](https://github.com/laravel/dusk/commit/3ca17f124342b90a3e1b2f04932a76fdfa89d6ef))

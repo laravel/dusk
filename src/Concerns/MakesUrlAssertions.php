@@ -9,7 +9,7 @@ use PHPUnit\Framework\Constraint\RegularExpression;
 trait MakesUrlAssertions
 {
     /**
-     * Assert that the current URL matches the given URL.
+     * Assert that the current URL (without the query string) matches the given string.
      *
      * @param  string  $url
      * @return $this
@@ -37,7 +37,7 @@ trait MakesUrlAssertions
     }
 
     /**
-     * Assert that the current scheme matches the given scheme.
+     * Assert that the current URL scheme matches the given scheme.
      *
      * @param  string  $scheme
      * @return $this
@@ -57,7 +57,7 @@ trait MakesUrlAssertions
     }
 
     /**
-     * Assert that the current scheme does not match the given scheme.
+     * Assert that the current URL scheme does not match the given scheme.
      *
      * @param  string  $scheme
      * @return $this
@@ -75,7 +75,7 @@ trait MakesUrlAssertions
     }
 
     /**
-     * Assert that the current host matches the given host.
+     * Assert that the current URL host matches the given host.
      *
      * @param  string  $host
      * @return $this
@@ -95,7 +95,7 @@ trait MakesUrlAssertions
     }
 
     /**
-     * Assert that the current host does not match the given host.
+     * Assert that the current URL host does not match the given host.
      *
      * @param  string  $host
      * @return $this
@@ -113,7 +113,7 @@ trait MakesUrlAssertions
     }
 
     /**
-     * Assert that the current port matches the given port.
+     * Assert that the current URL port matches the given port.
      *
      * @param  string  $port
      * @return $this
@@ -133,7 +133,7 @@ trait MakesUrlAssertions
     }
 
     /**
-     * Assert that the current host does not match the given host.
+     * Assert that the current URL port does not match the given port.
      *
      * @param  string  $port
      * @return $this
@@ -151,7 +151,25 @@ trait MakesUrlAssertions
     }
 
     /**
-     * Assert that the current URL path matches the given pattern.
+     * Assert that the current URL path begins with the given path.
+     *
+     * @param  string  $path
+     * @return $this
+     */
+    public function assertPathBeginsWith($path)
+    {
+        $actualPath = parse_url($this->driver->getCurrentURL(), PHP_URL_PATH) ?? '';
+
+        PHPUnit::assertStringStartsWith(
+            $path, $actualPath,
+            "Actual path [{$actualPath}] does not begin with expected path [{$path}]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the current path matches the given path.
      *
      * @param  string  $path
      * @return $this
@@ -171,25 +189,7 @@ trait MakesUrlAssertions
     }
 
     /**
-     * Assert that the current URL path begins with given path.
-     *
-     * @param  string  $path
-     * @return $this
-     */
-    public function assertPathBeginsWith($path)
-    {
-        $actualPath = parse_url($this->driver->getCurrentURL(), PHP_URL_PATH) ?? '';
-
-        PHPUnit::assertStringStartsWith(
-            $path, $actualPath,
-            "Actual path [{$actualPath}] does not begin with expected path [{$path}]."
-        );
-
-        return $this;
-    }
-
-    /**
-     * Assert that the current URL path does not match the given path.
+     * Assert that the current path does not match the given path.
      *
      * @param  string  $path
      * @return $this
@@ -207,63 +207,7 @@ trait MakesUrlAssertions
     }
 
     /**
-     * Assert that the current URL fragment matches the given pattern.
-     *
-     * @param  string  $fragment
-     * @return $this
-     */
-    public function assertFragmentIs($fragment)
-    {
-        $pattern = preg_quote($fragment, '/');
-
-        $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
-
-        PHPUnit::assertThat(
-            $actualFragment, new RegularExpression('/^'.str_replace('\*', '.*', $pattern).'$/u'),
-            "Actual fragment [{$actualFragment}] does not equal expected fragment [{$fragment}]."
-        );
-
-        return $this;
-    }
-
-    /**
-     * Assert that the current URL fragment begins with given fragment.
-     *
-     * @param  string  $fragment
-     * @return $this
-     */
-    public function assertFragmentBeginsWith($fragment)
-    {
-        $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
-
-        PHPUnit::assertStringStartsWith(
-            $fragment, $actualFragment,
-            "Actual fragment [$actualFragment] does not begin with expected fragment [$fragment]."
-        );
-
-        return $this;
-    }
-
-    /**
-     * Assert that the current URL fragment does not match the given fragment.
-     *
-     * @param  string  $fragment
-     * @return $this
-     */
-    public function assertFragmentIsNot($fragment)
-    {
-        $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
-
-        PHPUnit::assertNotEquals(
-            $fragment, $actualFragment,
-            "Fragment [{$fragment}] should not equal the actual value."
-        );
-
-        return $this;
-    }
-
-    /**
-     * Assert that the current URL path matches the given route.
+     * Assert that the current URL matches the given named route's URL.
      *
      * @param  string  $route
      * @param  array  $parameters
@@ -275,7 +219,7 @@ trait MakesUrlAssertions
     }
 
     /**
-     * Assert that a query string parameter is present and has a given value.
+     * Assert that the given query string parameter is present and has a given value.
      *
      * @param  string  $name
      * @param  string  $value
@@ -322,6 +266,62 @@ trait MakesUrlAssertions
         PHPUnit::assertArrayNotHasKey(
             $name, $output,
             "Found unexpected query string parameter [{$name}] in [".$this->driver->getCurrentURL().'].'
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the URL's current hash fragment matches the given fragment.
+     *
+     * @param  string  $fragment
+     * @return $this
+     */
+    public function assertFragmentIs($fragment)
+    {
+        $pattern = preg_quote($fragment, '/');
+
+        $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
+
+        PHPUnit::assertThat(
+            $actualFragment, new RegularExpression('/^'.str_replace('\*', '.*', $pattern).'$/u'),
+            "Actual fragment [{$actualFragment}] does not equal expected fragment [{$fragment}]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the URL's current hash fragment begins with the given fragment.
+     *
+     * @param  string  $fragment
+     * @return $this
+     */
+    public function assertFragmentBeginsWith($fragment)
+    {
+        $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
+
+        PHPUnit::assertStringStartsWith(
+            $fragment, $actualFragment,
+            "Actual fragment [$actualFragment] does not begin with expected fragment [$fragment]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the URL's current hash fragment does not match the given fragment.
+     *
+     * @param  string  $fragment
+     * @return $this
+     */
+    public function assertFragmentIsNot($fragment)
+    {
+        $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
+
+        PHPUnit::assertNotEquals(
+            $fragment, $actualFragment,
+            "Fragment [{$fragment}] should not equal the actual value."
         );
 
         return $this;
