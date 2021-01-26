@@ -78,7 +78,9 @@ trait InteractsWithCookies
     public function addCookie($name, $value, $expiry = null, array $options = [], $encrypt = true)
     {
         if ($encrypt) {
-            $value = encrypt($value, $serialize = false);
+            $prefix = CookieValuePrefix::create($name, Crypt::getKey());
+
+            $value = encrypt($prefix.$value, $serialize = false);
         }
 
         if ($expiry instanceof DateTimeInterface) {
