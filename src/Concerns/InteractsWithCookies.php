@@ -79,6 +79,7 @@ trait InteractsWithCookies
     {
         if ($encrypt) {
             $prefix = CookieValuePrefix::create($name, Crypt::getKey());
+
             $value = encrypt($prefix.$value, $serialize = false);
         }
 
