@@ -1,6 +1,16 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.11.1...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.11.2...6.x)
+
+
+## [v6.11.2 (2021-01-26)](https://github.com/laravel/dusk/compare/v6.11.1...v6.11.2)
+
+### Changed
+- Add Chromium path for Debian 10 ([#855](https://github.com/laravel/dusk/pull/855))
+
+### Fixed
+- Do not resize to zero ([#858](https://github.com/laravel/dusk/pull/858))
+- Fix the value generated when setting encrypted cookies ([#857](https://github.com/laravel/dusk/pull/857))
 
 
 ## [v6.11.1 (2021-01-19)](https://github.com/laravel/dusk/compare/v6.11.0...v6.11.1)
