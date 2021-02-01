@@ -41,8 +41,8 @@ class InteractsWithElementsTest extends TestCase
     {
         parent::setUp();
 
-        $this->resolver = $this->getMockBuilder(ElementResolver::class)->setMethods(['findOrFail', 'format'])->disableOriginalConstructor()->getMock();
-        $this->driver = $this->getMockBuilder(RemoteWebDriver::class)->setMethods(['executeScript'])->disableOriginalConstructor()->getMock();
+        $this->resolver = $this->getMockBuilder(ElementResolver::class)->onlyMethods(['findOrFail', 'format'])->disableOriginalConstructor()->getMock();
+        $this->driver = $this->getMockBuilder(RemoteWebDriver::class)->onlyMethods(['executeScript'])->disableOriginalConstructor()->getMock();
 
         $this->trait = new class($this->resolver, $this->driver) {
             use InteractsWithElements;
@@ -98,13 +98,13 @@ class InteractsWithElementsTest extends TestCase
         $selector = '#nuff';
 
         /** @var RemoteWebElement|MockObject $resolver */
-        $remoteElement = $this->getMockBuilder(RemoteWebElement::class)->setMethods(['getAttribute'])->disableOriginalConstructor()->getMock();
+        $remoteElement = $this->getMockBuilder(RemoteWebElement::class)->onlyMethods(['getAttribute'])->disableOriginalConstructor()->getMock();
         $remoteElement->expects(static::once())->method('getAttribute')->with('value')->willReturn('null');
 
         $this->resolver->expects(static::once())->method('findOrFail')->with($selector)->willReturn($remoteElement);
         $this->resolver->expects(static::never())->method('format');
 
-        $this->driver = $this->getMockBuilder(RemoteWebDriver::class)->setMethods(['executeScript'])->disableOriginalConstructor()->getMock();
+        $this->driver = $this->getMockBuilder(RemoteWebDriver::class)->onlyMethods(['executeScript'])->disableOriginalConstructor()->getMock();
         $this->driver->expects(static::never())->method('executeScript');
 
         static::assertSame('null', $this->trait->value($selector));

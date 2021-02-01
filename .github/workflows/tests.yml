@@ -15,7 +15,10 @@ jobs:
       matrix:
         php: [7.3, 7.4, 8.0]
         laravel: [^8.0]
-        phpunit: [^9.0]
+        phpunit: [^9.0, ^10.0]
+        exclude:
+          - php: 7.3
+            phpunit: ^10.0
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - U${{ matrix.phpunit }}
 
