@@ -17,7 +17,9 @@ class DuskCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dusk {--without-tty : Disable output to TTY}';
+    protected $signature = 'dusk
+                {--browse : Display browser output instead of using headless mode}
+                {--without-tty : Disable output to TTY}';
 
     /**
      * The console command description.
@@ -58,12 +60,16 @@ class DuskCommand extends Command
 
         $this->purgeSourceLogs();
 
-        $options = array_slice($_SERVER['argv'], $this->option('without-tty') ? 3 : 2);
+        $options = collect($_SERVER['argv'])
+            ->slice(2)
+            ->diff(['--browse', '--without-tty'])
+            ->values()
+            ->all();
 
         return $this->withDuskEnvironment(function () use ($options) {
             $process = (new Process(array_merge(
                 $this->binary(), $this->phpunitArguments($options)
-            )))->setTimeout(null);
+            ), null, $this->env()))->setTimeout(null);
 
             try {
                 $process->setTty(! $this->option('without-tty'));
@@ -114,6 +120,18 @@ class DuskCommand extends Command
         }
 
         return array_merge(['-c', $file], $options);
+    }
+
+    /**
+     * Get the PHP binary environment variables.
+     *
+     * @return array|null
+     */
+    protected function env()
+    {
+        if ($this->option('browse') && ! isset($_ENV('CI')) && ! isset($_SERVER['CI'])) {
+            return ['DUSK_HEADLESS_DISABLED' => true];
+        }
     }
 
     /**
