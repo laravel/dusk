@@ -59,10 +59,10 @@ class DuskCommand extends Command
 
         $this->purgeSourceLogs();
 
-        $options = array_slice(
-            $_SERVER['argv'],
-            ($this->option('without-tty') && $this->option('browse') ? 4 : $this->option('without-tty') || $this->option('browse')) ? 3 : 2
-        );
+        $options = collect(array_slice($_SERVER['argv'], 2))
+            ->filter(function ($option) {
+                return ! in_array($option, ['--without-tty', '--browse']);
+            })->values()->all();
 
         return $this->withDuskEnvironment(function () use ($options) {
             $env = [];
