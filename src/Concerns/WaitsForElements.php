@@ -18,7 +18,7 @@ trait WaitsForElements
      *
      * @param  string  $selector
      * @param  \Closure  $callback
-     * @param  int  $seconds
+     * @param  int|null  $seconds
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
@@ -32,7 +32,7 @@ trait WaitsForElements
      * Wait for the given selector to be visible.
      *
      * @param  string  $selector
-     * @param  int  $seconds
+     * @param  int|null  $seconds
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
@@ -50,7 +50,7 @@ trait WaitsForElements
      * Wait for the given selector to be removed.
      *
      * @param  string  $selector
-     * @param  int  $seconds
+     * @param  int|null  $seconds
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
@@ -74,7 +74,7 @@ trait WaitsForElements
      * Wait for the given text to be removed.
      *
      * @param  string  $text
-     * @param  int  $seconds
+     * @param  int|null  $seconds
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
@@ -94,7 +94,7 @@ trait WaitsForElements
      * Wait for the given text to be visible.
      *
      * @param  array|string  $text
-     * @param  int  $seconds
+     * @param  int|null  $seconds
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
@@ -115,7 +115,7 @@ trait WaitsForElements
      *
      * @param  string  $selector
      * @param  array|string  $text
-     * @param  int  $seconds
+     * @param  int|null  $seconds
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
@@ -133,7 +133,7 @@ trait WaitsForElements
      * Wait for the given link to be visible.
      *
      * @param  string  $link
-     * @param  int  $seconds
+     * @param  int|null  $seconds
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
@@ -151,7 +151,7 @@ trait WaitsForElements
      * Wait for the given location.
      *
      * @param  string  $path
-     * @param  int  $seconds
+     * @param  int|null  $seconds
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
@@ -168,7 +168,7 @@ trait WaitsForElements
      *
      * @param  string  $route
      * @param  array  $parameters
-     * @param  int  $seconds
+     * @param  int|null  $seconds
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
@@ -182,8 +182,8 @@ trait WaitsForElements
      * Wait until the given script returns true.
      *
      * @param  string  $script
-     * @param  int  $seconds
-     * @param  string  $message
+     * @param  int|null  $seconds
+     * @param  string|null  $message
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
@@ -209,6 +209,7 @@ trait WaitsForElements
      * @param  string  $key
      * @param  string  $value
      * @param  string|null  $componentSelector
+     * @param  int|null  $seconds
      * @return $this
      */
     public function waitUntilVue($key, $value, $componentSelector = null, $seconds = null)
@@ -226,6 +227,7 @@ trait WaitsForElements
      * @param  string  $key
      * @param  string  $value
      * @param  string|null  $componentSelector
+     * @param  int|null  $seconds
      * @return $this
      */
     public function waitUntilVueIsNot($key, $value, $componentSelector = null, $seconds = null)
@@ -240,7 +242,7 @@ trait WaitsForElements
     /**
      * Wait for a JavaScript dialog to open.
      *
-     * @param  int  $seconds
+     * @param  int|null  $seconds
      * @return $this
      */
     public function waitForDialog($seconds = null)
@@ -257,8 +259,8 @@ trait WaitsForElements
     /**
      * Wait for the current page to reload.
      *
-     * @param  \Closure  $callback
-     * @param  int  $seconds
+     * @param  \Closure|null  $callback
+     * @param  int|null  $seconds
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeOutException
@@ -281,7 +283,7 @@ trait WaitsForElements
     /**
      * Wait for the given callback to be true.
      *
-     * @param  int  $seconds
+     * @param  int|null  $seconds
      * @param  int  $interval
      * @param  \Closure  $callback
      * @param  string|null  $message
