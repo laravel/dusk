@@ -523,12 +523,13 @@ class Browser
      *
      * @param  string  $selector
      * @param  \Closure  $callback
+     * @param  int|null  $seconds
      * @return $this
      */
-    public function elsewhereWhenAvailable($selector, Closure $callback)
+    public function elsewhereWhenAvailable($selector, Closure $callback, $seconds = null)
     {
-        return $this->elsewhere('', function ($browser) use ($selector, $callback) {
-            $browser->whenAvailable($selector, $callback);
+        return $this->elsewhere('', function ($browser) use ($selector, $callback, $seconds) {
+            $browser->whenAvailable($selector, $callback, $seconds);
         });
     }
 
