@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.11.2...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.11.3...6.x)
+
+
+## [v6.11.3 (2021-02-09)](https://github.com/laravel/dusk/compare/v6.11.1...v6.11.3)
+
+### Fixed
+- Add `$seconds` options to `Browser::elseWhenAvailable()` ([#865](https://github.com/laravel/dusk/pull/865))
 
 
 ## [v6.11.2 (2021-01-26)](https://github.com/laravel/dusk/compare/v6.11.1...v6.11.2)
