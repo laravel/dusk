@@ -18,7 +18,7 @@ class DuskCommand extends Command
      * @var string
      */
     protected $signature = 'dusk
-                {--browse : Display browser output instead of using headless mode}
+                {--browse : Open a browser instead of using headless mode}
                 {--without-tty : Disable output to TTY}';
 
     /**
