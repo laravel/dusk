@@ -10,7 +10,7 @@ class DuskFailsCommand extends DuskCommand
      * @var string
      */
     protected $signature = 'dusk:fails 
-                {--browse : Display browser output instead of using headless mode}
+                {--browse : Open a browser instead of using headless mode}
                 {--without-tty : Disable output to TTY}';
 
     /**
