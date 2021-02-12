@@ -39,11 +39,11 @@ class ChromeProcess
         if ($this->driver) {
             $driver = $this->driver;
         } elseif ($this->onWindows()) {
-            $driver = __DIR__ . '/../../bin/chromedriver-win.exe';
+            $driver = __DIR__.'/../../bin/chromedriver-win.exe';
         } elseif ($this->onMac()) {
-            $driver = __DIR__ . '/../../bin/chromedriver-mac';
+            $driver = __DIR__.'/../../bin/chromedriver-mac';
         } else {
-            $driver = __DIR__ . '/../../bin/chromedriver-linux';
+            $driver = __DIR__.'/../../bin/chromedriver-linux';
         }
 
         $this->driver = realpath($driver);
