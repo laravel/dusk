@@ -129,7 +129,7 @@ class DuskCommand extends Command
      */
     protected function env()
     {
-        if ($this->option('browse') && ! isset($_ENV('CI')) && ! isset($_SERVER['CI'])) {
+        if ($this->option('browse') && ! isset($_ENV['CI']) && ! isset($_SERVER['CI'])) {
             return ['DUSK_HEADLESS_DISABLED' => true];
         }
     }
