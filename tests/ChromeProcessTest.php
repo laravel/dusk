@@ -49,7 +49,7 @@ class ChromeProcessTest extends TestCase
     public function test_invalid_path()
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage("Invalid path to Chromedriver [/not/a/valid/path]. Make sure to install the Chromedriver first by running the dusk:chrome-driver command.");
+        $this->expectExceptionMessage('Invalid path to Chromedriver [/not/a/valid/path]. Make sure to install the Chromedriver first by running the dusk:chrome-driver command.');
 
         (new ChromeProcess('/not/a/valid/path'))->toProcess();
     }
