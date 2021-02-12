@@ -11,7 +11,7 @@ class ChromeProcess
     /**
      * The path to the Chromedriver.
      *
-     * @var string
+     * @var string|null
      */
     protected $driver;
 
@@ -20,16 +20,10 @@ class ChromeProcess
      *
      * @param  string  $driver
      * @return void
-     *
-     * @throws \RuntimeException
      */
     public function __construct($driver = null)
     {
         $this->driver = $driver;
-
-        if (! is_null($driver) && realpath($driver) === false) {
-            throw new RuntimeException("Invalid path to Chromedriver [{$driver}].");
-        }
     }
 
     /**
@@ -37,19 +31,27 @@ class ChromeProcess
      *
      * @param  array  $arguments
      * @return \Symfony\Component\Process\Process
+     *
+     * @throws \RuntimeException
      */
     public function toProcess(array $arguments = [])
     {
         if ($this->driver) {
-            return $this->process($arguments);
+            $driver = $this->driver;
+        } elseif ($this->onWindows()) {
+            $driver = __DIR__ . '/../../bin/chromedriver-win.exe';
+        } elseif ($this->onMac()) {
+            $driver = __DIR__ . '/../../bin/chromedriver-mac';
+        } else {
+            $driver = __DIR__ . '/../../bin/chromedriver-linux';
         }
 
-        if ($this->onWindows()) {
-            $this->driver = realpath(__DIR__.'/../../bin/chromedriver-win.exe');
-        } elseif ($this->onMac()) {
-            $this->driver = realpath(__DIR__.'/../../bin/chromedriver-mac');
-        } else {
-            $this->driver = realpath(__DIR__.'/../../bin/chromedriver-linux');
+        $this->driver = realpath($driver);
+
+        if ($this->driver === false) {
+            throw new RuntimeException(
+                "Invalid path to Chromedriver [{$driver}]. Make sure to install the Chromedriver first by running the dusk:chrome-driver command."
+            );
         }
 
         return $this->process($arguments);
