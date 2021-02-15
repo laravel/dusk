@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Tests;
 
 use Laravel\Dusk\Browser;
+use Laravel\Dusk\Tests\Concerns\SwapsUrlGenerator;
 use Mockery as m;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
@@ -10,6 +11,8 @@ use stdClass;
 
 class MakesUrlAssertionsTest extends TestCase
 {
+    use SwapsUrlGenerator;
+
     public function test_assert_url_is()
     {
         $driver = m::mock(stdClass::class);
@@ -262,7 +265,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_route_is()
     {
-        require_once __DIR__.'/stubs/route.php';
+        $this->swapUrlGenerator();
 
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
@@ -281,6 +284,8 @@ class MakesUrlAssertionsTest extends TestCase
                 $e->getMessage()
             );
         }
+
+        $this->resetContainer();
     }
 
     public function test_assert_query_string_has_name()

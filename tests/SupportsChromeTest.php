@@ -34,8 +34,6 @@ class SupportsChromeTest extends TestCase
 
     public function getPackageProviders($app)
     {
-        return [
-            DuskServiceProvider::class,
-        ];
+        return [DuskServiceProvider::class];
     }
 }
