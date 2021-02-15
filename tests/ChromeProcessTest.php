@@ -28,12 +28,21 @@ class ChromeProcessTest extends TestCase
         }
     }
 
-    public function test_build_process_for_darwin()
+    public function test_build_process_for_darwin_intel()
     {
         try {
-            (new ChromeProcessDarwin)->toProcess();
+            (new ChromeProcessDarwinIntel)->toProcess();
         } catch (RuntimeException $exception) {
-            $this->assertStringContainsString('chromedriver-mac', $exception->getMessage());
+            $this->assertStringContainsString('chromedriver-mac-intel', $exception->getMessage());
+        }
+    }
+
+    public function test_build_process_for_darwin_arm()
+    {
+        try {
+            (new ChromeProcessDarwinArm)->toProcess();
+        } catch (RuntimeException $exception) {
+            $this->assertStringContainsString('chromedriver-mac-arm', $exception->getMessage());
         }
     }
 
@@ -63,9 +72,9 @@ class ChromeProcessWindows extends ChromeProcess
     }
 }
 
-class ChromeProcessDarwin extends ChromeProcess
+class ChromeProcessDarwinIntel extends ChromeProcess
 {
-    protected function onMac()
+    protected function onIntelMac()
     {
         return true;
     }
@@ -76,9 +85,32 @@ class ChromeProcessDarwin extends ChromeProcess
     }
 }
 
+class ChromeProcessDarwinArm extends ChromeProcess
+{
+    protected function onArmMac()
+    {
+        return true;
+    }
+
+    protected function onIntelMac()
+    {
+        return false;
+    }
+
+    protected function onWindows()
+    {
+        return false;
+    }
+}
+
 class ChromeProcessLinux extends ChromeProcess
 {
-    protected function onMac()
+    protected function onArmMac()
+    {
+        return false;
+    }
+
+    protected function onIntelMac()
     {
         return false;
     }

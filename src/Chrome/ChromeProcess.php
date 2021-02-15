@@ -39,9 +39,11 @@ class ChromeProcess
         if ($this->driver) {
             $driver = $this->driver;
         } elseif ($this->onWindows()) {
-            $driver = __DIR__.'/../../bin/chromedriver-win.exe';
-        } elseif ($this->onMac()) {
-            $driver = __DIR__.'/../../bin/chromedriver-mac';
+            $driver = realpath(__DIR__.'/../../bin/chromedriver-win.exe');
+        } elseif ($this->onIntelMac()) {
+            $driver = realpath(__DIR__.'/../../bin/chromedriver-mac-intel');
+        } elseif ($this->onArmMac()) {
+            $driver = realpath(__DIR__.'/../../bin/chromedriver-mac-arm');
         } else {
             $driver = __DIR__.'/../../bin/chromedriver-linux';
         }
@@ -77,7 +79,7 @@ class ChromeProcess
      */
     protected function chromeEnvironment()
     {
-        if ($this->onMac() || $this->onWindows()) {
+        if ($this->onIntelMac() || $this->onArmMac() || $this->onWindows()) {
             return [];
         }
 
@@ -95,12 +97,22 @@ class ChromeProcess
     }
 
     /**
-     * Determine if Dusk is running on Mac.
+     * Determine if Dusk is running on Mac x86_64.
      *
      * @return bool
      */
-    protected function onMac()
+    protected function onIntelMac()
     {
-        return OperatingSystem::onMac();
+        return OperatingSystem::onIntelMac();
+    }
+
+    /**
+     * Determine if Dusk is running on Mac arm64.
+     *
+     * @return bool
+     */
+    protected function onArmMac()
+    {
+        return OperatingSystem::onArmMac();
     }
 }
