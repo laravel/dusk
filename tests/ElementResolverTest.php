@@ -11,6 +11,11 @@ use stdClass;
 
 class ElementResolverTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        m::close();
+    }
+
     /**
      * @throws \Exception
      */
@@ -65,10 +70,11 @@ class ElementResolverTest extends TestCase
     public function test_resolve_for_radio_selection_throws_exception_without_id_and_without_value()
     {
         $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('findElement')->once()->andReturn('foo');
         $resolver = new ElementResolver($driver);
+
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('No value was provided for radio button [foo].');
+
         $resolver->resolveForRadioSelection('foo');
     }
 

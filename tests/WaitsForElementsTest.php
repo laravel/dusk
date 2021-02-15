@@ -13,6 +13,11 @@ class WaitsForElementsTest extends TestCase
 {
     use SwapsUrlGenerator;
 
+    protected function tearDown(): void
+    {
+        m::close();
+    }
+
     public function test_default_wait_time()
     {
         Browser::$waitSeconds = 2;
