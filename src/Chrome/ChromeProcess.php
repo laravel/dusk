@@ -79,7 +79,7 @@ class ChromeProcess
      */
     protected function chromeEnvironment()
     {
-        if ($this->onIntelMac() || $this->onWindows()) {
+        if ($this->onIntelMac() || $this->onArmMac() || $this->onWindows()) {
             return [];
         }
 
