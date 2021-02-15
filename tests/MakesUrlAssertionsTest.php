@@ -289,8 +289,6 @@ class MakesUrlAssertionsTest extends TestCase
                 $e->getMessage()
             );
         }
-
-        $this->resetContainer();
     }
 
     public function test_assert_query_string_has_name()

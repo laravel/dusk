@@ -92,8 +92,6 @@ class WaitsForElementsTest extends TestCase
         $browser = new Browser($driver);
 
         $browser->waitForRoute('home');
-
-        $this->resetContainer();
     }
 
     public function test_can_wait_for_text()

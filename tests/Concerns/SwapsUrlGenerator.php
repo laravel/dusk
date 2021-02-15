@@ -26,9 +26,4 @@ trait SwapsUrlGenerator
             };
         });
     }
-
-    protected function resetContainer()
-    {
-        Container::setInstance();
-    }
 }
