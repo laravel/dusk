@@ -3,11 +3,19 @@
 namespace Laravel\Dusk\Tests;
 
 use Laravel\Dusk\Chrome\SupportsChrome;
-use PHPUnit\Framework\TestCase;
+use Laravel\Dusk\DuskServiceProvider;
+use Orchestra\Testbench\TestCase;
 
 class SupportsChromeTest extends TestCase
 {
     use SupportsChrome;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->artisan('dusk:chrome-driver');
+    }
 
     public function test_it_can_run_chrome_process()
     {
@@ -22,5 +30,10 @@ class SupportsChromeTest extends TestCase
 
         $this->assertStringContainsString('Starting ChromeDriver', $process->getOutput());
         $this->assertSame('', $process->getErrorOutput());
+    }
+
+    public function getPackageProviders($app)
+    {
+        return [DuskServiceProvider::class];
     }
 }
