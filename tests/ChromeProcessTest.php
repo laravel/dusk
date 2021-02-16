@@ -66,15 +66,43 @@ class ChromeProcessTest extends TestCase
 
 class ChromeProcessWindows extends ChromeProcess
 {
+    protected function onMac()
+    {
+        return false;
+    }
+
     protected function onWindows()
     {
         return true;
+    }
+
+    protected function operatingSystemId()
+    {
+        return 'win';
+    }
+}
+
+class ChromeProcessDarwin extends ChromeProcess
+{
+    protected function onMac()
+    {
+        return true;
+    }
+
+    protected function onWindows()
+    {
+        return false;
+    }
+
+    protected function operatingSystemId()
+    {
+        return 'mac';
     }
 }
 
 class ChromeProcessDarwinIntel extends ChromeProcess
 {
-    protected function onIntelMac()
+    protected function onMac()
     {
         return true;
     }
@@ -82,24 +110,29 @@ class ChromeProcessDarwinIntel extends ChromeProcess
     protected function onWindows()
     {
         return false;
+    }
+
+    protected function operatingSystemId()
+    {
+        return 'mac-intel';
     }
 }
 
 class ChromeProcessDarwinArm extends ChromeProcess
 {
-    protected function onArmMac()
+    protected function onMac()
     {
         return true;
-    }
-
-    protected function onIntelMac()
-    {
-        return false;
     }
 
     protected function onWindows()
     {
         return false;
+    }
+
+    protected function operatingSystemId()
+    {
+        return 'mac-arm';
     }
 }
 
@@ -118,5 +151,10 @@ class ChromeProcessLinux extends ChromeProcess
     protected function onWindows()
     {
         return false;
+    }
+
+    protected function operatingSystemId()
+    {
+        return 'linux';
     }
 }
