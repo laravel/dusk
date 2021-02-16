@@ -4,12 +4,20 @@ namespace Laravel\Dusk\Tests;
 
 use Facebook\WebDriver\Exception\TimeOutException;
 use Laravel\Dusk\Browser;
+use Laravel\Dusk\Tests\Concerns\SwapsUrlGenerator;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 class WaitsForElementsTest extends TestCase
 {
+    use SwapsUrlGenerator;
+
+    protected function tearDown(): void
+    {
+        m::close();
+    }
+
     public function test_default_wait_time()
     {
         Browser::$waitSeconds = 2;
@@ -77,6 +85,8 @@ class WaitsForElementsTest extends TestCase
 
     public function test_can_wait_for_route()
     {
+        $this->swapUrlGenerator();
+
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('executeScript')->with("return window.location.pathname == '/home/';")->andReturnTrue();
         $browser = new Browser($driver);

@@ -59,6 +59,8 @@ class ChromeDriverCommand extends Command
     protected $slugs = [
         'linux' => 'linux64',
         'mac' => 'mac64',
+        'mac-intel' => 'mac64',
+        'mac-arm' => 'mac64_m1',
         'win' => 'win32',
     ];
 
@@ -117,6 +119,12 @@ class ChromeDriverCommand extends Command
             '/usr/bin/google-chrome-stable --version',
         ],
         'mac' => [
+            '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version',
+        ],
+        'mac-intel' => [
+            '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version',
+        ],
+        'mac-arm' => [
             '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version',
         ],
         'win' => [
