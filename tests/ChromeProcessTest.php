@@ -21,31 +21,44 @@ class ChromeProcessTest extends TestCase
 
     public function test_build_process_for_windows()
     {
-        $process = (new ChromeProcessWindows)->toProcess();
-
-        $this->assertInstanceOf(Process::class, $process);
-        $this->assertStringContainsString('chromedriver-win.exe', $process->getCommandLine());
+        try {
+            (new ChromeProcessWindows)->toProcess();
+        } catch (RuntimeException $exception) {
+            $this->assertStringContainsString('chromedriver-win.exe', $exception->getMessage());
+        }
     }
 
-    public function test_build_process_for_darwin()
+    public function test_build_process_for_darwin_intel()
     {
-        $process = (new ChromeProcessDarwin)->toProcess();
+        try {
+            (new ChromeProcessDarwinIntel)->toProcess();
+        } catch (RuntimeException $exception) {
+            $this->assertStringContainsString('chromedriver-mac-intel', $exception->getMessage());
+        }
+    }
 
-        $this->assertInstanceOf(Process::class, $process);
-        $this->assertStringContainsString('chromedriver-mac', $process->getCommandLine());
+    public function test_build_process_for_darwin_arm()
+    {
+        try {
+            (new ChromeProcessDarwinArm)->toProcess();
+        } catch (RuntimeException $exception) {
+            $this->assertStringContainsString('chromedriver-mac-arm', $exception->getMessage());
+        }
     }
 
     public function test_build_process_for_linux()
     {
-        $process = (new ChromeProcessLinux)->toProcess();
-
-        $this->assertInstanceOf(Process::class, $process);
-        $this->assertStringContainsString('chromedriver-linux', $process->getCommandLine());
+        try {
+            (new ChromeProcessLinux)->toProcess();
+        } catch (RuntimeException $exception) {
+            $this->assertStringContainsString('chromedriver-linux', $exception->getMessage());
+        }
     }
 
     public function test_invalid_path()
     {
         $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Invalid path to Chromedriver [/not/a/valid/path]. Make sure to install the Chromedriver first by running the dusk:chrome-driver command.');
 
         (new ChromeProcess('/not/a/valid/path'))->toProcess();
     }
@@ -53,13 +66,23 @@ class ChromeProcessTest extends TestCase
 
 class ChromeProcessWindows extends ChromeProcess
 {
+    protected function onMac()
+    {
+        return false;
+    }
+
     protected function onWindows()
     {
         return true;
     }
+
+    protected function operatingSystemId()
+    {
+        return 'win';
+    }
 }
 
-class ChromeProcessDarwin extends ChromeProcess
+class ChromeProcessDarwinIntel extends ChromeProcess
 {
     protected function onMac()
     {
@@ -69,12 +92,40 @@ class ChromeProcessDarwin extends ChromeProcess
     protected function onWindows()
     {
         return false;
+    }
+
+    protected function operatingSystemId()
+    {
+        return 'mac-intel';
+    }
+}
+
+class ChromeProcessDarwinArm extends ChromeProcess
+{
+    protected function onMac()
+    {
+        return true;
+    }
+
+    protected function onWindows()
+    {
+        return false;
+    }
+
+    protected function operatingSystemId()
+    {
+        return 'mac-arm';
     }
 }
 
 class ChromeProcessLinux extends ChromeProcess
 {
-    protected function onMac()
+    protected function onArmMac()
+    {
+        return false;
+    }
+
+    protected function onIntelMac()
     {
         return false;
     }
@@ -82,5 +133,10 @@ class ChromeProcessLinux extends ChromeProcess
     protected function onWindows()
     {
         return false;
+    }
+
+    protected function operatingSystemId()
+    {
+        return 'linux';
     }
 }

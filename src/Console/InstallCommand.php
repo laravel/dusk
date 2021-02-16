@@ -62,7 +62,7 @@ class InstallCommand extends Command
 
         $this->comment('Downloading ChromeDriver binaries...');
 
-        $driverCommandArgs = ['--all' => true];
+        $driverCommandArgs = [];
 
         if ($this->option('proxy')) {
             $driverCommandArgs['--proxy'] = $this->option('proxy');
