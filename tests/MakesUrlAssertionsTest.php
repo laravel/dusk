@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Tests;
 
 use Laravel\Dusk\Browser;
+use Laravel\Dusk\Tests\Concerns\SwapsUrlGenerator;
 use Mockery as m;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
@@ -10,10 +11,17 @@ use stdClass;
 
 class MakesUrlAssertionsTest extends TestCase
 {
+    use SwapsUrlGenerator;
+
+    protected function tearDown(): void
+    {
+        m::close();
+    }
+
     public function test_assert_url_is()
     {
         $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('getCurrentURL')->once()->andReturn(
+        $driver->shouldReceive('getCurrentURL')->times(8)->andReturn(
             'http://www.google.com?foo=bar',
             'http://www.google.com:80/test?foo=bar'
         );
@@ -37,7 +45,7 @@ class MakesUrlAssertionsTest extends TestCase
     public function test_assert_scheme_is()
     {
         $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('getCurrentURL')->once()->andReturn(
+        $driver->shouldReceive('getCurrentURL')->times(5)->andReturn(
             'http://www.google.com?foo=bar',
             'https://www.google.com:80/test?foo=bar',
             'ftp://www.google.com',
@@ -89,7 +97,7 @@ class MakesUrlAssertionsTest extends TestCase
     public function test_assert_host_is()
     {
         $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('getCurrentURL')->once()->andReturn(
+        $driver->shouldReceive('getCurrentURL')->times(4)->andReturn(
             'http://www.google.com?foo=bar',
             'http://google.com?foo=bar',
             'https://www.laravel.com:80/test?foo=bar',
@@ -141,7 +149,7 @@ class MakesUrlAssertionsTest extends TestCase
     public function test_assert_port_is()
     {
         $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('getCurrentURL')->once()->andReturn(
+        $driver->shouldReceive('getCurrentURL')->times(4)->andReturn(
             'http://www.laravel.com:80/test?foo=bar',
             'https://www.laravel.com:443/test?foo=bar',
             'https://www.laravel.com',
@@ -262,7 +270,7 @@ class MakesUrlAssertionsTest extends TestCase
 
     public function test_assert_route_is()
     {
-        require_once __DIR__.'/stubs/route.php';
+        $this->swapUrlGenerator();
 
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(

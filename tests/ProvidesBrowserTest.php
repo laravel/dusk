@@ -11,6 +11,11 @@ class ProvidesBrowserTest extends TestCase
 {
     use ProvidesBrowser;
 
+    protected function tearDown(): void
+    {
+        m::close();
+    }
+
     /**
      * @dataProvider testData
      */

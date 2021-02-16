@@ -11,6 +11,11 @@ use stdClass;
 
 class MakesAssertionsTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        m::close();
+    }
+
     public function test_assert_title()
     {
         $driver = m::mock(stdClass::class);
@@ -875,7 +880,7 @@ class MakesAssertionsTest extends TestCase
                     '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).foo'.
                     ': el.__vue__.foo'
             )
-            ->once()
+            ->twice()
             ->andReturn('foo');
 
         $resolver = m::mock(stdClass::class);
@@ -928,7 +933,7 @@ class MakesAssertionsTest extends TestCase
                     '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).foo'.
                     ': el.__vue__.foo'
             )
-            ->once()
+            ->twice()
             ->andReturn('foo');
 
         $resolver = m::mock(stdClass::class);
