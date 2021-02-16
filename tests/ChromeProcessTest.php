@@ -82,24 +82,6 @@ class ChromeProcessWindows extends ChromeProcess
     }
 }
 
-class ChromeProcessDarwin extends ChromeProcess
-{
-    protected function onMac()
-    {
-        return true;
-    }
-
-    protected function onWindows()
-    {
-        return false;
-    }
-
-    protected function operatingSystemId()
-    {
-        return 'mac';
-    }
-}
-
 class ChromeProcessDarwinIntel extends ChromeProcess
 {
     protected function onMac()
