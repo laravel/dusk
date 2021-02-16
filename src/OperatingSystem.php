@@ -15,10 +15,8 @@ class OperatingSystem
     {
         if (static::onWindows()) {
             return 'win';
-        } elseif (static::onIntelMac()) {
-            return 'mac-intel';
-        } elseif (static::onArmMac()) {
-            return 'mac-arm';
+        } elseif (static::onMac()) {
+            return static::macArchitectureId();
         }
 
         return 'linux';
@@ -35,22 +33,29 @@ class OperatingSystem
     }
 
     /**
-     * Determine if the operating system is macOS x86_64.
+     * Determine if the operating system is macOS.
      *
      * @return bool
      */
-    public static function onIntelMac()
+    public static function onMac()
     {
-        return PHP_OS === 'Darwin' && php_uname('m') === 'x86_64';
+        return PHP_OS === 'Darwin';
     }
 
     /**
-     * Determine if the operating system is macOS arm64.
+     * Mac platform architecture.
      *
-     * @return bool
+     * @return string
      */
-    public static function onArmMac()
+    public static function macArchitectureId()
     {
-        return PHP_OS === 'Darwin' && php_uname('m') === 'arm64';
+        switch (php_uname('m')) {
+            case 'arm64':
+                return 'mac-arm';
+            case 'x86_64':
+                return 'mac-intel';
+            default:
+                return 'mac';
+        }
     }
 }

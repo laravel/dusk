@@ -38,14 +38,16 @@ class ChromeProcess
     {
         if ($this->driver) {
             $driver = $this->driver;
-        } elseif ($this->onWindows()) {
-            $driver = realpath(__DIR__.'/../../bin/chromedriver-win.exe');
-        } elseif ($this->onIntelMac()) {
-            $driver = realpath(__DIR__.'/../../bin/chromedriver-mac-intel');
-        } elseif ($this->onArmMac()) {
-            $driver = realpath(__DIR__.'/../../bin/chromedriver-mac-arm');
         } else {
-            $driver = __DIR__.'/../../bin/chromedriver-linux';
+            $filenames = [
+                'linux' => 'chromedriver-linux',
+                'mac' => 'chromedriver-mac',
+                'mac-intel' => 'chromedriver-mac-intel',
+                'mac-arm' => 'chromedriver-mac-arm',
+                'win' => 'chromedriver-win.exe',
+            ];
+
+            $driver = __DIR__.'/../../bin/'.DIRECTORY_SEPARATOR.$filenames[$this->operatingSystemId()];
         }
 
         $this->driver = realpath($driver);
@@ -68,7 +70,7 @@ class ChromeProcess
     protected function process(array $arguments = [])
     {
         return new Process(
-            array_merge([realpath($this->driver)], $arguments), null, $this->chromeEnvironment()
+            array_merge([$this->driver], $arguments), null, $this->chromeEnvironment()
         );
     }
 
@@ -79,7 +81,7 @@ class ChromeProcess
      */
     protected function chromeEnvironment()
     {
-        if ($this->onIntelMac() || $this->onArmMac() || $this->onWindows()) {
+        if ($this->onMac() || $this->onWindows()) {
             return [];
         }
 
@@ -97,22 +99,22 @@ class ChromeProcess
     }
 
     /**
-     * Determine if Dusk is running on Mac x86_64.
+     * Determine if Dusk is running on Mac.
      *
      * @return bool
      */
-    protected function onIntelMac()
+    protected function onMac()
     {
-        return OperatingSystem::onIntelMac();
+        return OperatingSystem::onMac();
     }
 
     /**
-     * Determine if Dusk is running on Mac arm64.
+     * Determine OS ID.
      *
-     * @return bool
+     * @return string
      */
-    protected function onArmMac()
+    protected function operatingSystemId()
     {
-        return OperatingSystem::onArmMac();
+        return OperatingSystem::id();
     }
 }
