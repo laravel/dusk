@@ -719,7 +719,7 @@ JS;
 
         return $this;
     }
-    
+
     /**
      * Assert that the element matching the given selector is not present.
      *
