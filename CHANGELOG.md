@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.12.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.13.0...6.x)
+
+
+## [v6.13.0 (2021-02-23)](https://github.com/laravel/dusk/compare/v6.12.0...v6.13.0)
+
+### Added
+- Add `assertNotPresent()` assertion ([#879](https://github.com/laravel/dusk/pull/879))
 
 
 ## [v6.12.0 (2021-02-16)](https://github.com/laravel/dusk/compare/v6.11.3...v6.12.0)
