@@ -721,7 +721,7 @@ JS;
     }
 
     /**
-     * Assert that the element matching the given selector is not present.
+     * Assert that the element matching the given selector is not present in the source.
      *
      * @param  string  $selector
      * @return $this
