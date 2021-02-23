@@ -669,6 +669,37 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_not_present()
+    {
+        $driver = m::mock(stdClass::class);
+        $element = m::mock(stdClass::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('find')->with('foo')->andReturn(
+            null,
+            null
+        );
+        $resolver->shouldReceive('format')->with('bar')->andReturn('body bar');
+        $resolver->shouldReceive('find')->with('bar')->andReturn(
+            $element,
+            null
+        );
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertNotPresent('foo');
+
+        try {
+            $browser->assertNotPresent('bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Element [body bar] is present.',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_missing_and_element_is_displayed()
     {
         $driver = m::mock(stdClass::class);
