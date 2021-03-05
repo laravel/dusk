@@ -721,6 +721,24 @@ JS;
     }
 
     /**
+     * Assert that the element matching the given selector is not present in the source.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function assertNotPresent($selector)
+    {
+        $fullSelector = $this->resolver->format($selector);
+
+        PHPUnit::assertTrue(
+            is_null($this->resolver->find($selector)),
+            "Element [{$fullSelector}] is present."
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the element matching the given selector is not visible.
      *
      * @param  string  $selector

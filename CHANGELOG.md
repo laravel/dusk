@@ -1,6 +1,19 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.11.3...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.13.0...master)
+
+
+## [v6.13.0 (2021-02-23)](https://github.com/laravel/dusk/compare/v6.12.0...v6.13.0)
+
+### Added
+- Add `assertNotPresent()` assertion ([#879](https://github.com/laravel/dusk/pull/879))
+
+
+## [v6.12.0 (2021-02-16)](https://github.com/laravel/dusk/compare/v6.11.3...v6.12.0)
+
+### Added
+- Add Dusk command argument --browse ([#870](https://github.com/laravel/dusk/pull/870))
+- Add support for Mac ARM64 architecture ([#876](https://github.com/laravel/dusk/pull/876))
 
 
 ## [v6.11.3 (2021-02-09)](https://github.com/laravel/dusk/compare/v6.11.2...v6.11.3)
