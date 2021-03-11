@@ -34,7 +34,7 @@ jobs:
           - php: 8.0
             phpunit: ^8.4
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - U${{ matrix.phpunit }}
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - PHPUnit ${{ matrix.phpunit }}
 
     steps:
       - name: Checkout code
