@@ -184,8 +184,8 @@ class DuskCommand extends Command
         }
 
         $files = Finder::create()->files()
-            ->in($path)
-            ->name($patterns);
+                       ->in($path)
+                       ->name($patterns);
 
         foreach ($files as $file) {
             @unlink($file->getRealPath());
