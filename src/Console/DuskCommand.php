@@ -141,19 +141,9 @@ class DuskCommand extends Command
      */
     protected function purgeScreenshots()
     {
-        $path = base_path('tests/Browser/screenshots');
-
-        if (! is_dir($path)) {
-            return;
-        }
-
-        $files = Finder::create()->files()
-                        ->in($path)
-                        ->name('failure-*');
-
-        foreach ($files as $file) {
-            @unlink($file->getRealPath());
-        }
+        $this->purgeDebuggingFiles(
+            base_path('tests/Browser/screenshots'), 'failure-*'
+        );
     }
 
     /**
@@ -163,19 +153,9 @@ class DuskCommand extends Command
      */
     protected function purgeConsoleLogs()
     {
-        $path = base_path('tests/Browser/console');
-
-        if (! is_dir($path)) {
-            return;
-        }
-
-        $files = Finder::create()->files()
-            ->in($path)
-            ->name('*.log');
-
-        foreach ($files as $file) {
-            @unlink($file->getRealPath());
-        }
+        $this->purgeDebuggingFiles(
+            base_path('tests/Browser/console'), '*.log'
+        );
     }
 
     /**
@@ -185,15 +165,27 @@ class DuskCommand extends Command
      */
     protected function purgeSourceLogs()
     {
-        $path = base_path('tests/Browser/source');
+        $this->purgeDebuggingFiles(
+            base_path('tests/Browser/source'), '*.txt'
+        );
+    }
 
+    /**
+     * Purge debugging files based on path and patterns.
+     *
+     * @param  string  $path
+     * @param  string  $patterns
+     * @return void
+     */
+    protected function purgeDebuggingFiles($path, $patterns)
+    {
         if (! is_dir($path)) {
             return;
         }
 
         $files = Finder::create()->files()
                        ->in($path)
-                       ->name('*.txt');
+                       ->name($patterns);
 
         foreach ($files as $file) {
             @unlink($file->getRealPath());
