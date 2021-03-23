@@ -1,6 +1,16 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.13.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.14.0...6.x)
+
+
+## [v6.14.0 (2021-03-23)](https://github.com/laravel/dusk/compare/v6.13.0...v6.14.0)
+
+### Added
+- Add purge console command ([#887](https://github.com/laravel/dusk/pull/887))
+
+### Changed
+- Move commands to boot method ([#884](https://github.com/laravel/dusk/pull/884))
+- Refactor redundant purging methods ([#886](https://github.com/laravel/dusk/pull/886))
 
 
 ## [v6.13.0 (2021-02-23)](https://github.com/laravel/dusk/compare/v6.12.0...v6.13.0)
