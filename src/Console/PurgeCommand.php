@@ -42,9 +42,7 @@ class PurgeCommand extends Command
     public function handle()
     {
         $this->purgeScreenshots();
-
         $this->purgeConsoleLogs();
-
         $this->purgeSourceLogs();
     }
 
@@ -97,7 +95,7 @@ class PurgeCommand extends Command
 
         if (! is_dir($path)) {
             $this->warn(
-                "Purge skipped the directory that does not exist at [{$relativePath}] path.", OutputInterface::VERBOSITY_DEBUG
+                "Unable to purge missing directory [{$relativePath}].", OutputInterface::VERBOSITY_DEBUG
             );
 
             return;
@@ -111,6 +109,6 @@ class PurgeCommand extends Command
             @unlink($file->getRealPath());
         }
 
-        $this->info("Purged \"{$patterns}\" from [{$relativePath}] path.");
+        $this->info("Purged \"{$patterns}\" from [{$relativePath}].");
     }
 }
