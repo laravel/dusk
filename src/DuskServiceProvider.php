@@ -36,17 +36,7 @@ class DuskServiceProvider extends ServiceProvider
                 ]);
             });
         }
-    }
 
-    /**
-     * Register any package services.
-     *
-     * @return void
-     *
-     * @throws \Exception
-     */
-    public function register()
-    {
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Console\InstallCommand::class,
@@ -54,6 +44,7 @@ class DuskServiceProvider extends ServiceProvider
                 Console\DuskFailsCommand::class,
                 Console\MakeCommand::class,
                 Console\PageCommand::class,
+                Console\PurgeCommand::class,
                 Console\ComponentCommand::class,
                 Console\ChromeDriverCommand::class,
             ]);
