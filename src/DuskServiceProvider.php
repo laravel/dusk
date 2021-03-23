@@ -44,6 +44,7 @@ class DuskServiceProvider extends ServiceProvider
                 Console\DuskFailsCommand::class,
                 Console\MakeCommand::class,
                 Console\PageCommand::class,
+                Console\PurgeCommand::class,
                 Console\ComponentCommand::class,
                 Console\ChromeDriverCommand::class,
             ]);
