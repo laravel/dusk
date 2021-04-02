@@ -18,7 +18,7 @@ class DuskServiceProvider extends ServiceProvider
             Route::group(array_filter([
                 'prefix' => config('dusk.path', '_dusk'),
                 'domain' => config('dusk.domain', null),
-                'middleware' => 'web',
+                'middleware' => config('dusk.middleware', 'web'),
             ]), function () {
                 Route::get('/login/{userId}/{guard?}', [
                     'uses' => 'Laravel\Dusk\Http\Controllers\UserController@login',
