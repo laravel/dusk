@@ -369,7 +369,7 @@ class Browser
         $selector = addslashes($this->resolver->format($selector));
 
         $this->driver->executeScript("window.scrollBy(0, document.querySelector(\"$selector\").getBoundingClientRect().top)");
-        
+
         return $this;
     }
 
