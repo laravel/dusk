@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.14.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.15.0...6.x)
+
+
+## [v6.15.0 (2021-04-06)](https://github.com/laravel/dusk/compare/v6.14.0...v6.15.0)
+
+### Added
+- Added middleware configuration ([#888](https://github.com/laravel/dusk/pull/888))
 
 
 ## [v6.14.0 (2021-03-23)](https://github.com/laravel/dusk/compare/v6.13.0...v6.14.0)
