@@ -160,6 +160,23 @@ trait InteractsWithElements
     }
 
     /**
+     * type the given value in the given field with XPath expression.
+     *
+     * @param  string  $field
+     * @param  string  $value
+     * @return $this
+     */
+    public function typeAtXPath($field, $value)
+    {
+        $this->driver
+            ->findElement(WebDriverBy::xpath($field))
+            ->clear()
+            ->sendKeys($value);
+
+        return $this;
+    }
+
+    /**
      * Type the given value in the given field without clearing it.
      *
      * @param  string  $field
