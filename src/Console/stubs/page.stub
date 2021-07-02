@@ -2,6 +2,7 @@
 
 namespace DummyNamespace;
 
+use Laravel\Dusk\Page;
 use Laravel\Dusk\Browser;
 
 class DummyClass extends Page
