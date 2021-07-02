@@ -219,6 +219,7 @@ trait InteractsWithElements
         $options = $element->findElements(WebDriverBy::cssSelector('option:not([disabled])'));
 
         $select = $element->getTagName() === 'select' ? new WebDriverSelect($element) : null;
+
         $isMultiple = false;
 
         if (! is_null($select)) {
