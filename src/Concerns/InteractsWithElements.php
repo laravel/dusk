@@ -6,6 +6,8 @@ use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\Remote\LocalFileDetector;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverKeys;
+use Facebook\WebDriver\WebDriverSelect;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 trait InteractsWithElements
@@ -207,7 +209,7 @@ trait InteractsWithElements
      * Select the given value or random value of a drop-down field.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|array|null  $value
      * @return $this
      */
     public function select($field, $value = null)
@@ -216,18 +218,34 @@ trait InteractsWithElements
 
         $options = $element->findElements(WebDriverBy::cssSelector('option:not([disabled])'));
 
+        $select = $element->getTagName() === 'select' ? new WebDriverSelect($element) : null;
+
+        $isMultiple = false;
+
+        if (! is_null($select)) {
+            if ($isMultiple = $select->isMultiple()) {
+                $select->deselectAll();
+            }
+        }
+
         if (func_num_args() === 1) {
             $options[array_rand($options)]->click();
         } else {
-            if (is_bool($value)) {
-                $value = $value ? '1' : '0';
-            }
+            $value = collect(Arr::wrap($value))->transform(function ($value) {
+                if (is_bool($value)) {
+                    return $value ? '1' : '0';
+                }
+
+                return (string) $value;
+            })->all();
 
             foreach ($options as $option) {
-                if ((string) $option->getAttribute('value') === (string) $value) {
+                if (in_array((string) $option->getAttribute('value'), $value)) {
                     $option->click();
 
-                    break;
+                    if (! $isMultiple) {
+                        break;
+                    }
                 }
             }
         }
