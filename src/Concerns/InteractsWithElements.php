@@ -232,7 +232,7 @@ trait InteractsWithElements
         } else {
             $value = collect(Arr::wrap($value))->transform(function ($value) {
                 if (is_bool($value)) {
-                    return $value ? '1': '0';
+                    return $value ? '1' : '0';
                 }
 
                 return (string) $value;
