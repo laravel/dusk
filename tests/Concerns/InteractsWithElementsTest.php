@@ -44,7 +44,8 @@ class InteractsWithElementsTest extends TestCase
         $this->resolver = $this->getMockBuilder(ElementResolver::class)->onlyMethods(['findOrFail', 'format'])->disableOriginalConstructor()->getMock();
         $this->driver = $this->getMockBuilder(RemoteWebDriver::class)->onlyMethods(['executeScript'])->disableOriginalConstructor()->getMock();
 
-        $this->trait = new class($this->resolver, $this->driver) {
+        $this->trait = new class($this->resolver, $this->driver)
+        {
             use InteractsWithElements;
 
             /** @var ElementResolver|MockObject */

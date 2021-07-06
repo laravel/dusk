@@ -1,6 +1,21 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.14.0...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.15.1...master)
+
+
+## [v6.15.1 (2021-07-06)](https://github.com/laravel/dusk/compare/v6.15.0...v6.15.1)
+
+### Changed
+- Allow to pass array for select multiple ([#904](https://github.com/laravel/dusk/pull/904))
+
+### Fixed
+- Fix for class imports ([#905](https://github.com/laravel/dusk/pull/905))
+
+
+## [v6.15.0 (2021-04-06)](https://github.com/laravel/dusk/compare/v6.14.0...v6.15.0)
+
+### Added
+- Added middleware configuration ([#888](https://github.com/laravel/dusk/pull/888))
 
 
 ## [v6.14.0 (2021-03-23)](https://github.com/laravel/dusk/compare/v6.13.0...v6.14.0)

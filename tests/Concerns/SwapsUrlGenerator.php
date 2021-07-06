@@ -12,7 +12,8 @@ trait SwapsUrlGenerator
     protected function swapUrlGenerator()
     {
         Container::getInstance()->bind('url', function () {
-            return new class(new RouteCollection(), new Request()) extends UrlGenerator {
+            return new class(new RouteCollection(), new Request()) extends UrlGenerator
+            {
                 public function route($name, $parameters = [], $absolute = true)
                 {
                     $route = '/'.$name.'/'.implode('/', $parameters);
