@@ -19,6 +19,8 @@ jobs:
         exclude:
           - php: 7.3
             phpunit: ^10.0
+          - php: 7.4
+            phpunit: ^10.0
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - PHPUnit ${{ matrix.phpunit }}
 
