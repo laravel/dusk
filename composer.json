@@ -17,9 +17,9 @@
         "nesbot/carbon": "^2.0",
         "illuminate/console": "^8.0|^9.0",
         "illuminate/support": "^8.0|^9.0",
-        "symfony/console": "^5.1.4",
-        "symfony/finder": "^5.1.4",
-        "symfony/process": "^5.1.4",
+        "symfony/console": "^5.1.4|^6.0",
+        "symfony/finder": "^5.1.4|^6.0",
+        "symfony/process": "^5.1.4|^6.0",
         "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {

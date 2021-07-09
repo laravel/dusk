@@ -19,10 +19,10 @@ jobs:
         exclude:
           - php: 7.3
             phpunit: ^10.0
-          - php: 7.3
-            laravel: ^9.0
           - php: 7.4
             phpunit: ^10.0
+          - php: 7.3
+            laravel: ^9.0
           - php: 7.4
             laravel: ^9.0
 
