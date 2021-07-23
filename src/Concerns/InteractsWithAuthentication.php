@@ -63,9 +63,11 @@ trait InteractsWithAuthentication
      */
     public function assertAuthenticated($guard = null)
     {
+        $currentUrl = $this->driver->getCurrentURL();
+
         PHPUnit::assertNotEmpty($this->currentUserInfo($guard), 'The user is not authenticated.');
 
-        return $this;
+        return $this->visit($currentUrl);
     }
 
     /**
@@ -76,11 +78,13 @@ trait InteractsWithAuthentication
      */
     public function assertGuest($guard = null)
     {
+        $currentUrl = $this->driver->getCurrentURL();
+
         PHPUnit::assertEmpty(
             $this->currentUserInfo($guard), 'The user is unexpectedly authenticated.'
         );
 
-        return $this;
+        return $this->visit($currentUrl);
     }
 
     /**
@@ -92,6 +96,8 @@ trait InteractsWithAuthentication
      */
     public function assertAuthenticatedAs($user, $guard = null)
     {
+        $currentUrl = $this->driver->getCurrentURL();
+
         $expected = [
             'id' => $user->getAuthIdentifier(),
             'className' => get_class($user),
@@ -102,7 +108,7 @@ trait InteractsWithAuthentication
             'The currently authenticated user is not who was expected.'
         );
 
-        return $this;
+        return $this->visit($currentUrl);
     }
 
     /**
