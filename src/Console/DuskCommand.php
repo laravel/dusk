@@ -20,7 +20,7 @@ class DuskCommand extends Command
     protected $signature = 'dusk
                 {--browse : Open a browser instead of using headless mode}
                 {--without-tty : Disable output to TTY}
-                {--pest : Run the Dusk tests for the application with Pest}';
+                {--pest : Run the Dusk tests using Pest}';
 
     /**
      * The console command description.
