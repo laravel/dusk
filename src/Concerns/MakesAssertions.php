@@ -417,6 +417,36 @@ JS;
     }
 
     /**
+     * Assert that the given input field is present.
+     *
+     * @param  string  $field
+     * @return $this
+     */
+    public function assertInputPresent($field)
+    {
+        $this->assertPresent(
+            "input[name='{$field}'], textarea[name='{$field}'], select[name='{$field}']"
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given input field is not visible.
+     *
+     * @param  string  $field
+     * @return $this
+     */
+    public function assertInputMissing($field)
+    {
+        $this->assertMissing(
+            "input[name='{$field}'], textarea[name='{$field}'], select[name='{$field}']"
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the given checkbox is checked.
      *
      * @param  string  $field
