@@ -1,6 +1,16 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.15.1...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.16.0...master)
+
+
+## [v6.16.0 (2021-08-03)](https://github.com/laravel/dusk/compare/v6.15.1...v6.16.0)
+
+### Added
+- Make DuskCommand compatible with Pest ([#913](https://github.com/laravel/dusk/pull/913))
+
+### Fixed
+- Fix unicode support in appendSlowly method ([#907](https://github.com/laravel/dusk/pull/907))
+- Redirect page to previous URL after asserting authentication ([#912](https://github.com/laravel/dusk/pull/912))
 
 
 ## [v6.15.1 (2021-07-06)](https://github.com/laravel/dusk/compare/v6.15.0...v6.15.1)

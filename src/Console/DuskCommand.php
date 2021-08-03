@@ -19,7 +19,8 @@ class DuskCommand extends Command
      */
     protected $signature = 'dusk
                 {--browse : Open a browser instead of using headless mode}
-                {--without-tty : Disable output to TTY}';
+                {--without-tty : Disable output to TTY}
+                {--pest : Run the tests using Pest}';
 
     /**
      * The console command description.
@@ -96,15 +97,17 @@ class DuskCommand extends Command
      */
     protected function binary()
     {
-        $command = class_exists(\Pest\Laravel\PestServiceProvider::class)
-            ? 'vendor/pestphp/pest/bin/pest'
-            : 'vendor/phpunit/phpunit/phpunit';
+        $binaryPath = 'vendor/phpunit/phpunit/phpunit';
 
-        if ('phpdbg' === PHP_SAPI) {
-            return [PHP_BINARY, '-qrr', $command];
+        if ($this->option('pest')) {
+            $binaryPath = 'vendor/pestphp/pest/bin/pest';
         }
 
-        return [PHP_BINARY, $command];
+        if ('phpdbg' === PHP_SAPI) {
+            return [PHP_BINARY, '-qrr', $binaryPath];
+        }
+
+        return [PHP_BINARY, $binaryPath];
     }
 
     /**
@@ -116,7 +119,7 @@ class DuskCommand extends Command
     protected function phpunitArguments($options)
     {
         $options = array_values(array_filter($options, function ($option) {
-            return ! Str::startsWith($option, '--env=');
+            return ! Str::startsWith($option, ['--env=', '--pest']);
         }));
 
         if (! file_exists($file = base_path('phpunit.dusk.xml'))) {
