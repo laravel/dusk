@@ -83,6 +83,24 @@ class WaitsForElementsTest extends TestCase
         $browser->waitForLocation('/home');
     }
 
+    public function test_can_wait_for_a_url_location()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->with('return `${location.protocol}//${location.host}${location.pathname}` == \'http://example.com/home\';')->andReturnTrue();
+        $browser = new Browser($driver);
+
+        $browser->waitForLocation('http://example.com/home');
+    }
+
+    public function test_can_wait_for_a_ssl_url_location()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->with('return `${location.protocol}//${location.host}${location.pathname}` == \'https://example.com/home\';')->andReturnTrue();
+        $browser = new Browser($driver);
+
+        $browser->waitForLocation('https://example.com/home');
+    }
+
     public function test_can_wait_for_route()
     {
         $this->swapUrlGenerator();
