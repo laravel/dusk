@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.17.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.17.1...6.x)
+
+
+## [v6.17.1 (2021-08-17)](https://github.com/laravel/dusk/compare/v6.17.0...v6.17.1)
+
+### Changed
+- Support waiting for URLs with `waitForLocation` ([#916](https://github.com/laravel/dusk/pull/916))
 
 
 ## [v6.17.0 (2021-08-10)](https://github.com/laravel/dusk/compare/v6.16.0...v6.17.0)
