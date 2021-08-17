@@ -1,6 +1,21 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.16.0...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.17.1...master)
+
+
+## [v6.17.1 (2021-08-17)](https://github.com/laravel/dusk/compare/v6.17.0...v6.17.1)
+
+### Changed
+- Support waiting for URLs with `waitForLocation` ([#916](https://github.com/laravel/dusk/pull/916))
+
+
+## [v6.17.0 (2021-08-10)](https://github.com/laravel/dusk/compare/v6.16.0...v6.17.0)
+
+### Added
+- Add `assertInputPresent` and `assertInputMissing` assertions ([#914](https://github.com/laravel/dusk/pull/914))
+
+### Changed
+- Add source directory creation on install ([#915](https://github.com/laravel/dusk/pull/915))
 
 
 ## [v6.16.0 (2021-08-03)](https://github.com/laravel/dusk/compare/v6.15.1...v6.16.0)
