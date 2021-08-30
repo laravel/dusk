@@ -181,6 +181,42 @@ trait WaitsForElements
     }
 
     /**
+     * Wait until an element is enabled.
+     *
+     * @param  string  $selector
+     * @param  int|null  $seconds
+     * @return $this
+     */
+    public function waitUntilEnabled($selector, $seconds = null)
+    {
+        $message = $this->formatTimeOutMessage('Waited %s seconds for element to be enabled', $selector);
+
+        $this->waitUsing($seconds, 100, function () use ($selector) {
+            return $this->resolver->findOrFail($selector)->isEnabled();
+        }, $message);
+
+        return $this;
+    }
+
+    /**
+     * Wait until an element is disabled.
+     *
+     * @param  string  $selector
+     * @param  int|null  $seconds
+     * @return $this
+     */
+    public function waitUntilDisabled($selector, $seconds = null)
+    {
+        $message = $this->formatTimeOutMessage('Waited %s seconds for element to be disabled', $selector);
+
+        $this->waitUsing($seconds, 100, function () use ($selector) {
+            return ! $this->resolver->findOrFail($selector)->isEnabled();
+        }, $message);
+
+        return $this;
+    }
+
+    /**
      * Wait until the given script returns true.
      *
      * @param  string  $script

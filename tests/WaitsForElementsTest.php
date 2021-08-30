@@ -151,4 +151,26 @@ class WaitsForElementsTest extends TestCase
             $this->assertSame('Waited 1 seconds for text [Discount: 20%].', $e->getMessage());
         }
     }
+
+    public function test_wait_for_an_element_to_be_enabled()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isEnabled')->andReturn(true);
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('findOrFail')->with('#button')->andReturn($element);
+        $browser = new Browser(new stdClass, $resolver);
+
+        $browser->waitUntilEnabled('#button', 1);
+    }
+
+    public function test_wait_for_an_element_to_be_disabled()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isEnabled')->andReturn(false);
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('findOrFail')->with('#button')->andReturn($element);
+        $browser = new Browser(new stdClass, $resolver);
+
+        $browser->waitUntilDisabled('#button', 1);
+    }
 }
