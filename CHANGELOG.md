@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.17.1...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.18.0...master)
+
+
+## [v6.18.0 (2021-08-31)](https://github.com/laravel/dusk/compare/v6.17.1...v6.18.0)
+
+### Added
+- Add waitUntilEnabled and waitUntilDisabled ([#918](https://github.com/laravel/dusk/pull/918))
 
 
 ## [v6.17.1 (2021-08-17)](https://github.com/laravel/dusk/compare/v6.17.0...v6.17.1)
