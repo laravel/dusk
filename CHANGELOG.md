@@ -1,6 +1,15 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.18.0...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.18.1...master)
+
+
+## [v6.18.1 (2021-09-07)](https://github.com/laravel/dusk/compare/v6.18.0...v6.18.1)
+
+### Updated
+- Using `loginAs` with id ([#922](https://github.com/laravel/dusk/pull/922)
+
+### Fixed
+- Fix "pest" option does not exist on `dusk:fails` command ([#921](https://github.com/laravel/dusk/pull/921))
 
 
 ## [v6.18.0 (2021-08-31)](https://github.com/laravel/dusk/compare/v6.17.1...v6.18.0)

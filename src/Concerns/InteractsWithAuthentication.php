@@ -26,7 +26,7 @@ trait InteractsWithAuthentication
      */
     public function loginAs($userId, $guard = null)
     {
-        $userId = method_exists($userId, 'getKey') ? $userId->getKey() : $userId;
+        $userId = is_object($userId) && method_exists($userId, 'getKey') ? $userId->getKey() : $userId;
 
         return $this->visit(rtrim(route('dusk.login', ['userId' => $userId, 'guard' => $guard], $this->shouldUseAbsoluteRouteForAuthentication())));
     }
