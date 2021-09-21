@@ -2,8 +2,6 @@
 
 namespace Laravel\Dusk;
 
-use Laravel\Dusk\Browser;
-
 abstract class Page
 {
     /**
