@@ -679,7 +679,7 @@ JS;
             "Did not see expected attribute [{$attribute}] within element [{$fullSelector}]."
         );
 
-        PHPUnit::assertEquals(
+        PHPUnit::assertStringContainsString(
             $value,
             $actual,
             "Expected '$attribute' attribute [{$value}] does not equal actual value [$actual]."
