@@ -137,7 +137,7 @@ class ElementResolver
      * Resolve the element for a given radio "field" / value.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      *
      * @throws \Exception
@@ -164,7 +164,7 @@ class ElementResolver
      * Resolve the element for a given checkbox "field".
      *
      * @param  string|null  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      *
      * @throws \Exception

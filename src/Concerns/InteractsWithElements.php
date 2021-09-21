@@ -271,7 +271,7 @@ trait InteractsWithElements
      * Check the given checkbox.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return $this
      */
     public function check($field, $value = null)
@@ -289,7 +289,7 @@ trait InteractsWithElements
      * Uncheck the given checkbox.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return $this
      */
     public function uncheck($field, $value = null)

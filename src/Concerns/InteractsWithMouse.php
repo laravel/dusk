@@ -72,7 +72,7 @@ trait InteractsWithMouse
     /**
      * Click the element at the given XPath expression.
      *
-     * @param  string  $selector
+     * @param  string  $expression
      * @return $this
      */
     public function clickAtXPath($expression)
