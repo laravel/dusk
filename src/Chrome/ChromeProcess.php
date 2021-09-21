@@ -18,7 +18,7 @@ class ChromeProcess
     /**
      * Create a new ChromeProcess instance.
      *
-     * @param  string  $driver
+     * @param  string|null  $driver
      * @return void
      *
      * @throws \RuntimeException

@@ -450,7 +450,7 @@ JS;
      * Assert that the given checkbox is checked.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return $this
      */
     public function assertChecked($field, $value = null)
@@ -469,7 +469,7 @@ JS;
      * Assert that the given checkbox is not checked.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return $this
      */
     public function assertNotChecked($field, $value = null)
@@ -507,7 +507,7 @@ JS;
      * Assert that the given radio field is not selected.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return $this
      */
     public function assertRadioNotSelected($field, $value = null)

@@ -222,7 +222,7 @@ trait MakesUrlAssertions
      * Assert that the given query string parameter is present and has a given value.
      *
      * @param  string  $name
-     * @param  string  $value
+     * @param  string|null  $value
      * @return $this
      */
     public function assertQueryStringHas($name, $value = null)
