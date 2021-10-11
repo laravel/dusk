@@ -523,6 +523,46 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_attribute_contains()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getAttribute')->with('bar')->andReturn(
+            'class-a class-b',
+            null,
+            'class-1 class-2'
+        );
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertAttributeContains('foo', 'bar', 'class-b');
+
+        try {
+            $browser->assertAttributeContains('foo', 'bar', 'class-b');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected attribute [bar] within element [Foo].',
+                $e->getMessage()
+            );
+        }
+
+        try {
+            $browser->assertAttributeContains('foo', 'bar', 'class-b');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                "does not contain",
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_data_attribute()
     {
         $driver = m::mock(stdClass::class);
