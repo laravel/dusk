@@ -29,7 +29,7 @@ trait WaitsForElements
     }
 
     /**
-     * Wait for the given selector to be visible.
+     * Wait for the given selector to become visible.
      *
      * @param  string  $selector
      * @param  int|null  $seconds
@@ -91,7 +91,7 @@ trait WaitsForElements
     }
 
     /**
-     * Wait for the given text to be visible.
+     * Wait for the given text to become visible.
      *
      * @param  array|string  $text
      * @param  int|null  $seconds
@@ -111,7 +111,7 @@ trait WaitsForElements
     }
 
     /**
-     * Wait for the given text to be visible inside the given selector.
+     * Wait for the given text to become visible inside the given selector.
      *
      * @param  string  $selector
      * @param  array|string  $text
@@ -130,7 +130,7 @@ trait WaitsForElements
     }
 
     /**
-     * Wait for the given link to be visible.
+     * Wait for the given link to become visible.
      *
      * @param  string  $link
      * @param  int|null  $seconds
