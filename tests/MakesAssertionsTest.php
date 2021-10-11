@@ -557,7 +557,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
-                "Expected 'bar' attribute [class-b] is not part of the value [class-1 class-2].",
+                "does not contain",
                 $e->getMessage()
             );
         }

@@ -680,7 +680,7 @@ JS;
         PHPUnit::assertStringContainsString(
             $value,
             $actual,
-            "Expected '$attribute' attribute [{$value}] is not part of the value [$actual]."
+            "Attribute '$attribute' does not contain [{$value}]. Full attribute value was [$actual]."
         );
 
         return $this;
