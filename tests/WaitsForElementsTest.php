@@ -18,6 +18,34 @@ class WaitsForElementsTest extends TestCase
         m::close();
     }
 
+    public function test_when_available()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('bar');
+        $element->shouldReceive('isDisplayed')->andReturn(true);
+
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('findElement')->once()->andReturn($element);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->whenAvailable('foo', function ($foo) {
+            $foo->assertSee('bar');
+        });
+
+        try {
+            $browser->whenAvailable('bar', function ($bar) {
+                // Callback not fired as selector not found
+            });
+        } catch (TimeOutException $e) {
+            $this->assertSame('Waited 5 seconds for selector [bar].', $e->getMessage());
+        }
+    }
+
     public function test_default_wait_time()
     {
         Browser::$waitSeconds = 2;
