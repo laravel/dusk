@@ -47,6 +47,39 @@ trait WaitsForElements
     }
 
     /**
+     * Execute the given callback in a scoped browser if the selector becomes available.
+     *
+     * @param  string  $selector
+     * @param  \Closure  $callback
+     * @param  int|null  $seconds
+     * @return $this
+     */
+    public function ifAvailable($selector, Closure $callback, $seconds = null)
+    {
+        return $this->waitForOrContinue($selector, $seconds)->withOrContinue($selector, $callback);
+    }
+
+    /**
+     * Wait for the given selector to become visible or continue if it is not found.
+     *
+     * @param  string  $selector
+     * @param  int|null  $seconds
+     * @return $this
+     */
+    public function waitForOrContinue($selector, $seconds = null)
+    {
+        return $this->waitUsing($seconds, 100, function () use ($selector) {
+            $element = $this->resolver->find($selector);
+
+            if (is_null($element) || $element->isDisplayed()) {
+                return true;
+            }
+
+            return false;
+        });
+    }
+
+    /**
      * Wait for the given selector to be removed.
      *
      * @param  string  $selector

@@ -493,6 +493,24 @@ class Browser
     }
 
     /**
+     * Execute a Closure with a scoped browser instance if the selector is found.
+     *
+     * @param  string  $selector
+     * @param  \Closure  $callback
+     * @return $this
+     */
+    public function withOrContinue($selector, Closure $callback)
+    {
+        $element = $this->resolver->find($selector);
+
+        if (is_null($element)) {
+            return $this;
+        }
+
+        return $this->with($selector, $callback);
+    }
+
+    /**
      * Execute a Closure outside of the current browser scope.
      *
      * @param  string|\Laravel\Dusk\Component  $selector

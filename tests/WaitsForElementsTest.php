@@ -46,6 +46,29 @@ class WaitsForElementsTest extends TestCase
         }
     }
 
+    public function test_if_available()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('bar');
+        $element->shouldReceive('isDisplayed')->andReturn(true);
+
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('findElement')->once()->andReturn($element);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('find')->with('foo')->andReturn(null);
+        $resolver->shouldReceive('format')->with('bar')->andReturn('body bar');
+        $resolver->shouldReceive('find')->with('bar')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->ifAvailable('foo', function ($foo) {
+            // Callback not fired as selector not found
+        })->ifAvailable('bar', function ($bar) {
+            $bar->assertSee('bar');
+        });
+    }
+
     public function test_default_wait_time()
     {
         Browser::$waitSeconds = 2;
