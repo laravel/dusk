@@ -557,7 +557,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
-                "does not contain",
+                'does not contain',
                 $e->getMessage()
             );
         }
