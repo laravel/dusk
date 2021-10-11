@@ -661,6 +661,28 @@ JS;
     }
 
     /**
+     * Assert that the element matching the given selector does not have the given value.
+     *
+     * @param  string  $selector
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertValueIsNot($selector, $value)
+    {
+        $fullSelector = $this->resolver->format($selector);
+
+        $actual = $this->resolver->findOrFail($selector)->getAttribute('value');
+
+        PHPUnit::assertNotEquals(
+            $value,
+            $actual,
+            "Saw unexpected value [{$value}] within element [{$fullSelector}]."
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the element matching the given selector has the given value in the provided attribute.
      *
      * @param  string  $selector

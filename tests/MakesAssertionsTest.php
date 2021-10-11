@@ -462,8 +462,7 @@ class MakesAssertionsTest extends TestCase
         $driver = m::mock(stdClass::class);
 
         $element = m::mock(RemoteWebElement::class);
-        $element->shouldReceive('getAttribute')
-            ->andReturn('bar');
+        $element->shouldReceive('getAttribute')->andReturn('bar');
 
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
@@ -478,6 +477,31 @@ class MakesAssertionsTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
                 'Did not see expected value [foo] within element [body foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_value_is_not()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('getAttribute')->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertValueIsNot('foo', 'foo');
+
+        try {
+            $browser->assertValueIsNot('foo', 'bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Saw unexpected value [bar] within element [body foo].',
                 $e->getMessage()
             );
         }
