@@ -417,6 +417,32 @@ JS;
     }
 
     /**
+     * Get the value of the given selector.
+     *
+     * @param  string  $selector
+     * @return string
+     */
+    public function elementValue($selector)
+    {
+        $element = $this->resolver->findOrFail($selector);
+
+        $elementsSupportingTheValueAttribute = [
+            'button',
+            'input',
+            'li',
+            'meter',
+            'option',
+            'param',
+            'progress',
+            'textarea',
+        ];
+
+        return in_array($element->getTagName(), $elementsSupportingTheValueAttribute)
+                        ? $element->getAttribute('value')
+                        : $element->getText();
+    }
+
+    /**
      * Assert that the given input field is present.
      *
      * @param  string  $field
@@ -649,11 +675,9 @@ JS;
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $actual = $this->resolver->findOrFail($selector)->getAttribute('value');
-
         PHPUnit::assertEquals(
             $value,
-            $actual,
+            $this->elementValue($selector),
             "Did not see expected value [{$value}] within element [{$fullSelector}]."
         );
 
@@ -671,11 +695,9 @@ JS;
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $actual = $this->resolver->findOrFail($selector)->getAttribute('value');
-
         PHPUnit::assertNotEquals(
             $value,
-            $actual,
+            $this->elementValue($selector),
             "Saw unexpected value [{$value}] within element [{$fullSelector}]."
         );
 
