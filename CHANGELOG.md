@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.18.1...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.19.0...6.x)
+
+
+## [v6.19.0 (2021-10-12)](https://github.com/laravel/dusk/compare/v6.18.1...v6.19.0)
+
+### Added
+- Add new assertion assertValueIsNot() ([#929](https://github.com/laravel/dusk/pull/929))
 
 
 ## [v6.18.1 (2021-09-07)](https://github.com/laravel/dusk/compare/v6.18.0...v6.18.1)
