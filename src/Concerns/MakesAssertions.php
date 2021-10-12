@@ -649,7 +649,15 @@ JS;
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $actual = $this->resolver->findOrFail($selector)->getAttribute('value');
+        $element = $this->resolver->findOrFail($selector);
+        $tagName = $element->getTagName();
+
+        PHPUnit::assertTrue(
+            $tagName === 'textarea' || $this->supportsTheValueAttribute($tagName),
+            __FUNCTION__." cannot be used with the element [{$fullSelector}]."
+        );
+
+        $actual = $element->getAttribute('value');
 
         PHPUnit::assertEquals(
             $value,
@@ -671,7 +679,15 @@ JS;
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $actual = $this->resolver->findOrFail($selector)->getAttribute('value');
+        $element = $this->resolver->findOrFail($selector);
+        $tagName = $element->getTagName();
+
+        PHPUnit::assertTrue(
+            $tagName === 'textarea' || $this->supportsTheValueAttribute($tagName),
+            __FUNCTION__." cannot be used with the element [{$fullSelector}]."
+        );
+
+        $actual = $element->getAttribute('value');
 
         PHPUnit::assertNotEquals(
             $value,
@@ -680,6 +696,28 @@ JS;
         );
 
         return $this;
+    }
+
+    /**
+     * Determine if the given element supports the 'value' attribute.
+     *
+     * @param  string  $tagName
+     * @return bool
+     */
+    public function supportsTheValueAttribute($tagName)
+    {
+        return in_array(
+            $tagName,
+            [
+                'button',
+                'input',
+                'li',
+                'meter',
+                'option',
+                'param',
+                'progress',
+            ]
+        );
     }
 
     /**
