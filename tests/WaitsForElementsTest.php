@@ -290,4 +290,16 @@ JS;
 
         $browser->waitForDialog();
     }
+
+    public function test_wait_for_reload()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')
+            ->times(2)
+            ->andReturnTrue();
+
+        $browser = new Browser($driver);
+
+        $browser->waitForReload();
+    }
 }
