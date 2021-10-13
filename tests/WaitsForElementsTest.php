@@ -164,6 +164,21 @@ class WaitsForElementsTest extends TestCase
         $browser->waitUntilMissingText('Discount: 20%');
     }
 
+    public function test_wait_until_missing()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isDisplayed')
+            ->times(2)
+            ->andReturn(true, false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser(stdClass::class, $resolver);
+
+        $browser->waitUntilMissing('foo');
+    }
+
     public function test_wait_for_text_failure_message_containing_a_percent_character()
     {
         $element = m::mock(stdClass::class);
