@@ -649,7 +649,12 @@ JS;
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $actual = $this->resolver->findOrFail($selector)->getAttribute('value');
+        $this->ensureElementSupportsValueAttribute(
+            $element = $this->resolver->findOrFail($selector),
+            $fullSelector
+        );
+
+        $actual = $element->getAttribute('value');
 
         PHPUnit::assertEquals(
             $value,
@@ -671,7 +676,12 @@ JS;
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $actual = $this->resolver->findOrFail($selector)->getAttribute('value');
+        $this->ensureElementSupportsValueAttribute(
+            $element = $this->resolver->findOrFail($selector),
+            $fullSelector
+        );
+
+        $actual = $element->getAttribute('value');
 
         PHPUnit::assertNotEquals(
             $value,
@@ -680,6 +690,28 @@ JS;
         );
 
         return $this;
+    }
+
+    /**
+     * Ensure the given element supports the 'value' attribute.
+     *
+     * @param  mixed  $element
+     * @param  string  $fullSelector
+     * @return void
+     */
+    public function ensureElementSupportsValueAttribute($element, $fullSelector)
+    {
+        $tagName = $element->getTagName();
+
+        PHPUnit::assertTrue($tagName === 'textarea' || in_array($tagName, [
+            'button',
+            'input',
+            'li',
+            'meter',
+            'option',
+            'param',
+            'progress',
+        ]), "This assertion cannot be used with the element [{$fullSelector}].");
     }
 
     /**
