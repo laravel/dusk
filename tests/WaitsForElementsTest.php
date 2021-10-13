@@ -253,4 +253,30 @@ JS;
 
         $browser->waitForLink($link);
     }
+
+    public function test_wait_until_vue()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->waitUntilVue('foo', 'bar', 'foo');
+    }
+
+    public function test_wait_until_vue_is_not()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->waitUntilVueIsNot('foo', 'foo', 'foo');
+    }
 }
