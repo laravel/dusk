@@ -526,7 +526,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertValue('foo', 'bar');
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
-                'assertValue cannot be used with the element [body foo].',
+                'This assertion cannot be used with the element [body foo].',
                 $e->getMessage()
             );
         }
@@ -549,7 +549,7 @@ class MakesAssertionsTest extends TestCase
             $browser->assertValueIsNot('foo', 'foo');
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
-                'assertValueIsNot cannot be used with the element [body foo].',
+                'This assertion cannot be used with the element [body foo].',
                 $e->getMessage()
             );
         }

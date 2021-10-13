@@ -649,12 +649,9 @@ JS;
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $element = $this->resolver->findOrFail($selector);
-        $tagName = $element->getTagName();
-
-        PHPUnit::assertTrue(
-            $tagName === 'textarea' || $this->supportsTheValueAttribute($tagName),
-            __FUNCTION__." cannot be used with the element [{$fullSelector}]."
+        $this->ensureElementSupportsValueAttribute(
+            $element = $this->resolver->findOrFail($selector),
+            $fullSelector
         );
 
         $actual = $element->getAttribute('value');
@@ -679,12 +676,9 @@ JS;
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $element = $this->resolver->findOrFail($selector);
-        $tagName = $element->getTagName();
-
-        PHPUnit::assertTrue(
-            $tagName === 'textarea' || $this->supportsTheValueAttribute($tagName),
-            __FUNCTION__." cannot be used with the element [{$fullSelector}]."
+        $this->ensureElementSupportsValueAttribute(
+            $element = $this->resolver->findOrFail($selector),
+            $fullSelector
         );
 
         $actual = $element->getAttribute('value');
@@ -699,25 +693,25 @@ JS;
     }
 
     /**
-     * Determine if the given element supports the 'value' attribute.
+     * Ensure the given element supports the 'value' attribute.
      *
-     * @param  string  $tagName
-     * @return bool
+     * @param  mixed  $element
+     * @param  string  $fullSelector
+     * @return void
      */
-    public function supportsTheValueAttribute($tagName)
+    public function ensureElementSupportsValueAttribute($element, $fullSelector)
     {
-        return in_array(
-            $tagName,
-            [
-                'button',
-                'input',
-                'li',
-                'meter',
-                'option',
-                'param',
-                'progress',
-            ]
-        );
+        $tagName = $element->getTagName();
+
+        PHPUnit::assertTrue($tagName === 'textarea' || in_array($tagName, [
+            'button',
+            'input',
+            'li',
+            'meter',
+            'option',
+            'param',
+            'progress',
+        ]), "This assertion cannot be used with the element [{$fullSelector}].");
     }
 
     /**
