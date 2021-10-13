@@ -230,4 +230,27 @@ class WaitsForElementsTest extends TestCase
 
         $browser->waitForTextIn('foo', 'Discount: 20%');
     }
+
+    public function test_wait_for_link()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')
+            ->times(2)
+            ->andReturnTrue();
+
+        $link = 'https://laravel.com/docs/8.x/dusk';
+
+        $script = <<<JS
+            var link = jQuery.find("body a:contains(\'{$link}\')");
+            return link.length > 0 && jQuery(link).is(':visible');
+JS;
+
+        $driver->shouldReceive('executeScript')
+            ->with($script)
+            ->andReturnTrue();
+
+        $browser = new Browser($driver);
+
+        $browser->waitForLink($link);
+    }
 }
