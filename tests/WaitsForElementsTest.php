@@ -216,4 +216,18 @@ class WaitsForElementsTest extends TestCase
 
         $browser->waitUntilDisabled('#button', 1);
     }
+
+    public function test_wait_for_text_in()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('Discount: 20%');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser(stdClass::class, $resolver);
+
+        $browser->waitForTextIn('foo', 'Discount: 20%');
+    }
 }
