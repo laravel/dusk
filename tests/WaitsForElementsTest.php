@@ -279,4 +279,15 @@ JS;
 
         $browser->waitUntilVueIsNot('foo', 'foo', 'foo');
     }
+
+    public function test_wait_for_dialog()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('wait')->andReturn($driver);
+        $driver->shouldReceive('until')->andReturnTrue();
+
+        $browser = new Browser($driver);
+
+        $browser->waitForDialog();
+    }
 }
