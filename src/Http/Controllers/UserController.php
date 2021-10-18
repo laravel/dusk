@@ -56,9 +56,11 @@ class UserController
      */
     public function logout($guard = null)
     {
-        Auth::guard($guard ?: config('auth.defaults.guard'))->logout();
+        $guard = $guard ?: config('auth.defaults.guard');
 
-        Session::forget('password_hash_'.$guard ?: config('auth.defaults.guard'));
+        Auth::guard($guard)->logout();
+
+        Session::forget('password_hash_'.$guard);
     }
 
     /**
