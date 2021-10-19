@@ -18,6 +18,34 @@ class WaitsForElementsTest extends TestCase
         m::close();
     }
 
+    public function test_when_available()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('bar');
+        $element->shouldReceive('isDisplayed')->andReturnTrue();
+
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('findElement')->andReturn($element);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->whenAvailable('foo', function ($foo) {
+            $foo->assertSee('bar');
+        });
+
+        try {
+            $browser->whenAvailable('bar', function ($bar) {
+                // Callback not fired as selector not found
+            });
+        } catch (TimeOutException $e) {
+            $this->assertSame('Waited 5 seconds for selector [bar].', $e->getMessage());
+        }
+    }
+
     public function test_default_wait_time()
     {
         Browser::$waitSeconds = 2;
@@ -77,7 +105,10 @@ class WaitsForElementsTest extends TestCase
     public function test_can_wait_for_location()
     {
         $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('executeScript')->with("return window.location.pathname == '/home';")->andReturnTrue();
+        $driver->shouldReceive('executeScript')
+            ->with("return window.location.pathname == '/home';")
+            ->andReturnTrue();
+
         $browser = new Browser($driver);
 
         $browser->waitForLocation('/home');
@@ -86,7 +117,10 @@ class WaitsForElementsTest extends TestCase
     public function test_can_wait_for_a_url_location()
     {
         $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('executeScript')->with('return `${location.protocol}//${location.host}${location.pathname}` == \'http://example.com/home\';')->andReturnTrue();
+        $driver->shouldReceive('executeScript')
+            ->with('return `${location.protocol}//${location.host}${location.pathname}` == \'http://example.com/home\';')
+            ->andReturnTrue();
+
         $browser = new Browser($driver);
 
         $browser->waitForLocation('http://example.com/home');
@@ -95,7 +129,10 @@ class WaitsForElementsTest extends TestCase
     public function test_can_wait_for_a_ssl_url_location()
     {
         $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('executeScript')->with('return `${location.protocol}//${location.host}${location.pathname}` == \'https://example.com/home\';')->andReturnTrue();
+        $driver->shouldReceive('executeScript')
+            ->with('return `${location.protocol}//${location.host}${location.pathname}` == \'https://example.com/home\';')
+            ->andReturnTrue();
+
         $browser = new Browser($driver);
 
         $browser->waitForLocation('https://example.com/home');
@@ -106,7 +143,10 @@ class WaitsForElementsTest extends TestCase
         $this->swapUrlGenerator();
 
         $driver = m::mock(stdClass::class);
-        $driver->shouldReceive('executeScript')->with("return window.location.pathname == '/home/';")->andReturnTrue();
+        $driver->shouldReceive('executeScript')
+            ->with("return window.location.pathname == '/home/';")
+            ->andReturnTrue();
+
         $browser = new Browser($driver);
 
         $browser->waitForRoute('home');
@@ -116,8 +156,10 @@ class WaitsForElementsTest extends TestCase
     {
         $element = m::mock(stdClass::class);
         $element->shouldReceive('getText')->andReturn('Discount: 20%');
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
+
         $browser = new Browser(new stdClass, $resolver);
 
         $browser->waitForText('Discount: 20%');
@@ -129,19 +171,38 @@ class WaitsForElementsTest extends TestCase
         $element->shouldReceive('getText')
             ->times(3)
             ->andReturn('Discount: 20%', 'Discount: 20%', 'SOLD OUT!');
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
+
         $browser = new Browser(new stdClass, $resolver);
 
         $browser->waitUntilMissingText('Discount: 20%');
+    }
+
+    public function test_wait_until_missing()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('isDisplayed')
+            ->times(2)
+            ->andReturn(true, false);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser(stdClass::class, $resolver);
+
+        $browser->waitUntilMissing('foo');
     }
 
     public function test_wait_for_text_failure_message_containing_a_percent_character()
     {
         $element = m::mock(stdClass::class);
         $element->shouldReceive('getText')->andReturn('Discount: None');
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
+
         $browser = new Browser(new stdClass, $resolver);
 
         try {
@@ -155,9 +216,11 @@ class WaitsForElementsTest extends TestCase
     public function test_wait_for_an_element_to_be_enabled()
     {
         $element = m::mock(stdClass::class);
-        $element->shouldReceive('isEnabled')->andReturn(true);
+        $element->shouldReceive('isEnabled')->andReturnTrue();
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('findOrFail')->with('#button')->andReturn($element);
+
         $browser = new Browser(new stdClass, $resolver);
 
         $browser->waitUntilEnabled('#button', 1);
@@ -167,10 +230,98 @@ class WaitsForElementsTest extends TestCase
     {
         $element = m::mock(stdClass::class);
         $element->shouldReceive('isEnabled')->andReturn(false);
+
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('findOrFail')->with('#button')->andReturn($element);
+
         $browser = new Browser(new stdClass, $resolver);
 
         $browser->waitUntilDisabled('#button', 1);
+    }
+
+    public function test_wait_for_text_in()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('Discount: 20%');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser(stdClass::class, $resolver);
+
+        $browser->waitForTextIn('foo', 'Discount: 20%');
+    }
+
+    public function test_wait_for_link()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')
+            ->times(2)
+            ->andReturnTrue();
+
+        $link = 'https://laravel.com/docs/8.x/dusk';
+
+        $script = <<<JS
+            var link = jQuery.find("body a:contains(\'{$link}\')");
+            return link.length > 0 && jQuery(link).is(':visible');
+JS;
+
+        $driver->shouldReceive('executeScript')
+            ->with($script)
+            ->andReturnTrue();
+
+        $browser = new Browser($driver);
+
+        $browser->waitForLink($link);
+    }
+
+    public function test_wait_until_vue()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->waitUntilVue('foo', 'bar', 'foo');
+    }
+
+    public function test_wait_until_vue_is_not()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->waitUntilVueIsNot('foo', 'foo', 'foo');
+    }
+
+    public function test_wait_for_dialog()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('wait')->andReturn($driver);
+        $driver->shouldReceive('until')->andReturnTrue();
+
+        $browser = new Browser($driver);
+
+        $browser->waitForDialog();
+    }
+
+    public function test_wait_for_reload()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')
+            ->times(2)
+            ->andReturnTrue();
+
+        $browser = new Browser($driver);
+
+        $browser->waitForReload();
     }
 }

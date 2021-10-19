@@ -457,13 +457,13 @@ class MakesAssertionsTest extends TestCase
         $browser->assertSelectMissingOption('select[name="users"]', 1);
     }
 
-    public function test_assert_value()
+    public function test_assert_value_using_supported_element()
     {
         $driver = m::mock(stdClass::class);
 
         $element = m::mock(RemoteWebElement::class);
-        $element->shouldReceive('getAttribute')
-            ->andReturn('bar');
+        $element->shouldReceive('getTagName')->andReturn('textarea');
+        $element->shouldReceive('getAttribute')->andReturn('bar');
 
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
@@ -478,6 +478,78 @@ class MakesAssertionsTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
                 'Did not see expected value [foo] within element [body foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_value_is_not_using_supported_element()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('getTagName')->andReturn('meter');
+        $element->shouldReceive('getAttribute')->andReturn('bar');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertValueIsNot('foo', 'foo');
+
+        try {
+            $browser->assertValueIsNot('foo', 'bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Saw unexpected value [bar] within element [body foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_value_using_unsupported_element()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('getTagName')->andReturn('p');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertValue('foo', 'bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'This assertion cannot be used with the element [body foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_value_is_not_using_unsupported_element()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('getTagName')->andReturn('div');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertValueIsNot('foo', 'foo');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'This assertion cannot be used with the element [body foo].',
                 $e->getMessage()
             );
         }
@@ -518,6 +590,46 @@ class MakesAssertionsTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
                 "Expected 'bar' attribute [joe] does not equal actual value [sue].",
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_attribute_contains()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getAttribute')->with('bar')->andReturn(
+            'class-a class-b',
+            null,
+            'class-1 class-2'
+        );
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertAttributeContains('foo', 'bar', 'class-b');
+
+        try {
+            $browser->assertAttributeContains('foo', 'bar', 'class-b');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected attribute [bar] within element [Foo].',
+                $e->getMessage()
+            );
+        }
+
+        try {
+            $browser->assertAttributeContains('foo', 'bar', 'class-b');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                "Attribute 'bar' does not contain [class-b]. Full attribute value was [class-1 class-2].",
                 $e->getMessage()
             );
         }

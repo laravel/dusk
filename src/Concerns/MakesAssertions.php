@@ -51,7 +51,7 @@ trait MakesAssertions
     /**
      * Assert that the given encrypted cookie is present.
      *
-     * @param  string $name
+     * @param  string  $name
      * @param  bool  $decrypt
      * @return $this
      */
@@ -81,7 +81,7 @@ trait MakesAssertions
     /**
      * Assert that the given encrypted cookie is not present.
      *
-     * @param  string $name
+     * @param  string  $name
      * @param  bool  $decrypt
      * @return $this
      */
@@ -450,7 +450,7 @@ JS;
      * Assert that the given checkbox is checked.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return $this
      */
     public function assertChecked($field, $value = null)
@@ -469,7 +469,7 @@ JS;
      * Assert that the given checkbox is not checked.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return $this
      */
     public function assertNotChecked($field, $value = null)
@@ -507,7 +507,7 @@ JS;
      * Assert that the given radio field is not selected.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return $this
      */
     public function assertRadioNotSelected($field, $value = null)
@@ -649,7 +649,12 @@ JS;
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $actual = $this->resolver->findOrFail($selector)->getAttribute('value');
+        $this->ensureElementSupportsValueAttribute(
+            $element = $this->resolver->findOrFail($selector),
+            $fullSelector
+        );
+
+        $actual = $element->getAttribute('value');
 
         PHPUnit::assertEquals(
             $value,
@@ -658,6 +663,55 @@ JS;
         );
 
         return $this;
+    }
+
+    /**
+     * Assert that the element matching the given selector does not have the given value.
+     *
+     * @param  string  $selector
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertValueIsNot($selector, $value)
+    {
+        $fullSelector = $this->resolver->format($selector);
+
+        $this->ensureElementSupportsValueAttribute(
+            $element = $this->resolver->findOrFail($selector),
+            $fullSelector
+        );
+
+        $actual = $element->getAttribute('value');
+
+        PHPUnit::assertNotEquals(
+            $value,
+            $actual,
+            "Saw unexpected value [{$value}] within element [{$fullSelector}]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Ensure the given element supports the 'value' attribute.
+     *
+     * @param  mixed  $element
+     * @param  string  $fullSelector
+     * @return void
+     */
+    public function ensureElementSupportsValueAttribute($element, $fullSelector)
+    {
+        $tagName = $element->getTagName();
+
+        PHPUnit::assertTrue($tagName === 'textarea' || in_array($tagName, [
+            'button',
+            'input',
+            'li',
+            'meter',
+            'option',
+            'param',
+            'progress',
+        ]), "This assertion cannot be used with the element [{$fullSelector}].");
     }
 
     /**
@@ -683,6 +737,34 @@ JS;
             $value,
             $actual,
             "Expected '$attribute' attribute [{$value}] does not equal actual value [$actual]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the element matching the given selector contains the given value in the provided attribute.
+     *
+     * @param  string  $selector
+     * @param  string  $attribute
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertAttributeContains($selector, $attribute, $value)
+    {
+        $fullSelector = $this->resolver->format($selector);
+
+        $actual = $this->resolver->findOrFail($selector)->getAttribute($attribute);
+
+        PHPUnit::assertNotNull(
+            $actual,
+            "Did not see expected attribute [{$attribute}] within element [{$fullSelector}]."
+        );
+
+        PHPUnit::assertStringContainsString(
+            $value,
+            $actual,
+            "Attribute '$attribute' does not contain [{$value}]. Full attribute value was [$actual]."
         );
 
         return $this;
