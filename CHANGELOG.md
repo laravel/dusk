@@ -1,6 +1,15 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.19.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.19.1...6.x)
+
+
+## [v6.19.1 (2021-10-19)](https://github.com/laravel/dusk/compare/v6.19.0...v6.19.1)
+
+### Changed
+- throw an error if assertValue() is used with an element that does not support the value attribute ([#936](https://github.com/laravel/dusk/pull/936), [334c49f](https://github.com/laravel/dusk/commit/334c49faa2e8ec4ddb759aadebdce67d654c305b))
+
+### Fixed
+- Fix logout() when using AuthenticateSession and default guard ([#939](https://github.com/laravel/dusk/pull/939))
 
 
 ## [v6.19.0 (2021-10-12)](https://github.com/laravel/dusk/compare/v6.18.1...v6.19.0)
