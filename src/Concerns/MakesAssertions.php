@@ -701,9 +701,9 @@ JS;
      */
     public function ensureElementSupportsValueAttribute($element, $fullSelector)
     {
-        $tagName = $element->getTagName();
-
-        PHPUnit::assertTrue($tagName === 'textarea' || in_array($tagName, [
+        PHPUnit::assertTrue(in_array($element->getTagName(), [
+            'textarea',
+            'select',
             'button',
             'input',
             'li',
