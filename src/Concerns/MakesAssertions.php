@@ -411,7 +411,7 @@ JS;
     {
         $element = $this->resolver->resolveForTyping($field);
 
-        return in_array($element->getTagName(), ['input', 'textarea'])
+        return in_array($element->getTagName(), ['input', 'textarea', 'select'])
                         ? $element->getAttribute('value')
                         : $element->getText();
     }
