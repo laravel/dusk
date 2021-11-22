@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.19.1...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.19.2...master)
+
+
+## [v6.19.2 (2021-10-20)](https://github.com/laravel/dusk/compare/v6.19.1...v6.19.2)
+
+### Fixed
+- Fix assertValue for select elements ([#942](https://github.com/laravel/dusk/pull/942))
 
 
 ## [v6.19.1 (2021-10-19)](https://github.com/laravel/dusk/compare/v6.19.0...v6.19.1)
