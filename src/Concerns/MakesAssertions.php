@@ -1009,7 +1009,7 @@ JS;
      * @param  string|null  $componentSelector
      * @return $this
      */
-    public function assertVue($key, $value, $componentSelector = null)
+    public function assertVue($key, $value, $componentSelector)
     {
         $formattedValue = json_encode($value);
 
