@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.20.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.21.0...6.x)
+
+
+## [v6.21.0 (2022-01-12)](https://github.com/laravel/dusk/compare/v6.20.0...v6.21.0)
+
+### Changed
+- Laravel 9 Support ([#956](https://github.com/laravel/dusk/pull/956))
 
 
 ## [v6.20.0 (2022-01-04)](https://github.com/laravel/dusk/compare/v6.19.2...v6.20.0)
