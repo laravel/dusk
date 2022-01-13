@@ -13,14 +13,18 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.3, 7.4, 8.0, 8.1]
-        laravel: [^8.0]
-        phpunit: [^9.0, ^10.0]
+        php: [7.3, 7.4, '8.0', 8.1]
+        laravel: [8, 9]
+        phpunit: [9, 10]
         exclude:
           - php: 7.3
-            phpunit: ^10.0
+            phpunit: 10
+          - php: 7.3
+            laravel: 9
           - php: 7.4
-            phpunit: ^10.0
+            laravel: 9
+          - php: 7.4
+            phpunit: 10
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - PHPUnit ${{ matrix.phpunit }}
 
@@ -38,7 +42,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-           composer require "illuminate/contracts:${{ matrix.laravel }}" "phpunit/phpunit:${{ matrix.phpunit }}" --dev --no-update
+           composer require "illuminate/contracts:^${{ matrix.laravel }}" "phpunit/phpunit:^${{ matrix.phpunit }}" --dev --no-update
            composer update --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests

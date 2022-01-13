@@ -1,6 +1,18 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.19.2...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.21.0...master)
+
+
+## [v6.21.0 (2022-01-12)](https://github.com/laravel/dusk/compare/v6.20.0...v6.21.0)
+
+### Changed
+- Laravel 9 Support ([#956](https://github.com/laravel/dusk/pull/956))
+
+
+## [v6.20.0 (2022-01-04)](https://github.com/laravel/dusk/compare/v6.19.2...v6.20.0)
+
+### Changed
+* Add `clickAndWaitForReload` ([#953](https://github.com/laravel/dusk/pull/953))
 
 
 ## [v6.19.2 (2021-10-20)](https://github.com/laravel/dusk/compare/v6.19.1...v6.19.2)

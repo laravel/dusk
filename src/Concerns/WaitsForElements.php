@@ -319,6 +319,19 @@ trait WaitsForElements
     }
 
     /**
+     * Click an element and wait for the page to reload.
+     *
+     * @param  string|null  $selector
+     * @return $this
+     */
+    public function clickAndWaitForReload($selector = null)
+    {
+        return $this->waitForReload(function ($browser) use ($selector) {
+            $browser->click($selector);
+        });
+    }
+
+    /**
      * Wait for the given callback to be true.
      *
      * @param  int|null  $seconds
