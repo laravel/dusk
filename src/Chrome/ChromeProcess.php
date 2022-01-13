@@ -11,7 +11,7 @@ class ChromeProcess
     /**
      * The path to the Chromedriver.
      *
-     * @var string
+     * @var string|null
      */
     protected $driver;
 
@@ -20,16 +20,10 @@ class ChromeProcess
      *
      * @param  string|null  $driver
      * @return void
-     *
-     * @throws \RuntimeException
      */
     public function __construct($driver = null)
     {
         $this->driver = $driver;
-
-        if (! is_null($driver) && realpath($driver) === false) {
-            throw new RuntimeException("Invalid path to Chromedriver [{$driver}].");
-        }
     }
 
     /**
@@ -37,22 +31,32 @@ class ChromeProcess
      *
      * @param  array  $arguments
      * @return \Symfony\Component\Process\Process
+     *
+     * @throws \RuntimeException
      */
     public function toProcess(array $arguments = [])
     {
         if ($this->driver) {
-            return $this->process($arguments);
+            $driver = $this->driver;
+        } else {
+            $filenames = [
+                'linux' => 'chromedriver-linux',
+                'mac' => 'chromedriver-mac',
+                'mac-intel' => 'chromedriver-mac-intel',
+                'mac-arm' => 'chromedriver-mac-arm',
+                'win' => 'chromedriver-win.exe',
+            ];
+
+            $driver = __DIR__.'/../../bin/'.DIRECTORY_SEPARATOR.$filenames[$this->operatingSystemId()];
         }
 
-        $filenames = [
-            'linux' => 'chromedriver-linux',
-            'mac' => 'chromedriver-mac',
-            'mac-intel' => 'chromedriver-mac-intel',
-            'mac-arm' => 'chromedriver-mac-arm',
-            'win' => 'chromedriver-win.exe',
-        ];
+        $this->driver = realpath($driver);
 
-        $this->driver = realpath(__DIR__.'/../../bin').DIRECTORY_SEPARATOR.$filenames[$this->operatingSystemId()];
+        if ($this->driver === false) {
+            throw new RuntimeException(
+                "Invalid path to Chromedriver [{$driver}]. Make sure to install the Chromedriver first by running the dusk:chrome-driver command."
+            );
+        }
 
         return $this->process($arguments);
     }

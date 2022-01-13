@@ -1,6 +1,6 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.21.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.21.0...master)
 
 
 ## [v6.21.0 (2022-01-12)](https://github.com/laravel/dusk/compare/v6.20.0...v6.21.0)

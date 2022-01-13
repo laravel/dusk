@@ -118,7 +118,16 @@ class ChromeDriverCommand extends Command
             '/usr/bin/chromium --version',
             '/usr/bin/google-chrome-stable --version',
         ],
-        'mac' => [
+        'mac-intel' => [
+            '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version',
+        ],
+        'mac-arm' => [
+            '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version',
+        ],
+        'mac-intel' => [
+            '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version',
+        ],
+        'mac-arm' => [
             '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version',
         ],
         'mac-intel' => [
