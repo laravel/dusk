@@ -419,7 +419,8 @@ class ElementResolver
     /**
     * Attempt to find an element by an element-attribute and its value.
      *
-     * @param string $selector
+     * @param string $attributeName
+     * @param string $attributeValue
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
     public function findByAttributeWithValue($attributeName, $attributeValue)
