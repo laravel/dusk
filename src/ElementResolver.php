@@ -415,4 +415,21 @@ class ElementResolver
 
         return trim($this->prefix.' '.$selector);
     }
+
+    /**
+    * Attempt to find an element by an element-attribute and its value.
+     *
+     * @param string $selector
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement
+     */
+    public function findByAttributeWithValue($attributeName, $attributeValue)
+    {
+        try {
+            return $this->driver->findElement(
+                WebDriverBy::xpath("//*[@" . $attributeName . "='" . $attributeValue . "']")
+            );
+        } catch (Exception $exception) {
+            //
+        }
+    }
 }

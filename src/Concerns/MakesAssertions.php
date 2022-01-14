@@ -771,6 +771,23 @@ JS;
     }
 
     /**
+     * Assert that there is an element with the provided attribute and attribute-value.
+     *
+     * @param  string  $attributeName
+     * @param  string  $attributeValue
+     * @return $this
+     */
+    public function assertAttributeWithValue($attributeName, $attributeValue)
+    {
+        PHPUnit::assertTrue(
+            !!($this->resolver->findByAttributeWithValue($attributeName, $attributeValue)),
+            "Did not find an element with the attribute [{$attributeName}] and attribute-value [{$attributeValue}]"
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the element matching the given selector has the given value in the provided aria attribute.
      *
      * @param  string  $selector

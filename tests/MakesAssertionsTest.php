@@ -635,6 +635,32 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_attribute_with_value()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getAttribute')->with('foo')->andReturn(
+            'bar'
+        );
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('findByAttributeWithValue')
+            ->with('foo', 'bar')
+            ->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertAttributeWithValue('foo', 'bar');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not find an element with the attribute [foo] and attribute-value [bar]',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_data_attribute()
     {
         $driver = m::mock(stdClass::class);
