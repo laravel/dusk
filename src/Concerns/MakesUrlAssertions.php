@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Concerns;
 
 use Illuminate\Support\Arr;
+use Laravel\Dusk\Page;
 use PHPUnit\Framework\Assert as PHPUnit;
 use PHPUnit\Framework\Constraint\RegularExpression;
 
@@ -216,6 +217,17 @@ trait MakesUrlAssertions
     public function assertRouteIs($route, $parameters = [])
     {
         return $this->assertPathIs(route($route, $parameters, false));
+    }
+
+    /**
+     * Assert that the current URL matches URL of the given Page.
+     *
+     * @param Page $page
+     * @return $this
+     */
+    public function assertPageIs(Page $page)
+    {
+        return $this->assertPathIs($page->url());
     }
 
     /**

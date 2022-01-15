@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Tests;
 
 use Laravel\Dusk\Browser;
+use Laravel\Dusk\Page;
 use Laravel\Dusk\Tests\Concerns\SwapsUrlGenerator;
 use Mockery as m;
 use PHPUnit\Framework\ExpectationFailedException;
@@ -286,6 +287,38 @@ class MakesUrlAssertionsTest extends TestCase
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
                 'Actual path [/test/1] does not equal expected path [/test/].',
+                $e->getMessage()
+            );
+        }
+    }
+
+    public function test_assert_page_is()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('getCurrentURL')->times(4)->andReturn(
+            'http://laravel.com/test',
+            'https://www.laravel.com:80/?foo=bar',
+            'https://www.laravel.com:80/test?foo=bar',
+            'http://www.laravel.com/test?foo=bar',
+        );
+        $browser = new Browser($driver);
+
+        $homePageMock = m::mock(Page::class);
+        $testPageMock = m::mock(Page::class);
+
+        $homePageMock->shouldReceive('url')->andReturn('/');
+        $testPageMock->shouldReceive('url')->andReturn('/test');
+
+        $browser->assertPageIs($testPageMock);
+        $browser->assertPageIs($homePageMock);
+        $browser->assertPageIs($testPageMock);
+
+        try {
+            $browser->assertPageIs($homePageMock);
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Actual path [/test] does not equal expected path [/]',
                 $e->getMessage()
             );
         }
