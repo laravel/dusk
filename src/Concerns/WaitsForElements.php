@@ -148,6 +148,18 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for an input field to become visible.
+     *
+     * @param  string  $field
+     * @param  int|null  $seconds
+     * @return $this
+     */
+    public function waitForInput($field, $seconds = null)
+    {
+        return $this->waitFor("input[name='{$field}'], textarea[name='{$field}'], select[name='{$field}']", $seconds);
+    }
+
+    /**
      * Wait for the given location.
      *
      * @param  string  $path
