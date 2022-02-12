@@ -355,10 +355,12 @@ trait MakesAssertions
     {
         $this->ensurejQueryIsAvailable();
 
-        $selector = addslashes(trim($this->resolver->format("a:contains('{$link}')")));
+        $selector = addslashes(trim($this->resolver->format('a')));
+
+        $link = str_replace("'", "\\\\'", $link);
 
         $script = <<<JS
-            var link = jQuery.find("{$selector}");
+            var link = jQuery.find(`{$selector}:contains('{$link}')`);
             return link.length > 0 && jQuery(link).is(':visible');
 JS;
 
