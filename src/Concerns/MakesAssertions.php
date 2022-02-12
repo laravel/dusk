@@ -356,6 +356,7 @@ trait MakesAssertions
         $this->ensurejQueryIsAvailable();
 
         $selector = addslashes(trim($this->resolver->format('a')));
+
         $link = str_replace("'", "\\\\'", $link);
 
         $script = <<<JS
