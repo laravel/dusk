@@ -257,13 +257,13 @@ class WaitsForElementsTest extends TestCase
     {
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('executeScript')
-            ->times(2)
+            ->times(3)
             ->andReturnTrue();
 
         $link = 'https://laravel.com/docs/8.x/dusk';
 
         $script = <<<JS
-            var link = jQuery.find("body a:contains(\'{$link}\')");
+            var link = jQuery.find("body a:contains(\"{$link}\")");
             return link.length > 0 && jQuery(link).is(':visible');
 JS;
 
