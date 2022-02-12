@@ -263,7 +263,7 @@ class WaitsForElementsTest extends TestCase
         $link = 'https://laravel.com/docs/8.x/dusk';
 
         $script = <<<JS
-            var link = jQuery.find("body a:contains(\"{$link}\")");
+            var link = jQuery.find(`body a:contains('{$link}')`);
             return link.length > 0 && jQuery(link).is(':visible');
 JS;
 
