@@ -46,6 +46,7 @@ trait InteractsWithElements
         $this->ensurejQueryIsAvailable();
 
         $selector = addslashes(trim($this->resolver->format("{$element}")));
+
         $link = str_replace("'", "\\\\'", $link);
 
         $this->driver->executeScript("jQuery.find(`{$selector}:contains('{$link}'):visible`)[0].click();");
