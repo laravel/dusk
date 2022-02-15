@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.22.0...HEAD)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.22.1...6.x)
+
+## [v6.22.1](https://github.com/laravel/dusk/compare/v6.22.0...v6.22.1) - 2022-02-15
+
+### Fixed
+
+- Fixes link assertion with single or double quote ([#965](https://github.com/laravel/dusk/pull/965))
 
 ## [v6.22.0](https://github.com/laravel/dusk/compare/v6.21.0...v6.22.0) - 2022-02-01
 
