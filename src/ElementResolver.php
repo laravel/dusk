@@ -86,9 +86,17 @@ class ElementResolver
             return $element;
         }
 
-        return $this->firstOrFail([
-            "input[name='{$field}']", "textarea[name='{$field}']", $field,
-        ]);
+        $selectors = [
+            "input[name='{$field}']", "textarea[name='{$field}']", $field
+        ];
+
+        if (! is_null($label = $this->findLabelByText($field))) {
+            if (! is_null($id = $label->getAttribute('for'))) {
+                array_unshift($selectors, '#' . $id);
+            }
+        }
+
+        return $this->firstOrFail($selectors);
     }
 
     /**
@@ -303,6 +311,21 @@ class ElementResolver
     {
         foreach ($this->all('button') as $element) {
             if (Str::contains($element->getText(), $button)) {
+                return $element;
+            }
+        }
+    }
+
+    /**
+     * Resolve the element for a given label by text.
+     *
+     * @param  string $label
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
+     */
+    protected function findLabelByText($label)
+    {
+        foreach ($this->all('label') as $element) {
+            if (Str::contains($element->getText(), $label)) {
                 return $element;
             }
         }

@@ -35,6 +35,21 @@ class ElementResolverTest extends TestCase
         $this->assertSame('foo', $resolver->resolveForTyping('foo'));
     }
 
+    public function test_resolve_for_typing_via_label()
+    {
+        $labelElement = m::mock(stdClass::class, 'label');
+        $labelElement->shouldReceive('getText')->andReturn('Laravel');
+        $labelElement->shouldReceive('getAttribute')->with('for')->andReturn('testing');
+
+        $driver = m::mock(stdClass::class, 'driver');
+        $driver->shouldReceive('findElements')->andReturn([$labelElement]);
+        $driver->shouldReceive('findElement')->times(3)->andThrow(new \Exception);
+        $driver->shouldReceive('findElement')->andReturn('Dusk');
+
+        $resolver = new ElementResolver($driver);
+        $this->assertSame('Dusk', $resolver->resolveForTyping('Laravel'));
+    }
+
     public function test_resolve_for_selection_resolves_by_id()
     {
         $driver = m::mock(stdClass::class);
