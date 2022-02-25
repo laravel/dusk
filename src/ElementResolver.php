@@ -87,12 +87,12 @@ class ElementResolver
         }
 
         $selectors = [
-            "input[name='{$field}']", "textarea[name='{$field}']", $field
+            "input[name='{$field}']", "textarea[name='{$field}']", $field,
         ];
 
         if (! is_null($label = $this->findLabelByText($field))) {
             if (! is_null($id = $label->getAttribute('for'))) {
-                array_unshift($selectors, '#' . $id);
+                array_unshift($selectors, '#'.$id);
             }
         }
 
@@ -319,7 +319,7 @@ class ElementResolver
     /**
      * Resolve the element for a given label by text.
      *
-     * @param  string $label
+     * @param  string  $label
      * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
      */
     protected function findLabelByText($label)
