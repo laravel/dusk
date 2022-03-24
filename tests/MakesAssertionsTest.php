@@ -1018,10 +1018,15 @@ class MakesAssertionsTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('executeScript')
             ->with(
-                'var el = document.querySelector(\'body foo\');'.
-                "return typeof el.__vue__ === 'undefined' ".
-                    '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).foo'.
-                    ': el.__vue__.foo'
+                "var el = document.querySelector('body foo');".
+                "if (typeof el.__vue__ !== 'undefined')".
+                '    return el.__vue.foo;'.
+                'try {'.
+                '    var attr = el.__vueParentComponent.ctx.foo;'.
+                "    if (typeof attr !== 'undefined')".
+                '        return attr;'.
+                '} catch (e) {}'.
+                'return el.__vueParentComponent.setupState.foo;'
             )
             ->twice()
             ->andReturn('foo');
@@ -1071,10 +1076,15 @@ class MakesAssertionsTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('executeScript')
             ->with(
-                'var el = document.querySelector(\'body foo\');'.
-                "return typeof el.__vue__ === 'undefined' ".
-                    '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).foo'.
-                    ': el.__vue__.foo'
+                "var el = document.querySelector('body foo');".
+                "if (typeof el.__vue__ !== 'undefined')".
+                '    return el.__vue.foo;'.
+                'try {'.
+                '    var attr = el.__vueParentComponent.ctx.foo;'.
+                "    if (typeof attr !== 'undefined')".
+                '        return attr;'.
+                '} catch (e) {}'.
+                'return el.__vueParentComponent.setupState.foo;'
             )
             ->twice()
             ->andReturn('foo');
@@ -1125,9 +1135,14 @@ class MakesAssertionsTest extends TestCase
         $driver->shouldReceive('executeScript')
             ->with(
                 'var el = document.querySelector(\'body [dusk="vue-component"]\');'.
-                "return typeof el.__vue__ === 'undefined' ".
-                    '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).name'.
-                    ': el.__vue__.name'
+                "if (typeof el.__vue__ !== 'undefined')".
+                '    return el.__vue.name;'.
+                'try {'.
+                '    var attr = el.__vueParentComponent.ctx.name;'.
+                "    if (typeof attr !== 'undefined')".
+                '        return attr;'.
+                '} catch (e) {}'.
+                'return el.__vueParentComponent.setupState.name;'
             )
             ->once()
             ->andReturn(['john']);

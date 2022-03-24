@@ -1102,9 +1102,14 @@ JS;
 
         return $this->driver->executeScript(
             "var el = document.querySelector('".$fullSelector."');".
-            "return typeof el.__vue__ === 'undefined' ".
-                '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).'.$key.
-                ': el.__vue__.'.$key
+            "if (typeof el.__vue__ !== 'undefined')".
+            '    return el.__vue.'.$key.';'.
+            'try {'.
+            '    var attr = el.__vueParentComponent.ctx.'.$key.';'.
+            "    if (typeof attr !== 'undefined')".
+            '        return attr;'.
+            '} catch (e) {}'.
+            'return el.__vueParentComponent.setupState.'.$key.';'
         );
     }
 }
