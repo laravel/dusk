@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.22.1...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.22.2...6.x)
+
+## [v6.22.2](https://github.com/laravel/dusk/compare/v6.22.1...v6.22.2) - 2022-03-24
+
+### Changed
+
+- `assertVue*()` methods support Vue 3 composition API by @derekmd in https://github.com/laravel/dusk/pull/969
 
 ## [v6.22.1](https://github.com/laravel/dusk/compare/v6.22.0...v6.22.1) - 2022-02-15
 
