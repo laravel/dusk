@@ -1103,7 +1103,7 @@ JS;
         return $this->driver->executeScript(
             "var el = document.querySelector('".$fullSelector."');".
             "if (typeof el.__vue__ !== 'undefined')".
-            '    return el.__vue.'.$key.';'.
+            '    return el.__vue__.'.$key.';'.
             'try {'.
             '    var attr = el.__vueParentComponent.ctx.'.$key.';'.
             "    if (typeof attr !== 'undefined')".
