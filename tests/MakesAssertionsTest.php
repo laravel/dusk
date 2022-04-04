@@ -1020,7 +1020,7 @@ class MakesAssertionsTest extends TestCase
             ->with(
                 "var el = document.querySelector('body foo');".
                 "if (typeof el.__vue__ !== 'undefined')".
-                '    return el.__vue.foo;'.
+                '    return el.__vue__.foo;'.
                 'try {'.
                 '    var attr = el.__vueParentComponent.ctx.foo;'.
                 "    if (typeof attr !== 'undefined')".
@@ -1078,7 +1078,7 @@ class MakesAssertionsTest extends TestCase
             ->with(
                 "var el = document.querySelector('body foo');".
                 "if (typeof el.__vue__ !== 'undefined')".
-                '    return el.__vue.foo;'.
+                '    return el.__vue__.foo;'.
                 'try {'.
                 '    var attr = el.__vueParentComponent.ctx.foo;'.
                 "    if (typeof attr !== 'undefined')".
@@ -1136,7 +1136,7 @@ class MakesAssertionsTest extends TestCase
             ->with(
                 'var el = document.querySelector(\'body [dusk="vue-component"]\');'.
                 "if (typeof el.__vue__ !== 'undefined')".
-                '    return el.__vue.name;'.
+                '    return el.__vue__.name;'.
                 'try {'.
                 '    var attr = el.__vueParentComponent.ctx.name;'.
                 "    if (typeof attr !== 'undefined')".
