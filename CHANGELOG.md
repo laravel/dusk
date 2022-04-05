@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.22.2...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.22.3...6.x)
+
+## [v6.22.3](https://github.com/laravel/dusk/compare/v6.22.2...v6.22.3) - 2022-04-04
+
+### Fixed
+
+- Fixed vueAttribute for older Vue 2.x projects by @myMartek in https://github.com/laravel/dusk/pull/970
 
 ## [v6.22.2](https://github.com/laravel/dusk/compare/v6.22.1...v6.22.2) - 2022-03-24
 
