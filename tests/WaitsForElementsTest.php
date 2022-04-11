@@ -324,4 +324,23 @@ JS;
 
         $browser->waitForReload();
     }
+
+    public function test_wait_for_event()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('manage->timeouts->setScriptTimeout')->with(3);
+        $driver->shouldReceive('executeAsyncScript')->with(
+            'eval(arguments[0]).addEventListener(arguments[1], () => arguments[2](), { once: true });',
+            ['body form', 'submit']
+        );
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('findOrFail')
+            ->with('form')
+            ->andReturn('body form');
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->waitForEvent('submit', 'form', 3);
+    }
 }
