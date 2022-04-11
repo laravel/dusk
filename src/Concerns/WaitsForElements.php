@@ -370,7 +370,7 @@ trait WaitsForElements
                 [$target, $type]
             );
         } catch (ScriptTimeoutException $e) {
-            throw new TimeoutException("Waited {$seconds} seconds for '{$type}' event.");
+            throw new TimeoutException("Waited {$seconds} seconds for event [{$type}].");
         }
 
         return $this;
