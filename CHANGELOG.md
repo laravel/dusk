@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.22.3...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.23.0...6.x)
+
+## [v6.23.0](https://github.com/laravel/dusk/compare/v6.22.3...v6.23.0) - 2022-04-11
+
+### Added
+
+- Add `waitForEvent()` method by @michaelhue in https://github.com/laravel/dusk/pull/972
 
 ## [v6.22.3](https://github.com/laravel/dusk/compare/v6.22.2...v6.22.3) - 2022-04-04
 
