@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.23.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.23.1...6.x)
+
+## [v6.23.1](https://github.com/laravel/dusk/compare/v6.23.0...v6.23.1) - 2022-05-02
+
+### Fixed
+
+- Fix storing page source to disk when source assertions fail. by @calmdev in https://github.com/laravel/dusk/pull/976
 
 ## [v6.23.0](https://github.com/laravel/dusk/compare/v6.22.3...v6.23.0) - 2022-04-11
 
