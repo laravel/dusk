@@ -67,6 +67,6 @@ abstract class DuskTestCase extends BaseTestCase
     protected function hasStartMaximizedEnabled()
     {
         return isset($_SERVER['DUSK_START_MAXIMIZED']) ||
-        isset($_ENV['DUSK_START_MAXIMIZED']);
+               isset($_ENV['DUSK_START_MAXIMIZED']);
     }
 }
