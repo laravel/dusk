@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.23.1...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.24.0...6.x)
+
+## [v6.24.0](https://github.com/laravel/dusk/compare/v6.23.1...v6.24.0) - 2022-05-09
+
+### Added
+
+- Add `hasStartMaximizedEnabled` method by @roksprogar in https://github.com/laravel/dusk/pull/978
 
 ## [v6.23.1](https://github.com/laravel/dusk/compare/v6.23.0...v6.23.1) - 2022-05-02
 
