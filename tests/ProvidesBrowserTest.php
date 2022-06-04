@@ -22,7 +22,7 @@ class ProvidesBrowserTest extends TestCase
     public function test_capture_failures_for()
     {
         $browser = m::mock(stdClass::class);
-        $browser->shouldReceive('screenshot')->with(
+        $browser->shouldReceive('screenshot', 'storeSource', 'storeConsoleLog')->with(
             'failure-Laravel_Dusk_Tests_ProvidesBrowserTest_test_capture_failures_for-0'
         );
         $browsers = collect([$browser]);
