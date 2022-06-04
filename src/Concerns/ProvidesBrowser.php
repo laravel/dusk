@@ -146,7 +146,11 @@ trait ProvidesBrowser
 
             $name = $this->getCallerName();
 
-            $browser->screenshot('failure-'.$name.'-'.$key);
+            $file = 'failure-'.$name.'-'.$key;
+
+            $browser->screenshot($file);
+            $browser->storeSource($file);
+            $browser->storeConsoleLog($file);
         });
     }
 
