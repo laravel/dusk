@@ -40,8 +40,7 @@ class Browser
     public static $storeScreenshotsAt;
 
     /**
-     * These are the most common screen sizes to use for responsive screenshots.
-     * These will trigger all of tailwind's default breakpoints.
+     * The common screen sizes to use for responsive screenshots.
      *
      * @var array
      */
@@ -435,7 +434,7 @@ class Browser
      * @param  string  $name
      * @return $this
      */
-    public function responsiveScreenShots($name)
+    public function responsiveScreenshots($name)
     {
         if (substr($name, -1) !== '/') {
             $name .= '-';
