@@ -487,7 +487,7 @@ JS;
     }
 
     /**
-     * Assert that the given checkbox is not checked.
+     * Assert that the given checkbox is indeterminate state.
      *
      * @param  string  $field
      * @param  string|null  $value
