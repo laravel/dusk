@@ -487,6 +487,26 @@ JS;
     }
 
     /**
+     * Assert that the given checkbox is in an indeterminate state.
+     *
+     * @param  string  $field
+     * @param  string|null  $value
+     * @return $this
+     */
+    public function assertIndeterminate($field, $value = null)
+    {
+        $this->assertNotChecked($field, $value);
+
+        PHPUnit::assertSame(
+            'true',
+            $this->resolver->findOrFail($field)->getAttribute('indeterminate'),
+            "Checkbox [{$field}] was not in indeterminate state."
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the given radio field is selected.
      *
      * @param  string  $field
