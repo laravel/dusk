@@ -1,6 +1,13 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.24.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.25.0...6.x)
+
+## [v6.25.0](https://github.com/laravel/dusk/compare/v6.24.0...v6.25.0) - 2022-07-11
+
+### Added
+
+- Added responsiveScreenShots method by @ps-sean in https://github.com/laravel/dusk/pull/984
+- Add `assertIndeterminate` assertion for checkbox. by @crynobone in https://github.com/laravel/dusk/pull/986
 
 ## [v6.24.0](https://github.com/laravel/dusk/compare/v6.23.1...v6.24.0) - 2022-05-09
 
