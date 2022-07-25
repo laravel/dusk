@@ -64,7 +64,7 @@ trait InteractsWithMouse
             }
         }
 
-        throw $e ?? new NoSuchElementException("Unable to locate element with selector $selector.");
+        throw $e ?? new NoSuchElementException("Unable to locate element with selector [{$selector}].");
     }
 
     /**
