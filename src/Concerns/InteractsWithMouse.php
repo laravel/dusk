@@ -6,7 +6,6 @@ use Facebook\WebDriver\Exception\ElementClickInterceptedException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\WebDriverBy;
-use InvalidArgumentException;
 
 trait InteractsWithMouse
 {
