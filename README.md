@@ -7,26 +7,26 @@
 <a href="https://packagist.org/packages/laravel/dusk"><img src="https://img.shields.io/packagist/l/laravel/dusk" alt="License"></a>
 </p>
 
-## Introduction
+## 介绍
 
-Laravel Dusk provides an expressive, easy-to-use browser automation and testing API. By default, Dusk does not require you to install JDK or Selenium on your machine. Instead, Dusk uses a standalone Chromedriver. However, you are free to utilize any other Selenium driver you wish.
+Laravel Dusk提供了一个表现力强、易于使用的浏览器自动化和测试API。默认情况下，Dusk不要求您在机器上安装JDK或Selenium。相反，Dask使用独立的Chromedriver。但是，您可以自由使用任何其他Selenium驱动程序.
 
-## Official Documentation
+## 官方文件
 
-Documentation for Dusk can be found on the [Laravel website](https://laravel.com/docs/dusk).
+Dusk的文档在 [Laravel website](https://laravel.com/docs/dusk).
 
-## Contributing
+## 支持
 
-Thank you for considering contributing to Dusk! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+感谢您考虑支持Dusk！支持指南在 [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+## 行为准则
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+为了确保Laravel社区欢迎所有人，请审查并遵守 [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+## 安全漏洞
 
-Please review [our security policy](https://github.com/laravel/dusk/security/policy) on how to report security vulnerabilities.
+请审阅 [our security policy](https://github.com/laravel/dusk/security/policy) 关于如何报告安全漏洞.
 
-## License
+## 许可证
 
-Laravel Dusk is open-sourced software licensed under the [MIT license](LICENSE.md).
+Laravel Dusk 是一个开源软件在旗下 [MIT license](LICENSE.md).
