@@ -2,6 +2,8 @@
 
 namespace Laravel\Dusk\Concerns;
 
+use Facebook\WebDriver\Exception\ElementClickInterceptedException;
+use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\WebDriverBy;
 
@@ -48,11 +50,21 @@ trait InteractsWithMouse
     {
         if (is_null($selector)) {
             (new WebDriverActions($this->driver))->click()->perform();
-        } else {
-            $this->resolver->findOrFail($selector)->click();
+
+            return $this;
         }
 
-        return $this;
+        foreach ($this->resolver->all($selector) as $element) {
+            try {
+                $element->click();
+
+                return $this;
+            } catch (ElementClickInterceptedException $e) {
+                //
+            }
+        }
+
+        throw $e ?? new NoSuchElementException("Unable to locate element with selector [{$selector}].");
     }
 
     /**
