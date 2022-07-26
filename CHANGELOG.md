@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.25.0...6.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.25.1...6.x)
+
+## [v6.25.1](https://github.com/laravel/dusk/compare/v6.25.0...v6.25.1) - 2022-07-25
+
+### Fixed
+
+- Try clicking all elements before throwing `ElementClickInterceptedException` by @SjorsO in https://github.com/laravel/dusk/pull/989
 
 ## [v6.25.0](https://github.com/laravel/dusk/compare/v6.24.0...v6.25.0) - 2022-07-11
 
