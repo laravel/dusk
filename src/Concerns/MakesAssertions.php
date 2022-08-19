@@ -355,10 +355,12 @@ trait MakesAssertions
     {
         $this->ensurejQueryIsAvailable();
 
-        $selector = addslashes(trim($this->resolver->format("a:contains('{$link}')")));
+        $selector = addslashes(trim($this->resolver->format('a')));
+
+        $link = str_replace("'", "\\\\'", $link);
 
         $script = <<<JS
-            var link = jQuery.find("{$selector}");
+            var link = jQuery.find(`{$selector}:contains('{$link}')`);
             return link.length > 0 && jQuery(link).is(':visible');
 JS;
 
@@ -479,6 +481,26 @@ JS;
         PHPUnit::assertFalse(
             $element->isSelected(),
             "Checkbox [{$field}] was unexpectedly checked."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the given checkbox is in an indeterminate state.
+     *
+     * @param  string  $field
+     * @param  string|null  $value
+     * @return $this
+     */
+    public function assertIndeterminate($field, $value = null)
+    {
+        $this->assertNotChecked($field, $value);
+
+        PHPUnit::assertSame(
+            'true',
+            $this->resolver->findOrFail($field)->getAttribute('indeterminate'),
+            "Checkbox [{$field}] was not in indeterminate state."
         );
 
         return $this;
@@ -1100,9 +1122,14 @@ JS;
 
         return $this->driver->executeScript(
             "var el = document.querySelector('".$fullSelector."');".
-            "return typeof el.__vue__ === 'undefined' ".
-                '? JSON.parse(JSON.stringify(el.__vueParentComponent.ctx)).'.$key.
-                ': el.__vue__.'.$key
+            "if (typeof el.__vue__ !== 'undefined')".
+            '    return el.__vue__.'.$key.';'.
+            'try {'.
+            '    var attr = el.__vueParentComponent.ctx.'.$key.';'.
+            "    if (typeof attr !== 'undefined')".
+            '        return attr;'.
+            '} catch (e) {}'.
+            'return el.__vueParentComponent.setupState.'.$key.';'
         );
     }
 }

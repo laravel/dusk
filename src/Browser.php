@@ -40,6 +40,38 @@ class Browser
     public static $storeScreenshotsAt;
 
     /**
+     * The common screen sizes to use for responsive screenshots.
+     *
+     * @var array
+     */
+    public static $responsiveScreenSizes = [
+        'xs' => [
+            'width' => 360,
+            'height' => 640,
+        ],
+        'sm' => [
+            'width' => 640,
+            'height' => 360,
+        ],
+        'md' => [
+            'width' => 768,
+            'height' => 1024,
+        ],
+        'lg' => [
+            'width' => 1024,
+            'height' => 768,
+        ],
+        'xl' => [
+            'width' => 1280,
+            'height' => 1024,
+        ],
+        '2xl' => [
+            'width' => 1536,
+            'height' => 864,
+        ],
+    ];
+
+    /**
      * The directory that will contain any console logs.
      *
      * @var string
@@ -392,6 +424,26 @@ class Browser
         }
 
         $this->driver->takeScreenshot($filePath);
+
+        return $this;
+    }
+
+    /**
+     * Take a series of screenshots at different browser sizes to emulate different devices.
+     *
+     * @param  string  $name
+     * @return $this
+     */
+    public function responsiveScreenshots($name)
+    {
+        if (substr($name, -1) !== '/') {
+            $name .= '-';
+        }
+
+        foreach (static::$responsiveScreenSizes as $device => $size) {
+            $this->resize($size['width'], $size['height'])
+                ->screenshot("$name$device");
+        }
 
         return $this;
     }

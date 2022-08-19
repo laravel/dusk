@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Closure;
 use Exception;
 use Facebook\WebDriver\Exception\NoSuchElementException;
+use Facebook\WebDriver\Exception\ScriptTimeoutException;
 use Facebook\WebDriver\Exception\TimeOutException;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 use Illuminate\Support\Arr;
@@ -145,6 +146,18 @@ trait WaitsForElements
         return $this->waitUsing($seconds, 100, function () use ($link) {
             return $this->seeLink($link);
         }, $message);
+    }
+
+    /**
+     * Wait for an input field to become visible.
+     *
+     * @param  string  $field
+     * @param  int|null  $seconds
+     * @return $this
+     */
+    public function waitForInput($field, $seconds = null)
+    {
+        return $this->waitFor("input[name='{$field}'], textarea[name='{$field}'], select[name='{$field}']", $seconds);
     }
 
     /**
@@ -329,6 +342,38 @@ trait WaitsForElements
         return $this->waitForReload(function ($browser) use ($selector) {
             $browser->click($selector);
         });
+    }
+
+    /**
+     * Wait for the given event type to occur on a target.
+     *
+     * @param  string  $type
+     * @param  string|null  $target
+     * @param  int|null  $seconds
+     * @return $this
+     *
+     * @throws \Facebook\WebDriver\Exception\TimeOutException
+     */
+    public function waitForEvent($type, $target = null, $seconds = null)
+    {
+        $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
+
+        if ($target !== 'document' && $target !== 'window') {
+            $target = $this->resolver->findOrFail($target ?? '');
+        }
+
+        $this->driver->manage()->timeouts()->setScriptTimeout($seconds);
+
+        try {
+            $this->driver->executeAsyncScript(
+                'eval(arguments[0]).addEventListener(arguments[1], () => arguments[2](), { once: true });',
+                [$target, $type]
+            );
+        } catch (ScriptTimeoutException $e) {
+            throw new TimeoutException("Waited {$seconds} seconds for event [{$type}].");
+        }
+
+        return $this;
     }
 
     /**
