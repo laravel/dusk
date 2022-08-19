@@ -14,7 +14,7 @@ The following required dependency versions have been updated:
 
 PR: https://github.com/laravel/dusk/pull/873
 
-Going forward, Dusk will not ship with pre-installed Chrome binaries anymore. Instead, you should install the required Chrome driver for your operating system using the following command:
+Going forward, Dusk will not ship with pre-installed Chrome binaries. Instead, you should install the required Chrome driver for your operating system using the following command:
 
 ```zsh
 php artisan dusk:chrome-driver
