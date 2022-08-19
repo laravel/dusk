@@ -24,8 +24,8 @@
     },
     "require-dev": {
         "mockery/mockery": "^1.4.2",
-        "phpunit/phpunit": "^9.0|^10.0",
-        "orchestra/testbench": "^7.0|dev-phpunit10"
+        "phpunit/phpunit": "^9.0",
+        "orchestra/testbench": "^7.0"
     },
     "suggest": {
         "ext-pcntl": "Used to gracefully terminate Dusk when tests are running."
