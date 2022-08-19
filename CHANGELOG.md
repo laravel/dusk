@@ -1,6 +1,6 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.25.1...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v6.25.1...master)
 
 ## [v6.25.1](https://github.com/laravel/dusk/compare/v6.25.0...v6.25.1) - 2022-07-25
 
