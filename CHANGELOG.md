@@ -1,6 +1,23 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.25.1...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.0.0...7.x)
+
+## [v7.0.0](https://github.com/laravel/dusk/compare/v6.25.1...v7.0.0) - 2022-08-19
+
+### Changed
+
+- Uses Pest if available by @nunomaduro in https://github.com/laravel/dusk/pull/771
+- Use selector to double click, and to click and hold by @rodrigopedra in https://github.com/laravel/dusk/pull/848
+- Bump dependencies by @driesvints in https://github.com/laravel/dusk/pull/874
+
+### Removed
+
+- Drop PHPUnit 7 by @driesvints in https://github.com/laravel/dusk/pull/762
+- Drop PHP 7.2 by @driesvints in https://github.com/laravel/dusk/pull/860
+- Drop Laravel v6 & v7 support by @driesvints in https://github.com/laravel/dusk/pull/862
+- Drop PHPUnit v8 by @driesvints in https://github.com/laravel/dusk/pull/861
+- Remove chrome binaries by @driesvints in https://github.com/laravel/dusk/pull/873
+- Drop old PHP and Laravel versions by @driesvints in https://github.com/laravel/dusk/pull/993
 
 ## [v6.25.1](https://github.com/laravel/dusk/compare/v6.25.0...v6.25.1) - 2022-07-25
 
