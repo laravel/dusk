@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.0.0...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.0.1...7.x)
+
+## [v7.0.1](https://github.com/laravel/dusk/compare/v7.0.0...v7.0.1) - 2022-09-02
+
+### Fixed
+
+- Remove extra Directory Separator from ChromeProcess by @GeoSot in https://github.com/laravel/dusk/pull/995
 
 ## [v7.0.0](https://github.com/laravel/dusk/compare/v6.25.1...v7.0.0) - 2022-08-19
 
