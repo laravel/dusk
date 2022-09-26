@@ -636,6 +636,22 @@ class Browser
     }
 
     /**
+     * Pause for the given amount of milliseconds if the given condition is true.
+     *
+     * @param  bool  $boolean
+     * @param  int  $milliseconds
+     * @return $this
+     */
+    public function pauseIf($boolean, $milliseconds)
+    {
+        if ($boolean) {
+            return $this->pause($milliseconds);
+        }
+
+        return $this;
+    }
+
+    /**
      * Close the browser.
      *
      * @return void
