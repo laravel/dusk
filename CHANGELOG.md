@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.1.0...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.1.1...7.x)
+
+## [v7.1.1](https://github.com/laravel/dusk/compare/v7.1.0...v7.1.1) - 2022-09-29
+
+### Fixed
+
+- Fix updated Mac image name by @driesvints in https://github.com/laravel/dusk/pull/1001
 
 ## [v7.1.0](https://github.com/laravel/dusk/compare/v7.0.2...v7.1.0) - 2022-09-27
 
