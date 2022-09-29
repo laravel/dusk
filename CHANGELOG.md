@@ -1,6 +1,47 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v6.25.1...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.1.1...master)
+
+## [v7.1.1](https://github.com/laravel/dusk/compare/v7.1.0...v7.1.1) - 2022-09-29
+
+### Fixed
+
+- Fix updated Mac image name by @driesvints in https://github.com/laravel/dusk/pull/1001
+
+## [v7.1.0](https://github.com/laravel/dusk/compare/v7.0.2...v7.1.0) - 2022-09-27
+
+### Added
+
+- Add `pauseIf()` / `pauseUnless()` by @u01jmg3 in https://github.com/laravel/dusk/pull/999
+
+## [v7.0.2](https://github.com/laravel/dusk/compare/v7.0.1...v7.0.2) - 2022-09-15
+
+### Changed
+
+- Allow to click and wait [N] seconds for reload by @fabio-ivona in https://github.com/laravel/dusk/pull/998
+
+## [v7.0.1](https://github.com/laravel/dusk/compare/v7.0.0...v7.0.1) - 2022-09-02
+
+### Fixed
+
+- Remove extra Directory Separator from ChromeProcess by @GeoSot in https://github.com/laravel/dusk/pull/995
+
+## [v7.0.0](https://github.com/laravel/dusk/compare/v6.25.1...v7.0.0) - 2022-08-19
+
+### Changed
+
+- Uses Pest if available by @nunomaduro in https://github.com/laravel/dusk/pull/771
+- Use selector to double click, and to click and hold by @rodrigopedra in https://github.com/laravel/dusk/pull/848
+- Bump dependencies by @driesvints in https://github.com/laravel/dusk/pull/874
+
+### Removed
+
+- Drop PHPUnit 7 by @driesvints in https://github.com/laravel/dusk/pull/762
+- Drop PHP 7.2 by @driesvints in https://github.com/laravel/dusk/pull/860
+- Drop Laravel v6 & v7 support by @driesvints in https://github.com/laravel/dusk/pull/862
+- Drop PHPUnit v8 by @driesvints in https://github.com/laravel/dusk/pull/861
+- Remove chrome binaries by @driesvints in https://github.com/laravel/dusk/pull/873
+- Drop old PHP and Laravel versions by @driesvints in https://github.com/laravel/dusk/pull/993
 
 ## [v6.25.1](https://github.com/laravel/dusk/compare/v6.25.0...v6.25.1) - 2022-07-25
 

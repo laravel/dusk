@@ -60,7 +60,7 @@ class ChromeDriverCommand extends Command
         'linux' => 'linux64',
         'mac' => 'mac64',
         'mac-intel' => 'mac64',
-        'mac-arm' => 'mac64_m1',
+        'mac-arm' => 'mac_arm64',
         'win' => 'win32',
     ];
 

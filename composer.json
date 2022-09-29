@@ -10,22 +10,22 @@
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "ext-json": "*",
         "ext-zip": "*",
         "php-webdriver/webdriver": "^1.9.0",
         "nesbot/carbon": "^2.0",
-        "illuminate/console": "^8.0|^9.0",
-        "illuminate/support": "^8.0|^9.0",
-        "symfony/console": "^5.1.4|^6.0",
-        "symfony/finder": "^5.1.4|^6.0",
-        "symfony/process": "^5.1.4|^6.0",
+        "illuminate/console": "^9.0",
+        "illuminate/support": "^9.0",
+        "symfony/console": "^6.0",
+        "symfony/finder": "^6.0",
+        "symfony/process": "^6.0",
         "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {
         "mockery/mockery": "^1.4.2",
-        "phpunit/phpunit": "^9.0|^10.0",
-        "orchestra/testbench": "^6.12.1|^7.0|dev-phpunit10"
+        "phpunit/phpunit": "^9.0",
+        "orchestra/testbench": "^7.0"
     },
     "suggest": {
         "ext-pcntl": "Used to gracefully terminate Dusk when tests are running."
