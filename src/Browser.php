@@ -505,6 +505,25 @@ class Browser
 
         return $this;
     }
+    /**
+     * Execute a Closure with a scoped browser instance, keeping the component scope.
+     *
+     * @param  string|\Laravel\Dusk\Component  $selector
+     * @param  \Closure  $callback
+     * @return $this
+     */
+    public function withinComponent($selector,$callback){
+        $parentBrowser=$this;
+        return $this->with($selector,function($browser) use ($parentBrowser,$callback){
+            $component=$parentBrowser->component;
+            $browser->component=$component;
+            $browser->resolver->pageElements(
+                $component->elements() + $parentBrowser->resolver->elements
+            );
+
+            return $callback($browser);
+        });
+    }
 
     /**
      * Execute a Closure with a scoped browser instance.
