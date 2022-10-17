@@ -505,6 +505,7 @@ class Browser
 
         return $this;
     }
+
     /**
      * Execute a Closure with a scoped browser instance, keeping the component scope.
      *
