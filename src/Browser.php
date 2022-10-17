@@ -512,11 +512,13 @@ class Browser
      * @param  \Closure  $callback
      * @return $this
      */
-    public function withinComponent($selector,$callback){
-        $parentBrowser=$this;
-        return $this->with($selector,function($browser) use ($parentBrowser,$callback){
-            $component=$parentBrowser->component;
-            $browser->component=$component;
+    public function withinComponent($selector, $callback)
+    {
+        $parentBrowser = $this;
+  
+        return $this->with($selector, function ($browser) use ($parentBrowser, $callback) {
+            $component = $parentBrowser->component;
+            $browser->component = $component;
             $browser->resolver->pageElements(
                 $component->elements() + $parentBrowser->resolver->elements
             );
