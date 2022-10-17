@@ -515,7 +515,7 @@ class Browser
     public function withinComponent($selector, $callback)
     {
         $parentBrowser = $this;
-  
+
         return $this->with($selector, function ($browser) use ($parentBrowser, $callback) {
             $component = $parentBrowser->component;
             $browser->component = $component;
