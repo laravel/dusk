@@ -10,10 +10,8 @@ class DummyClass extends DuskTestCase
 {
     /**
      * A Dusk test example.
-     *
-     * @return void
      */
-    public function testExample()
+    public function testExample(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
