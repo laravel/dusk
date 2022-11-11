@@ -150,6 +150,10 @@ class ChromeDriverCommand extends Command
     {
         $this->directory = config('dusk.install-path', __DIR__.'/../../bin').DIRECTORY_SEPARATOR;
 
+        if (! file_exists($this->directory)) {
+            mkdir($this->directory);
+        }
+
         $version = $this->version();
 
         $all = $this->option('all');
