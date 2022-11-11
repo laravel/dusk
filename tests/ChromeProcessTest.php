@@ -3,7 +3,7 @@
 namespace Laravel\Dusk\Tests;
 
 use Laravel\Dusk\Chrome\ChromeProcess;
-use PHPUnit\Framework\TestCase;
+use Orchestra\Testbench\TestCase;
 use RuntimeException;
 use Symfony\Component\Process\Process;
 
