@@ -47,7 +47,7 @@ class ChromeProcess
                 'win' => 'chromedriver-win.exe',
             ];
 
-            $driver = config('dusk.install-path', __DIR__.'/../../bin')
+            $driver = config('dusk.chromedriver_install_path', __DIR__.'/../../bin')
                 .DIRECTORY_SEPARATOR.$filenames[$this->operatingSystemId()];
         }
 
