@@ -48,10 +48,6 @@ class DuskServiceProvider extends ServiceProvider
                 Console\ComponentCommand::class,
                 Console\ChromeDriverCommand::class,
             ]);
-
-            $this->publishes([
-                __DIR__.'/../config/dusk.php' => config_path('dusk.php'),
-            ]);
         }
     }
 }
