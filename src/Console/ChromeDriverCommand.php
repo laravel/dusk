@@ -148,7 +148,7 @@ class ChromeDriverCommand extends Command
      */
     public function handle()
     {
-        $this->directory = config('dusk.install-path', __DIR__.'/../../bin').DIRECTORY_SEPARATOR;
+        $this->directory = config('dusk.chromedriver_install_path', __DIR__.'/../../bin').DIRECTORY_SEPARATOR;
 
         if (! file_exists($this->directory)) {
             mkdir($this->directory);
