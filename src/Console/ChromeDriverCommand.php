@@ -104,7 +104,7 @@ class ChromeDriverCommand extends Command
      *
      * @var string
      */
-    protected $directory = __DIR__.'/../../bin/';
+    protected $directory;
 
     /**
      * The default commands to detect the installed Chrome / Chromium version.
@@ -148,6 +148,12 @@ class ChromeDriverCommand extends Command
      */
     public function handle()
     {
+        $this->directory = config('dusk.chromedriver_install_path', __DIR__.'/../../bin').DIRECTORY_SEPARATOR;
+
+        if (! file_exists($this->directory)) {
+            mkdir($this->directory);
+        }
+
         $version = $this->version();
 
         $all = $this->option('all');
