@@ -85,4 +85,4 @@ jobs:
       - name: Run Laravel Server
         run: php artisan serve --no-reload &
       - name: Run Dusk Tests
-        run: php artisan dusk
+        run: php artisan dusk --without-tty
