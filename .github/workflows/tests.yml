@@ -86,3 +86,5 @@ jobs:
         run: php artisan serve --no-reload &
       - name: Run Dusk Tests
         run: php artisan dusk --without-tty
+        env:
+          APP_URL: http://127.0.0.1:8000
