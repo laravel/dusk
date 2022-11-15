@@ -57,7 +57,7 @@ jobs:
     steps:
       - name: Setup Laravel
         run: |
-          composer create-project laravel/laravel:^{{ matrix.laravel }} .
+          composer create-project laravel/laravel:^${{ matrix.laravel }} .
           composer require laravel/dusk:* --no-interaction --no-update
           composer config repositories.dusk '{"type": "path", "url": "dusk"}' --file composer.json
 
