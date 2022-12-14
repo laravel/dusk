@@ -94,7 +94,7 @@ class ComponentTest extends TestCase
         $component->selector = '@dusk-hook-root';
 
         $browser->within($component, function ($browser) {
-            $this->assertSame('body [dusk="dusk-hook-root"]', $browser->resolver->prefix);
+            $this->assertSame('body [dusk="dusk-hook-root"],body [data-dusk="dusk-hook-root"]', $browser->resolver->prefix);
         });
     }
 
