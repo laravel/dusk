@@ -1134,7 +1134,7 @@ class MakesAssertionsTest extends TestCase
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('executeScript')
             ->with(
-                'var el = document.querySelector(\'body [dusk="vue-component"]\');'.
+                'var el = document.querySelector(\'body [dusk="vue-component"],body [data-dusk="vue-component"]\');'.
                 "if (typeof el.__vue__ !== 'undefined')".
                 '    return el.__vue__.name;'.
                 'try {'.
