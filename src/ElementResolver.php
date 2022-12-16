@@ -410,12 +410,7 @@ class ElementResolver
         );
 
         if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
-            $segments = explode('@', $selector);
-
-            return trim(sprintf('%s,%s',
-                $this->prefix.' [dusk="'.$segments[1].'"]',
-                $this->prefix.' [data-dusk="'.$segments[1].'"]'
-            ));
+            $selector = '[dusk="'.explode('@', $selector)[1].'"]';
         }
 
         return trim($this->prefix.' '.$selector);
