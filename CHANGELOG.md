@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.2.0...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.2.1...7.x)
+
+## [v7.2.1](https://github.com/laravel/dusk/compare/v7.2.0...v7.2.1) - 2022-12-16
+
+### Fixed
+
+- Revert "feat: add alternative tag for element selection" by @driesvints in https://github.com/laravel/dusk/pull/1013
 
 ## [v7.2.0](https://github.com/laravel/dusk/compare/v7.1.1...v7.2.0) - 2022-12-14
 
