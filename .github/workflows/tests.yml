@@ -11,7 +11,7 @@ on:
 
 jobs:
   tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     strategy:
       fail-fast: true
@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -44,7 +44,7 @@ jobs:
         run: vendor/bin/phpunit --verbose
 
   stub-tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     strategy:
       fail-fast: true
@@ -71,7 +71,7 @@ jobs:
           composer config repositories.dusk '{"type": "path", "url": "dusk"}' --file composer.json
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: 'dusk'
 
