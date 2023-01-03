@@ -1,6 +1,13 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.2.1...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.3.0...7.x)
+
+## [v7.3.0](https://github.com/laravel/dusk/compare/v7.2.1...v7.3.0) - 2023-01-03
+
+### Changed
+
+- Added .env file existence check by @Kravets1996 in https://github.com/laravel/dusk/pull/1014
+- Uses PHP Native Type Declarations 🐘  by @nunomaduro in https://github.com/laravel/dusk/pull/1004
 
 ## [v7.2.1](https://github.com/laravel/dusk/compare/v7.2.0...v7.2.1) - 2022-12-16
 
