@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.3.0...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.4.0...7.x)
+
+## [v7.4.0](https://github.com/laravel/dusk/compare/v7.3.0...v7.4.0) - 2023-01-06
+
+### Added
+
+- Laravel v10 support by @driesvints in https://github.com/laravel/dusk/pull/1015
 
 ## [v7.3.0](https://github.com/laravel/dusk/compare/v7.2.1...v7.3.0) - 2023-01-03
 
