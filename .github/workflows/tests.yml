@@ -70,7 +70,7 @@ jobs:
       - name: Setup Laravel
         run: |
           composer create-project laravel/laravel:${{ matrix.laravel }} .
-          composer require laravel/dusk --no-interaction --no-update
+          composer require laravel/dusk@dev --no-interaction --no-update
           composer config repositories.dusk '{"type": "path", "url": "dusk"}' --file composer.json
 
       - name: Checkout code
@@ -80,7 +80,7 @@ jobs:
 
       - name: Install Dusk
         run: |
-          composer update "laravel/dusk:@dev" --prefer-dist --no-interaction --no-progress -W
+          composer update "laravel/dusk" --prefer-dist --no-interaction --no-progress -W
           php artisan dusk:install
           
       - name: Update Chrome Driver
