@@ -80,7 +80,7 @@ jobs:
 
       - name: Install Dusk
         run: |
-          composer update "laravel/dusk" --prefer-dist --no-interaction --no-progress -W
+          composer update "laravel/dusk:@dev" --prefer-dist --no-interaction --no-progress -W
           php artisan dusk:install
           
       - name: Update Chrome Driver
