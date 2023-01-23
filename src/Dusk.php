@@ -7,6 +7,13 @@ use InvalidArgumentException;
 class Dusk
 {
     /**
+     * The Dusk selector (@dusk) HTML attribute.
+     *
+     * @var string
+     */
+    public static $selectorHtmlAttribute = 'dusk';
+
+    /**
      * Register the Dusk service provider.
      *
      * @param  array  $options
@@ -42,5 +49,16 @@ class Dusk
         }
 
         return app()->environment(...$options['environments']);
+    }
+
+    /**
+     * Set the Dusk selector (@dusk) HTML attribute.
+     *
+     * @param  string  $attribute
+     * @return void
+     */
+    public static function selectorHtmlAttribute(string $attribute)
+    {
+        static::$selectorHtmlAttribute = $attribute;
     }
 }
