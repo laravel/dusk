@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.4.0...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.5.0...7.x)
+
+## [v7.5.0](https://github.com/laravel/dusk/compare/v7.4.0...v7.5.0) - 2023-01-22
+
+### Added
+
+- Allow custom dusk selector by @taylorotwell in https://github.com/laravel/dusk/commit/cf04717664f80204567ad3077ea7484a0be16497
 
 ## [v7.4.0](https://github.com/laravel/dusk/compare/v7.3.0...v7.4.0) - 2023-01-06
 
