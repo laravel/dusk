@@ -22,6 +22,10 @@ jobs:
         exclude:
           - php: '8.0'
             laravel: 10
+          - php: '8.0'
+            phpunit: 10
+          - laravel: 9
+            phpunit: 10
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - PHPUnit ${{ matrix.phpunit }}
 
@@ -44,7 +48,12 @@ jobs:
            composer update --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
-        run: vendor/bin/phpunit --verbose
+        if: matrix.phpunit == '9'
+        run: vendor/bin/phpunit -c phpunit9.xml.dist --verbose
+
+      - name: Execute tests
+        if: matrix.phpunit != '9'
+        run: vendor/bin/phpunit -c phpunit.xml.dist
 
   stub-tests:
     runs-on: ubuntu-22.04
@@ -82,7 +91,7 @@ jobs:
         run: |
           composer update "laravel/dusk" --prefer-dist --no-interaction --no-progress -W
           php artisan dusk:install
-          
+
       - name: Update Chrome Driver
         run: php artisan dusk:chrome-driver --detect
 
