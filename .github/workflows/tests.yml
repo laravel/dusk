@@ -21,6 +21,8 @@ jobs:
         phpunit: [9]
         exclude:
           - php: '8.0'
+            laravel: 10
+          - php: '8.0'
             phpunit: 10
           - laravel: 9
             phpunit: 10
