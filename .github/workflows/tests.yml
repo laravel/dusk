@@ -61,7 +61,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [8.1]
+        php: [8.2]
         laravel: [^9, 10.x-dev]
 
     name: Test Stubs PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}

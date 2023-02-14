@@ -5,6 +5,7 @@ namespace Laravel\Dusk\Console;
 use Dotenv\Dotenv;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use PHPUnit\Runner\Version;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Exception\ProcessSignaledException;
 use Symfony\Component\Process\Exception\RuntimeException;
@@ -282,7 +283,11 @@ class DuskCommand extends Command
     {
         if (! file_exists($file = base_path('phpunit.dusk.xml')) &&
             ! file_exists(base_path('phpunit.dusk.xml.dist'))) {
-            copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
+            if (version_compare(Version::id(), '10.0', '>=')) {
+                copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
+            } else {
+                copy(realpath(__DIR__.'/../../stubs/phpunit9.xml'), $file);
+            }
 
             return;
         }
