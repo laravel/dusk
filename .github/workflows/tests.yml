@@ -62,7 +62,7 @@ jobs:
       fail-fast: true
       matrix:
         php: [8.2]
-        laravel: [^9, 10.x-dev]
+        laravel: [9, 10]
 
     name: Test Stubs PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
@@ -78,7 +78,7 @@ jobs:
 
       - name: Setup Laravel
         run: |
-          composer create-project laravel/laravel:${{ matrix.laravel }} .
+          composer create-project laravel/laravel:^${{ matrix.laravel }} .
           composer require laravel/dusk:@dev --no-interaction --no-update
           composer config repositories.dusk '{"type": "path", "url": "dusk"}' --file composer.json
 
