@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.6.0...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.6.1...7.x)
+
+## [v7.6.1](https://github.com/laravel/dusk/compare/v7.6.0...v7.6.1) - 2023-02-14
+
+### Fixed
+
+- Fix PHPUnit v10 stubs by @driesvints in https://github.com/laravel/dusk/pull/1024
 
 ## [v7.6.0](https://github.com/laravel/dusk/compare/v7.5.0...v7.6.0) - 2023-02-07
 
