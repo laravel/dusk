@@ -4,8 +4,8 @@ namespace Laravel\Dusk\Console;
 
 use Dotenv\Dotenv;
 use Illuminate\Console\Command;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Str;
+use PHPUnit\Runner\Version;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Exception\ProcessSignaledException;
 use Symfony\Component\Process\Exception\RuntimeException;
