@@ -9,6 +9,7 @@ about: "Report something that's broken. Please ensure your Laravel version is st
 - Dusk Version: #.#.#
 - Laravel Version: #.#.#
 - PHP Version: #.#.#
+- PHPUnit Version: #.#.#
 - Database Driver & Version:
 
 ### Description:
