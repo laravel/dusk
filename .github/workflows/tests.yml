@@ -18,7 +18,7 @@ jobs:
       matrix:
         php: ['8.0', 8.1, 8.2]
         laravel: [9, 10]
-        phpunit: [9]
+        phpunit: [9, 10]
         exclude:
           - php: '8.0'
             laravel: 10
