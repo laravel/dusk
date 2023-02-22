@@ -259,7 +259,7 @@ class DuskCommand extends Command
     {
         // BC fix to support Dotenv ^2.2...
         if (! method_exists(Dotenv::class, 'create')) {
-            (new Dotenv(base_path()))->overload();
+            (new Dotenv(base_path()))->overload(); // @phpstan-ignore-line
 
             return;
         }

@@ -230,7 +230,7 @@ trait ProvidesBrowser
     {
         $name = version_compare(Version::id(), '10', '>=')
             ? $this->name()
-            : $this->getName(false);
+            : $this->getName(false); // @phpstan-ignore-line
 
         return str_replace('\\', '_', get_class($this)).'_'.$name;
     }
