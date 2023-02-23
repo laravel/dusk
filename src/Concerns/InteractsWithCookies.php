@@ -16,7 +16,7 @@ trait InteractsWithCookies
      * @param  string|null  $value
      * @param  int|DateTimeInterface|null  $expiry
      * @param  array  $options
-     * @return $this|string
+     * @return $this|string|null
      */
     public function cookie($name, $value = null, $expiry = null, array $options = [])
     {
@@ -46,7 +46,7 @@ trait InteractsWithCookies
      * @param  string|null  $value
      * @param  int|DateTimeInterface|null  $expiry
      * @param  array  $options
-     * @return $this|string
+     * @return $this|string|null
      */
     public function plainCookie($name, $value = null, $expiry = null, array $options = [])
     {
