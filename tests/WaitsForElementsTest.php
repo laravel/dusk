@@ -213,6 +213,25 @@ class WaitsForElementsTest extends TestCase
         }
     }
 
+    public function test_wait_for_text_in_failure_message_containing_a_percent_character()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('Discount: None');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser(new stdClass, $resolver);
+
+        try {
+            $browser->waitForTextIn('foo', 'Discount: 20%', 1);
+            $this->fail('waitForTextIn() did not timeout.');
+        } catch (TimeOutException $e) {
+            $this->assertSame('Waited 1 seconds for text "Discount: 20%" in selector foo', $e->getMessage());
+        }
+    }
+
     public function test_wait_for_an_element_to_be_enabled()
     {
         $element = m::mock(stdClass::class);
