@@ -399,6 +399,20 @@ class Browser
     }
 
     /**
+     * Scroll element instantly into view at the given selector.
+     *
+     * @param  string  $selector
+     * @param  bool|array|null  $options
+     * @return $this
+     */
+    public function scrollInstantlyIntoView($selector, $options = null)
+    {
+        return $this->scrollIntoView($selector, array_merge([
+            'behavior' => 'instant',
+        ], $options ?? []));
+    }
+
+    /**
      * Scroll screen to element at the given selector.
      *
      * @param  string  $selector
