@@ -386,10 +386,10 @@ class Browser
     {
         $selector = addslashes($this->resolver->format($selector));
 
-        $options = match($options) {
+        $options = match ($options) {
             null => '',
-            true => json_encode([ 'block' => 'start', 'inline' => 'nearest' ]),
-            false => json_encode([ 'block' => 'end', 'inline' => 'nearest' ]),
+            true => json_encode(['block' => 'start', 'inline' => 'nearest']),
+            false => json_encode(['block' => 'end', 'inline' => 'nearest']),
             default => json_encode($options, JSON_THROW_ON_ERROR)
         };
 
@@ -746,7 +746,7 @@ class Browser
      */
     public function stop()
     {
-        exit();
+        exit;
     }
 
     /**
