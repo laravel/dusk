@@ -379,13 +379,21 @@ class Browser
      * Scroll element into view at the given selector.
      *
      * @param  string  $selector
+     * @param  bool|array|null  $options
      * @return $this
      */
-    public function scrollIntoView($selector)
+    public function scrollIntoView($selector, $options = null)
     {
         $selector = addslashes($this->resolver->format($selector));
 
-        $this->driver->executeScript("document.querySelector(\"$selector\").scrollIntoView();");
+        $options = match($options) {
+            null => '',
+            true => json_encode([ 'block' => 'start', 'inline' => 'nearest' ]),
+            false => json_encode([ 'block' => 'end', 'inline' => 'nearest' ]),
+            default => json_encode($options, JSON_THROW_ON_ERROR)
+        };
+
+        $this->driver->executeScript("document.querySelector(\"$selector\").scrollIntoView($options);");
 
         return $this;
     }
