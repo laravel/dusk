@@ -76,6 +76,7 @@ class InteractsWithElementsTest extends TestCase
 
     /**
      * @covers ::value
+     *
      * @dataProvider dataProviderValueWithValue
      *
      * @param  mixed  $selector
