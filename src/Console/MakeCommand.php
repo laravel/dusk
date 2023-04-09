@@ -71,4 +71,15 @@ class MakeCommand extends GeneratorCommand
     {
         return 'Tests';
     }
+
+    public function handle()
+    {
+        $filename = $this->argument('name');
+
+        if(! Str::endsWith($filename, 'Test')) {
+            return $this->error("Please append your class name with the keyword 'Test'. For e.g LoginTest instead of just Login.");
+        }
+
+        parent::handle();
+    }
 }
