@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.7.0...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.7.1...7.x)
+
+## [v7.7.1](https://github.com/laravel/dusk/compare/v7.7.0...v7.7.1) - 2023-04-13
+
+- Allow `dusk` attribute selectors to be chained by @JayBizzle in https://github.com/laravel/dusk/pull/1034
 
 ## [v7.7.0](https://github.com/laravel/dusk/compare/v7.6.1...v7.7.0) - 2023-02-21
 
