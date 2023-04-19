@@ -410,7 +410,13 @@ class ElementResolver
         );
 
         if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
-            $selector = preg_replace('/@(\S+)/', '['.Dusk::$selectorHtmlAttribute.'="$1"]', $selector);
+            $selector = $selector.' ';
+            $selector = trim(
+                preg_replace(
+                    '/@([a-zA-Z0-9\:\_\-\ ]+)(?=\s)/',
+                    '['.Dusk::$selectorHtmlAttribute.'="$1"]', $selector
+                )
+            );
         }
 
         return trim($this->prefix.' '.$selector);
