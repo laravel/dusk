@@ -147,7 +147,12 @@ class ElementResolverTest extends TestCase
         $this->assertSame('prefix #second', $resolver->format('@modal-second'));
         $this->assertSame('prefix #first-third', $resolver->format('@modal-third'));
         $this->assertSame('prefix [dusk="missing-element"]', $resolver->format('@missing-element'));
+        $this->assertSame('prefix [dusk="missing:element"]', $resolver->format('@missing:element'));
         $this->assertSame('prefix [dusk="missing-element"] > div', $resolver->format('@missing-element > div'));
+        $this->assertSame('prefix [dusk="missing element"] > div', $resolver->format('@missing element > div'));
+        $this->assertSame('prefix [dusk="missing element"] .class', $resolver->format('@missing element .class'));
+        $this->assertSame('prefix [dusk="missing element"] > div:nth-child(2) [dusk="item-1"]', $resolver->format('@missing element > div:nth-child(2) @item-1'));
+        $this->assertSame('prefix [dusk="missing element"] > div:nth-child(2) [dusk="item 1"]', $resolver->format('@missing element > div:nth-child(2) @item 1'));
     }
 
     public function test_find_by_id_with_colon()
