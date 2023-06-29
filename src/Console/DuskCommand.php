@@ -5,6 +5,7 @@ namespace Laravel\Dusk\Console;
 use Dotenv\Dotenv;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use NunoMaduro\Collision\Adapters\Phpunit\Subscribers\EnsurePrinterIsRegisteredSubscriber;
 use PHPUnit\Runner\Version;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Exception\ProcessSignaledException;
@@ -38,6 +39,13 @@ class DuskCommand extends Command
     protected $hasPhpUnitConfiguration = false;
 
     /**
+     * Indicates if the project should use Collision's printer.
+     *
+     * @var bool
+     */
+    protected $collisionPrinterRegistered = false;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -56,6 +64,8 @@ class DuskCommand extends Command
      */
     public function handle()
     {
+        $this->registerCollisionPrinter();
+
         $this->purgeScreenshots();
 
         $this->purgeConsoleLogs();
@@ -119,6 +129,10 @@ class DuskCommand extends Command
      */
     protected function phpunitArguments($options)
     {
+        if ($this->collisionPrinterRegistered) {
+            $options[] = '--no-output';
+        }
+
         $options = array_values(array_filter($options, function ($option) {
             return ! Str::startsWith($option, ['--env=', '--pest']);
         }));
@@ -137,9 +151,17 @@ class DuskCommand extends Command
      */
     protected function env()
     {
+        $variables = [];
+
         if ($this->option('browse') && ! isset($_ENV['CI']) && ! isset($_SERVER['CI'])) {
-            return ['DUSK_HEADLESS_DISABLED' => true];
+            $variables['DUSK_HEADLESS_DISABLED'] = true;
         }
+
+        if ($this->collisionPrinterRegistered) {
+            $variables['COLLISION_PRINTER'] = 'DefaultPrinter';
+        }
+
+        return $variables;
     }
 
     /**
@@ -361,5 +383,14 @@ class DuskCommand extends Command
         }
 
         return '.env.dusk';
+    }
+
+    protected function registerCollisionPrinter()
+    {
+        if (class_exists(Version::class) && (int) Version::series() >= 10) {
+            EnsurePrinterIsRegisteredSubscriber::register();
+
+            $this->collisionPrinterRegistered = true;
+        }
     }
 }
