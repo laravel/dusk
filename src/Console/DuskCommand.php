@@ -156,7 +156,7 @@ class DuskCommand extends Command
     }
 
     /**
-     * If the Collision's printer should be used.
+     * Determine if Collision's printer should be used.
      *
      * @return bool
      */
