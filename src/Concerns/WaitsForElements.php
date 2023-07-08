@@ -123,7 +123,7 @@ trait WaitsForElements
      */
     public function waitForTextIn($selector, $text, $seconds = null)
     {
-        $message = 'Waited %s seconds for text "'.$text.'" in selector '.$selector;
+        $message = 'Waited %s seconds for text "'.$this->escapePercentCharacters($text).'" in selector '.$selector;
 
         return $this->waitUsing($seconds, 100, function () use ($selector, $text) {
             return $this->assertSeeIn($selector, $text);
@@ -427,6 +427,17 @@ trait WaitsForElements
      */
     protected function formatTimeOutMessage($message, $expected)
     {
-        return $message.' ['.str_replace('%', '%%', $expected).'].';
+        return $message.' ['.$this->escapePercentCharacters($expected).'].';
+    }
+
+    /**
+     * Escape percent characters in preparation for sending the given message to "sprintf".
+     *
+     * @param  string  $message
+     * @return string
+     */
+    protected function escapePercentCharacters($message)
+    {
+        return str_replace('%', '%%', $message);
     }
 }
