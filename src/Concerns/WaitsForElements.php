@@ -431,7 +431,7 @@ trait WaitsForElements
     }
 
     /**
-     * Escape percent characters before feeding the message to sprintf().
+     * Escape percent characters in preparation for sending the given message to "sprintf".
      *
      * @param  string  $message
      * @return string
