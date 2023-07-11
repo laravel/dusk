@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.7.1...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.8.0...7.x)
+
+## [v7.8.0](https://github.com/laravel/dusk/compare/v7.7.1...v7.8.0) - 2023-07-08
+
+- Uses Collision's printer if possible by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1038
+- Fixed timeout error message that contain percent characters when calling waitForTextIn by [@voidgraphics](https://github.com/voidgraphics) in https://github.com/laravel/dusk/pull/1029
 
 ## [v7.7.1](https://github.com/laravel/dusk/compare/v7.7.0...v7.7.1) - 2023-04-13
 
