@@ -24,7 +24,7 @@ class ChromeProcessTest extends TestCase
         try {
             (new ChromeProcessWindows)->toProcess();
         } catch (RuntimeException $exception) {
-            $this->assertStringContainsString('chromedriver-win.exe', $exception->getMessage());
+            $this->assertStringContainsString('chromedriver-win32.exe', $exception->getMessage());
         }
     }
 
@@ -78,7 +78,7 @@ class ChromeProcessWindows extends ChromeProcess
 
     protected function operatingSystemId()
     {
-        return 'win';
+        return 'win32';
     }
 }
 

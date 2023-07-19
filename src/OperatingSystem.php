@@ -14,7 +14,7 @@ class OperatingSystem
     public static function id()
     {
         if (static::onWindows()) {
-            return 'win';
+            return static::windowsArchitectureId();
         } elseif (static::onMac()) {
             return static::macArchitectureId();
         }
@@ -30,6 +30,21 @@ class OperatingSystem
     public static function onWindows()
     {
         return PHP_OS === 'WINNT' || Str::contains(php_uname(), 'Microsoft');
+    }
+
+    /**
+     * Windows platform architecture.
+     *
+     * @return string
+     */
+    public static function windowsArchitectureId()
+    {
+        switch (PHP_INT_SIZE) {
+            case 8:
+                return 'win64';
+            default:
+                return 'win32';
+        }
     }
 
     /**

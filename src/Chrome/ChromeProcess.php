@@ -41,10 +41,10 @@ class ChromeProcess
         } else {
             $filenames = [
                 'linux' => 'chromedriver-linux',
-                'mac' => 'chromedriver-mac',
                 'mac-intel' => 'chromedriver-mac-intel',
                 'mac-arm' => 'chromedriver-mac-arm',
-                'win' => 'chromedriver-win.exe',
+                'win32' => 'chromedriver-win32.exe',
+                'win64' => 'chromedriver-win64.exe',
             ];
 
             $driver = __DIR__.'/../../bin'.DIRECTORY_SEPARATOR.$filenames[$this->operatingSystemId()];

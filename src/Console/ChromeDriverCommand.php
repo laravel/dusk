@@ -2,7 +2,9 @@
 
 namespace Laravel\Dusk\Console;
 
+use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use Laravel\Dusk\OperatingSystem;
 use Symfony\Component\Process\Process;
 use ZipArchive;
@@ -35,21 +37,14 @@ class ChromeDriverCommand extends Command
      *
      * @var string
      */
-    protected $latestVersionUrl = 'https://chromedriver.storage.googleapis.com/LATEST_RELEASE';
+    protected $latestVersionUrl = 'https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json';
 
     /**
-     * URL to the latest release version for a major Chrome version.
+     * URL to the latest release versions for Chrome.
      *
      * @var string
      */
-    protected $versionUrl = 'https://chromedriver.storage.googleapis.com/LATEST_RELEASE_%d';
-
-    /**
-     * URL to the ChromeDriver download.
-     *
-     * @var string
-     */
-    protected $downloadUrl = 'https://chromedriver.storage.googleapis.com/%s/chromedriver_%s.zip';
+    protected $versionsUrl = 'https://googlechromelabs.github.io/chrome-for-testing/latest-versions-per-milestone-with-downloads.json';
 
     /**
      * Download slugs for the available operating systems.
@@ -58,45 +53,10 @@ class ChromeDriverCommand extends Command
      */
     protected $slugs = [
         'linux' => 'linux64',
-        'mac' => 'mac64',
-        'mac-intel' => 'mac64',
-        'mac-arm' => 'mac_arm64',
-        'win' => 'win32',
-    ];
-
-    /**
-     * The legacy versions for the ChromeDriver.
-     *
-     * @var array
-     */
-    protected $legacyVersions = [
-        43 => '2.20',
-        44 => '2.20',
-        45 => '2.20',
-        46 => '2.21',
-        47 => '2.21',
-        48 => '2.21',
-        49 => '2.22',
-        50 => '2.22',
-        51 => '2.23',
-        52 => '2.24',
-        53 => '2.26',
-        54 => '2.27',
-        55 => '2.28',
-        56 => '2.29',
-        57 => '2.29',
-        58 => '2.31',
-        59 => '2.32',
-        60 => '2.33',
-        61 => '2.34',
-        62 => '2.35',
-        63 => '2.36',
-        64 => '2.37',
-        65 => '2.38',
-        66 => '2.40',
-        67 => '2.41',
-        68 => '2.42',
-        69 => '2.44',
+        'mac-intel' => 'mac-x64',
+        'mac-arm' => 'mac-arm64',
+        'win32' => 'win32',
+        'win64' => 'win64',
     ];
 
     /**
@@ -124,7 +84,10 @@ class ChromeDriverCommand extends Command
         'mac-arm' => [
             '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version',
         ],
-        'win' => [
+        'win32' => [
+            'reg query "HKEY_CURRENT_USER\Software\Google\Chrome\BLBeacon" /v version',
+        ],
+        'win64' => [
             'reg query "HKEY_CURRENT_USER\Software\Google\Chrome\BLBeacon" /v version',
         ],
     ];
@@ -137,6 +100,12 @@ class ChromeDriverCommand extends Command
     public function handle()
     {
         $version = $this->version();
+
+        $milestone = (int) $version;
+
+        if ($milestone < 115) {
+            throw new Exception('Dusk v8 requires Chrome 115 or above.');
+        }
 
         $all = $this->option('all');
 
@@ -161,6 +130,8 @@ class ChromeDriverCommand extends Command
      * Get the desired ChromeDriver version.
      *
      * @return string
+     *
+     * @throws \Exception
      */
     protected function version()
     {
@@ -178,21 +149,20 @@ class ChromeDriverCommand extends Command
             return $version;
         }
 
-        $version = (int) $version;
+        $milestone = (int) $version;
 
-        if ($version < 70) {
-            return $this->legacyVersions[$version];
-        }
+        $milestones = json_decode($this->getUrl($this->versionsUrl), true);
 
-        return trim($this->getUrl(
-            sprintf($this->versionUrl, $version)
-        ));
+        return $milestones['milestones'][$milestone]['version']
+            ?? throw new Exception('Could not get the ChromeDriver version.');
     }
 
     /**
      * Get the latest stable ChromeDriver version.
      *
      * @return string
+     *
+     * @throws \Exception
      */
     protected function latestVersion()
     {
@@ -211,7 +181,12 @@ class ChromeDriverCommand extends Command
             $streamOptions['http'] = ['proxy' => $this->option('proxy'), 'request_fulluri' => true];
         }
 
-        return trim(file_get_contents($this->latestVersionUrl, false, stream_context_create($streamOptions)));
+        $versions = json_decode(file_get_contents(
+            $this->latestVersionUrl, false, stream_context_create($streamOptions)
+        ), true);
+
+        return $versions['channels']['Stable']['version']
+            ?? throw new Exception('Could not get the latest ChromeDriver version.');
     }
 
     /**
@@ -247,10 +222,20 @@ class ChromeDriverCommand extends Command
      * @param  string  $version
      * @param  string  $slug
      * @return string
+     *
+     * @throws \Exception
      */
     protected function download($version, $slug)
     {
-        $url = sprintf($this->downloadUrl, $version, $slug);
+        $milestone = (int) $version;
+
+        $versions = json_decode($this->getUrl($this->versionsUrl), true);
+
+        $chromedrivers = $versions['milestones'][$milestone]['downloads']['chromedriver']
+            ?? throw new Exception('Could not get the ChromeDriver version.');
+
+        $url = collect($chromedrivers)->firstWhere('platform', $slug)['url']
+            ?? throw new Exception('Could not get the ChromeDriver version.');
 
         file_put_contents(
             $archive = $this->directory.'chromedriver.zip',
@@ -274,7 +259,7 @@ class ChromeDriverCommand extends Command
 
         $zip->extractTo($this->directory);
 
-        $binary = $zip->getNameIndex(0);
+        $binary = $zip->getNameIndex(1);
 
         $zip->close();
 
@@ -292,7 +277,7 @@ class ChromeDriverCommand extends Command
      */
     protected function rename($binary, $os)
     {
-        $newName = str_replace('chromedriver', 'chromedriver-'.$os, $binary);
+        $newName = Str::after(str_replace('chromedriver', 'chromedriver-'.$os, $binary), DIRECTORY_SEPARATOR);
 
         rename($this->directory.$binary, $this->directory.$newName);
 
