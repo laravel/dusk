@@ -195,6 +195,24 @@ class WaitsForElementsTest extends TestCase
         $browser->waitUntilMissing('foo');
     }
 
+    public function test_wait_until_missing_text_failure_message_containing_a_percent_character()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('Discount: 20%');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
+
+        $browser = new Browser(new stdClass, $resolver);
+
+        try {
+            $browser->waitUntilMissingText('Discount: 20%', 1);
+            $this->fail('waitUntilMissingText() did not timeout.');
+        } catch (TimeOutException $e) {
+            $this->assertSame('Waited 1 seconds for removal of text [Discount: 20%].', $e->getMessage());
+        }
+    }
+
     public function test_wait_for_text_failure_message_containing_a_percent_character()
     {
         $element = m::mock(stdClass::class);
@@ -210,6 +228,57 @@ class WaitsForElementsTest extends TestCase
             $this->fail('waitForText() did not timeout.');
         } catch (TimeOutException $e) {
             $this->assertSame('Waited 1 seconds for text [Discount: 20%].', $e->getMessage());
+        }
+    }
+
+    public function test_wait_for_text_in_failure_message_containing_a_percent_character()
+    {
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getText')->andReturn('Discount: None');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser(new stdClass, $resolver);
+
+        try {
+            $browser->waitForTextIn('foo', 'Discount: 20%', 1);
+            $this->fail('waitForTextIn() did not timeout.');
+        } catch (TimeOutException $e) {
+            $this->assertSame('Waited 1 seconds for text "Discount: 20%" in selector foo', $e->getMessage());
+        }
+    }
+
+    public function test_wait_for_link_failure_message_containing_a_percent_character()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')
+            ->andReturnFalse();
+
+        $browser = new Browser($driver);
+
+        try {
+            $browser->waitForLink('https://laravel.com?q=foo%20bar', 1);
+            $this->fail('waitForLink() did not timeout.');
+        } catch (TimeOutException $e) {
+            $this->assertSame('Waited 1 seconds for link [https://laravel.com?q=foo%20bar].', $e->getMessage());
+        }
+    }
+
+    public function test_wait_for_location_failure_message_containing_a_percent_character()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('executeScript')
+            ->andReturnFalse();
+
+        $browser = new Browser($driver);
+
+        try {
+            $browser->waitForLocation('https://laravel.com?q=foo%20bar', 1);
+            $this->fail('waitForLocation() did not timeout.');
+        } catch (TimeOutException $e) {
+            $this->assertSame('Waited 1 seconds for location [https://laravel.com?q=foo%20bar].', $e->getMessage());
         }
     }
 

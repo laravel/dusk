@@ -724,7 +724,7 @@ class Browser
      */
     public function stop()
     {
-        exit();
+        exit;
     }
 
     /**

@@ -6,6 +6,7 @@ use Closure;
 use Exception;
 use Illuminate\Support\Collection;
 use Laravel\Dusk\Browser;
+use PHPUnit\Runner\Version;
 use ReflectionFunction;
 use Throwable;
 
@@ -227,7 +228,11 @@ trait ProvidesBrowser
      */
     protected function getCallerName()
     {
-        return str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
+        $name = version_compare(Version::id(), '10', '>=')
+            ? $this->name()
+            : $this->getName(false); // @phpstan-ignore-line
+
+        return str_replace('\\', '_', get_class($this)).'_'.$name;
     }
 
     /**

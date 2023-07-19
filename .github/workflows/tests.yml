@@ -2,26 +2,36 @@ name: tests
 
 on:
   push:
+    branches:
+      - master
+      - '*.x'
   pull_request:
   schedule:
     - cron: '0 0 * * *'
 
 jobs:
   tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.0', 8.1]
-        laravel: [9]
-        phpunit: [9]
+        php: ['8.0', 8.1, 8.2]
+        laravel: [9, 10]
+        phpunit: [9, 10]
+        exclude:
+          - php: '8.0'
+            laravel: 10
+          - php: '8.0'
+            phpunit: 10
+          - laravel: 9
+            phpunit: 10
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - PHPUnit ${{ matrix.phpunit }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -38,4 +48,60 @@ jobs:
            composer update --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
-        run: vendor/bin/phpunit --verbose
+        if: matrix.phpunit == '9'
+        run: vendor/bin/phpunit -c phpunit9.xml.dist --verbose
+
+      - name: Execute tests
+        if: matrix.phpunit != '9'
+        run: vendor/bin/phpunit -c phpunit.xml.dist
+
+  stub-tests:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.2]
+        laravel: [9, 10]
+
+    name: Test Stubs PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2
+          coverage: none
+
+      - name: Setup Laravel
+        run: |
+          composer create-project laravel/laravel:^${{ matrix.laravel }} .
+          composer require laravel/dusk:@dev --no-interaction --no-update
+          composer config repositories.dusk '{"type": "path", "url": "dusk"}' --file composer.json
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          path: 'dusk'
+
+      - name: Install Dusk
+        run: |
+          composer update "laravel/dusk" --prefer-dist --no-interaction --no-progress -W
+          php artisan dusk:install
+
+      - name: Update Chrome Driver
+        run: php artisan dusk:chrome-driver --detect
+
+      - name: Start Chrome Driver
+        run: ./vendor/laravel/dusk/bin/chromedriver-linux &
+
+      - name: Run Laravel Server
+        run: php artisan serve --no-reload &
+
+      - name: Run Dusk Tests
+        run: php artisan dusk --without-tty
+        env:
+          APP_URL: http://127.0.0.1:8000

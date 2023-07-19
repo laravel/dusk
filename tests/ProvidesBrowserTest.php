@@ -44,7 +44,7 @@ class ProvidesBrowserTest extends TestCase
         $this->storeConsoleLogsFor($browsers);
     }
 
-    public function testData()
+    public static function testData()
     {
         return [
             ['foo'],

@@ -1,6 +1,62 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.1.1...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.8.0...master)
+
+## [v7.8.0](https://github.com/laravel/dusk/compare/v7.7.1...v7.8.0) - 2023-07-08
+
+- Uses Collision's printer if possible by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1038
+- Fixed timeout error message that contain percent characters when calling waitForTextIn by [@voidgraphics](https://github.com/voidgraphics) in https://github.com/laravel/dusk/pull/1029
+
+## [v7.7.1](https://github.com/laravel/dusk/compare/v7.7.0...v7.7.1) - 2023-04-13
+
+- Allow `dusk` attribute selectors to be chained by @JayBizzle in https://github.com/laravel/dusk/pull/1034
+
+## [v7.7.0](https://github.com/laravel/dusk/compare/v7.6.1...v7.7.0) - 2023-02-21
+
+- Use `--headless=new` by @SjorsO in https://github.com/laravel/dusk/pull/1027
+
+## [v7.6.1](https://github.com/laravel/dusk/compare/v7.6.0...v7.6.1) - 2023-02-14
+
+### Fixed
+
+- Fix PHPUnit v10 stubs by @driesvints in https://github.com/laravel/dusk/pull/1024
+
+## [v7.6.0](https://github.com/laravel/dusk/compare/v7.5.0...v7.6.0) - 2023-02-07
+
+### Added
+
+- Adds PHPUnit 10 support  by @crynobone in https://github.com/laravel/dusk/pull/1023
+
+## [v7.5.0](https://github.com/laravel/dusk/compare/v7.4.0...v7.5.0) - 2023-01-22
+
+### Added
+
+- Allow custom dusk selector by @taylorotwell in https://github.com/laravel/dusk/commit/cf04717664f80204567ad3077ea7484a0be16497
+
+## [v7.4.0](https://github.com/laravel/dusk/compare/v7.3.0...v7.4.0) - 2023-01-06
+
+### Added
+
+- Laravel v10 support by @driesvints in https://github.com/laravel/dusk/pull/1015
+
+## [v7.3.0](https://github.com/laravel/dusk/compare/v7.2.1...v7.3.0) - 2023-01-03
+
+### Changed
+
+- Added .env file existence check by @Kravets1996 in https://github.com/laravel/dusk/pull/1014
+- Uses PHP Native Type Declarations 🐘  by @nunomaduro in https://github.com/laravel/dusk/pull/1004
+
+## [v7.2.1](https://github.com/laravel/dusk/compare/v7.2.0...v7.2.1) - 2022-12-16
+
+### Fixed
+
+- Revert "feat: add alternative tag for element selection" by @driesvints in https://github.com/laravel/dusk/pull/1013
+
+## [v7.2.0](https://github.com/laravel/dusk/compare/v7.1.1...v7.2.0) - 2022-12-14
+
+### Added
+
+- Add alternative tag for element selection by @pataar in https://github.com/laravel/dusk/pull/1012
 
 ## [v7.1.1](https://github.com/laravel/dusk/compare/v7.1.0...v7.1.1) - 2022-09-29
 
