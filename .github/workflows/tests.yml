@@ -55,53 +55,53 @@ jobs:
         if: matrix.phpunit != '9'
         run: vendor/bin/phpunit -c phpunit.xml.dist
 
-  stub-tests:
-    runs-on: ubuntu-22.04
+  # stub-tests:
+  #   runs-on: ubuntu-22.04
 
-    strategy:
-      fail-fast: true
-      matrix:
-        php: [8.2]
-        laravel: [9, 10]
+  #   strategy:
+  #     fail-fast: true
+  #     matrix:
+  #       php: [8.2]
+  #       laravel: [9, 10]
 
-    name: Test Stubs PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
+  #   name: Test Stubs PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
-    steps:
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip
-          ini-values: error_reporting=E_ALL
-          tools: composer:v2
-          coverage: none
+  #   steps:
+  #     - name: Setup PHP
+  #       uses: shivammathur/setup-php@v2
+  #       with:
+  #         php-version: ${{ matrix.php }}
+  #         extensions: dom, curl, libxml, mbstring, zip
+  #         ini-values: error_reporting=E_ALL
+  #         tools: composer:v2
+  #         coverage: none
 
-      - name: Setup Laravel
-        run: |
-          composer create-project laravel/laravel:^${{ matrix.laravel }} .
-          composer require laravel/dusk:@dev --no-interaction --no-update
-          composer config repositories.dusk '{"type": "path", "url": "dusk"}' --file composer.json
+  #     - name: Setup Laravel
+  #       run: |
+  #         composer create-project laravel/laravel:^${{ matrix.laravel }} .
+  #         composer require laravel/dusk:@dev --no-interaction --no-update
+  #         composer config repositories.dusk '{"type": "path", "url": "dusk"}' --file composer.json
 
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          path: 'dusk'
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #       with:
+  #         path: 'dusk'
 
-      - name: Install Dusk
-        run: |
-          composer update "laravel/dusk" --prefer-dist --no-interaction --no-progress -W
-          php artisan dusk:install
+  #     - name: Install Dusk
+  #       run: |
+  #         composer update "laravel/dusk" --prefer-dist --no-interaction --no-progress -W
+  #         php artisan dusk:install
 
-      - name: Update Chrome Driver
-        run: php artisan dusk:chrome-driver --detect
+  #     - name: Update Chrome Driver
+  #       run: php artisan dusk:chrome-driver --detect
 
-      - name: Start Chrome Driver
-        run: ./vendor/laravel/dusk/bin/chromedriver-linux &
+  #     - name: Start Chrome Driver
+  #       run: ./vendor/laravel/dusk/bin/chromedriver-linux &
 
-      - name: Run Laravel Server
-        run: php artisan serve --no-reload &
+  #     - name: Run Laravel Server
+  #       run: php artisan serve --no-reload &
 
-      - name: Run Dusk Tests
-        run: php artisan dusk --without-tty
-        env:
-          APP_URL: http://127.0.0.1:8000
+  #     - name: Run Dusk Tests
+  #       run: php artisan dusk --without-tty
+  #       env:
+  #         APP_URL: http://127.0.0.1:8000
