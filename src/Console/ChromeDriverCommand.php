@@ -100,8 +100,8 @@ class ChromeDriverCommand extends Command
 
         $milestone = (int) $version;
 
-        if ($milestone < 115) {
-            throw new Exception('Dusk v7 requires Chrome 115 or above.');
+        if ($milestone < 113) {
+            throw new Exception('Dusk v7 requires Chrome 113 or above.');
         }
 
         $all = $this->option('all');
