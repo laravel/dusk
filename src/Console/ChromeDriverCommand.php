@@ -57,7 +57,6 @@ class ChromeDriverCommand extends Command
         'mac-intel' => 'mac-x64',
         'mac-arm' => 'mac-arm64',
         'win' => 'win32',
-        'win64' => 'win64',
     ];
 
     /**
@@ -85,10 +84,7 @@ class ChromeDriverCommand extends Command
         'mac-arm' => [
             '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version',
         ],
-        'win32' => [
-            'reg query "HKEY_CURRENT_USER\Software\Google\Chrome\BLBeacon" /v version',
-        ],
-        'win64' => [
+        'win' => [
             'reg query "HKEY_CURRENT_USER\Software\Google\Chrome\BLBeacon" /v version',
         ],
     ];
