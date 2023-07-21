@@ -178,9 +178,7 @@ class ChromeDriverCommand extends Command
             $streamOptions['http'] = ['proxy' => $this->option('proxy'), 'request_fulluri' => true];
         }
 
-        $versions = json_decode(file_get_contents(
-            $this->latestVersionUrl, false, stream_context_create($streamOptions)
-        ), true);
+        $versions = json_decode($this->getUrl($this->latestVersionUrl), true);
 
         return $versions['channels']['Stable']['version']
             ?? throw new Exception('Could not get the latest ChromeDriver version.');
