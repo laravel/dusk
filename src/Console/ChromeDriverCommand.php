@@ -3,7 +3,9 @@
 namespace Laravel\Dusk\Console;
 
 use Exception;
+use GuzzleHttp\Psr7\Utils;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Laravel\Dusk\OperatingSystem;
 use Symfony\Component\Process\Process;
@@ -188,10 +190,14 @@ class ChromeDriverCommand extends Command
     {
         $url = $this->resolveChromeDriverDownloadUrl($version, $os);
 
-        file_put_contents(
-            $archive = $this->directory.'chromedriver.zip',
-            $this->getUrl($url)
-        );
+        $resource = Utils::tryFopen($archive = $this->directory.'chromedriver.zip', 'w');
+
+        Http::withOptions(array_merge([
+            'verify' => $this->option('ssl-no-verify') === false,
+            'sink' => $resource,
+        ]), array_filter([
+            'proxy' => $this->option('proxy'),
+        ]))->get($url);
 
         return $archive;
     }
@@ -241,23 +247,15 @@ class ChromeDriverCommand extends Command
     /**
      * Get the contents of a URL using the 'proxy' and 'ssl-no-verify' command options.
      *
-     * @return string|bool
+     * @return string
      */
     protected function getUrl(string $url)
     {
-        $contextOptions = [];
-
-        if ($this->option('proxy')) {
-            $contextOptions['http'] = ['proxy' => $this->option('proxy'), 'request_fulluri' => true];
-        }
-
-        if ($this->option('ssl-no-verify')) {
-            $contextOptions['ssl'] = ['verify_peer' => false];
-        }
-
-        $streamContext = stream_context_create($contextOptions);
-
-        return file_get_contents($url, false, $streamContext);
+        return Http::withOptions(array_merge([
+            'verify' => $this->option('ssl-no-verify') === false,
+        ]), array_filter([
+            'proxy' => $this->option('proxy'),
+        ]))->get($url)->body();
     }
 
     /**
