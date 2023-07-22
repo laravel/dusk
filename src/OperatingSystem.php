@@ -10,7 +10,7 @@ class OperatingSystem
     /**
      * List of available Operating System platforms.
      *
-     * @var array<string, array{slug: string, binary: string, commands: array<int, string>}>
+     * @var array<string, array{slug: string, commands: array<int, string>}>
      */
     protected static $platforms = [
         'linux' => [
