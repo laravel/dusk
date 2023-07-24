@@ -35,7 +35,7 @@ class ChromeDriverCommand extends Command
     protected $description = 'Install the ChromeDriver binary';
 
     /**
-     * The legacy versions for the ChromeDriver.
+     * The legacy versions for ChromeDriver.
      *
      * @var array
      */
