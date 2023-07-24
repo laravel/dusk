@@ -8,7 +8,7 @@ use InvalidArgumentException;
 class OperatingSystem
 {
     /**
-     * List of available Operating System platforms.
+     * List of available operating system platforms.
      *
      * @var array<string, array{slug: string, commands: array<int, string>}>
      */
@@ -52,7 +52,7 @@ class OperatingSystem
     ];
 
     /**
-     * Resolve Chrome version commands.
+     * Resolve the Chrome version commands for the given operating system.
      *
      * @param  string  $operatingSystem
      * @return array<int, string>
@@ -69,7 +69,7 @@ class OperatingSystem
     }
 
     /**
-     * Resolve ChromeDriver slug.
+     * Resolve the ChromeDriver slug for the given operating system.
      *
      * @param  string  $operatingSystem
      * @param  string|null  $version
@@ -95,7 +95,7 @@ class OperatingSystem
     }
 
     /**
-     * Returns all possible OS.
+     * Get all supported operating systems.
      *
      * @return array<int, string>
      */
@@ -105,7 +105,7 @@ class OperatingSystem
     }
 
     /**
-     * Returns the current OS identifier.
+     * Get the current operating system identifier.
      *
      * @return string
      */
@@ -141,7 +141,7 @@ class OperatingSystem
     }
 
     /**
-     * Mac platform architecture.
+     * Get the current macOS platform architecture.
      *
      * @return string
      */

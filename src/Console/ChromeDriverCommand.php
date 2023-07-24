@@ -245,21 +245,7 @@ class ChromeDriverCommand extends Command
     }
 
     /**
-     * Get the contents of a URL using the 'proxy' and 'ssl-no-verify' command options.
-     *
-     * @return string
-     */
-    protected function getUrl(string $url)
-    {
-        return Http::withOptions(array_merge([
-            'verify' => $this->option('ssl-no-verify') === false,
-        ]), array_filter([
-            'proxy' => $this->option('proxy'),
-        ]))->get($url)->body();
-    }
-
-    /**
-     * Get the chrome version from URL.
+     * Get the Chrome version from URL.
      *
      * @return string
      */
@@ -271,7 +257,7 @@ class ChromeDriverCommand extends Command
     }
 
     /**
-     * Get the chrome versions per milestone.
+     * Get the Chrome versions per milestone.
      *
      * @return array
      */
@@ -283,7 +269,7 @@ class ChromeDriverCommand extends Command
     }
 
     /**
-     * Resolve the download url.
+     * Resolve the download URL.
      *
      * @return string
      *
@@ -307,5 +293,19 @@ class ChromeDriverCommand extends Command
 
         return collect($chromedrivers)->firstWhere('platform', $slug)['url']
             ?? throw new Exception('Could not get the ChromeDriver version.');
+    }
+
+    /**
+     * Get the contents of a URL using the 'proxy' and 'ssl-no-verify' command options.
+     *
+     * @return string
+     */
+    protected function getUrl(string $url)
+    {
+        return Http::withOptions(array_merge([
+            'verify' => $this->option('ssl-no-verify') === false,
+        ]), array_filter([
+            'proxy' => $this->option('proxy'),
+        ]))->get($url)->body();
     }
 }
