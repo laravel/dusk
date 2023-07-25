@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.8.0...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.9.0...7.x)
+
+## [v7.9.0](https://github.com/laravel/dusk/compare/v7.8.0...v7.9.0) - 2023-07-24
+
+- Fix ChromeDriverCommand for ChromeDriver 115+ by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1043
 
 ## [v7.8.0](https://github.com/laravel/dusk/compare/v7.7.1...v7.8.0) - 2023-07-08
 
