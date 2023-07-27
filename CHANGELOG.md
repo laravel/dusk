@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.9.0...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.9.1...7.x)
+
+## [v7.9.1](https://github.com/laravel/dusk/compare/v7.9.0...v7.9.1) - 2023-07-27
+
+- Normalize directory separator on `ChromeDriverCommand` by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1045
 
 ## [v7.9.0](https://github.com/laravel/dusk/compare/v7.8.0...v7.9.0) - 2023-07-24
 
