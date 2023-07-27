@@ -235,8 +235,10 @@ class ChromeDriverCommand extends Command
      */
     protected function rename($binary, $os)
     {
-        $newName = Str::contains($binary, DIRECTORY_SEPARATOR)
-            ? Str::after(str_replace('chromedriver', 'chromedriver-'.$os, $binary), DIRECTORY_SEPARATOR)
+        $binary = str_replace(DIRECTORY_SEPARATOR, '/', $binary);
+
+        $newName = Str::contains($binary, '/')
+            ? Str::after(str_replace('chromedriver', 'chromedriver-'.$os, $binary), '/')
             : str_replace('chromedriver', 'chromedriver-'.$os, $binary);
 
         rename($this->directory.$binary, $this->directory.$newName);
