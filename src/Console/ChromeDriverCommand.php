@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Console;
 
 use Exception;
+use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Utils;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
@@ -192,12 +193,18 @@ class ChromeDriverCommand extends Command
 
         $resource = Utils::tryFopen($archive = $this->directory.'chromedriver.zip', 'w');
 
-        Http::withOptions(array_merge([
-            'verify' => $this->option('ssl-no-verify') === false,
+        $client = new Client();
+
+        $response = $client->get($url, array_merge([
             'sink' => $resource,
-        ]), array_filter([
+            'verify' => $this->option('ssl-no-verify') === false,
+        ], array_filter([
             'proxy' => $this->option('proxy'),
-        ]))->get($url);
+        ])));
+
+        if ($response->getStatusCode() < 200 || $response->getStatusCode() > 299) {
+            throw new Exception("Unable to download ChromeDriver from [{$url}].");
+        }
 
         return $archive;
     }
@@ -306,8 +313,8 @@ class ChromeDriverCommand extends Command
     {
         return Http::withOptions(array_merge([
             'verify' => $this->option('ssl-no-verify') === false,
-        ]), array_filter([
+        ], array_filter([
             'proxy' => $this->option('proxy'),
-        ]))->get($url)->body();
+        ])))->get($url)->body();
     }
 }
