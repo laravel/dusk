@@ -307,6 +307,7 @@ class ChromeDriverCommand extends Command
      * Get the contents of a URL using the 'proxy' and 'ssl-no-verify' command options.
      *
      * @return string
+     *
      * @throws Exception
      */
     protected function getUrl(string $url)
