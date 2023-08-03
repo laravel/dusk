@@ -6,7 +6,6 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Utils;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Laravel\Dusk\OperatingSystem;
 use Symfony\Component\Process\Process;
