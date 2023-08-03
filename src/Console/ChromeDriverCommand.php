@@ -321,7 +321,7 @@ class ChromeDriverCommand extends Command
         ])));
 
         if ($response->getStatusCode() < 200 || $response->getStatusCode() > 299) {
-            throw new Exception("Unable to fetch contents from [{$url}]");
+            throw new Exception("Unable to fetch contents from [{$url}].");
         }
 
         return (string) $response->getBody();
