@@ -6,7 +6,6 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Utils;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Laravel\Dusk\OperatingSystem;
 use Symfony\Component\Process\Process;
@@ -308,13 +307,23 @@ class ChromeDriverCommand extends Command
      * Get the contents of a URL using the 'proxy' and 'ssl-no-verify' command options.
      *
      * @return string
+     *
+     * @throws Exception
      */
     protected function getUrl(string $url)
     {
-        return Http::withOptions(array_merge([
+        $client = new Client();
+
+        $response = $client->get($url, array_merge([
             'verify' => $this->option('ssl-no-verify') === false,
         ], array_filter([
             'proxy' => $this->option('proxy'),
-        ])))->get($url)->body();
+        ])));
+
+        if ($response->getStatusCode() < 200 || $response->getStatusCode() > 299) {
+            throw new Exception("Unable to fetch contents from [{$url}].");
+        }
+
+        return (string) $response->getBody();
     }
 }
