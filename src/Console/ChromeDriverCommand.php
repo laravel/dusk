@@ -307,13 +307,22 @@ class ChromeDriverCommand extends Command
      * Get the contents of a URL using the 'proxy' and 'ssl-no-verify' command options.
      *
      * @return string
+     * @throws Exception
      */
     protected function getUrl(string $url)
     {
-        return (new Client())->get($url, array_merge([
+        $client = new Client();
+
+        $response = $client->get($url, array_merge([
             'verify' => $this->option('ssl-no-verify') === false,
         ], array_filter([
             'proxy' => $this->option('proxy'),
-        ])))->getBody();
+        ])));
+
+        if ($response->getStatusCode() < 200 || $response->getStatusCode() > 299) {
+            throw new Exception("Unable to fetch contents from [{$url}]");
+        }
+
+        return (string) $response->getBody();
     }
 }
