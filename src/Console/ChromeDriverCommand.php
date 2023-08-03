@@ -311,10 +311,10 @@ class ChromeDriverCommand extends Command
      */
     protected function getUrl(string $url)
     {
-        return Http::withOptions(array_merge([
+        return (new Client())->get($url, array_merge([
             'verify' => $this->option('ssl-no-verify') === false,
         ], array_filter([
             'proxy' => $this->option('proxy'),
-        ])))->get($url)->body();
+        ])))->getBody();
     }
 }
