@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.9.2...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.9.3...7.x)
+
+## [v7.9.3](https://github.com/laravel/dusk/compare/v7.9.2...v7.9.3) - 2023-08-03
+
+- [7.x] Prevent interaction with `Http::preventStrayRequests` by [@joshbonnick](https://github.com/joshbonnick) in https://github.com/laravel/dusk/pull/1052
 
 ## [v7.9.2](https://github.com/laravel/dusk/compare/v7.9.1...v7.9.2) - 2023-07-30
 
