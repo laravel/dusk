@@ -8,12 +8,8 @@
 
 ## [v7.9.2](https://github.com/laravel/dusk/compare/v7.9.1...v7.9.2) - 2023-07-30
 
-### What's Changed
-
 - [7.x] Export ignore `testbench.yaml` file by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1048
 - [7.x] Fixes using `ChromeDriverCommand` with Telescope by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1050
-
-**Full Changelog**: https://github.com/laravel/dusk/compare/v7.9.1...v7.9.2
 
 ## [v7.9.1](https://github.com/laravel/dusk/compare/v7.9.0...v7.9.1) - 2023-07-27
 
