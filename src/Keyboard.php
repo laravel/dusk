@@ -34,7 +34,6 @@ class Keyboard
 
     /**
      * Press the key using keyboard.
-     *
      */
     public function press($key)
     {
@@ -45,7 +44,6 @@ class Keyboard
 
     /**
      * Release the key using keyboard.
-     *
      */
     public function release($key)
     {
