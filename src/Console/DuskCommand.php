@@ -282,20 +282,6 @@ class DuskCommand extends Command
      */
     protected function refreshEnvironment()
     {
-        // BC fix to support Dotenv ^2.2...
-        if (! method_exists(Dotenv::class, 'create')) {
-            (new Dotenv(base_path()))->overload(); // @phpstan-ignore-line
-
-            return;
-        }
-
-        // BC fix to support Dotenv ^3.0...
-        if (! method_exists(Dotenv::class, 'createMutable')) {
-            Dotenv::create(base_path())->overload();
-
-            return;
-        }
-
         Dotenv::createMutable(base_path())->load();
     }
 
