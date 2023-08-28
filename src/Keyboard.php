@@ -5,6 +5,9 @@ namespace Laravel\Dusk;
 use BadMethodCallException;
 use Illuminate\Support\Traits\Macroable;
 
+/**
+ * @mixin \Facebook\WebDriver\Remote\RemoteKeyboard
+ */
 class Keyboard
 {
     use Macroable {
@@ -30,6 +33,41 @@ class Keyboard
     }
 
     /**
+     * Press the key using keyboard.
+     *
+     */
+    public function press($key)
+    {
+        $this->pressKey($key);
+
+        return $this;
+    }
+
+    /**
+     * Release the key using keyboard.
+     *
+     */
+    public function release($key)
+    {
+        $this->releaseKey($key);
+
+        return $this;
+    }
+
+    /**
+     * Type the keys using keyboard.
+     *
+     * @param  string|array<int, string>  $keys
+     * @return $this
+     */
+    public function type($keys)
+    {
+        $this->sendKeys($keys);
+
+        return $this;
+    }
+
+    /**
      * Dynamically call a method on the keyboard.
      *
      * @param  string  $method
@@ -44,10 +82,16 @@ class Keyboard
             return $this->macroCall($method, $parameters);
         }
 
-        $keyboard = $browser->driver->getKeyboard();
+        $keyboard = $this->browser->driver->getKeyboard();
 
         if (method_exists($keyboard, $method)) {
-            $keyboard->{$method}(...$parameters);
+            $response = $keyboard->{$method}(...$parameters);
+
+            if ($response === $keyboard) {
+                return $this;
+            } else {
+                return $response;
+            }
         }
 
         throw new BadMethodCallException("Call to undefined method [{$method}].");

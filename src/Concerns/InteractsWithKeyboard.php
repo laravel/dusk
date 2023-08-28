@@ -15,9 +15,7 @@ trait InteractsWithKeyboard
      */
     protected function usesKeyboard(callable $callback)
     {
-        if (is_callable($callback)) {
-            call_user_func($callback, new Keyboard($this));
-        }
+        call_user_func($callback, new Keyboard($this));
 
         return $this;
     }
