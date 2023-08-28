@@ -9,7 +9,7 @@ class Keyboard
 {
     use Macroable {
         __call as macroCall;
-    };
+    }
 
     /**
      * The browser instance.
