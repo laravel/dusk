@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Concerns;
 
 use Facebook\WebDriver\WebDriverKeys;
+use Illuminate\Support\Str;
 use Laravel\Dusk\Keyboard;
 
 trait InteractsWithKeyboard
