@@ -5,10 +5,8 @@ namespace Laravel\Dusk\Concerns;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\Remote\LocalFileDetector;
 use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\WebDriverKeys;
 use Facebook\WebDriver\WebDriverSelect;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 trait InteractsWithElements
 {
