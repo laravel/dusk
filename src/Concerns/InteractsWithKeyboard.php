@@ -14,7 +14,7 @@ trait InteractsWithKeyboard
      * @param  callable(\Laravel\Dusk\Keyboard):void  $callback
      * @return $this
      */
-    protected function usesKeyboard(callable $callback)
+    public function usesKeyboard(callable $callback)
     {
         call_user_func($callback, new Keyboard($this));
 
