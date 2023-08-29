@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.9.3...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.9.4...7.x)
+
+## [v7.9.4](https://github.com/laravel/dusk/compare/v7.9.3...v7.9.4) - 2023-08-28
+
+- Remove legacy Dotenv usage by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1054
 
 ## [v7.9.3](https://github.com/laravel/dusk/compare/v7.9.2...v7.9.3) - 2023-08-03
 
