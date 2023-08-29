@@ -76,23 +76,6 @@ class Keyboard
      */
     public function __call($method, $parameters)
     {
-        $mouseInteractions = [
-            'mouseover',
-            'click',
-            'clickAtPoint',
-            'clickAtXPath',
-            'clickAndHold',
-            'doubleClick',
-            'rightClick',
-            'releaseMouse',
-        ];
-
-        if (in_array($method, $mouseInteractions)) {
-            $this->browser->{$method}(...$parameters);
-
-            return $this;
-        }
-
         if (static::hasMacro($method)) {
             return $this->macroCall($method, $parameters);
         }
