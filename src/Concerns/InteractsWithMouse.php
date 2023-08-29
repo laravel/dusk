@@ -5,9 +5,9 @@ namespace Laravel\Dusk\Concerns;
 use Facebook\WebDriver\Exception\ElementClickInterceptedException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
-use Facebook\WebDriver\Remote\RemoteKeyboard;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverKeys;
+use Laravel\Dusk\Keyboard;
 use Laravel\Dusk\OperatingSystem;
 
 trait InteractsWithMouse
@@ -164,15 +164,13 @@ trait InteractsWithMouse
      */
     public function controlClick($selector = null)
     {
-        $ctrlKey = OperatingSystem::onMac() ? WebDriverKeys::META : WebDriverKeys::CONTROL;
+        return $this->usesKeyboard(function (Keyboard $keyboard) use ($selector) {
+            $key = OperatingSystem::onMac() ? WebDriverKeys::META : WebDriverKeys::CONTROL;
 
-        tap($this->driver->getKeyboard(), function (RemoteKeyboard $keyboard) use ($selector, $ctrlKey) {
-            $keyboard->pressKey($ctrlKey);
+            $keyboard->press($key);
             $this->click($selector);
-            $keyboard->releaseKey($ctrlKey);
+            $keyboard->release($key);
         });
-
-        return $this;
     }
 
     /**
