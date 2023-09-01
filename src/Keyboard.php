@@ -34,6 +34,8 @@ class Keyboard
 
     /**
      * Press the key using keyboard.
+     *
+     * @return $this
      */
     public function press($key)
     {
@@ -43,7 +45,9 @@ class Keyboard
     }
 
     /**
-     * Release the key using keyboard.
+     * Release the given pressed key.
+     *
+     * @return $this
      */
     public function release($key)
     {
@@ -53,7 +57,7 @@ class Keyboard
     }
 
     /**
-     * Type the keys using keyboard.
+     * Type the given keys using keyboard.
      *
      * @param  string|array<int, string>  $keys
      * @return $this
@@ -92,6 +96,6 @@ class Keyboard
             }
         }
 
-        throw new BadMethodCallException("Call to undefined method [{$method}].");
+        throw new BadMethodCallException("Call to undefined keyboard method [{$method}].");
     }
 }

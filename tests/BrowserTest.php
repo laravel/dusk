@@ -203,7 +203,7 @@ class BrowserTest extends TestCase
         $remoteKeyboard->shouldReceive('pressKey')->once()->with(WebDriverKeys::CONTROL)->andReturnNull();
         $browser = new Browser($driver);
 
-        $browser->usesKeyboard(function ($keyboard) use ($browser) {
+        $browser->withKeyboard(function ($keyboard) use ($browser) {
             $this->assertInstanceof(Keyboard::class, $keyboard);
             $this->assertSame($browser, $keyboard->browser);
 

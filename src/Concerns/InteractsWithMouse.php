@@ -164,7 +164,7 @@ trait InteractsWithMouse
      */
     public function controlClick($selector = null)
     {
-        return $this->usesKeyboard(function (Keyboard $keyboard) use ($selector) {
+        return $this->withKeyboard(function (Keyboard $keyboard) use ($selector) {
             $key = OperatingSystem::onMac() ? WebDriverKeys::META : WebDriverKeys::CONTROL;
 
             $keyboard->press($key);

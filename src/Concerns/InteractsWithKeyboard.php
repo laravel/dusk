@@ -9,16 +9,14 @@ use Laravel\Dusk\Keyboard;
 trait InteractsWithKeyboard
 {
     /**
-     * Uses browser's keyboard.
+     * Execute the given callback while interacting with the keyboard.
      *
      * @param  callable(\Laravel\Dusk\Keyboard):void  $callback
      * @return $this
      */
-    public function usesKeyboard(callable $callback)
+    public function withKeyboard(callable $callback)
     {
-        call_user_func($callback, new Keyboard($this));
-
-        return $this;
+        return tap($this, fn () => $callback(new Keyboard($this)));
     }
 
     /**
