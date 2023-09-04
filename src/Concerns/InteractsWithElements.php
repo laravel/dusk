@@ -5,13 +5,13 @@ namespace Laravel\Dusk\Concerns;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\Remote\LocalFileDetector;
 use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\WebDriverKeys;
 use Facebook\WebDriver\WebDriverSelect;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 trait InteractsWithElements
 {
+    use InteractsWithKeyboard;
+
     /**
      * Get all of the elements matching the given selector.
      *
@@ -111,27 +111,6 @@ trait InteractsWithElements
         $this->resolver->findOrFail($selector)->sendKeys($this->parseKeys($keys));
 
         return $this;
-    }
-
-    /**
-     * Parse the keys before sending to the keyboard.
-     *
-     * @param  array  $keys
-     * @return array
-     */
-    protected function parseKeys($keys)
-    {
-        return collect($keys)->map(function ($key) {
-            if (is_string($key) && Str::startsWith($key, '{') && Str::endsWith($key, '}')) {
-                $key = constant(WebDriverKeys::class.'::'.strtoupper(trim($key, '{}')));
-            }
-
-            if (is_array($key) && Str::startsWith($key[0], '{')) {
-                $key[0] = constant(WebDriverKeys::class.'::'.strtoupper(trim($key[0], '{}')));
-            }
-
-            return $key;
-        })->all();
     }
 
     /**

@@ -6,6 +6,9 @@ use Facebook\WebDriver\Exception\ElementClickInterceptedException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\WebDriverKeys;
+use Laravel\Dusk\Keyboard;
+use Laravel\Dusk\OperatingSystem;
 
 trait InteractsWithMouse
 {
@@ -151,6 +154,23 @@ trait InteractsWithMouse
         }
 
         return $this;
+    }
+
+    /**
+     * Control click the element at the given selector.
+     *
+     * @param  string|null  $selector
+     * @return $this
+     */
+    public function controlClick($selector = null)
+    {
+        return $this->withKeyboard(function (Keyboard $keyboard) use ($selector) {
+            $key = OperatingSystem::onMac() ? WebDriverKeys::META : WebDriverKeys::CONTROL;
+
+            $keyboard->press($key);
+            $this->click($selector);
+            $keyboard->release($key);
+        });
     }
 
     /**
