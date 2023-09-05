@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.9.4...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.10.0...7.x)
+
+## [v7.10.0](https://github.com/laravel/dusk/compare/v7.9.4...v7.10.0) - 2023-09-04
+
+- Keyboard Support Improvements by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1053
 
 ## [v7.9.4](https://github.com/laravel/dusk/compare/v7.9.3...v7.9.4) - 2023-08-28
 
