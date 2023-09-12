@@ -70,6 +70,19 @@ class Keyboard
     }
 
     /**
+     * Pause for the given amount of milliseconds.
+     *
+     * @param  int  $milliseconds
+     * @return $this
+     */
+    public function pause($milliseconds)
+    {
+        $this->browser->pause($milliseconds);
+
+        return $this;
+    }
+
+    /**
      * Dynamically call a method on the keyboard.
      *
      * @param  string  $method
