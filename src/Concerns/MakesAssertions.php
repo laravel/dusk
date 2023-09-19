@@ -5,6 +5,7 @@ namespace Laravel\Dusk\Concerns;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 trait MakesAssertions
@@ -891,6 +892,49 @@ JS;
         PHPUnit::assertTrue(
             $missing,
             "Saw unexpected element [{$fullSelector}]."
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that there are a certain number of elements matching the given selector.
+     *
+     * @param  string  $selector
+     * @param  string|int  $operator
+     * @param  int|null  $expected
+     * @return $this
+     */
+    public function assertNumberOfElements($selector, $operator, $expected = null)
+    {
+        if (is_numeric($operator)) {
+            $expected = $operator;
+            $operator = '=';
+        }
+
+        $frequency = match ($operator) {
+            '=' => 'exactly',
+            '>' => 'greater than',
+            '>=' => 'greater than or equal to',
+            '<' => 'less than',
+            '<=' => 'less than or equal to',
+            default => throw new InvalidArgumentException("Illegal operator [{$operator}]."),
+        };
+
+        $assertion = match ($operator) {
+            '=' => PHPUnit::equalTo($expected),
+            '>' => PHPUnit::greaterThan($expected),
+            '>=' => PHPUnit::greaterThanOrEqual($expected),
+            '<' => PHPUnit::lessThan($expected),
+            '<=' => PHPUnit::lessThanOrEqual($expected),
+        };
+
+        $fullSelector = $this->resolver->format($selector);
+
+        PHPUnit::assertThat(
+            count($this->resolver->all($selector)),
+            $assertion,
+            "Expected element [{$fullSelector}] {$frequency} {$expected} times."
         );
 
         return $this;

@@ -851,6 +851,68 @@ class MakesAssertionsTest extends TestCase
         $browser->assertMissing('foo');
     }
 
+    /**
+     * @dataProvider assert_number_of_elements_match_data_provider
+     */
+    public function test_assert_number_of_elements_match($operator, $expected)
+    {
+        $driver = m::mock(stdClass::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('all')->with('foo')->andReturn([m::mock(stdClass::class), m::mock(stdClass::class)]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertNumberOfElements('foo', $operator, $expected);
+    }
+
+    public static function assert_number_of_elements_match_data_provider()
+    {
+        return [
+            'no operator'                       => [2, null],
+            'equals operator'                   => ['=', 2],
+            'greater than operator'             => ['>', 1],
+            'greater than or equal to operator' => ['>=', 2],
+            'less than operator'                => ['<', 3],
+            'less than or equal to operator'    => ['<=', 2],
+        ];
+    }
+
+    /**
+     * @dataProvider assert_number_of_elements_dont_match_data_provider
+     */
+    public function test_assert_number_of_elements_dont_match($operator, $expected, $matches, $frequency)
+    {
+        $driver = m::mock(stdClass::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('bar')->andReturn('body bar');
+        $resolver->shouldReceive('all')->with('bar')->andReturn(array_fill(0, $matches, m::mock(stdClass::class)));
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->assertNumberOfElements('bar', $operator, $expected);
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                "Expected element [body bar] {$frequency} {$expected} times.",
+                $e->getMessage()
+            );
+        }
+    }
+
+    public static function assert_number_of_elements_dont_match_data_provider()
+    {
+        return [
+            'equals operator'                   => ['=', 2, 3, 'exactly'],
+            'greater than operator'             => ['>', 2, 1, 'greater than'],
+            'greater than or equal to operator' => ['>=', 2, 1, 'greater than or equal to'],
+            'less than operator'                => ['<', 3, 4, 'less than'],
+            'less than or equal to operator'    => ['<=', 2, 3, 'less than or equal to'],
+        ];
+    }
+
     public function test_assert_dialog_opened()
     {
         $driver = m::mock(stdClass::class);
