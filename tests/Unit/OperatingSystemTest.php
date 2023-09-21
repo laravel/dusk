@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk\Tests;
+namespace Laravel\Dusk\Tests\Unit;
 
 use Laravel\Dusk\OperatingSystem;
 use PHPUnit\Framework\TestCase;

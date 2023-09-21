@@ -1,7 +1,11 @@
 {
     "name": "laravel/dusk",
     "description": "Laravel Dusk provides simple end-to-end testing and browser automation.",
-    "keywords": ["laravel", "testing", "webdriver"],
+    "keywords": [
+        "laravel",
+        "testing",
+        "webdriver"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -55,6 +59,27 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "lint": [
+            "@php vendor/bin/phpstan analyse"
+        ],
+        "test": [
+            "@build",
+            "@php vendor/bin/testbench serve",
+            "@php vendor/bin/phpunit"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true

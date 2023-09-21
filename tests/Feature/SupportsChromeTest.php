@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk\Tests;
+namespace Laravel\Dusk\Tests\Feature;
 
 use Laravel\Dusk\Chrome\SupportsChrome;
 use Laravel\Dusk\DuskServiceProvider;
