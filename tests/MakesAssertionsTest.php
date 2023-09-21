@@ -884,6 +884,9 @@ class MakesAssertionsTest extends TestCase
      */
     public function test_assert_number_of_elements_dont_match($operator, $expected, $actual, $frequency)
     {
+        $this->expectException(ExpectationFailedException::class);
+        $this->expectExceptionMessage("Expected element [body bar] {$frequency} {$expected} times.");
+
         $driver = m::mock(stdClass::class);
 
         $resolver = m::mock(stdClass::class);
@@ -892,14 +895,7 @@ class MakesAssertionsTest extends TestCase
 
         $browser = new Browser($driver, $resolver);
 
-        try {
-            $browser->assertNumberOfElements('bar', $operator, $expected);
-        } catch (ExpectationFailedException $e) {
-            $this->assertStringContainsString(
-                "Expected element [body bar] {$frequency} {$expected} times.",
-                $e->getMessage()
-            );
-        }
+        $browser->assertNumberOfElements('bar', $operator, $expected);
     }
 
     public static function assert_number_of_elements_dont_match_data_provider()
