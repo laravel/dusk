@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk\Tests;
+namespace Laravel\Dusk\Tests\Unit;
 
 use Facebook\WebDriver\Remote\RemoteKeyboard;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
