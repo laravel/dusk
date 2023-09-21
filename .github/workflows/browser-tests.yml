@@ -1,4 +1,4 @@
-name: tests
+name: browser-tests
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  tests:
+  browser-tests:
     runs-on: ubuntu-22.04
 
     strategy:
