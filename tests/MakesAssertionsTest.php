@@ -882,13 +882,13 @@ class MakesAssertionsTest extends TestCase
     /**
      * @dataProvider assert_number_of_elements_dont_match_data_provider
      */
-    public function test_assert_number_of_elements_dont_match($operator, $expected, $matches, $frequency)
+    public function test_assert_number_of_elements_dont_match($operator, $expected, $actual, $frequency)
     {
         $driver = m::mock(stdClass::class);
 
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('bar')->andReturn('body bar');
-        $resolver->shouldReceive('all')->with('bar')->andReturn(array_fill(0, $matches, m::mock(stdClass::class)));
+        $resolver->shouldReceive('all')->with('bar')->andReturn(array_fill(0, $actual, m::mock(stdClass::class)));
 
         $browser = new Browser($driver, $resolver);
 
