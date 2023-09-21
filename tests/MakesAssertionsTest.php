@@ -905,7 +905,7 @@ class MakesAssertionsTest extends TestCase
             'greater than operator'             => ['>', 2, 1, 'greater than'],
             'greater than or equal to operator' => ['>=', 2, 1, 'greater than or equal to'],
             'less than operator'                => ['<', 3, 4, 'less than'],
-            'less than or equal to operator'    => ['<=', 2, 3, 'less than or equal to'],
+            'less than or equal to operator'    => ['<=', 3, 4, 'less than or equal to'],
         ];
     }
 
