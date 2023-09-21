@@ -2,7 +2,6 @@
 
 namespace Laravel\Dusk\Tests\Unit;
 
-use Laravel\Dusk\Browser;
 use Laravel\Dusk\Concerns\ProvidesBrowser;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
