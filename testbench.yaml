@@ -1,2 +1,8 @@
 providers:
   - Laravel\Dusk\DuskServiceProvider
+
+migrations:
+  - workbench/database/migrations
+
+workbench:
+  start: '/'

@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Dusk\Tests;
+namespace Laravel\Dusk\Tests\Unit;
 
 use Facebook\WebDriver\Exception\TimeOutException;
 use Laravel\Dusk\Browser;

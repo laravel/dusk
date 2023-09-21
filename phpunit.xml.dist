@@ -16,7 +16,12 @@
 >
     <testsuites>
         <testsuite name="Laravel Dusk Test Suite">
-            <directory suffix="Test.php">./tests</directory>
+            <directory suffix="Test.php">./tests/Feature</directory>
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
+
+    <php>
+        <env name="APP_URL" value="http://localhost:8000"/>
+    </php>
 </phpunit>
