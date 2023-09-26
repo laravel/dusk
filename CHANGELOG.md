@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.11.0...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.11.1...7.x)
+
+## [v7.11.1](https://github.com/laravel/dusk/compare/v7.11.0...v7.11.1) - 2023-09-26
+
+- Fix favicon 404s triggered when using loginAs() or logout() methods by [@ziadoz](https://github.com/ziadoz) in https://github.com/laravel/dusk/pull/1061
 
 ## [v7.11.0](https://github.com/laravel/dusk/compare/v7.10.0...v7.11.0) - 2023-09-12
 
