@@ -3,6 +3,9 @@
 namespace Laravel\Dusk;
 
 use Exception;
+use Facebook\WebDriver\Exception\Internal\UnexpectedResponseException;
+use Facebook\WebDriver\Remote\DriverCommand;
+use Facebook\WebDriver\Remote\JsonWireCompat;
 use Facebook\WebDriver\Remote\RemoteExecuteMethod;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriverBy;
