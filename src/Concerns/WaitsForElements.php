@@ -391,7 +391,10 @@ trait WaitsForElements
         $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
 
         $this->driver->wait($seconds, $interval)->until(
-            $callback, $message ? sprintf($message, $seconds) : "Waited {$seconds} seconds for callback."
+            function () use ($callback) {
+                return $callback();
+            },
+            $message ? sprintf($message, $seconds) : "Waited {$seconds} seconds for callback."
         );
 
         return $this;
