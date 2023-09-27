@@ -3,6 +3,8 @@
 namespace Laravel\Dusk;
 
 use Exception;
+use Facebook\WebDriver\Remote\RemoteExecuteMethod;
+use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriverBy;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
