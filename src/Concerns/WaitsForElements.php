@@ -390,17 +390,13 @@ trait WaitsForElements
     {
         $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
 
+        $this->pause($interval);
+
         $this->driver->wait($seconds, $interval)->until(
             function ($driver) use ($callback) {
-                try {
-                    if ($callback()) {
-                        return true;
-                    }
-                } catch (Exception $e) {
-                    //
+                if ($callback()) {
+                    return true;
                 }
-
-                return false;
             },
             $message ? sprintf($message, $seconds) : "Waited {$seconds} seconds for callback."
         );
