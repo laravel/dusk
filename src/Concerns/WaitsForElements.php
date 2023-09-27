@@ -173,7 +173,7 @@ trait WaitsForElements
     {
         $message = $this->formatTimeOutMessage('Waited %s seconds for location', $path);
 
-        return Str::startsWith($path, ['http://', 'https://'])
+        return str_starts_with($path, ['http://', 'https://'])
             ? $this->waitUntil('`${location.protocol}//${location.host}${location.pathname}` == \''.$path.'\'', $seconds, $message)
             : $this->waitUntil("window.location.pathname == '{$path}'", $seconds, $message);
     }
@@ -241,11 +241,11 @@ trait WaitsForElements
      */
     public function waitUntil($script, $seconds = null, $message = null)
     {
-        if (! Str::startsWith($script, 'return ')) {
+        if (! str_starts_with($script, 'return ')) {
             $script = 'return '.$script;
         }
 
-        if (! Str::endsWith($script, ';')) {
+        if (! str_ends_with($script, ';')) {
             $script = $script.';';
         }
 
