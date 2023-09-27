@@ -4,10 +4,10 @@ namespace Laravel\Dusk;
 
 use Exception;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Foundation\Testing\TestCase as FoundationTestCase;
 use Laravel\Dusk\Chrome\SupportsChrome;
 use Laravel\Dusk\Concerns\ProvidesBrowser;
-use Laravel\Dusk\Remote\RemoteWebDriver;
 
 abstract class TestCase extends FoundationTestCase
 {
