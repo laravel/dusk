@@ -171,7 +171,7 @@ trait WaitsForElements
     {
         $message = $this->formatTimeOutMessage('Waited %s seconds for location', $path);
 
-        return str_starts_with($path, ['http://', 'https://'])
+        return Str::startsWith($path, ['http://', 'https://'])
             ? $this->waitUntil('`${location.protocol}//${location.host}${location.pathname}` == \''.$path.'\'', $seconds, $message)
             : $this->waitUntil("window.location.pathname == '{$path}'", $seconds, $message);
     }
