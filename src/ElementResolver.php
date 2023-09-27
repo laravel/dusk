@@ -415,7 +415,7 @@ class ElementResolver
     {
         $elements = $this->execute(
             DriverCommand::FIND_ELEMENTS,
-            JsonWireCompat::getUsing($by, $this->driver->isW3cCompliant())
+            JsonWireCompat::getUsing(WebDriverBy::cssSelector($this->format($selector)), $this->driver->isW3cCompliant())
         );
 
         if (! is_array($elements)) {
