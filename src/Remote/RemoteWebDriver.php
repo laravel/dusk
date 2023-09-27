@@ -12,6 +12,7 @@ class RemoteWebDriver extends \Facebook\WebDriver\Remote\RemoteWebDriver
      * Fetch all WebDriverElements within the current page using the given mechanism.
      *
      * @return \Generator|RemoteWebElement[] A list of all WebDriverElements, or an empty array if nothing matches
+     *
      * @see WebDriverBy
      */
     public function fetchElements(WebDriverBy $by)
@@ -21,7 +22,7 @@ class RemoteWebDriver extends \Facebook\WebDriver\Remote\RemoteWebDriver
             JsonWireCompat::getUsing($by, $this->isW3cCompliant)
         );
 
-        if (!is_array($raw_elements)) {
+        if (! is_array($raw_elements)) {
             throw UnexpectedResponseException::forError('Server response to findElements command is not an array');
         }
 
