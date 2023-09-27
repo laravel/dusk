@@ -398,9 +398,23 @@ class ElementResolver
      */
     public function fetch($selector)
     {
-        yield from $this->driver->fetchElements(
-            WebDriverBy::cssSelector($this->format($selector))
+        $isW3cCompliant = $this->driver->isW3cCompliant();
+        $executeMethod = new RemoteExecuteMethod($this->driver);
+
+        $elements = $this->driver->execute(
+            DriverCommand::FIND_ELEMENTS,
+            JsonWireCompat::getUsing(WebDriverBy::cssSelector($this->format($selector)), $isW3cCompliant)
         );
+
+        if (! is_array($elements)) {
+            throw UnexpectedResponseException::forError('Server response to findElements command is not an array');
+        }
+
+        foreach ($elements as $element) {
+            yield new RemoteWebElement(
+                $executeMethod, JsonWireCompat::getElement($element), $isW3cCompliant
+            );
+        }
     }
 
     /**
