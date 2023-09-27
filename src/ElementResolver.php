@@ -3,6 +3,9 @@
 namespace Laravel\Dusk;
 
 use Exception;
+use Facebook\WebDriver\Exception\Internal\UnexpectedResponseException;
+use Facebook\WebDriver\Remote\DriverCommand;
+use Facebook\WebDriver\Remote\JsonWireCompat;
 use Facebook\WebDriver\WebDriverBy;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
@@ -286,7 +289,7 @@ class ElementResolver
      */
     protected function findButtonByValue($button)
     {
-        foreach ($this->all('input[type=submit]') as $element) {
+        foreach ($this->cursor('input[type=submit]') as $element) {
             if ($element->getAttribute('value') === $button) {
                 return $element;
             }
@@ -301,7 +304,7 @@ class ElementResolver
      */
     protected function findButtonByText($button)
     {
-        foreach ($this->all('button') as $element) {
+        foreach ($this->cursor('button') as $element) {
             if (Str::contains($element->getText(), $button)) {
                 return $element;
             }
@@ -414,5 +417,21 @@ class ElementResolver
         }
 
         return trim($this->prefix.' '.$selector);
+    }
+
+    public function cursor($selector)
+    {
+        $elements = $this->execute(
+            DriverCommand::FIND_ELEMENTS,
+            JsonWireCompat::getUsing($by, $this->driver->isW3cCompliant())
+        );
+
+        if (! is_array($elements)) {
+            throw UnexpectedResponseException::forError('Server response to findElements command is not an array');
+        }
+
+        foreach ($elements as $element) {
+            yield $this->newElement(JsonWireCompat::getElement($element));
+        }
     }
 }
