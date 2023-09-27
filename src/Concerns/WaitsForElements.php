@@ -2,9 +2,7 @@
 
 namespace Laravel\Dusk\Concerns;
 
-use Carbon\Carbon;
 use Closure;
-use Exception;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\ScriptTimeoutException;
 use Facebook\WebDriver\Exception\TimeoutException;
