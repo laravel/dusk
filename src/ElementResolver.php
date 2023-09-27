@@ -29,7 +29,7 @@ class ElementResolver
     /**
      * Set the elements the resolver should use as shortcuts.
      *
-     * @var array
+     * @var array<string, string>
      */
     public $elements = [];
 
@@ -62,7 +62,7 @@ class ElementResolver
     /**
      * Set the page elements the resolver should use as shortcuts.
      *
-     * @param  array  $elements
+     * @param  array<string, string>  $elements
      * @return $this
      */
     public function pageElements(array $elements)
@@ -409,7 +409,7 @@ class ElementResolver
             array_keys($sortedElements), array_values($sortedElements), $originalSelector = $selector
         );
 
-        if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
+        if (str_starts_with($selector, '@') && $selector === $originalSelector) {
             $selector = preg_replace('/@(\S+)/', '['.Dusk::$selectorHtmlAttribute.'="$1"]', $selector);
         }
 

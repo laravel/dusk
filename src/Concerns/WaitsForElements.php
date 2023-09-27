@@ -392,28 +392,9 @@ trait WaitsForElements
     {
         $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
 
-        $this->pause($interval);
-
-        $started = Carbon::now();
-
-        while (true) {
-            try {
-                if ($callback()) {
-                    break;
-                }
-            } catch (Exception $e) {
-                //
-            }
-
-            if ($started->lt(Carbon::now()->subSeconds($seconds))) {
-                throw new TimeoutException($message
-                    ? sprintf($message, $seconds)
-                    : "Waited {$seconds} seconds for callback."
-                );
-            }
-
-            $this->pause($interval);
-        }
+        $this->driver->wait($seconds, $interval)->until(
+            $callback, $message ? sprintf($message, $seconds) : "Waited {$seconds} seconds for callback."
+        );
 
         return $this;
     }
