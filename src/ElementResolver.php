@@ -385,15 +385,7 @@ class ElementResolver
      */
     public function all($selector)
     {
-        try {
-            return $this->driver->findElements(
-                WebDriverBy::cssSelector($this->format($selector))
-            );
-        } catch (Exception $e) {
-            //
-        }
-
-        return [];
+        return iterator_to_array($this->cursor($selector));
     }
 
     /**

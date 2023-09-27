@@ -57,7 +57,7 @@ trait InteractsWithMouse
             return $this;
         }
 
-        foreach ($this->resolver->all($selector) as $element) {
+        foreach ($this->resolver->cursor($selector) as $element) {
             try {
                 $element->click();
 
