@@ -6,6 +6,8 @@ use Exception;
 use Facebook\WebDriver\Exception\Internal\UnexpectedResponseException;
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\JsonWireCompat;
+use Facebook\WebDriver\Remote\RemoteExecuteMethod;
+use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriverBy;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
@@ -413,17 +415,23 @@ class ElementResolver
 
     public function cursor($selector)
     {
-        $elements = $this->execute(
+        $isW3cCompliant = $this->driver->isW3cCompliant();
+
+        $elements = $this->driver->execute(
             DriverCommand::FIND_ELEMENTS,
-            JsonWireCompat::getUsing(WebDriverBy::cssSelector($this->format($selector)), $this->driver->isW3cCompliant())
+            JsonWireCompat::getUsing(WebDriverBy::cssSelector($this->format($selector)), $isW3cCompliant)
         );
 
         if (! is_array($elements)) {
             throw UnexpectedResponseException::forError('Server response to findElements command is not an array');
         }
 
+        $executeMethod = new RemoteExecuteMethod($this->driver);
+
         foreach ($elements as $element) {
-            yield $this->newElement(JsonWireCompat::getElement($element));
+            yield new RemoteWebElement(
+                $executeMethod, JsonWireCompat::getElement($element), $isW3cCompliant
+            );
         }
     }
 }
