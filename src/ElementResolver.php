@@ -291,7 +291,7 @@ class ElementResolver
      */
     protected function findButtonByValue($button)
     {
-        foreach ($this->cursor('input[type=submit]') as $element) {
+        foreach ($this->fetch('input[type=submit]') as $element) {
             if ($element->getAttribute('value') === $button) {
                 return $element;
             }
@@ -306,7 +306,7 @@ class ElementResolver
      */
     protected function findButtonByText($button)
     {
-        foreach ($this->cursor('button') as $element) {
+        foreach ($this->fetch('button') as $element) {
             if (Str::contains($element->getText(), $button)) {
                 return $element;
             }
@@ -387,7 +387,20 @@ class ElementResolver
      */
     public function all($selector)
     {
-        return iterator_to_array($this->cursor($selector));
+        return iterator_to_array($this->fetch($selector));
+    }
+
+    /**
+     * Find the elements by the given selector or return an empty array.
+     *
+     * @param  string  $selector
+     * @return \Generator
+     */
+    public function fetch($selector)
+    {
+        yield from $this->driver->fetchElements(
+            WebDriverBy::cssSelector($this->format($selector))
+        );
     }
 
     /**
@@ -411,27 +424,5 @@ class ElementResolver
         }
 
         return trim($this->prefix.' '.$selector);
-    }
-
-    public function cursor($selector)
-    {
-        $isW3cCompliant = $this->driver->isW3cCompliant();
-
-        $elements = $this->driver->execute(
-            DriverCommand::FIND_ELEMENTS,
-            JsonWireCompat::getUsing(WebDriverBy::cssSelector($this->format($selector)), $isW3cCompliant)
-        );
-
-        if (! is_array($elements)) {
-            throw UnexpectedResponseException::forError('Server response to findElements command is not an array');
-        }
-
-        $executeMethod = new RemoteExecuteMethod($this->driver);
-
-        foreach ($elements as $element) {
-            yield new RemoteWebElement(
-                $executeMethod, JsonWireCompat::getElement($element), $isW3cCompliant
-            );
-        }
     }
 }
