@@ -2,7 +2,6 @@
 
 namespace Laravel\Dusk\Tests\Unit;
 
-use Exception;
 use Facebook\WebDriver\Exception\TimeOutException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriver;
@@ -12,7 +11,6 @@ use Laravel\Dusk\ElementResolver;
 use Laravel\Dusk\Tests\Concerns\SwapsUrlGenerator;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 class WaitsForElementsTest extends TestCase
 {
