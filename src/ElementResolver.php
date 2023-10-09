@@ -3,11 +3,6 @@
 namespace Laravel\Dusk;
 
 use Exception;
-use Facebook\WebDriver\Exception\Internal\UnexpectedResponseException;
-use Facebook\WebDriver\Remote\DriverCommand;
-use Facebook\WebDriver\Remote\JsonWireCompat;
-use Facebook\WebDriver\Remote\RemoteExecuteMethod;
-use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriverBy;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
@@ -291,7 +286,7 @@ class ElementResolver
      */
     protected function findButtonByValue($button)
     {
-        foreach ($this->fetch('input[type=submit]') as $element) {
+        foreach ($this->all('input[type=submit]') as $element) {
             if ($element->getAttribute('value') === $button) {
                 return $element;
             }
@@ -306,7 +301,7 @@ class ElementResolver
      */
     protected function findButtonByText($button)
     {
-        foreach ($this->fetch('button') as $element) {
+        foreach ($this->all('button') as $element) {
             if (Str::contains($element->getText(), $button)) {
                 return $element;
             }
@@ -399,33 +394,6 @@ class ElementResolver
     }
 
     /**
-     * Find the elements by the given selector or return an empty array.
-     *
-     * @param  string  $selector
-     * @return \Generator
-     */
-    public function fetch($selector)
-    {
-        $isW3cCompliant = $this->driver->isW3cCompliant();
-        $executeMethod = new RemoteExecuteMethod($this->driver);
-
-        $elements = $this->driver->execute(
-            DriverCommand::FIND_ELEMENTS,
-            JsonWireCompat::getUsing(WebDriverBy::cssSelector($this->format($selector)), $isW3cCompliant)
-        );
-
-        if (! is_array($elements)) {
-            throw UnexpectedResponseException::forError('Server response to findElements command is not an array');
-        }
-
-        foreach ($elements as $element) {
-            yield new RemoteWebElement(
-                $executeMethod, JsonWireCompat::getElement($element), $isW3cCompliant
-            );
-        }
-    }
-
-    /**
      * Format the given selector with the current prefix.
      *
      * @param  string  $selector
@@ -441,7 +409,7 @@ class ElementResolver
             array_keys($sortedElements), array_values($sortedElements), $originalSelector = $selector
         );
 
-        if (str_starts_with($selector, '@') && $selector === $originalSelector) {
+        if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
             $selector = preg_replace('/@(\S+)/', '['.Dusk::$selectorHtmlAttribute.'="$1"]', $selector);
         }
 

@@ -239,11 +239,11 @@ trait WaitsForElements
      */
     public function waitUntil($script, $seconds = null, $message = null)
     {
-        if (! str_starts_with($script, 'return ')) {
+        if (! Str::startsWith($script, 'return ')) {
             $script = 'return '.$script;
         }
 
-        if (! str_ends_with($script, ';')) {
+        if (! Str::endsWith($script, ';')) {
             $script = $script.';';
         }
 
