@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.11.1...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.11.2...7.x)
+
+## [v7.11.2](https://github.com/laravel/dusk/compare/v7.11.1...v7.11.2) - 2023-10-10
+
+- Consistently use `WebDriverWait` available API for `WaitsForElements` trait instead of relying on `Carbon`. by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1062
 
 ## [v7.11.1](https://github.com/laravel/dusk/compare/v7.11.0...v7.11.1) - 2023-09-26
 
