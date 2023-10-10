@@ -2,9 +2,7 @@
 
 namespace Laravel\Dusk\Concerns;
 
-use Carbon\Carbon;
 use Closure;
-use Exception;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\ScriptTimeoutException;
 use Facebook\WebDriver\Exception\TimeoutException;
@@ -394,26 +392,14 @@ trait WaitsForElements
 
         $this->pause($interval);
 
-        $started = Carbon::now();
-
-        while (true) {
-            try {
+        $this->driver->wait($seconds, $interval)->until(
+            function ($driver) use ($callback) {
                 if ($callback()) {
-                    break;
+                    return true;
                 }
-            } catch (Exception $e) {
-                //
-            }
-
-            if ($started->lt(Carbon::now()->subSeconds($seconds))) {
-                throw new TimeoutException($message
-                    ? sprintf($message, $seconds)
-                    : "Waited {$seconds} seconds for callback."
-                );
-            }
-
-            $this->pause($interval);
-        }
+            },
+            $message ? sprintf($message, $seconds) : "Waited {$seconds} seconds for callback."
+        );
 
         return $this;
     }

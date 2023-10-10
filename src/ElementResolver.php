@@ -29,7 +29,7 @@ class ElementResolver
     /**
      * Set the elements the resolver should use as shortcuts.
      *
-     * @var array
+     * @var array<string, string>
      */
     public $elements = [];
 
@@ -62,7 +62,7 @@ class ElementResolver
     /**
      * Set the page elements the resolver should use as shortcuts.
      *
-     * @param  array  $elements
+     * @param  array<string, string>  $elements
      * @return $this
      */
     public function pageElements(array $elements)
