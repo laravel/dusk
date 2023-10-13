@@ -31,6 +31,8 @@ jobs:
             phpunit: 10
           - php: 8.3
             laravel: 9
+          - laravel: 11
+            phpunit: 9
           - laravel: 9
             phpunit: 10
 
