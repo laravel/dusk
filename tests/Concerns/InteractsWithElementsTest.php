@@ -23,7 +23,7 @@ class InteractsWithElementsTest extends TestCase
     /** @var RemoteWebDriver|MockObject */
     protected $driver;
 
-    public function dataProviderValueWithValue()
+    public static function dataProviderValueWithValue()
     {
         return [
             ['#nuff', 'narf', 'document.querySelector("#nuff").value = "narf";'],
@@ -76,10 +76,12 @@ class InteractsWithElementsTest extends TestCase
 
     /**
      * @covers ::value
+     *
      * @dataProvider dataProviderValueWithValue
-     * @param mixed  $selector
-     * @param mixed  $value
-     * @param string  $js
+     *
+     * @param  mixed  $selector
+     * @param  mixed  $value
+     * @param  string  $js
      */
     public function testValueWithValue($selector, $value, string $js)
     {

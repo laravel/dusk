@@ -1,6 +1,26 @@
 # Upgrade Guide
 
-## Upgrading To 5.0 From 4.0
+## Upgrading To 7.0 From 6.x
+
+### Minimum Versions
+
+The following required dependency versions have been updated:
+
+- The minimum PHP version is now v8.0
+- The minimum Laravel version is now v9.0
+- The minimum PHPUnit version is now v9.0
+
+### Removed Chrome Binaries
+
+PR: https://github.com/laravel/dusk/pull/873
+
+Going forward, Dusk will not ship with pre-installed Chrome binaries. Instead, you should install the required Chrome driver for your operating system using the following command:
+
+```zsh
+php artisan dusk:chrome-driver
+```
+
+## Upgrading To 5.0 From 4.x
 
 ### PHPUnit 8
 

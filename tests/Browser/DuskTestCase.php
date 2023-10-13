@@ -1,16 +1,42 @@
 <?php
 
-namespace Tests;
+namespace Laravel\Dusk\Tests\Browser;
 
-use Illuminate\Support\Collection;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Laravel\Dusk\TestCase as BaseTestCase;
+use Illuminate\Support\Collection;
+use Laravel\Dusk\Browser;
+use Laravel\Dusk\TestCase;
+use Orchestra\Testbench\Concerns\CreatesApplication;
 
-abstract class DuskTestCase extends BaseTestCase
+class DuskTestCase extends TestCase
 {
     use CreatesApplication;
+
+    /**
+     * Determine the application's base URL.
+     *
+     * @return string
+     */
+    protected function baseUrl()
+    {
+        return rtrim(config('app.url'), '/');
+    }
+
+    /**
+     * Register the base URL with Dusk.
+     *
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Browser::$storeScreenshotsAt = __DIR__.'/screenshots';
+        Browser::$storeConsoleLogAt = __DIR__.'/console';
+        Browser::$storeSourceAt = __DIR__.'/source';
+    }
 
     /**
      * Prepare for Dusk test execution.

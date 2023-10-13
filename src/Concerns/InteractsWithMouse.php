@@ -2,8 +2,13 @@
 
 namespace Laravel\Dusk\Concerns;
 
+use Facebook\WebDriver\Exception\ElementClickInterceptedException;
+use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\WebDriverKeys;
+use Laravel\Dusk\Keyboard;
+use Laravel\Dusk\OperatingSystem;
 
 trait InteractsWithMouse
 {
@@ -48,11 +53,21 @@ trait InteractsWithMouse
     {
         if (is_null($selector)) {
             (new WebDriverActions($this->driver))->click()->perform();
-        } else {
-            $this->resolver->findOrFail($selector)->click();
+
+            return $this;
         }
 
-        return $this;
+        foreach ($this->resolver->all($selector) as $element) {
+            try {
+                $element->click();
+
+                return $this;
+            } catch (ElementClickInterceptedException $e) {
+                //
+            }
+        }
+
+        throw $e ?? new NoSuchElementException("Unable to locate element with selector [{$selector}].");
     }
 
     /**
@@ -72,7 +87,7 @@ trait InteractsWithMouse
     /**
      * Click the element at the given XPath expression.
      *
-     * @param  string  $selector
+     * @param  string  $expression
      * @return $this
      */
     public function clickAtXPath($expression)
@@ -139,6 +154,23 @@ trait InteractsWithMouse
         }
 
         return $this;
+    }
+
+    /**
+     * Control click the element at the given selector.
+     *
+     * @param  string|null  $selector
+     * @return $this
+     */
+    public function controlClick($selector = null)
+    {
+        return $this->withKeyboard(function (Keyboard $keyboard) use ($selector) {
+            $key = OperatingSystem::onMac() ? WebDriverKeys::META : WebDriverKeys::CONTROL;
+
+            $keyboard->press($key);
+            $this->click($selector);
+            $keyboard->release($key);
+        });
     }
 
     /**

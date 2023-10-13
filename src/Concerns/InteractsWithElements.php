@@ -5,13 +5,13 @@ namespace Laravel\Dusk\Concerns;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\Remote\LocalFileDetector;
 use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\WebDriverKeys;
 use Facebook\WebDriver\WebDriverSelect;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 trait InteractsWithElements
 {
+    use InteractsWithKeyboard;
+
     /**
      * Get all of the elements matching the given selector.
      *
@@ -45,9 +45,11 @@ trait InteractsWithElements
     {
         $this->ensurejQueryIsAvailable();
 
-        $selector = addslashes(trim($this->resolver->format("{$element}:contains({$link}):visible")));
+        $selector = addslashes(trim($this->resolver->format("{$element}")));
 
-        $this->driver->executeScript("jQuery.find(\"{$selector}\")[0].click();");
+        $link = str_replace("'", "\\\\'", $link);
+
+        $this->driver->executeScript("jQuery.find(`{$selector}:contains('{$link}'):visible`)[0].click();");
 
         return $this;
     }
@@ -112,27 +114,6 @@ trait InteractsWithElements
     }
 
     /**
-     * Parse the keys before sending to the keyboard.
-     *
-     * @param  array  $keys
-     * @return array
-     */
-    protected function parseKeys($keys)
-    {
-        return collect($keys)->map(function ($key) {
-            if (is_string($key) && Str::startsWith($key, '{') && Str::endsWith($key, '}')) {
-                $key = constant(WebDriverKeys::class.'::'.strtoupper(trim($key, '{}')));
-            }
-
-            if (is_array($key) && Str::startsWith($key[0], '{')) {
-                $key[0] = constant(WebDriverKeys::class.'::'.strtoupper(trim($key[0], '{}')));
-            }
-
-            return $key;
-        })->all();
-    }
-
-    /**
      * Type the given value in the given field.
      *
      * @param  string  $field
@@ -185,7 +166,7 @@ trait InteractsWithElements
      */
     public function appendSlowly($field, $value, $pause = 100)
     {
-        foreach (str_split($value) as $char) {
+        foreach (preg_split('//u', $value, -1, PREG_SPLIT_NO_EMPTY) as $char) {
             $this->append($field, $char)->pause($pause);
         }
 
@@ -271,7 +252,7 @@ trait InteractsWithElements
      * Check the given checkbox.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return $this
      */
     public function check($field, $value = null)
@@ -289,7 +270,7 @@ trait InteractsWithElements
      * Uncheck the given checkbox.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return $this
      */
     public function uncheck($field, $value = null)

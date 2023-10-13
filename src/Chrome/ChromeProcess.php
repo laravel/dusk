@@ -18,7 +18,7 @@ class ChromeProcess
     /**
      * Create a new ChromeProcess instance.
      *
-     * @param  string  $driver
+     * @param  string|null  $driver
      * @return void
      */
     public function __construct($driver = null)
@@ -47,7 +47,7 @@ class ChromeProcess
                 'win' => 'chromedriver-win.exe',
             ];
 
-            $driver = __DIR__.'/../../bin/'.DIRECTORY_SEPARATOR.$filenames[$this->operatingSystemId()];
+            $driver = __DIR__.'/../../bin'.DIRECTORY_SEPARATOR.$filenames[$this->operatingSystemId()];
         }
 
         $this->driver = realpath($driver);

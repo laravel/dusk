@@ -6,6 +6,7 @@ use Closure;
 use Exception;
 use Illuminate\Support\Collection;
 use Laravel\Dusk\Browser;
+use PHPUnit\Runner\Version;
 use ReflectionFunction;
 use Throwable;
 
@@ -29,6 +30,7 @@ trait ProvidesBrowser
      * Tear down the Dusk test case class.
      *
      * @afterClass
+     *
      * @return void
      */
     public static function tearDownDuskClass()
@@ -173,8 +175,8 @@ trait ProvidesBrowser
     protected function storeSourceLogsFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            if (property_exists($browser, 'makesSourceAssertion') &&
-                $browser->makesSourceAssertion) {
+            if (property_exists($browser, 'madeSourceAssertion') &&
+                $browser->madeSourceAssertion) {
                 $browser->storeSource($this->getCallerName().'-'.$key);
             }
         });
@@ -226,7 +228,11 @@ trait ProvidesBrowser
      */
     protected function getCallerName()
     {
-        return str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
+        $name = version_compare(Version::id(), '10', '>=')
+            ? $this->name()
+            : $this->getName(false); // @phpstan-ignore-line
+
+        return str_replace('\\', '_', get_class($this)).'_'.$name;
     }
 
     /**

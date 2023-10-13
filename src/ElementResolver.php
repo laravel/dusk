@@ -29,7 +29,7 @@ class ElementResolver
     /**
      * Set the elements the resolver should use as shortcuts.
      *
-     * @var array
+     * @var array<string, string>
      */
     public $elements = [];
 
@@ -62,7 +62,7 @@ class ElementResolver
     /**
      * Set the page elements the resolver should use as shortcuts.
      *
-     * @param  array  $elements
+     * @param  array<string, string>  $elements
      * @return $this
      */
     public function pageElements(array $elements)
@@ -137,7 +137,7 @@ class ElementResolver
      * Resolve the element for a given radio "field" / value.
      *
      * @param  string  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      *
      * @throws \Exception
@@ -164,7 +164,7 @@ class ElementResolver
      * Resolve the element for a given checkbox "field".
      *
      * @param  string|null  $field
-     * @param  string  $value
+     * @param  string|null  $value
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      *
      * @throws \Exception
@@ -410,7 +410,7 @@ class ElementResolver
         );
 
         if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
-            $selector = '[dusk="'.explode('@', $selector)[1].'"]';
+            $selector = preg_replace('/@(\S+)/', '['.Dusk::$selectorHtmlAttribute.'="$1"]', $selector);
         }
 
         return trim($this->prefix.' '.$selector);

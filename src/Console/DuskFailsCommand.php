@@ -9,9 +9,10 @@ class DuskFailsCommand extends DuskCommand
      *
      * @var string
      */
-    protected $signature = 'dusk:fails 
+    protected $signature = 'dusk:fails
                 {--browse : Open a browser instead of using headless mode}
-                {--without-tty : Disable output to TTY}';
+                {--without-tty : Disable output to TTY}
+                {--pest : Run the tests using Pest}';
 
     /**
      * The console command description.

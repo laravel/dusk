@@ -45,6 +45,10 @@ class InstallCommand extends Command
             $this->createConsoleDirectory();
         }
 
+        if (! is_dir(base_path('tests/Browser/source'))) {
+            $this->createSourceDirectory();
+        }
+
         $stubs = [
             'ExampleTest.stub' => base_path('tests/Browser/ExampleTest.php'),
             'HomePage.stub' => base_path('tests/Browser/Pages/HomePage.php'),
@@ -99,6 +103,20 @@ class InstallCommand extends Command
         mkdir(base_path('tests/Browser/console'), 0755, true);
 
         file_put_contents(base_path('tests/Browser/console/.gitignore'), '*
+!.gitignore
+');
+    }
+
+    /**
+     * Create the source directory.
+     *
+     * @return void
+     */
+    protected function createSourceDirectory()
+    {
+        mkdir(base_path('tests/Browser/source'), 0755, true);
+
+        file_put_contents(base_path('tests/Browser/source/.gitignore'), '*
 !.gitignore
 ');
     }

@@ -21,12 +21,12 @@ trait InteractsWithAuthentication
      * Log into the application using a given user ID or email.
      *
      * @param  object|string  $userId
-     * @param  string  $guard
+     * @param  string|null  $guard
      * @return $this
      */
     public function loginAs($userId, $guard = null)
     {
-        $userId = method_exists($userId, 'getKey') ? $userId->getKey() : $userId;
+        $userId = is_object($userId) && method_exists($userId, 'getKey') ? $userId->getKey() : $userId;
 
         return $this->visit(rtrim(route('dusk.login', ['userId' => $userId, 'guard' => $guard], $this->shouldUseAbsoluteRouteForAuthentication())));
     }
@@ -34,7 +34,7 @@ trait InteractsWithAuthentication
     /**
      * Log out of the application.
      *
-     * @param  string  $guard
+     * @param  string|null  $guard
      * @return $this
      */
     public function logout($guard = null)
@@ -63,9 +63,11 @@ trait InteractsWithAuthentication
      */
     public function assertAuthenticated($guard = null)
     {
+        $currentUrl = $this->driver->getCurrentURL();
+
         PHPUnit::assertNotEmpty($this->currentUserInfo($guard), 'The user is not authenticated.');
 
-        return $this;
+        return $this->visit($currentUrl);
     }
 
     /**
@@ -76,11 +78,13 @@ trait InteractsWithAuthentication
      */
     public function assertGuest($guard = null)
     {
+        $currentUrl = $this->driver->getCurrentURL();
+
         PHPUnit::assertEmpty(
             $this->currentUserInfo($guard), 'The user is unexpectedly authenticated.'
         );
 
-        return $this;
+        return $this->visit($currentUrl);
     }
 
     /**
@@ -92,6 +96,8 @@ trait InteractsWithAuthentication
      */
     public function assertAuthenticatedAs($user, $guard = null)
     {
+        $currentUrl = $this->driver->getCurrentURL();
+
         $expected = [
             'id' => $user->getAuthIdentifier(),
             'className' => get_class($user),
@@ -102,7 +108,7 @@ trait InteractsWithAuthentication
             'The currently authenticated user is not who was expected.'
         );
 
-        return $this;
+        return $this->visit($currentUrl);
     }
 
     /**
