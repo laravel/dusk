@@ -125,11 +125,19 @@ class DuskCommand extends Command
         }
 
         $options = array_values(array_filter($options, function ($option) {
-            return ! Str::startsWith($option, ['--env=', '--pest']);
+            return ! Str::startsWith($option, ['--env=', '--pest', '--ansi', '--no-ansi']);
         }));
 
         if (! file_exists($file = base_path('phpunit.dusk.xml'))) {
             $file = base_path('phpunit.dusk.xml.dist');
+        }
+
+        if ($this->option('ansi')) {
+            $options[] = '--colors="always"';
+        }
+
+        if ($this->option('no-ansi')) {
+            $options[] = '--colors="never"';
         }
 
         return array_merge(['-c', $file], $options);
