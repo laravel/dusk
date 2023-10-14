@@ -125,8 +125,8 @@ trait WaitsForElements
         $message = 'Waited %s seconds for text "'.$this->escapePercentCharacters($text).'" in selector '.$selector;
 
         return $this->waitUsing($seconds, 100, function () use ($selector, $text) {
-            return Str::contains($this->resolver->findOrFail($selector)->getText(), $text);
-        }, $message)->assertSeeIn($selector, $text);
+            return $this->assertSeeIn($selector, $text);
+        }, $message);
     }
 
     /**
