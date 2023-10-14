@@ -29,7 +29,7 @@
     },
     "require-dev": {
         "mockery/mockery": "^1.4.2",
-        "orchestra/testbench": "^7.0|^8.0",
+        "orchestra/testbench": "^7.33|^8.13",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.5.10|^10.0.1",
         "psy/psysh": "^0.11.12"
