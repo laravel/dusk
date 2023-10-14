@@ -7,7 +7,7 @@
 
                 setTimeout(() => {
                     e.innerHTML = 'Copy'
-                }, 3000);
+                }, 2000);
             }
         </script>
     </head>
