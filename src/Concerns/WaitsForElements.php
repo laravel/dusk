@@ -396,9 +396,7 @@ trait WaitsForElements
         $this->driver->wait($seconds, $interval)->until(
             function ($driver) use ($callback) {
                 try {
-                    if ($callback()) {
-                        return true;
-                    }
+                    return $callback();
                 } catch (ExpectationFailedException $e) {
                     return false;
                 }
