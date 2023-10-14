@@ -132,12 +132,14 @@ class DuskCommand extends Command
             $file = base_path('phpunit.dusk.xml.dist');
         }
 
-        if ($this->option('ansi')) {
-            $options[] = '--colors="always"';
-        }
+        if (version_compare(Version::id(), '10.0', '>=')) {
+            if ($this->option('ansi')) {
+                $options[] = '--colors=always';
+            }
 
-        if ($this->option('no-ansi')) {
-            $options[] = '--colors="never"';
+            if ($this->option('no-ansi')) {
+                $options[] = '--colors=never';
+            }
         }
 
         return array_merge(['-c', $file], $options);
