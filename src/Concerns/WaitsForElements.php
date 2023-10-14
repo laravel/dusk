@@ -9,6 +9,7 @@ use Facebook\WebDriver\Exception\TimeoutException;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\ExpectationFailedException;
 
 trait WaitsForElements
 {
@@ -124,8 +125,8 @@ trait WaitsForElements
         $message = 'Waited %s seconds for text "'.$this->escapePercentCharacters($text).'" in selector '.$selector;
 
         return $this->waitUsing($seconds, 100, function () use ($selector, $text) {
-            return $this->assertSeeIn($selector, $text);
-        }, $message);
+            return Str::contains($this->resolver->findOrFail($selector)->getText(), $text);
+        }, $message)->assertSeeIn($selector, $text);
     }
 
     /**
@@ -394,8 +395,12 @@ trait WaitsForElements
 
         $this->driver->wait($seconds, $interval)->until(
             function ($driver) use ($callback) {
-                if ($callback()) {
-                    return true;
+                try {
+                    if ($callback()) {
+                        return true;
+                    }
+                } catch (ExpectationFailedException $e) {
+                    return false;
                 }
             },
             $message ? sprintf($message, $seconds) : "Waited {$seconds} seconds for callback."
