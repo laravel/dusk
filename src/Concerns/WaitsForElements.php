@@ -3,13 +3,13 @@
 namespace Laravel\Dusk\Concerns;
 
 use Closure;
+use Exception;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\ScriptTimeoutException;
 use Facebook\WebDriver\Exception\TimeoutException;
 use Facebook\WebDriver\WebDriverExpectedCondition;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use PHPUnit\Framework\ExpectationFailedException;
 
 trait WaitsForElements
 {
@@ -397,7 +397,7 @@ trait WaitsForElements
             function ($driver) use ($callback) {
                 try {
                     return $callback();
-                } catch (ExpectationFailedException $e) {
+                } catch (Exception $e) {
                     return false;
                 }
             },
