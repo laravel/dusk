@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Concerns;
 
 use Closure;
+use Exception;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\ScriptTimeoutException;
 use Facebook\WebDriver\Exception\TimeoutException;
@@ -394,8 +395,10 @@ trait WaitsForElements
 
         $this->driver->wait($seconds, $interval)->until(
             function ($driver) use ($callback) {
-                if ($callback()) {
-                    return true;
+                try {
+                    return $callback();
+                } catch (Exception $e) {
+                    return false;
                 }
             },
             $message ? sprintf($message, $seconds) : "Waited {$seconds} seconds for callback."
