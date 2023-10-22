@@ -21,7 +21,7 @@
         "illuminate/console": "^9.0|^10.0|^11.0",
         "illuminate/support": "^9.0|^10.0|^11.0",
         "nesbot/carbon": "^2.0",
-        "php-webdriver/webdriver": "dev-symfony7 as 1.10.0",
+        "php-webdriver/webdriver": "^1.15.1",
         "symfony/console": "^6.0|^7.0",
         "symfony/finder": "^6.0|^7.0",
         "symfony/process": "^6.0|^7.0",
@@ -78,12 +78,6 @@
             "@php vendor/bin/phpunit"
         ]
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/laravel-labs/php-webdriver"
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }
