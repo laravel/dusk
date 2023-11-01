@@ -229,6 +229,26 @@ class WaitsForElementsTest extends TestCase
         $browser->waitUntilMissingText('Discount: 20%');
     }
 
+    public function test_wait_until_present()
+    {
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('isDisplayed')
+            ->times(2)
+            ->andReturn(false, true);
+
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('wait')->with(2, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $resolver = m::mock(ElementResolver::class);
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->waitUntilPresent('foo');
+    }
+
     public function test_wait_until_missing()
     {
         $element = m::mock(RemoteWebElement::class);
