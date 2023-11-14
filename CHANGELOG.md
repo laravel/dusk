@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.11.3...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.11.4...7.x)
+
+## [v7.11.4](https://github.com/laravel/dusk/compare/v7.11.3...v7.11.4) - 2023-11-14
+
+- Limiting length of getCallerName return value to avoid issue when storing logs and screenshots by [@lk77](https://github.com/lk77) in https://github.com/laravel/dusk/pull/1070
 
 ## [v7.11.3](https://github.com/laravel/dusk/compare/v7.11.2...v7.11.3) - 2023-10-17
 
