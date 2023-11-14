@@ -44,6 +44,17 @@ class ProvidesBrowserTest extends TestCase
         $this->storeConsoleLogsFor($browsers);
     }
 
+    public function test_truncate_test_name_where_that_name_is_too_long_and_might_cause_issues()
+    {
+        $browser = m::mock(stdClass::class);
+        $browser->shouldReceive('storeConsoleLog')->with(
+            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_truncate_test_name_where_that_name_is_too_long_and_might_cause_is-0'
+        );
+        $browsers = collect([$browser]);
+
+        $this->storeConsoleLogsFor($browsers);
+    }
+
     public static function testData()
     {
         return [
