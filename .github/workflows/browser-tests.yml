@@ -49,7 +49,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-           composer require "illuminate/contracts:^${{ matrix.laravel }}" "phpunit/phpunit:^${{ matrix.phpunit }}" --dev --no-update
+           composer require "laravel/framework:^${{ matrix.laravel }}" "phpunit/phpunit:^${{ matrix.phpunit }}" --dev --no-update
            composer update --prefer-dist --no-interaction --no-progress
 
       - name: Upgrade Chrome Driver
