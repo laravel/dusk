@@ -232,7 +232,7 @@ trait ProvidesBrowser
             ? $this->name()
             : $this->getName(false); // @phpstan-ignore-line
 
-        return str_replace('\\', '_', get_class($this)).'_'.$name;
+        return str_replace('\\', '_', substr(get_class($this), 0, 70)).'_'.substr($name, 0, 70);
     }
 
     /**

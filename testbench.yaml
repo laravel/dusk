@@ -6,3 +6,6 @@ migrations:
 
 workbench:
   start: '/'
+  welcome: false
+  discovers:
+    web: true
