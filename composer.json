@@ -32,7 +32,7 @@
         "orchestra/testbench": "^7.0|^8.0|^9.0",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.5.10|^10.0.1",
-        "psy/psysh": "^0.11.12"
+        "psy/psysh": "^0.11.12|^0.12"
     },
     "suggest": {
         "ext-pcntl": "Used to gracefully terminate Dusk when tests are running."
