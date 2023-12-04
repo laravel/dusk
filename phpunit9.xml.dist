@@ -17,7 +17,8 @@
 >
     <testsuites>
         <testsuite name="Laravel Dusk Test Suite">
-            <directory suffix="Test.php">./tests</directory>
+            <directory suffix="Test.php">./tests/Feature</directory>
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
 </phpunit>

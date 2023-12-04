@@ -1,0 +1,71 @@
+name: browser-tests
+
+on:
+  push:
+    branches:
+      - master
+      - '*.x'
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  browser-tests:
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: ['8.0', 8.1, 8.2, 8.3]
+        laravel: [9, 10]
+        phpunit: [9, 10]
+        exclude:
+          - php: '8.0'
+            laravel: 10
+          - php: '8.0'
+            phpunit: 10
+          - php: 8.3
+            laravel: 9
+          - laravel: 9
+            phpunit: 10
+
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - PHPUnit ${{ matrix.phpunit }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        run: |
+           composer require "illuminate/contracts:^${{ matrix.laravel }}" "phpunit/phpunit:^${{ matrix.phpunit }}" --dev --no-update
+           composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Upgrade Chrome Driver
+        run: php vendor/bin/testbench dusk:chrome-driver --detect
+
+      - name: Start Chrome Driver
+        run: ./vendor/laravel/dusk/bin/chromedriver-linux &
+
+      - name: Run Laravel Server
+        run: php vendor/bin/testbench serve --no-reload &
+
+      - name: Execute tests
+        if: matrix.phpunit == '9'
+        run: php vendor/bin/phpunit --no-coverage --no-configuration --dont-report-useless-tests --bootstrap vendor/autoload.php --color tests/Browser
+        env:
+          APP_URL: http://127.0.0.1:8000
+
+      - name: Execute tests
+        run: php vendor/bin/phpunit -c phpunit.dusk.xml.dist
+        if: matrix.phpunit != '9'
+        env:
+          APP_URL: http://127.0.0.1:8000

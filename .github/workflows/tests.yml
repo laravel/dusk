@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ['8.0', 8.1, 8.2]
+        php: ['8.0', 8.1, 8.2, 8.3]
         laravel: [9, 10]
         phpunit: [9, 10]
         exclude:
@@ -24,6 +24,8 @@ jobs:
             laravel: 10
           - php: '8.0'
             phpunit: 10
+          - php: 8.3
+            laravel: 9
           - laravel: 9
             phpunit: 10
 
@@ -31,7 +33,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -102,6 +104,6 @@ jobs:
         run: php artisan serve --no-reload &
 
       - name: Run Dusk Tests
-        run: php artisan dusk --without-tty
+        run: php artisan dusk --without-tty --ansi
         env:
           APP_URL: http://127.0.0.1:8000

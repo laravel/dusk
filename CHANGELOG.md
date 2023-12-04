@@ -1,6 +1,52 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.8.0...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.11.4...master)
+
+## [v7.11.4](https://github.com/laravel/dusk/compare/v7.11.3...v7.11.4) - 2023-11-14
+
+- Limiting length of getCallerName return value to avoid issue when storing logs and screenshots by [@lk77](https://github.com/lk77) in https://github.com/laravel/dusk/pull/1070
+
+## [v7.11.3](https://github.com/laravel/dusk/compare/v7.11.2...v7.11.3) - 2023-10-17
+
+- Fixes unknown option "--ansi" and "--no-ansi" by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1068
+- Fixes `waitForTextIn()` broken in v7.11.2 by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1067
+
+## [v7.11.2](https://github.com/laravel/dusk/compare/v7.11.1...v7.11.2) - 2023-10-10
+
+- Consistently use `WebDriverWait` available API for `WaitsForElements` trait instead of relying on `Carbon`. by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1062
+
+## [v7.11.1](https://github.com/laravel/dusk/compare/v7.11.0...v7.11.1) - 2023-09-26
+
+- Fix favicon 404s triggered when using loginAs() or logout() methods by [@ziadoz](https://github.com/ziadoz) in https://github.com/laravel/dusk/pull/1061
+
+## [v7.11.0](https://github.com/laravel/dusk/compare/v7.10.0...v7.11.0) - 2023-09-12
+
+- Add `Laravel\Dusk\Keyboard::pause()` helper method by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1057
+
+## [v7.10.0](https://github.com/laravel/dusk/compare/v7.9.4...v7.10.0) - 2023-09-04
+
+- Keyboard Support Improvements by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1053
+
+## [v7.9.4](https://github.com/laravel/dusk/compare/v7.9.3...v7.9.4) - 2023-08-28
+
+- Remove legacy Dotenv usage by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1054
+
+## [v7.9.3](https://github.com/laravel/dusk/compare/v7.9.2...v7.9.3) - 2023-08-03
+
+- [7.x] Prevent interaction with `Http::preventStrayRequests` by [@joshbonnick](https://github.com/joshbonnick) in https://github.com/laravel/dusk/pull/1052
+
+## [v7.9.2](https://github.com/laravel/dusk/compare/v7.9.1...v7.9.2) - 2023-07-30
+
+- [7.x] Export ignore `testbench.yaml` file by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1048
+- [7.x] Fixes using `ChromeDriverCommand` with Telescope by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1050
+
+## [v7.9.1](https://github.com/laravel/dusk/compare/v7.9.0...v7.9.1) - 2023-07-27
+
+- Normalize directory separator on `ChromeDriverCommand` by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1045
+
+## [v7.9.0](https://github.com/laravel/dusk/compare/v7.8.0...v7.9.0) - 2023-07-24
+
+- Fix ChromeDriverCommand for ChromeDriver 115+ by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1043
 
 ## [v7.8.0](https://github.com/laravel/dusk/compare/v7.7.1...v7.8.0) - 2023-07-08
 

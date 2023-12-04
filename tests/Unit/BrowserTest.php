@@ -1,9 +1,12 @@
 <?php
 
-namespace Laravel\Dusk\Tests;
+namespace Laravel\Dusk\Tests\Unit;
 
+use Facebook\WebDriver\Remote\RemoteKeyboard;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
+use Facebook\WebDriver\WebDriverKeys;
 use Laravel\Dusk\Browser;
+use Laravel\Dusk\Keyboard;
 use Laravel\Dusk\Page;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
@@ -190,6 +193,22 @@ class BrowserTest extends TestCase
         $browser = new Browser($driver);
 
         $browser->storeConsoleLog('file');
+    }
+
+    public function test_uses_keyboard()
+    {
+        $driver = m::mock(stdClass::class);
+        $remoteKeyboard = m::mock(RemoteKeyboard::class);
+        $driver->shouldReceive('getKeyboard')->once()->andReturn($remoteKeyboard);
+        $remoteKeyboard->shouldReceive('pressKey')->once()->with(WebDriverKeys::CONTROL)->andReturnNull();
+        $browser = new Browser($driver);
+
+        $browser->withKeyboard(function ($keyboard) use ($browser) {
+            $this->assertInstanceof(Keyboard::class, $keyboard);
+            $this->assertSame($browser, $keyboard->browser);
+
+            $keyboard->press(WebDriverKeys::CONTROL);
+        });
     }
 
     public function test_screenshot()
