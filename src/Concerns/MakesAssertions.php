@@ -793,6 +793,34 @@ JS;
     }
 
     /**
+     * Assert that the element matching the given selector does not contain the given value in the provided attribute.
+     *
+     * @param  string  $selector
+     * @param  string  $attribute
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertAttributeDoesNotContain($selector, $attribute, $value)
+    {
+        $fullSelector = $this->resolver->format($selector);
+
+        $actual = $this->resolver->findOrFail($selector)->getAttribute($attribute);
+
+        PHPUnit::assertNotNull(
+            $actual,
+            "Did not see expected attribute [{$attribute}] within element [{$fullSelector}]."
+        );
+
+        PHPUnit::assertStringNotContainsString(
+            $value,
+            $actual,
+            "Attribute '$attribute' contains [{$value}]. Full attribute value was [$actual]."
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the element matching the given selector has the given value in the provided aria attribute.
      *
      * @param  string  $selector
