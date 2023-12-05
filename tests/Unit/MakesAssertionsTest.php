@@ -652,10 +652,10 @@ class MakesAssertionsTest extends TestCase
 
         $browser = new Browser($driver, $resolver);
 
-        $browser->assertAttributeDoesNotContain('foo', 'bar', 'class-c');
+        $browser->assertAttributeDoesntContain('foo', 'bar', 'class-c');
 
         try {
-            $browser->assertAttributeDoesNotContain('foo', 'bar', 'class-c');
+            $browser->assertAttributeDoesntContain('foo', 'bar', 'class-c');
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(
@@ -665,7 +665,7 @@ class MakesAssertionsTest extends TestCase
         }
 
         try {
-            $browser->assertAttributeDoesNotContain('foo', 'bar', 'class-1');
+            $browser->assertAttributeDoesntContain('foo', 'bar', 'class-1');
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertStringContainsString(

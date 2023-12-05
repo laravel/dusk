@@ -800,7 +800,7 @@ JS;
      * @param  string  $value
      * @return $this
      */
-    public function assertAttributeDoesNotContain($selector, $attribute, $value)
+    public function assertAttributeDoesntContain($selector, $attribute, $value)
     {
         $fullSelector = $this->resolver->format($selector);
 
@@ -1113,6 +1113,19 @@ JS;
         PHPUnit::assertContains($value, $attribute);
 
         return $this;
+    }
+
+    /**
+     * Assert that a given Vue component data property is an array and does not contain the given value.
+     *
+     * @param  string  $key
+     * @param  string  $value
+     * @param  string|null  $componentSelector
+     * @return $this
+     */
+    public function assertVueDoesntContain($key, $value, $componentSelector = null)
+    {
+        return $this->assertVueDoesNotContain($key, $value, $componentSelector);
     }
 
     /**
