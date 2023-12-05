@@ -793,6 +793,34 @@ JS;
     }
 
     /**
+     * Assert that the element matching the given selector does not contain the given value in the provided attribute.
+     *
+     * @param  string  $selector
+     * @param  string  $attribute
+     * @param  string  $value
+     * @return $this
+     */
+    public function assertAttributeDoesntContain($selector, $attribute, $value)
+    {
+        $fullSelector = $this->resolver->format($selector);
+
+        $actual = $this->resolver->findOrFail($selector)->getAttribute($attribute);
+
+        PHPUnit::assertNotNull(
+            $actual,
+            "Did not see expected attribute [{$attribute}] within element [{$fullSelector}]."
+        );
+
+        PHPUnit::assertStringNotContainsString(
+            $value,
+            $actual,
+            "Attribute '$attribute' contains [{$value}]. Full attribute value was [$actual]."
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the element matching the given selector has the given value in the provided aria attribute.
      *
      * @param  string  $selector
@@ -1085,6 +1113,19 @@ JS;
         PHPUnit::assertContains($value, $attribute);
 
         return $this;
+    }
+
+    /**
+     * Assert that a given Vue component data property is an array and does not contain the given value.
+     *
+     * @param  string  $key
+     * @param  string  $value
+     * @param  string|null  $componentSelector
+     * @return $this
+     */
+    public function assertVueDoesntContain($key, $value, $componentSelector = null)
+    {
+        return $this->assertVueDoesNotContain($key, $value, $componentSelector);
     }
 
     /**
