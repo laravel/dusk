@@ -116,16 +116,17 @@ trait WaitsForElements
      * @param  string  $selector
      * @param  array|string  $text
      * @param  int|null  $seconds
+     * @param  bool  $ignoreCase
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeoutException
      */
-    public function waitForTextIn($selector, $text, $seconds = null)
+    public function waitForTextIn($selector, $text, $seconds = null, $ignoreCase = false)
     {
         $message = 'Waited %s seconds for text "'.$this->escapePercentCharacters($text).'" in selector '.$selector;
 
         return $this->waitUsing($seconds, 100, function () use ($selector, $text) {
-            return $this->assertSeeIn($selector, $text);
+            return $this->assertSeeIn($selector, $text, $ignoreCase);
         }, $message);
     }
 
