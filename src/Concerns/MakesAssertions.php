@@ -145,7 +145,7 @@ trait MakesAssertions
      * Assert that the given text is present on the page.
      *
      * @param  string  $text
-     * @param  bool    $ignoreCase
+     * @param  bool  $ignoreCase
      * @return $this
      */
     public function assertSee($text, $ignoreCase = false)
@@ -169,7 +169,7 @@ trait MakesAssertions
      *
      * @param  string  $selector
      * @param  string  $text
-     * @param  bool    $ignoreCase
+     * @param  bool  $ignoreCase
      * @return $this
      */
     public function assertSeeIn($selector, $text, $ignoreCase = false)

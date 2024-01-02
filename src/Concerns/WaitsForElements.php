@@ -106,7 +106,7 @@ trait WaitsForElements
 
         $message = $this->formatTimeOutMessage('Waited %s seconds for text', implode("', '", $text));
 
-        return $this->waitUsing($seconds, 100, function () use ($text) {
+        return $this->waitUsing($seconds, 100, function () use ($text, $ignoreCase) {
             return Str::contains($this->resolver->findOrFail('')->getText(), $text, $ignoreCase);
         }, $message);
     }
@@ -126,7 +126,7 @@ trait WaitsForElements
     {
         $message = 'Waited %s seconds for text "'.$this->escapePercentCharacters($text).'" in selector '.$selector;
 
-        return $this->waitUsing($seconds, 100, function () use ($selector, $text) {
+        return $this->waitUsing($seconds, 100, function () use ($selector, $text, $ignoreCase) {
             return $this->assertSeeIn($selector, $text, $ignoreCase);
         }, $message);
     }
