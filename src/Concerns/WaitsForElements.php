@@ -95,18 +95,19 @@ trait WaitsForElements
      *
      * @param  array|string  $text
      * @param  int|null  $seconds
+     * @param  bool  $ignoreCase
      * @return $this
      *
      * @throws \Facebook\WebDriver\Exception\TimeoutException
      */
-    public function waitForText($text, $seconds = null)
+    public function waitForText($text, $seconds = null, $ignoreCase = false)
     {
         $text = Arr::wrap($text);
 
         $message = $this->formatTimeOutMessage('Waited %s seconds for text', implode("', '", $text));
 
         return $this->waitUsing($seconds, 100, function () use ($text) {
-            return Str::contains($this->resolver->findOrFail('')->getText(), $text);
+            return Str::contains($this->resolver->findOrFail('')->getText(), $text, $ignoreCase);
         }, $message);
     }
 
