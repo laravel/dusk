@@ -62,6 +62,20 @@ class InstallCommand extends Command
             }
         }
 
+        $baseTestCase = file_get_contents(base_path('tests/DuskTestCase.php'));
+
+        if (! trait_exists(\Tests\CreatesApplication::class)) {
+            file_put_contents(base_path('tests/DuskTestCase.php'), str_replace(<<<EOT
+                {
+                    use CreatesApplication;
+
+                EOT, <<<EOT
+                {
+                EOT,
+                $baseTestCase,
+            ));
+        }
+
         $this->info('Dusk scaffolding installed successfully.');
 
         $this->comment('Downloading ChromeDriver binaries...');
