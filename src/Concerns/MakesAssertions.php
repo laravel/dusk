@@ -145,11 +145,12 @@ trait MakesAssertions
      * Assert that the given text is present on the page.
      *
      * @param  string  $text
+     * @param  bool  $ignoreCase
      * @return $this
      */
-    public function assertSee($text)
+    public function assertSee($text, $ignoreCase = false)
     {
-        return $this->assertSeeIn('', $text);
+        return $this->assertSeeIn('', $text, $ignoreCase);
     }
 
     /**
@@ -168,16 +169,17 @@ trait MakesAssertions
      *
      * @param  string  $selector
      * @param  string  $text
+     * @param  bool  $ignoreCase
      * @return $this
      */
-    public function assertSeeIn($selector, $text)
+    public function assertSeeIn($selector, $text, $ignoreCase = false)
     {
         $fullSelector = $this->resolver->format($selector);
 
         $element = $this->resolver->findOrFail($selector);
 
         PHPUnit::assertTrue(
-            Str::contains($element->getText(), $text),
+            Str::contains($element->getText(), $text, $ignoreCase),
             "Did not see expected text [{$text}] within element [{$fullSelector}]."
         );
 
