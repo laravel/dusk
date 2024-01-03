@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.11.4...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.12.0...master)
+
+## [v7.12.0](https://github.com/laravel/dusk/compare/v7.11.4...v7.12.0) - 2023-12-05
+
+* Add attribute does not contain assertion by [@ziadoz](https://github.com/ziadoz) in https://github.com/laravel/dusk/pull/1072
 
 ## [v7.11.4](https://github.com/laravel/dusk/compare/v7.11.3...v7.11.4) - 2023-11-14
 
