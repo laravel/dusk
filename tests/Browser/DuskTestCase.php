@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase;
 use Orchestra\Testbench\Concerns\CreatesApplication;
+use PHPUnit\Framework\Attributes\BeforeClass;
 
 class DuskTestCase extends TestCase
 {
@@ -40,9 +41,8 @@ class DuskTestCase extends TestCase
 
     /**
      * Prepare for Dusk test execution.
-     *
-     * @beforeClass
      */
+    #[BeforeClass]
     public static function prepare(): void
     {
         if (! static::runningInSail()) {
