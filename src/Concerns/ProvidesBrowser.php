@@ -6,6 +6,7 @@ use Closure;
 use Exception;
 use Illuminate\Support\Collection;
 use Laravel\Dusk\Browser;
+use PHPUnit\Framework\Attributes\AfterClass;
 use PHPUnit\Runner\Version;
 use ReflectionFunction;
 use Throwable;
@@ -29,10 +30,9 @@ trait ProvidesBrowser
     /**
      * Tear down the Dusk test case class.
      *
-     * @afterClass
-     *
      * @return void
      */
+    #[AfterClass]
     public static function tearDownDuskClass()
     {
         static::closeAll();

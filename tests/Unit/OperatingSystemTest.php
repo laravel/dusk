@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Tests\Unit;
 
 use Laravel\Dusk\OperatingSystem;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class OperatingSystemTest extends TestCase
@@ -41,9 +42,7 @@ class OperatingSystemTest extends TestCase
         OperatingSystem::chromeVersionCommands('window_os');
     }
 
-    /**
-     * @dataProvider resolveChromeDriverSlugDataProvider
-     */
+    #[DataProvider('resolveChromeDriverSlugDataProvider')]
     public function test_it_can_resolve_chromedriver_slug($version, $os, $expected)
     {
         $this->assertSame($expected, OperatingSystem::chromeDriverSlug($os, $version));
