@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.12.0...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.12.1...master)
+
+## [v7.12.1](https://github.com/laravel/dusk/compare/v7.12.0...v7.12.1) - 2024-01-03
+
+* Case insensitive assertions by [@Bryce-Stabenow](https://github.com/Bryce-Stabenow) in https://github.com/laravel/dusk/pull/1073
 
 ## [v7.12.0](https://github.com/laravel/dusk/compare/v7.11.4...v7.12.0) - 2023-12-05
 
