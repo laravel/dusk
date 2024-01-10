@@ -48,6 +48,9 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "8.x-dev"
+        },
         "laravel": {
             "providers": [
                 "Laravel\\Dusk\\DuskServiceProvider"
