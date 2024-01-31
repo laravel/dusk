@@ -14,6 +14,8 @@ use Symfony\Component\Process\Process;
 
 class DuskCommand extends Command
 {
+    use Concerns\InteractsWithTestingFrameworks;
+
     /**
      * The name and signature of the console command.
      *
@@ -21,8 +23,7 @@ class DuskCommand extends Command
      */
     protected $signature = 'dusk
                 {--browse : Open a browser instead of using headless mode}
-                {--without-tty : Disable output to TTY}
-                {--pest : Run the tests using Pest}';
+                {--without-tty : Disable output to TTY}';
 
     /**
      * The console command description.
@@ -101,7 +102,7 @@ class DuskCommand extends Command
     {
         $binaryPath = 'vendor/phpunit/phpunit/phpunit';
 
-        if ($this->option('pest')) {
+        if ($this->usingPest()) {
             $binaryPath = 'vendor/pestphp/pest/bin/pest';
         }
 
@@ -172,7 +173,7 @@ class DuskCommand extends Command
      */
     protected function shouldUseCollisionPrinter()
     {
-        return ! $this->option('pest')
+        return ! $this->usingPest()
             && class_exists(EnsurePrinterIsRegisteredSubscriber::class)
             && version_compare(Version::id(), '10.0', '>=');
     }

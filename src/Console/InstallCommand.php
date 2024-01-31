@@ -6,6 +6,8 @@ use Illuminate\Console\Command;
 
 class InstallCommand extends Command
 {
+    use Concerns\InteractsWithTestingFrameworks;
+
     /**
      * The name and signature of the console command.
      *
@@ -50,11 +52,29 @@ class InstallCommand extends Command
         }
 
         $stubs = [
-            'ExampleTest.stub' => base_path('tests/Browser/ExampleTest.php'),
             'HomePage.stub' => base_path('tests/Browser/Pages/HomePage.php'),
             'DuskTestCase.stub' => base_path('tests/DuskTestCase.php'),
             'Page.stub' => base_path('tests/Browser/Pages/Page.php'),
         ];
+
+        if ($this->usingPest()) {
+            $stubs['ExampleTest.pest.stub'] = base_path('tests/Browser/ExampleTest.php');
+
+            $contents = file_get_contents(base_path('tests/Pest.php'));
+
+            $contents = str_replace('<?php', <<<EOT
+            <?php
+
+            uses(
+                Tests\DuskTestCase::class,
+                // Illuminate\Foundation\Testing\DatabaseMigrations::class,
+            )->in('Browser');
+            EOT, $contents);
+
+            file_put_contents(base_path('tests/Pest.php'), $contents);
+        } else {
+            $stubs['ExampleTest.stub'] = base_path('tests/Browser/ExampleTest.php');
+        }
 
         foreach ($stubs as $stub => $file) {
             if (! is_file($file)) {
