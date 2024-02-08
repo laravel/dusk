@@ -23,7 +23,7 @@ class ProvidesBrowserTest extends TestCase
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('screenshot')->with(
-            'failure-Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_capture_failures_for-0'
+            'failure-Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_capture_failures_for_foo-0'
         );
         $browsers = collect([$browser]);
 
@@ -37,7 +37,7 @@ class ProvidesBrowserTest extends TestCase
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
-            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_store_console_logs_for-0'
+            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_store_console_logs_for_foo-0'
         );
         $browsers = collect([$browser]);
 
@@ -58,7 +58,7 @@ class ProvidesBrowserTest extends TestCase
     public static function testData()
     {
         return [
-            ['foo'],
+            'foo' => ['foo'],
         ];
     }
 

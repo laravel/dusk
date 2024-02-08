@@ -228,11 +228,21 @@ trait ProvidesBrowser
      */
     protected function getCallerName()
     {
-        $name = version_compare(Version::id(), '10', '>=')
-            ? $this->name()
-            : $this->getName(false); // @phpstan-ignore-line
+        if (version_compare(Version::id(), '10', '>=')) {
+            $name = $this->name();
+            $data = $this->dataName();
+        } else {
+            $name = $this->getName(false); // @phpstan-ignore-line
+            $data = $this->getDataSetAsString(false); // @phpstan-ignore-line
+        }
 
-        return str_replace('\\', '_', substr(get_class($this), 0, 70)).'_'.substr($name, 0, 70);
+        $parts = array_filter([
+            str_replace('\\', '_', substr(get_class($this), 0, 70)),
+            substr($name, 0, 70),
+            substr($data, 0, 70),
+        ], fn ($part) => $part !== '');
+
+        return implode('_', $parts);
     }
 
     /**
