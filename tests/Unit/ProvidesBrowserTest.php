@@ -16,14 +16,11 @@ class ProvidesBrowserTest extends TestCase
         m::close();
     }
 
-    /**
-     * @dataProvider testData
-     */
     public function test_capture_failures_for()
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('screenshot')->with(
-            'failure-Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_capture_failures_for_foo_data-0'
+            'failure-Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_capture_failures_for-0'
         );
         $browsers = collect([$browser]);
 
@@ -33,11 +30,25 @@ class ProvidesBrowserTest extends TestCase
     /**
      * @dataProvider testData
      */
-    public function test_store_console_logs_for()
+    public function test_capture_failures_for_data()
+    {
+        $browser = m::mock(stdClass::class);
+        $browser->shouldReceive('screenshot')->with(
+            'failure-Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_capture_failures_for_data_foo-0'
+        );
+        $browsers = collect([$browser]);
+
+        $this->captureFailuresFor($browsers);
+    }
+
+    /**
+     * @dataProvider testData
+     */
+    public function test_store_console_logs_for_data()
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
-            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_store_console_logs_for_foo_data-0'
+            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_store_console_logs_for_data_foo-0'
         );
         $browsers = collect([$browser]);
 
@@ -47,11 +58,11 @@ class ProvidesBrowserTest extends TestCase
     /**
      * @dataProvider testData
      */
-    public function test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues()
+    public function test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_data()
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
-            'Dusk_Tests_Unit_ProvidesBrowserTest_test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_foo_data-0'
+            'Dusk_Tests_Unit_ProvidesBrowserTest_test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_data_foo-0'
         );
         $browsers = collect([$browser]);
 
@@ -61,7 +72,7 @@ class ProvidesBrowserTest extends TestCase
     public static function testData()
     {
         return [
-            'foo data' => ['foo'],
+            'foo' => ['foo'],
         ];
     }
 
