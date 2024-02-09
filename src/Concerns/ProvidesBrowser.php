@@ -5,7 +5,6 @@ namespace Laravel\Dusk\Concerns;
 use Closure;
 use Exception;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Laravel\Dusk\Browser;
 use PHPUnit\Runner\Version;
 use ReflectionFunction;
@@ -236,7 +235,7 @@ trait ProvidesBrowser
         $parts = array_filter([
             str_replace('\\', '_', get_class($this)),
             $name,
-            Str::snake($this->dataName()),
+            str_replace(['\\', ' '], ['', '_'], $this->dataName()),
         ], fn ($part) => $part !== '');
 
         return substr(implode('_', $parts), -140);
