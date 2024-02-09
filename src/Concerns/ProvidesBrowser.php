@@ -233,12 +233,12 @@ trait ProvidesBrowser
             : $this->getName(false); // @phpstan-ignore-line
 
         $parts = array_filter([
-            str_replace('\\', '_', substr(get_class($this), 0, 70)),
-            substr($name, 0, 70),
-            substr($this->dataName(), 0, 70),
+            str_replace('\\', '_', get_class($this)),
+            $name,
+            Str::snake($this->dataName()),
         ], fn ($part) => $part !== '');
 
-        return implode('_', $parts);
+        return substr(implode('_', $parts), -140);
     }
 
     /**

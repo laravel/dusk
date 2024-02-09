@@ -23,7 +23,7 @@ class ProvidesBrowserTest extends TestCase
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('screenshot')->with(
-            'failure-Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_capture_failures_for_foo-0'
+            'failure-Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_capture_failures_for_foo_data-0'
         );
         $browsers = collect([$browser]);
 
@@ -37,18 +37,21 @@ class ProvidesBrowserTest extends TestCase
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
-            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_store_console_logs_for_foo-0'
+            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_store_console_logs_for_foo_data-0'
         );
         $browsers = collect([$browser]);
 
         $this->storeConsoleLogsFor($browsers);
     }
 
-    public function test_truncate_test_name_where_that_name_is_too_long_and_might_cause_issues()
+    /**
+     * @dataProvider testData
+     */
+    public function test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues()
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
-            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_truncate_test_name_where_that_name_is_too_long_and_might_cause_is-0'
+            'Dusk_Tests_Unit_ProvidesBrowserTest_test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_foo_data-0'
         );
         $browsers = collect([$browser]);
 
@@ -58,7 +61,7 @@ class ProvidesBrowserTest extends TestCase
     public static function testData()
     {
         return [
-            'foo' => ['foo'],
+            'foo data' => ['foo'],
         ];
     }
 
