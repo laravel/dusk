@@ -5,6 +5,7 @@ namespace Laravel\Dusk\Concerns;
 use Closure;
 use Exception;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Laravel\Dusk\Browser;
 use PHPUnit\Runner\Version;
 use ReflectionFunction;
