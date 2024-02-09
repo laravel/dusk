@@ -28,7 +28,7 @@ class ProvidesBrowserTest extends TestCase
     }
 
     /**
-     * @dataProvider testData
+     * @dataProvider data
      */
     public function test_capture_failures_for_data()
     {
@@ -42,7 +42,7 @@ class ProvidesBrowserTest extends TestCase
     }
 
     /**
-     * @dataProvider testData
+     * @dataProvider data
      */
     public function test_store_console_logs_for_data()
     {
@@ -56,7 +56,7 @@ class ProvidesBrowserTest extends TestCase
     }
 
     /**
-     * @dataProvider testData
+     * @dataProvider data
      */
     public function test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_data()
     {
@@ -69,7 +69,7 @@ class ProvidesBrowserTest extends TestCase
         $this->storeConsoleLogsFor($browsers);
     }
 
-    public static function testData()
+    public static function data()
     {
         return [
             'foo' => ['foo'],
