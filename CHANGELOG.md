@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.12.2...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.12.3...7.x)
+
+## [v7.12.3](https://github.com/laravel/dusk/compare/v7.12.2...v7.12.3) - 2024-02-15
+
+* Fixes console logs trying to create file containing `DIRECTORY_SEPARATOR` value from data provider name. by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1086
 
 ## [v7.12.2](https://github.com/laravel/dusk/compare/v7.12.1...v7.12.2) - 2024-02-09
 
