@@ -767,6 +767,27 @@ JS;
     }
 
     /**
+     * Assert that the element matching the given selector is missing the provided attribute.
+     *
+     * @param  string  $selector
+     * @param  string  $attribute
+     * @return $this
+     */
+    public function assertAttributeMissing($selector, $attribute)
+    {
+        $fullSelector = $this->resolver->format($selector);
+
+        $actual = $this->resolver->findOrFail($selector)->getAttribute($attribute);
+
+        PHPUnit::assertNull(
+            $actual,
+            "Saw unexpected attribute [{$attribute}] within element [{$fullSelector}]."
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the element matching the given selector contains the given value in the provided attribute.
      *
      * @param  string  $selector

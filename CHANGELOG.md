@@ -2,6 +2,15 @@
 
 ## [Unreleased](https://github.com/laravel/dusk/compare/v7.12.1...master)
 
+## [v7.12.3](https://github.com/laravel/dusk/compare/v7.12.2...v7.12.3) - 2024-02-15
+
+* Fixes console logs trying to create file containing `DIRECTORY_SEPARATOR` value from data provider name. by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1086
+
+## [v7.12.2](https://github.com/laravel/dusk/compare/v7.12.1...v7.12.2) - 2024-02-09
+
+* Add `assertAttributeMissing()` method by [@ziadoz](https://github.com/ziadoz) in https://github.com/laravel/dusk/pull/1083
+* Add PHPUnit data provider set name to output filenames by [@ziadoz](https://github.com/ziadoz) in https://github.com/laravel/dusk/pull/1084
+
 ## [v7.12.1](https://github.com/laravel/dusk/compare/v7.12.0...v7.12.1) - 2024-01-03
 
 * Case insensitive assertions by [@Bryce-Stabenow](https://github.com/Bryce-Stabenow) in https://github.com/laravel/dusk/pull/1073

@@ -17,7 +17,6 @@ class ProvidesBrowserTest extends TestCase
         m::close();
     }
 
-    #[DataProvider('testData')]
     public function test_capture_failures_for()
     {
         $browser = m::mock(stdClass::class);
@@ -29,33 +28,46 @@ class ProvidesBrowserTest extends TestCase
         $this->captureFailuresFor($browsers);
     }
 
-    #[DataProvider('testData')]
-    public function test_store_console_logs_for()
+    #[DataProvider('data')]
+    public function test_capture_failures_for_data()
+    {
+        $browser = m::mock(stdClass::class);
+        $browser->shouldReceive('screenshot')->with(
+            'failure-Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_capture_failures_for_data_foo-0'
+        );
+        $browsers = collect([$browser]);
+
+        $this->captureFailuresFor($browsers);
+    }
+
+    #[DataProvider('data')]
+    public function test_store_console_logs_for_data()
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
-            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_store_console_logs_for-0'
+            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_store_console_logs_for_data_foo-0'
         );
         $browsers = collect([$browser]);
 
         $this->storeConsoleLogsFor($browsers);
     }
 
-    public function test_truncate_test_name_where_that_name_is_too_long_and_might_cause_issues()
+    #[DataProvider('data')]
+    public function test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_data()
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
-            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_truncate_test_name_where_that_name_is_too_long_and_might_cause_is-0'
+            'Dusk_Tests_Unit_ProvidesBrowserTest_test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_data_foo-0'
         );
         $browsers = collect([$browser]);
 
         $this->storeConsoleLogsFor($browsers);
     }
 
-    public static function testData()
+    public static function data()
     {
         return [
-            ['foo'],
+            'foo' => ['foo'],
         ];
     }
 

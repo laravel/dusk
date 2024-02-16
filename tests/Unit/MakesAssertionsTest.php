@@ -595,6 +595,35 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_attribute_missing()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element = m::mock(stdClass::class);
+        $element->shouldReceive('getAttribute')->with('bar')->andReturn(
+            null,
+            'joe',
+        );
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('Foo');
+        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertAttributeMissing('foo', 'bar');
+
+        try {
+            $browser->assertAttributeMissing('foo', 'bar');
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Saw unexpected attribute [bar] within element [Foo].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_attribute_contains()
     {
         $driver = m::mock(stdClass::class);
