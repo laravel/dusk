@@ -591,7 +591,7 @@ class Browser
         $browser = new static($this->driver, $this->resolver);
         $browser->onComponent($component, $this->resolver);
 
-        return new HigherOrderTapProxy($component);
+        return new HigherOrderTapProxy($browser);
     }
 
     /**
