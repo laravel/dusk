@@ -8,7 +8,6 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverDimension;
 use Facebook\WebDriver\WebDriverPoint;
-use Illuminate\Support\HigherOrderTapProxy;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 
@@ -590,14 +589,14 @@ class Browser
      * Return a browser scoped to the given component.
      *
      * @param  \Laravel\Dusk\Component  $component
-     * @return \Illuminate\Support\HigherOrderTapProxy
+     * @return \Laravel\Dusk\Browser
      */
-    public function component(Component $component): HigherOrderTapProxy
+    public function component(Component $component)
     {
         $browser = new static($this->driver, $this->resolver);
         $browser->onComponent($component, $this->resolver);
 
-        return new HigherOrderTapProxy($browser);
+        return $browser;
     }
 
     /**
