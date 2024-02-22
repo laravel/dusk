@@ -586,6 +586,12 @@ class Browser
         });
     }
 
+    /**
+     * Return a browser scoped to the given component.
+     *
+     * @param  \Laravel\Dusk\Component  $component
+     * @return \Illuminate\Support\HigherOrderTapProxy
+     */
     public function component(Component $component): HigherOrderTapProxy
     {
         $browser = new static($this->driver, $this->resolver);
