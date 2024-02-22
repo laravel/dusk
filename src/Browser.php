@@ -8,6 +8,7 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverDimension;
 use Facebook\WebDriver\WebDriverPoint;
+use Illuminate\Support\HigherOrderTapProxy;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 
@@ -583,6 +584,14 @@ class Browser
         return $this->elsewhere('', function ($browser) use ($selector, $callback, $seconds) {
             $browser->whenAvailable($selector, $callback, $seconds);
         });
+    }
+
+    public function component(Component $component): HigherOrderTapProxy
+    {
+        $browser = new static($this->driver, $this->resolver);
+        $browser->onComponent($component, $this->resolver);
+
+        return new HigherOrderTapProxy($component);
     }
 
     /**
