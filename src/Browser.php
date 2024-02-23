@@ -593,7 +593,9 @@ class Browser
      */
     public function component(Component $component)
     {
-        $browser = new static($this->driver, $this->resolver);
+        $browser = new static(
+            $this->driver, new ElementResolver($this->driver, $this->resolver->format($component))
+        );
 
         if ($this->page) {
             $browser->onWithoutAssert($this->page);
