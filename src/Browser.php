@@ -594,6 +594,11 @@ class Browser
     public function component(Component $component)
     {
         $browser = new static($this->driver, $this->resolver);
+
+        if ($this->page) {
+            $browser->onWithoutAssert($this->page);
+        }
+
         $browser->onComponent($component, $this->resolver);
 
         return $browser;
