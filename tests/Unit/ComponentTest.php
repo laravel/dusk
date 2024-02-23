@@ -132,7 +132,7 @@ class ComponentTest extends TestCase
 
     public function test_component_method_triggers_assertion()
     {
-        $driver  = m::mock(stdClass::class);
+        $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $scoped = $browser->component(new TestComponent);
@@ -144,7 +144,7 @@ class ComponentTest extends TestCase
 
     public function test_component_method_resolver_prefix()
     {
-        $driver  = m::mock(stdClass::class);
+        $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $scoped = $browser->component(new TestComponent);
@@ -160,7 +160,7 @@ class ComponentTest extends TestCase
 
     public function test_component_method_component_macros()
     {
-        $driver  = m::mock(stdClass::class);
+        $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $scoped = $browser->component(new TestComponent);
