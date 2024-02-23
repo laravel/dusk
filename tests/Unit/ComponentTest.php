@@ -30,7 +30,7 @@ class ComponentTest extends TestCase
         });
     }
 
-    public function test_resolver_prefix()
+    public function test_within_method_resolver_prefix()
     {
         $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
@@ -48,7 +48,7 @@ class ComponentTest extends TestCase
         });
     }
 
-    public function test_component_macros()
+    public function test_within_method_component_macros()
     {
         $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
@@ -64,7 +64,7 @@ class ComponentTest extends TestCase
         });
     }
 
-    public function test_component_elements()
+    public function test_within_method_component_elements()
     {
         $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
@@ -85,7 +85,7 @@ class ComponentTest extends TestCase
         });
     }
 
-    public function test_root_selector_can_be_dusk_hook()
+    public function test_within_method_root_selector_can_be_dusk_hook()
     {
         $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
@@ -98,7 +98,7 @@ class ComponentTest extends TestCase
         });
     }
 
-    public function test_root_selector_can_be_element_alias()
+    public function test_within_method_root_selector_can_be_element_alias()
     {
         $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
@@ -111,7 +111,7 @@ class ComponentTest extends TestCase
         });
     }
 
-    public function test_component_overrides_page_macros()
+    public function test_within_method_component_overrides_page_macros()
     {
         $driver = m::mock(stdClass::class);
         $browser = new Browser($driver);
@@ -128,6 +128,131 @@ class ComponentTest extends TestCase
 
             $this->assertTrue($browser->page->macroed);
         });
+    }
+
+    public function test_within_method_chains()
+    {
+        $driver = m::mock(stdClass::class);
+        $browser = new Browser($driver);
+
+        $browser->within(new TestComponent, function ($browser) {
+            $this->assertInstanceOf(TestComponent::class, $browser->component);
+            $this->assertTrue($browser->component->asserted);
+            $this->assertSame('body #component-root', $browser->resolver->prefix);
+            $this->assertFalse($browser->component->macroed);
+
+            $browser->doSomething();
+            $this->assertTrue($browser->component->macroed);
+        })->within(new TestNestedComponent, function ($browser) {
+            $this->assertInstanceOf(TestNestedComponent::class, $browser->component);
+            $this->assertTrue($browser->component->asserted);
+            $this->assertSame('body #nested-root', $browser->resolver->prefix);
+            $this->assertFalse($browser->component->macroed);
+
+            $browser->doSomething();
+            $this->assertTrue($browser->component->macroed);
+        });
+    }
+
+    public function test_component_method_triggers_assertion()
+    {
+        $driver = m::mock(stdClass::class);
+        $browser = new Browser($driver);
+
+        $scoped = $browser->component(new TestComponent);
+        $this->assertTrue($scoped->component->asserted);
+
+        $nested = $scoped->component(new TestNestedComponent);
+        $this->assertTrue($nested->component->asserted);
+    }
+
+    public function test_component_method_resolver_prefix()
+    {
+        $driver = m::mock(stdClass::class);
+        $browser = new Browser($driver);
+
+        $scoped = $browser->component(new TestComponent);
+        $this->assertSame('body #component-root', $scoped->resolver->prefix);
+
+        $nested = $scoped->component(new TestNestedComponent);
+        $this->assertSame('body #component-root #nested-root', $nested->resolver->prefix);
+
+        $nested->with('prefix', function (Browser $browser) {
+            $this->assertSame('body #component-root #nested-root prefix', $browser->resolver->prefix);
+        });
+    }
+
+    public function test_component_method_component_macros()
+    {
+        $driver = m::mock(stdClass::class);
+        $browser = new Browser($driver);
+
+        $scoped = $browser->component(new TestComponent);
+        $scoped->doSomething();
+        $this->assertTrue($scoped->component->macroed);
+
+        $nested = $scoped->component(new TestNestedComponent);
+        $nested->doSomething();
+        $this->assertTrue($nested->component->macroed);
+    }
+
+    public function test_component_method_component_elements()
+    {
+        $driver = m::mock(stdClass::class);
+        $browser = new Browser($driver);
+
+        $scoped = $browser->component(new TestComponent);
+        $this->assertEquals([
+            '@component-alias' => '#component-alias',
+            '@overridden-alias' => '#not-overridden',
+        ], $scoped->resolver->elements);
+
+        $nested = $scoped->component(new TestNestedComponent);
+        $this->assertEquals([
+            '@nested-alias' => '#nested-alias',
+            '@overridden-alias' => '#overridden',
+            '@component-alias' => '#component-alias',
+        ], $nested->resolver->elements);
+    }
+
+    public function test_component_method_root_selector_can_be_dusk_hook()
+    {
+        $driver = m::mock(stdClass::class);
+        $browser = new Browser($driver);
+
+        $component = new TestComponent;
+        $component->selector = '@dusk-hook-root';
+
+        $scoped = $browser->component($component);
+        $this->assertSame('body [dusk="dusk-hook-root"]', $scoped->resolver->prefix);
+    }
+
+    public function test_component_method_root_selector_can_be_element_alias()
+    {
+        $driver = m::mock(stdClass::class);
+        $browser = new Browser($driver);
+
+        $component = new TestComponent;
+        $component->selector = '@component-alias';
+
+        $scoped = $browser->component($component);
+        $this->assertSame('body #component-alias', $scoped->resolver->prefix);
+    }
+
+    public function test_component_method_overrides_page_macros()
+    {
+        $driver = m::mock(stdClass::class);
+        $browser = new Browser($driver);
+
+        $browser->on($page = new TestPage);
+
+        $scoped = $browser->component(new TestComponent);
+        $scoped->doSomething();
+        $this->assertFalse($scoped->page->macroed);
+        $this->assertTrue($scoped->component->macroed);
+
+        $scoped->doPageSpecificThing();
+        $this->assertTrue($scoped->page->macroed);
     }
 }
 
