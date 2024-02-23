@@ -130,6 +130,30 @@ class ComponentTest extends TestCase
         });
     }
 
+    public function test_within_method_chains()
+    {
+        $driver = m::mock(stdClass::class);
+        $browser = new Browser($driver);
+
+        $browser->within(new TestComponent, function ($browser) {
+            $this->assertInstanceOf(TestComponent::class, $browser->component);
+            $this->assertTrue($browser->component->asserted);
+            $this->assertSame('body #component-root', $browser->resolver->prefix);
+            $this->assertFalse($browser->component->macroed);
+
+            $browser->doSomething();
+            $this->assertTrue($browser->component->macroed);
+        })->within(new TestNestedComponent, function ($browser) {
+            $this->assertInstanceOf(TestNestedComponent::class, $browser->component);
+            $this->assertTrue($browser->component->asserted);
+            $this->assertSame('body #nested-root', $browser->resolver->prefix);
+            $this->assertFalse($browser->component->macroed);
+
+            $browser->doSomething();
+            $this->assertTrue($browser->component->macroed);
+        });
+    }
+
     public function test_component_method_triggers_assertion()
     {
         $driver = m::mock(stdClass::class);
