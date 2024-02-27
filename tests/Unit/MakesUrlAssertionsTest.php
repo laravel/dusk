@@ -239,6 +239,26 @@ class MakesUrlAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_path_contains()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('getCurrentURL')->andReturn(
+            'http://www.google.com/admin/test/1/details'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertPathContains('/test/1/');
+
+        try {
+            $browser->assertPathContains('/test/2/');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Actual path [/admin/test/1/details] does not contain the expected string [/test/2/].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_path_is()
     {
         $driver = m::mock(stdClass::class);
