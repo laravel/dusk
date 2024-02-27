@@ -219,6 +219,26 @@ class MakesUrlAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_path_ends_with()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('getCurrentURL')->andReturn(
+            'http://www.google.com/test/ending'
+        );
+        $browser = new Browser($driver);
+
+        $browser->assertPathEndsWith('ending');
+
+        try {
+            $browser->assertPathEndsWith('/not-the-ending-expected');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Actual path [/test/ending] does not end with expected path [/not-the-ending-expected].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_path_is()
     {
         $driver = m::mock(stdClass::class);
