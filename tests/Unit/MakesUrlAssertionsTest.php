@@ -219,7 +219,7 @@ class MakesUrlAssertionsTest extends TestCase
         }
     }
 
-    public function test_assert_path_ends_with()
+    public function test_assert_path_ends_with(): void
     {
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
@@ -239,7 +239,7 @@ class MakesUrlAssertionsTest extends TestCase
         }
     }
 
-    public function test_assert_path_contains()
+    public function test_assert_path_contains(): void
     {
         $driver = m::mock(stdClass::class);
         $driver->shouldReceive('getCurrentURL')->andReturn(
