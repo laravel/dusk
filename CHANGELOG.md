@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.12.3...7.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.13.0...7.x)
+
+## [v7.13.0](https://github.com/laravel/dusk/compare/v7.12.3...v7.13.0) - 2024-02-23
+
+* Add `component()` method to get scoped Browser instance by [@ziadoz](https://github.com/ziadoz) in https://github.com/laravel/dusk/pull/1087
 
 ## [v7.12.3](https://github.com/laravel/dusk/compare/v7.12.2...v7.12.3) - 2024-02-15
 
