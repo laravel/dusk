@@ -1,5 +1,19 @@
 # Upgrade Guide
 
+## Upgrading To 8.0 From 7.x
+
+### Minimum Versions
+
+The following required dependency versions have been updated:
+
+- The minimum PHP version is now v8.1
+- The minimum Laravel version is now v10.0
+- The minimum PHPUnit version is now v10.0
+
+### Removed `--pest` Option
+
+The `--pest` option has been removed from the `dusk` Artisan command. If you have Pest installed, the `dusk` command will automatically use Pest instead of PHPUnit.
+
 ## Upgrading To 7.0 From 6.x
 
 ### Minimum Versions
