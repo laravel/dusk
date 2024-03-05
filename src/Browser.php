@@ -586,6 +586,27 @@ class Browser
     }
 
     /**
+     * Return a browser scoped to the given component.
+     *
+     * @param  \Laravel\Dusk\Component  $component
+     * @return \Laravel\Dusk\Browser
+     */
+    public function component(Component $component)
+    {
+        $browser = new static(
+            $this->driver, new ElementResolver($this->driver, $this->resolver->format($component))
+        );
+
+        if ($this->page) {
+            $browser->onWithoutAssert($this->page);
+        }
+
+        $browser->onComponent($component, $this->resolver);
+
+        return $browser;
+    }
+
+    /**
      * Set the current component state.
      *
      * @param  \Laravel\Dusk\Component  $component
