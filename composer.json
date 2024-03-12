@@ -27,7 +27,7 @@
         "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {
-        "mockery/mockery": "^1.5.1",
+        "mockery/mockery": "^1.6",
         "orchestra/testbench": "^8.19|^9.0",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10.1|^11.0",
