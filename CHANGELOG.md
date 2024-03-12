@@ -1,6 +1,13 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.13.0...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.0.0...8.x)
+
+## [v8.0.0](https://github.com/laravel/dusk/compare/v7.13.0...v8.0.0) - 2024-03-12
+
+* Uses `Tests\CreatesApplication` only if exists by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1074
+* Drop PHPUnit 9 and limits Laravel supported versions to 10 and 11 by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1077
+* Remove `nesbot/carbon` dependencies by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1079
+* [8.x] Better integrates Pest by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1082
 
 ## [v7.13.0](https://github.com/laravel/dusk/compare/v7.12.3...v7.13.0) - 2024-02-23
 
