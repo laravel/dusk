@@ -1,6 +1,6 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v7.13.0...master)
+## [Unreleased](https://github.com/laravel/dusk/compare/v7.13.0...8.x)
 
 ## [v7.13.0](https://github.com/laravel/dusk/compare/v7.12.3...v7.13.0) - 2024-02-23
 
