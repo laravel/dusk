@@ -48,11 +48,6 @@ jobs:
            composer update --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
-        if: matrix.phpunit == '9'
-        run: vendor/bin/phpunit -c phpunit9.xml.dist --verbose
-
-      - name: Execute tests
-        if: matrix.phpunit != '9'
         run: vendor/bin/phpunit -c phpunit.xml.dist
 
   stub-tests:

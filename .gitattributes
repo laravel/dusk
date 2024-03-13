@@ -15,6 +15,5 @@
 CHANGELOG.md export-ignore
 phpstan.neon.dist export-ignore
 phpunit.xml.dist export-ignore
-phpunit9.xml.dist export-ignore
 testbench.yaml export-ignore
 UPGRADE.md export-ignore
