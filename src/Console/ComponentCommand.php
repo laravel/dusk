@@ -4,7 +4,9 @@ namespace Laravel\Dusk\Console;
 
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'dusk:component')]
 class ComponentCommand extends GeneratorCommand
 {
     /**
