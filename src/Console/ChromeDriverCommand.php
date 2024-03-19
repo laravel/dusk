@@ -8,12 +8,14 @@ use GuzzleHttp\Psr7\Utils;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Laravel\Dusk\OperatingSystem;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Process\Process;
 use ZipArchive;
 
 /**
  * @copyright Originally created by Jonas Staudenmeir: https://github.com/staudenmeir/dusk-updater
  */
+#[AsCommand(name: 'dusk:chrome-driver')]
 class ChromeDriverCommand extends Command
 {
     /**

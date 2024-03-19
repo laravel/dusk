@@ -7,11 +7,13 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use NunoMaduro\Collision\Adapters\Phpunit\Subscribers\EnsurePrinterIsRegisteredSubscriber;
 use PHPUnit\Runner\Version;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Exception\ProcessSignaledException;
 use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
 
+#[AsCommand(name: 'dusk')]
 class DuskCommand extends Command
 {
     use Concerns\InteractsWithTestingFrameworks;

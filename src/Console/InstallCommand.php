@@ -3,7 +3,9 @@
 namespace Laravel\Dusk\Console;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'dusk:install')]
 class InstallCommand extends Command
 {
     use Concerns\InteractsWithTestingFrameworks;
