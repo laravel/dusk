@@ -455,7 +455,7 @@ class Browser
      * @param  string  $name
      * @return $this
      */
-    public function elementScreenshot($selector, $name)
+    public function screenshotElement($selector, $name)
     {
         $filePath = sprintf('%s/%s.png', rtrim(static::$storeScreenshotsAt, '/'), $name);
 

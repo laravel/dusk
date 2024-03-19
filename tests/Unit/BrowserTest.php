@@ -263,7 +263,7 @@ class BrowserTest extends TestCase
 
         $browser::$storeScreenshotsAt = sys_get_temp_dir();
 
-        $browser->elementScreenshot(
+        $browser->screenshotElement(
             '#selector',
             $name = 'screenshot-01',
         );
@@ -290,7 +290,7 @@ class BrowserTest extends TestCase
 
         $browser::$storeScreenshotsAt = sys_get_temp_dir();
 
-        $browser->elementScreenshot(
+        $browser->screenshotElement(
             '#selector',
             $name = uniqid('random').'/sub/dir/screenshot-01',
         );
