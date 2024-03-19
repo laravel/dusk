@@ -3,7 +3,10 @@
 namespace Laravel\Dusk\Tests\Unit;
 
 use Facebook\WebDriver\Remote\RemoteKeyboard;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
+use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverKeys;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Keyboard;
@@ -236,6 +239,60 @@ class BrowserTest extends TestCase
 
         $this->browser->screenshot(
             $name = uniqid('random').'/sub/dir/screenshot-01'
+        );
+
+        $this->assertFileExists(Browser::$storeScreenshotsAt.'/'.$name.'.png');
+    }
+
+    public function test_element_screenshot()
+    {
+        $elementMock = $this->createMock(RemoteWebElement::class);
+        $elementMock->expects($this->once())
+            ->method('takeElementScreenshot')
+            ->willReturnCallback(function ($filePath) {
+                return touch($filePath);
+            });
+
+        $driverMock = $this->createMock(RemoteWebDriver::class);
+        $driverMock->expects($this->once())
+            ->method('findElement')
+            ->with(WebDriverBy::cssSelector('#selector'))
+            ->willReturn($elementMock);
+
+        $browser = new Browser($driverMock);
+
+        $browser::$storeScreenshotsAt = sys_get_temp_dir();
+
+        $browser->elementScreenshot(
+            '#selector',
+            $name = 'screenshot-01',
+        );
+
+        $this->assertFileExists(Browser::$storeScreenshotsAt.'/'.$name.'.png');
+    }
+
+    public function test_element_screenshot_in_subdirectory()
+    {
+        $elementMock = $this->createMock(RemoteWebElement::class);
+        $elementMock->expects($this->once())
+            ->method('takeElementScreenshot')
+            ->willReturnCallback(function ($filePath) {
+                return touch($filePath);
+            });
+
+        $driverMock = $this->createMock(RemoteWebDriver::class);
+        $driverMock->expects($this->once())
+            ->method('findElement')
+            ->with(WebDriverBy::cssSelector('#selector'))
+            ->willReturn($elementMock);
+
+        $browser = new Browser($driverMock);
+
+        $browser::$storeScreenshotsAt = sys_get_temp_dir();
+
+        $browser->elementScreenshot(
+            '#selector',
+            $name = uniqid('random').'/sub/dir/screenshot-01',
         );
 
         $this->assertFileExists(Browser::$storeScreenshotsAt.'/'.$name.'.png');
