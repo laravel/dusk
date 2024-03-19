@@ -449,6 +449,30 @@ class Browser
     }
 
     /**
+     * Take a screenshot of a specific element and store it with the given name.
+     *
+     * @param  string  $selector
+     * @param  string  $name
+     * @return $this
+     */
+    public function elementScreenshot($selector, $name)
+    {
+        $filePath = sprintf('%s/%s.png', rtrim(static::$storeScreenshotsAt, '/'), $name);
+
+        $directoryPath = dirname($filePath);
+
+        if (! is_dir($directoryPath)) {
+            mkdir($directoryPath, 0777, true);
+        }
+
+        $this->scrollIntoView($selector)
+            ->driver->findElement(WebDriverBy::cssSelector($selector))
+            ->takeElementScreenshot($filePath);
+
+        return $this;
+    }
+
+    /**
      * Store the console output with the given name.
      *
      * @param  string  $name
