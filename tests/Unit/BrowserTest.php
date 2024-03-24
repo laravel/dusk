@@ -244,7 +244,7 @@ class BrowserTest extends TestCase
         $this->assertFileExists(Browser::$storeScreenshotsAt.'/'.$name.'.png');
     }
 
-    public function test_element_screenshot()
+    public function test_screenshot_element()
     {
         $elementMock = $this->createMock(RemoteWebElement::class);
         $elementMock->expects($this->once())
@@ -256,7 +256,7 @@ class BrowserTest extends TestCase
         $driverMock = $this->createMock(RemoteWebDriver::class);
         $driverMock->expects($this->once())
             ->method('findElement')
-            ->with(WebDriverBy::cssSelector('#selector'))
+            ->with(WebDriverBy::cssSelector('body #selector'))
             ->willReturn($elementMock);
 
         $browser = new Browser($driverMock);
@@ -271,7 +271,7 @@ class BrowserTest extends TestCase
         $this->assertFileExists(Browser::$storeScreenshotsAt.'/'.$name.'.png');
     }
 
-    public function test_element_screenshot_in_subdirectory()
+    public function test_screenshot_element_in_subdirectory()
     {
         $elementMock = $this->createMock(RemoteWebElement::class);
         $elementMock->expects($this->once())
@@ -283,7 +283,7 @@ class BrowserTest extends TestCase
         $driverMock = $this->createMock(RemoteWebDriver::class);
         $driverMock->expects($this->once())
             ->method('findElement')
-            ->with(WebDriverBy::cssSelector('#selector'))
+            ->with(WebDriverBy::cssSelector('body #selector'))
             ->willReturn($elementMock);
 
         $browser = new Browser($driverMock);
