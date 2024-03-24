@@ -466,7 +466,7 @@ class Browser
         }
 
         $this->scrollIntoView($selector)
-            ->driver->findElement(WebDriverBy::cssSelector($selector))
+            ->driver->findElement(WebDriverBy::cssSelector($this->resolver->format($selector)))
             ->takeElementScreenshot($filePath);
 
         return $this;
