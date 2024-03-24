@@ -742,7 +742,7 @@ class Browser
      */
     public function dump()
     {
-        dd($this->driver->getPageSource());
+        dump($this->driver->getPageSource());
     }
 
     /**
