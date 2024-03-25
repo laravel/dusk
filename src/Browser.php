@@ -758,7 +758,7 @@ class Browser
 
         $this->quit();
 
-        die();
+        exit;
     }
 
     /**
