@@ -743,6 +743,22 @@ class Browser
     public function dump()
     {
         dump($this->driver->getPageSource());
+
+        return $this;
+    }
+
+    /**
+     * Dump and die the content from the last response.
+     *
+     * @return void
+     */
+    public function dd()
+    {
+        dump($this->driver->getPageSource());
+
+        $this->quit();
+
+        die();
     }
 
     /**
