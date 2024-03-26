@@ -1,6 +1,13 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.0.0...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.1.0...8.x)
+
+## [v8.1.0](https://github.com/laravel/dusk/compare/v8.0.0...v8.1.0) - 2024-03-25
+
+* [8.x] Make commands lazy by [@timacdonald](https://github.com/timacdonald) in https://github.com/laravel/dusk/pull/1092
+* New Helper `elementScreenshot` by [@rabrowne85](https://github.com/rabrowne85) in https://github.com/laravel/dusk/pull/1093
+* Support Dusk Selectors in `screenshotElement` by [@rabrowne85](https://github.com/rabrowne85) in https://github.com/laravel/dusk/pull/1094
+* [8.x] Separate `dump()` and `dd()` usage for consistency by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1096
 
 ## [v8.0.0](https://github.com/laravel/dusk/compare/v7.13.0...v8.0.0) - 2024-03-12
 
