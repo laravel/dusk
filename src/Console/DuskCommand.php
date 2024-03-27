@@ -307,11 +307,7 @@ class DuskCommand extends Command
     {
         if (! file_exists($file = base_path('phpunit.dusk.xml')) &&
             ! file_exists(base_path('phpunit.dusk.xml.dist'))) {
-            if (version_compare(Version::id(), '10.0', '>=')) {
-                copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
-            } else {
-                copy(realpath(__DIR__.'/../../stubs/phpunit9.xml'), $file);
-            }
+            copy(realpath(__DIR__.'/../../stubs/phpunit.xml'), $file);
 
             return;
         }
