@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.1.0...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.1.1...8.x)
+
+## [v8.1.1](https://github.com/laravel/dusk/compare/v8.1.0...v8.1.1) - 2024-03-28
+
+* Remove PHPUnit 9 configuration stub by [@ziadoz](https://github.com/ziadoz) in https://github.com/laravel/dusk/pull/1097
 
 ## [v8.1.0](https://github.com/laravel/dusk/compare/v8.0.0...v8.1.0) - 2024-03-25
 
