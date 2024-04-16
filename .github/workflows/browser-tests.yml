@@ -51,10 +51,10 @@ jobs:
         run: php vendor/bin/testbench dusk:chrome-driver --detect
 
       - name: Debug Chrome Driver
-        run: ls -la vendor/laravel/dusk/bin
+        run: ls -la ./vendor/laravel/dusk/bin
 
       - name: Start Chrome Driver
-        run: vendor/laravel/dusk/bin/chromedriver-linux &
+        run: ./vendor/laravel/dusk/bin/chromedriver-linux &
 
       - name: Run Laravel Server
         run: php vendor/bin/testbench serve --no-reload &
