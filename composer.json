@@ -43,8 +43,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Laravel\\Dusk\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "Laravel\\Dusk\\Tests\\": "tests/"
         }
     },
     "extra": {

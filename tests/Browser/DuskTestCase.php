@@ -9,12 +9,10 @@ use Illuminate\Support\Collection;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase;
 use Orchestra\Testbench\Concerns\CreatesApplication;
-use Orchestra\Testbench\Concerns\WithWorkbench;
 use PHPUnit\Framework\Attributes\BeforeClass;
 
 class DuskTestCase extends TestCase
 {
-    use WithWorkbench;
     use CreatesApplication;
 
     /**
