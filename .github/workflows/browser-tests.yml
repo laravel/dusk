@@ -50,9 +50,6 @@ jobs:
       - name: Upgrade Chrome Driver
         run: php vendor/bin/testbench dusk:chrome-driver --detect
 
-      - name: Debug Chrome Driver
-        run: ls -la ./bin
-
       - name: Start Chrome Driver
         run: ./bin/chromedriver-linux &
 
