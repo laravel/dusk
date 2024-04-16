@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.1.1...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.1.2...8.x)
+
+## [v8.1.2](https://github.com/laravel/dusk/compare/v8.1.1...v8.1.2) - 2024-04-16
+
+* Move `hasHeadlessDisabled()` and `shouldStartMaximized()` to `Laravel\Dusk\TestCase` by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1098
 
 ## [v8.1.1](https://github.com/laravel/dusk/compare/v8.1.0...v8.1.1) - 2024-03-28
 
