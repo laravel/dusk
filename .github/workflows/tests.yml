@@ -90,9 +90,6 @@ jobs:
       - name: Update Chrome Driver
         run: php artisan dusk:chrome-driver --detect
 
-      - name: Debug Chrome Driver
-        run: ls -la vendor/laravel/dusk/bin
-
       - name: Start Chrome Driver
         run: vendor/laravel/dusk/bin/chromedriver-linux &
 
