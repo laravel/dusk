@@ -70,6 +70,24 @@ abstract class TestCase extends FoundationTestCase
     }
 
     /**
+     * Determine whether the Dusk command has disabled headless mode.
+     */
+    protected function hasHeadlessDisabled(): bool
+    {
+        return isset($_SERVER['DUSK_HEADLESS_DISABLED']) ||
+               isset($_ENV['DUSK_HEADLESS_DISABLED']);
+    }
+
+    /**
+     * Determine if the browser window should start maximized.
+     */
+    protected function shouldStartMaximized(): bool
+    {
+        return isset($_SERVER['DUSK_START_MAXIMIZED']) ||
+               isset($_ENV['DUSK_START_MAXIMIZED']);
+    }
+
+    /**
      * Determine if the tests are running within Laravel Sail.
      *
      * @return bool
