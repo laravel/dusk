@@ -3,7 +3,6 @@
 namespace Laravel\Dusk\Tests\Unit;
 
 use Facebook\WebDriver\Exception\TimeOutException;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverWait;
