@@ -3,6 +3,7 @@
 namespace Laravel\Dusk\Tests\Unit;
 
 use Facebook\WebDriver\Exception\TimeOutException;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverWait;
@@ -511,5 +512,18 @@ JS;
         $browser = new Browser($driver, $resolver);
 
         $browser->waitForEvent('submit', 'form', 3);
+    }
+
+    public function test_can_wait_for_title()
+    {
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('getTitle')->andReturn('Laravel');
+        $driver->shouldReceive('wait')->with(2, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $browser = new Browser($driver);
+
+        $browser->waitForTitle('Laravel');
     }
 }
