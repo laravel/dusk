@@ -132,6 +132,24 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for the given title to become visible.
+     *
+     * @param  string  $text
+     * @param  int|null  $seconds
+     * @return $this
+     *
+     * @throws \Facebook\WebDriver\Exception\TimeoutException
+     */
+    public function waitForTitle($text, $seconds = null)
+    {
+        $message = $this->formatTimeOutMessage('Waited %s seconds for title', $text);
+
+        return $this->waitUsing($seconds, 100, function () use ($text) {
+            return $this->assertTitle($text);
+        }, $message);
+    }
+
+    /**
      * Wait for the given link to become visible.
      *
      * @param  string  $link
