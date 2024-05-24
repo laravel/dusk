@@ -132,7 +132,7 @@ trait WaitsForElements
     }
 
     /**
-     * Wait for the given title to become visible.
+     * Wait for the given title appears in the page's title bar.
      *
      * @param  string  $text
      * @param  int|null  $seconds
