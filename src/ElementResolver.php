@@ -409,7 +409,7 @@ class ElementResolver
             array_keys($sortedElements), array_values($sortedElements), $originalSelector = $selector
         );
 
-        if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
+        if (Str::contains($selector, '@') && $selector === $originalSelector) {
             $selector = preg_replace('/@(\S+)/', '['.Dusk::$selectorHtmlAttribute.'="$1"]', $selector);
         }
 
