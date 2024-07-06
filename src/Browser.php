@@ -738,7 +738,7 @@ class Browser
     /**
      * Dump the content from the last response.
      *
-     * @return void
+     * @return $this
      */
     public function dump()
     {
