@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.0...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.1...8.x)
+
+## [v8.2.1](https://github.com/laravel/dusk/compare/v8.2.0...v8.2.1) - 2024-07-08
+
+* Fix docblock by [@u01jmg3](https://github.com/u01jmg3) in https://github.com/laravel/dusk/pull/1106
 
 ## [v8.2.0](https://github.com/laravel/dusk/compare/v8.1.2...v8.2.0) - 2024-04-16
 
