@@ -225,7 +225,13 @@ class ChromeDriverCommand extends Command
 
         $zip->extractTo($this->directory);
 
-        $binary = $zip->getNameIndex(version_compare($version, '115.0', '<') ? 0 : 1);
+        $index = match (true) {
+            version_compare($version, '115.0', '<') => 0,
+            version_compare($version, '127.0', '<') => 1,
+            default => 2,
+        };
+
+        $binary = $zip->getNameIndex($index);
 
         $zip->close();
 
