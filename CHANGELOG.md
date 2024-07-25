@@ -7,8 +7,6 @@
 * fix: DuskTestCase driver function fails to read the DUSK_DRIVER_URL environment variable by [@robinstraub](https://github.com/robinstraub) in https://github.com/laravel/dusk/pull/1108
 * [8.x] Fixes installing ChromeDriver 127 and above by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1110
 
-**Full Changelog**: https://github.com/laravel/dusk/compare/v8.2.1...v8.2.2
-
 ## [v8.2.1](https://github.com/laravel/dusk/compare/v8.2.0...v8.2.1) - 2024-07-08
 
 * Fix docblock by [@u01jmg3](https://github.com/u01jmg3) in https://github.com/laravel/dusk/pull/1106
