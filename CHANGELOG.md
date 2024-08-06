@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.2...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.3...8.x)
+
+## [v8.2.3](https://github.com/laravel/dusk/compare/v8.2.2...v8.2.3) - 2024-08-02
+
+* Added `--disable-search-engine-choice-screen` argument by [@pascalbaljet](https://github.com/pascalbaljet) in https://github.com/laravel/dusk/pull/1111
 
 ## [v8.2.2](https://github.com/laravel/dusk/compare/v8.2.1...v8.2.2) - 2024-07-24
 
