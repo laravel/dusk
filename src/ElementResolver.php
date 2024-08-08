@@ -409,8 +409,8 @@ class ElementResolver
             array_keys($sortedElements), array_values($sortedElements), $originalSelector = $selector
         );
 
-        if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
-            $selector = preg_replace('/@(\S+)/', '['.Dusk::$selectorHtmlAttribute.'="$1"]', $selector);
+        if (Str::contains($selector, '@') && $selector === $originalSelector) {
+            $selector = preg_replace('/@(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)/', '['.Dusk::$selectorHtmlAttribute.'="$1"]', $selector);
         }
 
         return trim($this->prefix.' '.$selector);
