@@ -224,7 +224,7 @@ class ChromeDriverCommand extends Command
 
         $binary = null;
 
-        for($fileIndex = 0; $fileIndex < $zip->numFiles; $fileIndex++) {
+        for ($fileIndex = 0; $fileIndex < $zip->numFiles; $fileIndex++) {
             $filename = $zip->getNameIndex($fileIndex);
 
             if (Str::startsWith(basename($filename), 'chromedriver')) {
