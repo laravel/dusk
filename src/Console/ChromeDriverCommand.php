@@ -94,8 +94,7 @@ class ChromeDriverCommand extends Command
         foreach (OperatingSystem::all() as $os) {
             if ($all || ($os === $currentOS)) {
                 $archive = $this->download($version, $os);
-
-                $binary = $this->extract($version, $archive);
+                $binary = $this->extract($archive);
 
                 $this->rename($binary, $os);
             }
@@ -217,25 +216,33 @@ class ChromeDriverCommand extends Command
      * @param  string  $archive
      * @return string
      */
-    protected function extract($version, $archive)
+    protected function extract($archive)
     {
         $zip = new ZipArchive;
 
         $zip->open($archive);
 
-        $zip->extractTo($this->directory);
+        $binary = null;
 
-        $index = match (true) {
-            version_compare($version, '115.0', '<') => 0,
-            version_compare($version, '127.0', '<') => 1,
-            default => 2,
-        };
+        for($fileIndex = 0; $fileIndex < $zip->numFiles; $fileIndex++) {
+            $filename = $zip->getNameIndex($fileIndex);
 
-        $binary = $zip->getNameIndex($index);
+            if (Str::startsWith(basename($filename), 'chromedriver')) {
+                $binary = $filename;
+
+                $zip->extractTo($this->directory, $binary);
+
+                break;
+            }
+        }
 
         $zip->close();
 
         unlink($archive);
+
+        if (! $binary) {
+            throw new Exception('Could not extract the ChromeDriver binary.');
+        }
 
         return $binary;
     }
