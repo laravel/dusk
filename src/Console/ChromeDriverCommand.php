@@ -235,7 +235,6 @@ class ChromeDriverCommand extends Command
             }
         }
 
-
         $zip->close();
 
         unlink($archive);
