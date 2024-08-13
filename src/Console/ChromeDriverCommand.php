@@ -316,7 +316,7 @@ class ChromeDriverCommand extends Command
      *
      * @return string
      *
-     * @throws Exception
+     * @throws \Exception
      */
     protected function getUrl(string $url)
     {
