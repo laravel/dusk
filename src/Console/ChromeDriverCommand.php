@@ -212,7 +212,6 @@ class ChromeDriverCommand extends Command
     /**
      * Extract the ChromeDriver binary from the archive and delete the archive.
      *
-     * @param  string  $version
      * @param  string  $archive
      * @return string
      */
