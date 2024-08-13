@@ -94,6 +94,7 @@ class ChromeDriverCommand extends Command
         foreach (OperatingSystem::all() as $os) {
             if ($all || ($os === $currentOS)) {
                 $archive = $this->download($version, $os);
+
                 $binary = $this->extract($archive);
 
                 $this->rename($binary, $os);
