@@ -213,6 +213,8 @@ class ChromeDriverCommand extends Command
      *
      * @param  string  $archive
      * @return string
+     *
+     * @throws \Exception
      */
     protected function extract($archive)
     {
@@ -321,7 +323,7 @@ class ChromeDriverCommand extends Command
      *
      * @return string
      *
-     * @throws Exception
+     * @throws \Exception
      */
     protected function getUrl(string $url)
     {
