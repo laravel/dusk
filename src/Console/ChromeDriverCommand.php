@@ -215,6 +215,8 @@ class ChromeDriverCommand extends Command
      *
      * @param  string  $archive
      * @return string
+     *
+     * @throws \Exception
      */
     protected function extract($archive)
     {
