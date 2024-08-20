@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.3...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.4...8.x)
+
+## [v8.2.4](https://github.com/laravel/dusk/compare/v8.2.3...v8.2.4) - 2024-08-14
+
+* Align with other `[@throws](https://github.com/throws)` docblocks by [@u01jmg3](https://github.com/u01jmg3) in https://github.com/laravel/dusk/pull/1117
+* [8.x] Extract chromedriver regardless of position in archive by [@aleahy](https://github.com/aleahy) in https://github.com/laravel/dusk/pull/1115
+* Docblock by [@u01jmg3](https://github.com/u01jmg3) in https://github.com/laravel/dusk/pull/1119
 
 ## [v8.2.3](https://github.com/laravel/dusk/compare/v8.2.2...v8.2.3) - 2024-08-02
 
