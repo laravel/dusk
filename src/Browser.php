@@ -768,7 +768,7 @@ class Browser
      */
     public function tinker()
     {
-        \Psy\Shell::debug([
+        \Psy\debug([
             'browser' => $this,
             'driver' => $this->driver,
             'resolver' => $this->resolver,
