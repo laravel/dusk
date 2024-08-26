@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.4...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.5...8.x)
+
+## [v8.2.5](https://github.com/laravel/dusk/compare/v8.2.4...v8.2.5) - 2024-08-26
+
+* [8.x] Use `Psy\debug()` function instead of deprecated method. by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1121
+* [8.x] Explicitly set `chromedriver` port. by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1124
 
 ## [v8.2.4](https://github.com/laravel/dusk/compare/v8.2.3...v8.2.4) - 2024-08-14
 
