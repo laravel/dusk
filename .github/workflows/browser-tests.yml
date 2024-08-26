@@ -51,7 +51,7 @@ jobs:
         run: php vendor/bin/testbench dusk:chrome-driver --detect
 
       - name: Start Chrome Driver
-        run: ./bin/chromedriver-linux &
+        run: ./bin/chromedriver-linux --port=9515 &
 
       - name: Run Laravel Server
         run: php vendor/bin/testbench serve --no-reload &
