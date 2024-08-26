@@ -43,7 +43,8 @@ abstract class TestCase extends FoundationTestCase
     protected function driver()
     {
         return RemoteWebDriver::create(
-            'http://localhost:9515', DesiredCapabilities::chrome()
+            $_ENV['DUSK_DRIVER_URL'] ?? env('DUSK_DRIVER_URL') ?? 'http://localhost:9515',
+            DesiredCapabilities::chrome()
         );
     }
 
