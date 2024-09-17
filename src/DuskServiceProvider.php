@@ -14,7 +14,7 @@ class DuskServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (! $this->app->environment('production')) {
+        if ($this->app->runningUnitTests()) {
             Route::group(array_filter([
                 'prefix' => config('dusk.path', '_dusk'),
                 'domain' => config('dusk.domain', null),
