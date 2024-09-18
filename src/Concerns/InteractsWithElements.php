@@ -166,8 +166,12 @@ trait InteractsWithElements
      */
     public function appendSlowly($field, $value, $pause = 100)
     {
-        foreach (preg_split('//u', $value, -1, PREG_SPLIT_NO_EMPTY) as $char) {
-            $this->append($field, $char)->pause($pause);
+        $characters = preg_split('//u', $value, -1, PREG_SPLIT_NO_EMPTY);
+
+        if (is_array($characters)) {
+            foreach ($characters as $character) {
+                $this->append($field, $character)->pause($pause);
+            }
         }
 
         return $this;
