@@ -98,21 +98,21 @@ class InstallCommand extends Command
             ));
         }
 
-        $this->info('Dusk scaffolding installed successfully.');
+        $this->components->info('Dusk scaffolding installed successfully.');
 
-        $this->comment('Downloading ChromeDriver binaries...');
+        $this->components->task('Downloading ChromeDriver binaries...', function () {
+            $driverCommandArgs = [];
 
-        $driverCommandArgs = [];
+            if ($this->option('proxy')) {
+                $driverCommandArgs['--proxy'] = $this->option('proxy');
+            }
 
-        if ($this->option('proxy')) {
-            $driverCommandArgs['--proxy'] = $this->option('proxy');
-        }
+            if ($this->option('ssl-no-verify')) {
+                $driverCommandArgs['--ssl-no-verify'] = true;
+            }
 
-        if ($this->option('ssl-no-verify')) {
-            $driverCommandArgs['--ssl-no-verify'] = true;
-        }
-
-        $this->call('dusk:chrome-driver', $driverCommandArgs);
+            $this->call('dusk:chrome-driver', $driverCommandArgs);
+        });
     }
 
     /**
