@@ -21,6 +21,9 @@ jobs:
         php: [8.1, 8.2, 8.3]
         laravel: [10, 11]
         phpunit: [10.5, '11.0']
+        include:
+          - php: 8.4
+            laravel: 11
         exclude:
           - php: 8.1
             laravel: 11
@@ -44,8 +47,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-           composer require "illuminate/contracts:^${{ matrix.laravel }}" "phpunit/phpunit:^${{ matrix.phpunit }}" --dev --no-update
-           composer update --prefer-dist --no-interaction --no-progress
+           composer update --prefer-dist --no-interaction --no-progress --with="illuminate/contracts:^${{ matrix.laravel }}" --with="phpunit/phpunit:^${{ matrix.phpunit }}"
 
       - name: Execute tests
         run: vendor/bin/phpunit -c phpunit.xml.dist
@@ -56,8 +58,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [8.2]
-        laravel: [10]
+        php: [8.2, 8.3]
+        laravel: [10, 11]
 
     name: Test Stubs PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
