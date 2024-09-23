@@ -48,7 +48,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-           composer update --prefer-dist --no-interaction --no-progress --with="illuminate/contracts:^${{ matrix.laravel }}" --with="phpunit/phpunit:^${{ matrix.phpunit }}"
+           composer update --prefer-dist --no-interaction --no-progress --with="laravel/framework:^${{ matrix.laravel }}" --with="phpunit/phpunit:^${{ matrix.phpunit }}"
 
       - name: Upgrade Chrome Driver
         run: php vendor/bin/testbench dusk:chrome-driver --detect
