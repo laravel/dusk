@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.5...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.6...8.x)
+
+## [v8.2.6](https://github.com/laravel/dusk/compare/v8.2.5...v8.2.6) - 2024-09-24
+
+* Account for `preg_split()` also returning `false` by [@u01jmg3](https://github.com/u01jmg3) in https://github.com/laravel/dusk/pull/1130
+* [8.x] Use Artisan Console View Components by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1132
 
 ## [v8.2.5](https://github.com/laravel/dusk/compare/v8.2.4...v8.2.5) - 2024-08-26
 
