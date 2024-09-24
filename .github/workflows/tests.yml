@@ -48,10 +48,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-           composer update --prefer-dist --no-interaction --no-progress --with="laravel/framework:^${{ matrix.laravel }}" --with="phpunit/phpunit:^${{ matrix.phpunit }}"
+           composer update --with=laravel/framework:^${{ matrix.laravel }} --with=phpunit/phpunit:^${{ matrix.phpunit }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
-        run: vendor/bin/phpunit -c phpunit.xml.dist
+        run: vendor/bin/phpunit -c phpunit.xml.dist --display-deprecations
 
   stub-tests:
     runs-on: ubuntu-22.04

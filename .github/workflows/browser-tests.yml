@@ -48,7 +48,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-           composer update --prefer-dist --no-interaction --no-progress --with="laravel/framework:^${{ matrix.laravel }}" --with="phpunit/phpunit:^${{ matrix.phpunit }}"
+           composer update --with=laravel/framework:^${{ matrix.laravel }} --with=phpunit/phpunit:^${{ matrix.phpunit }} --prefer-dist --no-interaction --no-progress
 
       - name: Upgrade Chrome Driver
         run: php vendor/bin/testbench dusk:chrome-driver --detect
@@ -60,6 +60,6 @@ jobs:
         run: php vendor/bin/testbench serve --no-reload &
 
       - name: Execute tests
-        run: php vendor/bin/phpunit -c phpunit.dusk.xml.dist
+        run: php vendor/bin/phpunit -c phpunit.dusk.xml.dist --display-deprecations
         env:
           APP_URL: http://127.0.0.1:8000
