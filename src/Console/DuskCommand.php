@@ -68,7 +68,13 @@ class DuskCommand extends Command
 
         $options = collect($_SERVER['argv'])
             ->slice(2)
-            ->diff(['--browse', '--without-tty', ...$this->getDefaultOptions()])
+            ->diff([
+                '--browse', '--without-tty',
+                '--quiet', '-q',
+                '--verbose', '-v', '-vv', '-vvv',
+                '--version', '-V',
+                '--no-interaction', '-n',
+            ])
             ->values()
             ->all();
 
@@ -381,27 +387,5 @@ class DuskCommand extends Command
         }
 
         return '.env.dusk';
-    }
-
-    /**
-     * Get the Symfony Console application's default options.
-     *
-     * @return array
-     */
-    protected function getDefaultOptions(): array
-    {
-        return collect($this->getApplication()->getDefinition()->getOptions())
-            ->filter(fn ($option) => ! in_array($option->getName(), ['env', 'ansi', 'no-ansi']))
-            ->map(function ($option) {
-                return [
-                    '--'.$option->getName(),
-                    ...collect(explode('|', $option->getShortcut()))
-                        ->filter()
-                        ->map(fn ($shortcut) => '-'.$shortcut)
-                        ->toArray(),
-                ];
-            })
-            ->flatten()
-            ->toArray();
     }
 }
