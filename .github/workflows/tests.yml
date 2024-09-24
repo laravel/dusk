@@ -51,7 +51,7 @@ jobs:
            composer update --with=laravel/framework:^${{ matrix.laravel }} --with=phpunit/phpunit:^${{ matrix.phpunit }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
-        run: vendor/bin/phpunit -c phpunit.xml.dist --display-deprecations
+        run: vendor/bin/phpunit -c phpunit.xml.dist --fail-on-deprecation --display-deprecations
 
   stub-tests:
     runs-on: ubuntu-22.04

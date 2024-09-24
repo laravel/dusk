@@ -60,6 +60,6 @@ jobs:
         run: php vendor/bin/testbench serve --no-reload &
 
       - name: Execute tests
-        run: php vendor/bin/phpunit -c phpunit.dusk.xml.dist --display-deprecations
+        run: php vendor/bin/phpunit -c phpunit.dusk.xml.dist --fail-on-deprecation --display-deprecations
         env:
           APP_URL: http://127.0.0.1:8000
