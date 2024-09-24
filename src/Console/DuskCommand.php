@@ -72,7 +72,6 @@ class DuskCommand extends Command
                 '--browse', '--without-tty',
                 '--quiet', '-q',
                 '--verbose', '-v', '-vv', '-vvv',
-                '--version', '-V',
                 '--no-interaction', '-n',
             ])
             ->values()
