@@ -394,10 +394,10 @@ class DuskCommand extends Command
             ->filter(fn ($option) => ! in_array($option->getName(), ['env', 'ansi', 'no-ansi']))
             ->map(function ($option) {
                 return [
-                    '--' . $option->getName(),
+                    '--'.$option->getName(),
                     ...collect(explode('|', $option->getShortcut()))
                         ->filter()
-                        ->map(fn ($shortcut) => '-' . $shortcut)
+                        ->map(fn ($shortcut) => '-'.$shortcut)
                         ->toArray(),
                 ];
             })
