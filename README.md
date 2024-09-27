@@ -1,4 +1,4 @@
-<p align="center"><img src="/art/logo.svg" alt="Logo Laravel Dusk"></p>
+<p align="center"><img width="309" height="86" src="/art/logo.svg" alt="Logo Laravel Dusk"></p>
 
 <p align="center">
 <a href="https://github.com/laravel/dusk/actions"><img src="https://github.com/laravel/dusk/workflows/tests/badge.svg" alt="Build Status"></a>
