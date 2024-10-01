@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.6...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.7...8.x)
+
+## [v8.2.7](https://github.com/laravel/dusk/compare/v8.2.6...v8.2.7) - 2024-09-27
+
+* Ignore Symfony console default options by [@ziadoz](https://github.com/ziadoz) in https://github.com/laravel/dusk/pull/1133
+* Update logo to support dark/light theme by [@milewski](https://github.com/milewski) in https://github.com/laravel/dusk/pull/1134
 
 ## [v8.2.6](https://github.com/laravel/dusk/compare/v8.2.5...v8.2.6) - 2024-09-24
 
