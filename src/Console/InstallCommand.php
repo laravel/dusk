@@ -83,8 +83,6 @@ class InstallCommand extends Command
                     EOT, $contents);
             }
 
-
-
             file_put_contents(base_path('tests/Pest.php'), $contents);
         } else {
             $stubs['ExampleTest.stub'] = base_path('tests/Browser/ExampleTest.php');
