@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.7...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.8...8.x)
+
+## [v8.2.8](https://github.com/laravel/dusk/compare/v8.2.7...v8.2.8) - 2024-10-04
+
+* [8.x] Adds Pest 3 support by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1141
 
 ## [v8.2.7](https://github.com/laravel/dusk/compare/v8.2.6...v8.2.7) - 2024-09-27
 
