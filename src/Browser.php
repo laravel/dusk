@@ -484,8 +484,16 @@ class Browser
             $console = $this->driver->manage()->getLog('browser');
 
             if (! empty($console)) {
+                $filePath = sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name);
+
+                $directoryPath = dirname($filePath);
+
+                if (! is_dir($directoryPath)) {
+                    mkdir($directoryPath, 0777, true);
+                }
+
                 file_put_contents(
-                    sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name), json_encode($console, JSON_PRETTY_PRINT)
+                    $filePath, json_encode($console, JSON_PRETTY_PRINT)
                 );
             }
         }
@@ -504,9 +512,15 @@ class Browser
         $source = $this->driver->getPageSource();
 
         if (! empty($source)) {
-            file_put_contents(
-                sprintf('%s/%s.txt', rtrim(static::$storeSourceAt, '/'), $name), $source
-            );
+            $filePath = sprintf('%s/%s.txt', rtrim(static::$storeSourceAt, '/'), $name);
+
+            $directoryPath = dirname($filePath);
+
+            if (! is_dir($directoryPath)) {
+                mkdir($directoryPath, 0777, true);
+            }
+
+            file_put_contents($filePath, $source);
         }
 
         return $this;
