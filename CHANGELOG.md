@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.8...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.9...8.x)
+
+## [v8.2.9](https://github.com/laravel/dusk/compare/v8.2.8...v8.2.9) - 2024-10-14
+
+* check for directory existence when storing console log or storing source, if it does not exist create it by [@ssanko](https://github.com/ssanko) in https://github.com/laravel/dusk/pull/1143
 
 ## [v8.2.8](https://github.com/laravel/dusk/compare/v8.2.7...v8.2.8) - 2024-10-04
 
