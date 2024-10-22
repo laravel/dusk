@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.9...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.10...8.x)
+
+## [v8.2.10](https://github.com/laravel/dusk/compare/v8.2.9...v8.2.10) - 2024-10-22
+
+* fix: removed Laravel\Dusk\Page import from dusk:page stub by [@fxnm](https://github.com/fxnm) in https://github.com/laravel/dusk/pull/1145
+* [8.x] CI Improvements by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1147
+* [8.x] Allow to dynamically add `Tests\Browsers\Page\Page` or `Laravel\Dusk\Page` via `dusk:page` command by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1148
 
 ## [v8.2.9](https://github.com/laravel/dusk/compare/v8.2.8...v8.2.9) - 2024-10-14
 
