@@ -1,6 +1,30 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.5...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.10...8.x)
+
+## [v8.2.10](https://github.com/laravel/dusk/compare/v8.2.9...v8.2.10) - 2024-10-22
+
+* fix: removed Laravel\Dusk\Page import from dusk:page stub by [@fxnm](https://github.com/fxnm) in https://github.com/laravel/dusk/pull/1145
+* [8.x] CI Improvements by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1147
+* [8.x] Allow to dynamically add `Tests\Browsers\Page\Page` or `Laravel\Dusk\Page` via `dusk:page` command by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1148
+
+## [v8.2.9](https://github.com/laravel/dusk/compare/v8.2.8...v8.2.9) - 2024-10-14
+
+* check for directory existence when storing console log or storing source, if it does not exist create it by [@ssanko](https://github.com/ssanko) in https://github.com/laravel/dusk/pull/1143
+
+## [v8.2.8](https://github.com/laravel/dusk/compare/v8.2.7...v8.2.8) - 2024-10-04
+
+* [8.x] Adds Pest 3 support by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1141
+
+## [v8.2.7](https://github.com/laravel/dusk/compare/v8.2.6...v8.2.7) - 2024-09-27
+
+* Ignore Symfony console default options by [@ziadoz](https://github.com/ziadoz) in https://github.com/laravel/dusk/pull/1133
+* Update logo to support dark/light theme by [@milewski](https://github.com/milewski) in https://github.com/laravel/dusk/pull/1134
+
+## [v8.2.6](https://github.com/laravel/dusk/compare/v8.2.5...v8.2.6) - 2024-09-24
+
+* Account for `preg_split()` also returning `false` by [@u01jmg3](https://github.com/u01jmg3) in https://github.com/laravel/dusk/pull/1130
+* [8.x] Use Artisan Console View Components by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1132
 
 ## [v8.2.5](https://github.com/laravel/dusk/compare/v8.2.4...v8.2.5) - 2024-08-26
 

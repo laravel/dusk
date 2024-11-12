@@ -64,14 +64,24 @@ class InstallCommand extends Command
 
             $contents = file_get_contents(base_path('tests/Pest.php'));
 
-            $contents = str_replace('<?php', <<<EOT
-            <?php
+            if (str_contains($contents, 'uses(')) {
+                $contents = str_replace('<?php', <<<EOT
+                    <?php
 
-            uses(
-                Tests\DuskTestCase::class,
-                // Illuminate\Foundation\Testing\DatabaseMigrations::class,
-            )->in('Browser');
-            EOT, $contents);
+                    uses(
+                        Tests\DuskTestCase::class,
+                        // Illuminate\Foundation\Testing\DatabaseMigrations::class,
+                    )->in('Browser');
+                    EOT, $contents);
+            } else {
+                $contents = str_replace('<?php', <<<EOT
+                    <?php
+
+                    pest()->extend(Tests\DuskTestCase::class)
+                    //  ->use(Illuminate\Foundation\Testing\DatabaseMigrations::class)
+                        ->in('Browser');
+                    EOT, $contents);
+            }
 
             file_put_contents(base_path('tests/Pest.php'), $contents);
         } else {
@@ -98,21 +108,21 @@ class InstallCommand extends Command
             ));
         }
 
-        $this->info('Dusk scaffolding installed successfully.');
+        $this->components->info('Dusk scaffolding installed successfully.');
 
-        $this->comment('Downloading ChromeDriver binaries...');
+        $this->components->task('Downloading ChromeDriver binaries...', function () {
+            $driverCommandArgs = [];
 
-        $driverCommandArgs = [];
+            if ($this->option('proxy')) {
+                $driverCommandArgs['--proxy'] = $this->option('proxy');
+            }
 
-        if ($this->option('proxy')) {
-            $driverCommandArgs['--proxy'] = $this->option('proxy');
-        }
+            if ($this->option('ssl-no-verify')) {
+                $driverCommandArgs['--ssl-no-verify'] = true;
+            }
 
-        if ($this->option('ssl-no-verify')) {
-            $driverCommandArgs['--ssl-no-verify'] = true;
-        }
-
-        $this->call('dusk:chrome-driver', $driverCommandArgs);
+            $this->call('dusk:chrome-driver', $driverCommandArgs);
+        });
     }
 
     /**

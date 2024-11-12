@@ -68,7 +68,12 @@ class DuskCommand extends Command
 
         $options = collect($_SERVER['argv'])
             ->slice(2)
-            ->diff(['--browse', '--without-tty'])
+            ->diff([
+                '--browse', '--without-tty',
+                '--quiet', '-q',
+                '--verbose', '-v', '-vv', '-vvv',
+                '--no-interaction', '-n',
+            ])
             ->values()
             ->all();
 

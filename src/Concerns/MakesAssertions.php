@@ -157,11 +157,12 @@ trait MakesAssertions
      * Assert that the given text is not present on the page.
      *
      * @param  string  $text
+     * @param  bool  $ignoreCase
      * @return $this
      */
-    public function assertDontSee($text)
+    public function assertDontSee($text, $ignoreCase = false)
     {
-        return $this->assertDontSeeIn('', $text);
+        return $this->assertDontSeeIn('', $text, $ignoreCase);
     }
 
     /**
@@ -191,16 +192,17 @@ trait MakesAssertions
      *
      * @param  string  $selector
      * @param  string  $text
+     * @param  bool  $ignoreCase
      * @return $this
      */
-    public function assertDontSeeIn($selector, $text)
+    public function assertDontSeeIn($selector, $text, $ignoreCase = false)
     {
         $fullSelector = $this->resolver->format($selector);
 
         $element = $this->resolver->findOrFail($selector);
 
         PHPUnit::assertFalse(
-            Str::contains($element->getText(), $text),
+            Str::contains($element->getText(), $text, $ignoreCase),
             "Saw unexpected text [{$text}] within element [{$fullSelector}]."
         );
 
