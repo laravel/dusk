@@ -5,7 +5,6 @@ namespace Laravel\Dusk\Tests\Unit;
 use Facebook\WebDriver\Exception\TimeOutException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriver;
-use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverWait;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\ElementResolver;
@@ -71,7 +70,6 @@ class WaitsForElementsTest extends TestCase
 
         $browser = new Browser($driver, $resolver);
 
-
         try {
             $browser->whenAvailable('bar', function ($bar) {
                 // Callback not fired as selector not found
@@ -105,7 +103,6 @@ class WaitsForElementsTest extends TestCase
             $foo->assertSee('bar');
         });
     }
-
 
     public function test_default_wait_time()
     {

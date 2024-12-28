@@ -189,6 +189,7 @@ trait MakesAssertions
 //          "Did not see expected text [{$text}] within any of the elements [{$selector}]."
             "Did not see expected text [{$text}] within element [{$fullSelector}]." //hard coded in test
         );
+
         return $this;
     }
 
@@ -208,12 +209,13 @@ trait MakesAssertions
 
         PHPUnit::assertNotEmpty($elements);
 
-        foreach ($elements as $element){
+        foreach ($elements as $element) {
             PHPUnit::assertFalse(
                 Str::contains($element->getText(), $text, $ignoreCase),
                 "Saw unexpected text [{$text}] within element [{$fullSelector}]."
             );
         }
+
         return $this;
     }
 
@@ -231,7 +233,7 @@ trait MakesAssertions
 
         PHPUnit::assertNotEmpty($elements);
 
-        foreach ($elements as $element){
+        foreach ($elements as $element) {
             PHPUnit::assertTrue(
                 $element->getText() !== '',
                 "Saw unexpected text [''] within element [{$fullSelector}]."

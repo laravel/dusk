@@ -1355,7 +1355,7 @@ class MakesAssertionsTest extends TestCase
 //
 //        $resolver = m::mock(stdClass::class);
 //        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
-////        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+    ////        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
 //        $resolver->shouldReceive('elements')->with('body foo')->andReturn([$element]);
 //
 //        $browser = new Browser($driver, $resolver);
