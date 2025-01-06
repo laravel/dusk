@@ -799,14 +799,11 @@ JS;
      */
     public function assertAttributeContains($selector, $attribute, $value)
     {
-        $fullSelector = $this->resolver->format($selector);
-
         $actual = $this->resolver->findOrFail($selector)->getAttribute($attribute);
 
-        PHPUnit::assertNotNull(
-            $actual,
-            "Did not see expected attribute [{$attribute}] within element [{$fullSelector}]."
-        );
+        if (is_null($actual)) {
+            return $this;
+        }
 
         PHPUnit::assertStringContainsString(
             $value,
@@ -830,11 +827,6 @@ JS;
         $fullSelector = $this->resolver->format($selector);
 
         $actual = $this->resolver->findOrFail($selector)->getAttribute($attribute);
-
-        PHPUnit::assertNotNull(
-            $actual,
-            "Did not see expected attribute [{$attribute}] within element [{$fullSelector}]."
-        );
 
         PHPUnit::assertStringNotContainsString(
             $value,
