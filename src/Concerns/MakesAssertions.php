@@ -800,7 +800,7 @@ JS;
     public function assertAttributeContains($selector, $attribute, $value)
     {
         $fullSelector = $this->resolver->format($selector);
-        
+
         $actual = $this->resolver->findOrFail($selector)->getAttribute($attribute);
 
         PHPUnit::assertNotNull(
