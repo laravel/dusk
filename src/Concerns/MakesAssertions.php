@@ -832,7 +832,7 @@ JS;
         if (is_null($actual)) {
             return $this;
         }
-        
+
         PHPUnit::assertStringNotContainsString(
             $value,
             $actual,
