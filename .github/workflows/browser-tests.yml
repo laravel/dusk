@@ -20,12 +20,16 @@ jobs:
       matrix:
         php: [8.1, 8.2, 8.3]
         laravel: [10, 11]
-        phpunit: [10.5, '11.0']
+        phpunit: [10.5, 11]
+        include:
+          - php: 8.4
+            laravel: 11
+            phpunit: 11.3
         exclude:
           - php: 8.1
             laravel: 11
           - laravel: 10
-            phpunit: '11.0'
+            phpunit: 11
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - PHPUnit ${{ matrix.phpunit }}
 
@@ -44,7 +48,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-           composer update --prefer-dist --no-interaction --no-progress --with=illuminate/support:^${{ matrix.laravel }} --with=phpunit/phpunit:^${{ matrix.phpunit }}
+           composer update --prefer-dist --no-interaction --no-progress --with=laravel/framework:^${{ matrix.laravel }} --with=phpunit/phpunit:^${{ matrix.phpunit }}
 
       - name: Upgrade Chrome Driver
         run: php vendor/bin/testbench dusk:chrome-driver --detect
@@ -56,6 +60,6 @@ jobs:
         run: php vendor/bin/testbench serve --no-reload &
 
       - name: Execute tests
-        run: php vendor/bin/phpunit -c phpunit.dusk.xml.dist
+        run: php vendor/bin/phpunit -c phpunit.dusk.xml.dist --display-deprecations --fail-on-deprecation
         env:
           APP_URL: http://127.0.0.1:8000

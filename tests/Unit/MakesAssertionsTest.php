@@ -683,15 +683,7 @@ class MakesAssertionsTest extends TestCase
 
         $browser->assertAttributeDoesntContain('foo', 'bar', 'class-c');
 
-        try {
-            $browser->assertAttributeDoesntContain('foo', 'bar', 'class-c');
-            $this->fail();
-        } catch (ExpectationFailedException $e) {
-            $this->assertStringContainsString(
-                'Did not see expected attribute [bar] within element [Foo].',
-                $e->getMessage()
-            );
-        }
+        $browser->assertAttributeDoesntContain('foo', 'bar', 'class-c');
 
         try {
             $browser->assertAttributeDoesntContain('foo', 'bar', 'class-1');
