@@ -1257,6 +1257,32 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_count()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element1 = m::mock(RemoteWebElement::class);
+        $element2 = m::mock(RemoteWebElement::class);
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
+        $resolver->shouldReceive('all')->with('foo')->andReturn([$element1, $element2]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertCount('foo', 2);
+
+        try {
+            $browser->assertCount('foo', 3);
+            $this->fail();
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Expected element [body foo] exactly 3 times.',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_script()
     {
         $driver = m::mock(stdClass::class);
