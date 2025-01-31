@@ -252,8 +252,8 @@ trait MakesAssertions
     /**
      * Assert that a given element is present a given amount of times.
      *
-     * @param string $selector
-     * @param int $expected
+     * @param  string  $selector
+     * @param  int  $expected
      * @return $this
      */
     public function assertCount($selector, $expected)
