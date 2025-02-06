@@ -250,6 +250,26 @@ trait MakesAssertions
     }
 
     /**
+     * Assert that a given element is present a given amount of times.
+     *
+     * @param  string  $selector
+     * @param  int  $expected
+     * @return $this
+     */
+    public function assertCount($selector, $expected)
+    {
+        $fullSelector = $this->resolver->format($selector);
+
+        PHPUnit::assertCount(
+            $expected,
+            $this->resolver->all($selector),
+            "Expected element [{$fullSelector}] exactly {$expected} times."
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the given JavaScript expression evaluates to the given value.
      *
      * @param  string  $expression
