@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.13...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.2.14...8.x)
+
+## [v8.2.14](https://github.com/laravel/dusk/compare/v8.2.13...v8.2.14) - 2025-01-26
+
+* Supports Laravel 12 by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1157
 
 ## [v8.2.13](https://github.com/laravel/dusk/compare/v8.2.12...v8.2.13) - 2025-01-06
 
