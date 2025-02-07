@@ -27,11 +27,13 @@
         "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {
+        "laravel/framework": "^10.0|^11.0",
         "mockery/mockery": "^1.6",
-        "orchestra/testbench": "^8.19|^9.0",
+        "orchestra/testbench-core": "^8.19|^9.0",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10.1|^11.0|^12.0",
-        "psy/psysh": "^0.11.12|^0.12"
+        "psy/psysh": "^0.11.12|^0.12",
+        "symfony/yaml": "^6.2|^7.0"
     },
     "suggest": {
         "ext-pcntl": "Used to gracefully terminate Dusk when tests are running."
