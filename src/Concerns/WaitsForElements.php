@@ -124,7 +124,7 @@ trait WaitsForElements
      */
     public function waitForTextIn($selector, $text, $seconds = null, $ignoreCase = false)
     {
-        $message = 'Waited %s seconds for text "'.$this->escapePercentCharacters($text).'" in selector '.$selector;
+        $message = 'Waited %s seconds for text "' . $this->escapePercentCharacters($text) . '" in selector ' . $selector;
 
         return $this->waitUsing($seconds, 100, function () use ($selector, $text, $ignoreCase) {
             return $this->assertSeeIn($selector, $text, $ignoreCase);
@@ -175,17 +175,17 @@ trait WaitsForElements
         $message = $this->formatTimeOutMessage('Waited %s seconds for location', $path);
 
         return Str::startsWith($path, ['http://', 'https://'])
-            ? $this->waitUntil('`${location.protocol}//${location.host}${location.pathname}` == \''.$path.'\'', $seconds, $message)
+            ? $this->waitUntil('`${location.protocol}//${location.host}${location.pathname}` == \'' . $path . '\'', $seconds, $message)
             : $this->waitUntil("window.location.pathname == '{$path}'", $seconds, $message);
     }
 
     /**
      * Wait for the given query string to be present in the URL.
-     * 
+     *
      * @param  string  $query
      * @param  int|null  $seconds
      * @return $this
-     * 
+     *
      * @throws \Facebook\WebDriver\Exception\TimeoutException
      */
     public function waitForQueryString($query, $seconds = null)
@@ -259,11 +259,11 @@ trait WaitsForElements
     public function waitUntil($script, $seconds = null, $message = null)
     {
         if (! Str::startsWith($script, 'return ')) {
-            $script = 'return '.$script;
+            $script = 'return ' . $script;
         }
 
         if (! Str::endsWith($script, ';')) {
-            $script = $script.';';
+            $script = $script . ';';
         }
 
         return $this->waitUsing($seconds, 100, function () use ($script) {
@@ -318,7 +318,8 @@ trait WaitsForElements
         $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
 
         $this->driver->wait($seconds, 100)->until(
-            WebDriverExpectedCondition::alertIsPresent(), "Waited {$seconds} seconds for dialog."
+            WebDriverExpectedCondition::alertIsPresent(),
+            "Waited {$seconds} seconds for dialog."
         );
 
         return $this;
@@ -434,7 +435,7 @@ trait WaitsForElements
      */
     protected function formatTimeOutMessage($message, $expected)
     {
-        return $message.' ['.$this->escapePercentCharacters($expected).'].';
+        return $message . ' [' . $this->escapePercentCharacters($expected) . '].';
     }
 
     /**

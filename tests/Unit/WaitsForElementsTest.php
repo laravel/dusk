@@ -178,7 +178,7 @@ class WaitsForElementsTest extends TestCase
     {
         $driver = m::mock(WebDriver::class);
         $driver->shouldReceive('executeScript')
-            ->with('return location.search.contains(\'foo=bar\');')
+            ->with('return window.location.search.includes(\'foo=bar\');')
             ->andReturnTrue();
         $driver->shouldReceive('wait')->with(2, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
             return new WebDriverWait($driver, $seconds, $interval);
