@@ -75,7 +75,6 @@
         ],
         "test": [
             "@build",
-            "@php vendor/bin/testbench serve",
             "@php vendor/bin/phpunit"
         ]
     },
