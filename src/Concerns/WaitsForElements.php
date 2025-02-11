@@ -180,6 +180,22 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for the given query string to be present in the URL.
+     *
+     * @param  string  $query
+     * @param  int|null  $seconds
+     * @return $this
+     *
+     * @throws \Facebook\WebDriver\Exception\TimeoutException
+     */
+    public function waitForQueryString($query, $seconds = null)
+    {
+        $message = $this->formatTimeOutMessage('Waited %s seconds for query string', $query);
+
+        return $this->waitUntil("window.location.search.includes('{$query}')", $seconds, $message);
+    }
+
+    /**
      * Wait for the given location using a named route.
      *
      * @param  string  $route

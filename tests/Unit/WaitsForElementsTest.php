@@ -174,6 +174,21 @@ class WaitsForElementsTest extends TestCase
         $browser->waitForLocation('https://example.com/home');
     }
 
+    public function test_can_wait_for_a_query_string_location()
+    {
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('executeScript')
+            ->with('return window.location.search.includes(\'foo=bar\');')
+            ->andReturnTrue();
+        $driver->shouldReceive('wait')->with(2, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $browser = new Browser($driver);
+
+        $browser->waitForQueryString('foo=bar');
+    }
+
     public function test_can_wait_for_route()
     {
         $this->swapUrlGenerator();
