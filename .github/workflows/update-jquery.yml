@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - 'package-lock.json'
+  pull_request:
+    paths:
+      - 'package-lock.json'
   workflow_dispatch:
 
 permissions:
