@@ -32,4 +32,4 @@ jobs:
       - name: Commit compiled files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Compile Assets
+          commit_message: Update `jquery.js`
