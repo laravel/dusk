@@ -13,6 +13,8 @@
 .gitignore export-ignore
 .styleci.yml export-ignore
 CHANGELOG.md export-ignore
+package.json export-ignore
+package-lock.json export-ignore
 phpstan.neon.dist export-ignore
 phpunit.xml.dist export-ignore
 testbench.yaml export-ignore
