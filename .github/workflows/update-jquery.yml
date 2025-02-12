@@ -1,4 +1,4 @@
-name: update jquery
+name: 'update jquery'
 
 on:
   push:
