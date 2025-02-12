@@ -23,6 +23,7 @@ jobs:
 
       - name: Copy jQuery from node_module
         run: |
+          npm ci
           cp ./node_modules/jquery/dist/jquery.min.js ./bin/jquery.js
 
       - name: Commit compiled files
