@@ -400,7 +400,7 @@ class Browser
     {
         $selector = addslashes($this->resolver->format($selector));
 
-        $this->driver->executeScript("window.document.body.scrollTo({top: window.document.querySelector(\"$selector\").offsetTop, behavior: 'auto'});");
+        $this->driver->executeScript("window.document.body.scrollTo({top: window.document.querySelector(\"$selector\").offsetTop, behavior: 'instant'});");
 
         return $this;
     }
