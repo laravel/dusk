@@ -411,7 +411,7 @@ class WaitsForElementsTest extends TestCase
     {
         $driver = m::mock(WebDriver::class);
         $driver->shouldReceive('executeScript')
-            ->times(3)
+            ->times(1)
             ->andReturnTrue();
         $driver->shouldReceive('wait')->with(2, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
             return new WebDriverWait($driver, $seconds, $interval);
