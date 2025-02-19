@@ -43,13 +43,11 @@ trait InteractsWithElements
      */
     public function clickLink($link, $element = 'a')
     {
-        $this->ensurejQueryIsAvailable();
-
         $selector = addslashes(trim($this->resolver->format("{$element}")));
 
         $link = str_replace("'", "\\\\'", $link);
 
-        $this->driver->executeScript("jQuery.find(`{$selector}:contains('{$link}'):visible`)[0].click();");
+        $this->driver->executeScript("window.document.querySelector(`{$selector}:contains('{$link}'):visible`).click();");
 
         return $this;
     }

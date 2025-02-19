@@ -398,11 +398,9 @@ class Browser
      */
     public function scrollTo($selector)
     {
-        $this->ensurejQueryIsAvailable();
-
         $selector = addslashes($this->resolver->format($selector));
 
-        $this->driver->executeScript("jQuery(\"html, body\").animate({scrollTop: jQuery(\"$selector\").offset().top}, 0);");
+        $this->driver->executeScript("window.document.body.scrollTo({top: window.document.querySelector(\"$selector\").offsetTop, behavior: 'auto'});");
 
         return $this;
     }
@@ -667,18 +665,6 @@ class Browser
         $this->resolver->prefix = $this->resolver->format(
             $component->selector()
         );
-    }
-
-    /**
-     * Ensure that jQuery is available on the page.
-     *
-     * @return void
-     */
-    public function ensurejQueryIsAvailable()
-    {
-        if ($this->driver->executeScript('return window.jQuery == null')) {
-            $this->driver->executeScript(file_get_contents(__DIR__.'/../bin/jquery.js'));
-        }
     }
 
     /**

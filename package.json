@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "jquery": "^3.7.1"
-    }
-}
