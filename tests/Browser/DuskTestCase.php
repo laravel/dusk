@@ -7,6 +7,7 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Support\Collection;
 use Laravel\Dusk\Browser;
+use Laravel\Dusk\Driver\AsyncWebDriver;
 use Laravel\Dusk\TestCase;
 use Orchestra\Testbench\Concerns\CreatesApplication;
 use PHPUnit\Framework\Attributes\BeforeClass;
@@ -58,6 +59,7 @@ class DuskTestCase extends TestCase
         $options = (new ChromeOptions)->addArguments(collect([
             $this->shouldStartMaximized() ? '--start-maximized' : '--window-size=1920,1080',
             '--disable-search-engine-choice-screen',
+            '--disable-smooth-scrolling',
         ])->unless($this->hasHeadlessDisabled(), function (Collection $items) {
             return $items->merge([
                 '--disable-gpu',
@@ -65,11 +67,9 @@ class DuskTestCase extends TestCase
             ]);
         })->all());
 
-        return RemoteWebDriver::create(
+        return AsyncWebDriver::create(
             $_ENV['DUSK_DRIVER_URL'] ?? 'http://localhost:9515',
-            DesiredCapabilities::chrome()->setCapability(
-                ChromeOptions::CAPABILITY, $options
-            )
+                DesiredCapabilities::chrome()->setCapability(ChromeOptions::CAPABILITY, $options)
         );
     }
 

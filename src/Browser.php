@@ -10,6 +10,9 @@ use Facebook\WebDriver\WebDriverDimension;
 use Facebook\WebDriver\WebDriverPoint;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
+use Laravel\Dusk\Http\ProxyServer;
+use Laravel\Dusk\Http\UrlGenerator;
+use React\EventLoop\Loop;
 
 class Browser
 {
@@ -181,6 +184,9 @@ class Browser
         if (! Str::startsWith($url, ['http://', 'https://'])) {
             $url = static::$baseUrl.'/'.ltrim($url, '/');
         }
+
+        // Pass the request through our proxy
+        $url = app(UrlGenerator::class)->proxy($url);
 
         $this->driver->navigate()->to($url);
 
@@ -675,7 +681,16 @@ class Browser
      */
     public function pause($milliseconds)
     {
-        usleep($milliseconds * 1000);
+        $sleeping = true;
+
+        Loop::addTimer($milliseconds / 1000, function () use (&$sleeping) {
+            $sleeping = false;
+            Loop::stop();
+        });
+
+        while ($sleeping) {
+            Loop::run();
+        }
 
         return $this;
     }

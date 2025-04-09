@@ -2,11 +2,43 @@
 
 namespace Laravel\Dusk;
 
+use Illuminate\Contracts\Http\Kernel as HttpKernel;
+use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
+use Illuminate\Foundation\Application;
+use Illuminate\Routing\RouteCollectionInterface;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Dusk\Http\ProxyServer;
+use Laravel\Dusk\Http\UrlGenerator;
+use React\EventLoop\Loop;
+use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 
 class DuskServiceProvider extends ServiceProvider
 {
+    public function register()
+    {
+        $this->app->singleton(ProxyServer::class, function($app) {
+            return new ProxyServer(
+                kernel: $app->make(HttpKernel::class),
+                loop: Loop::get(),
+                factory: $app->make(HttpFoundationFactory::class),
+                host: config('dusk.proxy.host', '127.0.0.1'),
+                port: config('dusk.proxy.port', $this->findOpenPort(...)),
+            );
+        });
+
+        $this->app->singleton(UrlGenerator::class, function (Application $app) {
+            $proxy = $app->make(ProxyServer::class);
+
+            return new UrlGenerator(
+                proxyHostname: $proxy->host,
+                proxyPort: $proxy->port,
+                appHost: parse_url(config('app.url'), PHP_URL_HOST),
+                url: $app->make(UrlGeneratorContract::class),
+            );
+        });
+    }
+
     /**
      * Bootstrap any package services.
      *
@@ -49,5 +81,19 @@ class DuskServiceProvider extends ServiceProvider
                 Console\ChromeDriverCommand::class,
             ]);
         }
+    }
+
+    /**
+     * Find an available port to listen on.
+     *
+     * @return int
+     */
+    protected function findOpenPort(): int
+    {
+        $sock = socket_create_listen(0);
+        socket_getsockname($sock, $addr, $port);
+        socket_close($sock);
+
+        return $port;
     }
 }
