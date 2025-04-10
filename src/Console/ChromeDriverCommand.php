@@ -76,7 +76,7 @@ class ChromeDriverCommand extends Command
      *
      * @var string
      */
-    protected $directory = __DIR__.'/../../bin/';
+    protected $directory;
 
     /**
      * Execute the console command.
@@ -85,6 +85,8 @@ class ChromeDriverCommand extends Command
      */
     public function handle()
     {
+        $this->directory = config('dusk.driver_path').DIRECTORY_SEPARATOR;
+
         $version = $this->version();
 
         $all = $this->option('all');
