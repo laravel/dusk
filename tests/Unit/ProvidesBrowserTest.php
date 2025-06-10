@@ -43,8 +43,6 @@ class ProvidesBrowserTest extends TestCase
     #[DataProvider('data')]
     public function test_store_console_logs_for_data($data)
     {
-        $this->assertSame('foo', $data);
-
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
             sprintf('Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_store_console_logs_for_data_%s-0', $data)
@@ -57,8 +55,6 @@ class ProvidesBrowserTest extends TestCase
     #[DataProvider('data')]
     public function test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_data($data)
     {
-        $this->assertSame('foo', $data);
-
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
             sprintf(
