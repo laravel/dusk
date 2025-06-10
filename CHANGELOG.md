@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.3.2...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.3.3...8.x)
+
+## [v8.3.3](https://github.com/laravel/dusk/compare/v8.3.2...v8.3.3) - 2025-06-10
+
+* Update logo by [@iamdavidhill](https://github.com/iamdavidhill) in https://github.com/laravel/dusk/pull/1169
+* [8.x] Supports PHPUnit 12.2 by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1174
 
 ## [v8.3.2](https://github.com/laravel/dusk/compare/v8.3.1...v8.3.2) - 2025-02-20
 
