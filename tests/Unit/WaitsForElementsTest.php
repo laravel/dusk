@@ -512,4 +512,27 @@ JS;
 
         $browser->waitForEvent('submit', 'form', 3);
     }
+
+    public function test_wait_for_request()
+    {
+        $url      = 'https://example.com/api';
+        $method   = 'POST';
+        $response = ['foo' => 'bar'];
+
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('executeScript')->once();
+
+        $resolver = m::mock(ElementResolver::class);
+
+        $browser = m::mock(Browser::class . '[waitForEvent]', [$driver, $resolver]);
+
+        $browser->shouldReceive('waitForEvent')->once()->withArgs(function ($eventName, $target, $seconds) {
+                return is_string($eventName)
+                    && strpos($eventName, '__DUSK_REQUEST_') === 0
+                    && $target === 'window'
+                    && is_int($seconds);
+        })->andReturnSelf();;
+
+        $browser->waitForRequest($url, $method, 5, $response);
+    }
 }
