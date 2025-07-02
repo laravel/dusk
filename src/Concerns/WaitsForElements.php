@@ -379,6 +379,52 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for the given request method and url and return a response.
+     *
+     * @param  string  $url
+     * @param  string|null  $method
+     * @param  int|null  $seconds
+     * @param  object $response
+     * @return $this
+     */
+    public function waitForRequest($url, $method = null, $seconds = null, $response = []) {
+        $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
+        $requestId = uniqid();
+
+        $this->driver->executeScript(
+            <<<JS
+                const __DUSK_AWAITING_REQUEST = {
+                    id: arguments[0],
+                    url: arguments[1],
+                    method: arguments[2],
+                    response: arguments[3]
+                }
+
+                const __DUSK_REAL_FETCH = window.fetch;
+                window.fetch = async function(url, options) {
+                    if (__DUSK_AWAITING_REQUEST.url === url && options.method === __DUSK_AWAITING_REQUEST.method) {
+                        console.warn("[__DUSK_TRAP]:", url);
+                        const event = new Event("__DUSK_REQUEST_" + __DUSK_AWAITING_REQUEST.id);
+                        window.dispatchEvent(event);
+                        return new Response(
+                            JSON.stringify(__DUSK_AWAITING_REQUEST.response),
+                            {
+                                status: __DUSK_AWAITING_REQUEST.status,
+                                headers: { "Content-Type": "application/json" }
+                            }
+                        );
+                    }
+                    return __DUSK_REAL_FETCH(url, options);
+                };
+            JS,
+            [$requestId, $url, $method, $response]
+        );
+        $this->waitForEvent('__DUSK_REQUEST_' . $requestId, 'window', $seconds);
+
+        return $this;
+    }
+
+    /**
      * Wait for the given callback to be true.
      *
      * @param  int|null  $seconds
