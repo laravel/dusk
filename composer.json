@@ -29,7 +29,7 @@
     "require-dev": {
         "laravel/framework": "^10.0|^11.0|^12.0",
         "mockery/mockery": "^1.6",
-        "orchestra/testbench-core": "^8.19|^9.0|^10.0",
+        "orchestra/testbench-core": "^8.19|^9.17|^10.8",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10.1|^11.0|^12.0.1",
         "psy/psysh": "^0.11.12|^0.12",
@@ -56,6 +56,9 @@
         }
     },
     "config": {
+        "audit": {
+            "block-insecure": false
+        },
         "sort-packages": true
     },
     "scripts": {
