@@ -159,10 +159,6 @@ class ElementResolverTest extends TestCase
         $class = new ReflectionClass($resolver);
         $method = $class->getMethod('findById');
 
-        if (PHP_VERSION_ID < 80100) {
-            $method->setAccessible(true);
-        }
-
         $result = $method->invoke($resolver, '#frmLogin:strCustomerLogin_userID');
 
         $this->assertSame('foo', $result);
