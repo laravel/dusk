@@ -158,7 +158,7 @@ class ElementResolverTest extends TestCase
 
         $class = new ReflectionClass($resolver);
         $method = $class->getMethod('findById');
-        $method->setAccessible(true);
+
         $result = $method->invoke($resolver, '#frmLogin:strCustomerLogin_userID');
 
         $this->assertSame('foo', $result);
