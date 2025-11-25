@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.3.3...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.3.4...8.x)
+
+## [v8.3.4](https://github.com/laravel/dusk/compare/v8.3.3...v8.3.4) - 2025-11-20
+
+* [8.x] PHP 8.5 Compatibility by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1181
 
 ## [v8.3.3](https://github.com/laravel/dusk/compare/v8.3.2...v8.3.3) - 2025-06-10
 
