@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.3.4...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.3.5...8.x)
+
+## [v8.3.5](https://github.com/laravel/dusk/compare/v8.3.4...v8.3.5) - 2026-02-03
+
+* [8.x] Supports Laravel 13 by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1183
 
 ## [v8.3.4](https://github.com/laravel/dusk/compare/v8.3.3...v8.3.4) - 2025-11-20
 
