@@ -150,6 +150,12 @@ class ElementResolverTest extends TestCase
         $this->assertSame('prefix [dusk="missing-element"] > div', $resolver->format('@missing-element > div'));
     }
 
+    public function test_format_does_not_capture_closing_parenthesis_in_dusk_selector()
+    {
+        $resolver = new ElementResolver(new stdClass, 'prefix');
+        $this->assertSame('prefix [dusk="products"] div:nth-child(2 of [dusk="product"])', $resolver->format('@products div:nth-child(2 of @product)'));
+    }
+
     public function test_find_by_id_with_colon()
     {
         $driver = m::mock(stdClass::class);
