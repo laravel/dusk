@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.3.5...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.3.6...8.x)
+
+## [v8.3.6](https://github.com/laravel/dusk/compare/v8.3.5...v8.3.6) - 2026-02-10
+
+* Fix resolver not formatting properly when selector has a closing parenthesis by [@chinleung](https://github.com/chinleung) in https://github.com/laravel/dusk/pull/1184
 
 ## [v8.3.5](https://github.com/laravel/dusk/compare/v8.3.4...v8.3.5) - 2026-02-03
 
