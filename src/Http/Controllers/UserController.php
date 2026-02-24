@@ -47,7 +47,7 @@ class UserController
 
         Auth::guard($guard)->login($user);
 
-        return response()->json();
+        return response(status: 204);
     }
 
     /**
@@ -64,7 +64,9 @@ class UserController
 
         Session::forget('password_hash_'.$guard);
 
-        return response()->json();
+        Session::save();
+
+        return response(status: 204);
     }
 
     /**
