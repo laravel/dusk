@@ -86,6 +86,15 @@ class Browser
     public static $storeSourceAt;
 
     /**
+     * Console log messages to ignore when storing console logs.
+     *
+     * @var array
+     */
+    public static $ignoreConsoleMessages = [
+        'favicon.ico',
+    ];
+
+    /**
      * The browsers that support retrieving logs.
      *
      * @var array
@@ -481,7 +490,10 @@ class Browser
     public function storeConsoleLog($name)
     {
         if (in_array($this->driver->getCapabilities()->getBrowserName(), static::$supportsRemoteLogs)) {
-            $console = $this->driver->manage()->getLog('browser');
+            $console = collect($this->driver->manage()->getLog('browser'))
+                ->reject(fn ($entry) => Str::contains($entry['message'] ?? '', static::$ignoreConsoleMessages))
+                ->values()
+                ->all();
 
             if (! empty($console)) {
                 $filePath = sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name);
