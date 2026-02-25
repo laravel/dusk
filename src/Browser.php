@@ -491,8 +491,7 @@ class Browser
     {
         if (in_array($this->driver->getCapabilities()->getBrowserName(), static::$supportsRemoteLogs)) {
             $console = collect($this->driver->manage()->getLog('browser'))
-                ->reject(fn ($entry) => str(($entry['message'] ?? ''))
-                    ->contains(static::$ignoreConsoleMessages))
+                ->reject(fn ($entry) => Str::contains($entry['message'] ?? '', static::$ignoreConsoleMessages))
                 ->values()
                 ->all();
 
