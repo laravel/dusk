@@ -46,8 +46,6 @@ class UserController
                     : $provider->retrieveById($userId);
 
         Auth::guard($guard)->login($user);
-
-        return response(status: 204);
     }
 
     /**
@@ -63,8 +61,6 @@ class UserController
         Auth::guard($guard)->logout();
 
         Session::forget('password_hash_'.$guard);
-
-        return response(status: 204);
     }
 
     /**
