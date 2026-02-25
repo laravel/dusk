@@ -314,6 +314,21 @@ class BrowserTest extends TestCase
         $this->assertTrue($this->browser->fitOnFailure);
     }
 
+    public function test_ignores_favicon_console_messages()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('manage->getLog')->with('browser')->andReturn([
+            ['message' => 'https://example.com/favicon.ico - Failed to load resource: the server responded with a status of 404 ()', 'level' => 'SEVERE'],
+        ]);
+        $driver->shouldReceive('getCapabilities->getBrowserName')->andReturn(WebDriverBrowserType::CHROME);
+        $browser = new Browser($driver);
+        Browser::$storeConsoleLogAt = sys_get_temp_dir();
+
+        $browser->storeConsoleLog('ignore-test');
+
+        $this->assertFileDoesNotExist(sys_get_temp_dir().'/ignore-test.log');
+    }
+
     public function test_source_code_can_be_stored()
     {
         $this->driver->shouldReceive('getPageSource')->andReturn('source content');
