@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.3.6...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.4.0...8.x)
+
+## [v8.4.0](https://github.com/laravel/dusk/compare/v8.3.6...v8.4.0) - 2026-02-25
+
+* [8.x] Remove 204 response and instead be explicit with ignores by [@jackbayliss](https://github.com/jackbayliss) in https://github.com/laravel/dusk/pull/1187
 
 ## [v8.3.6](https://github.com/laravel/dusk/compare/v8.3.5...v8.3.6) - 2026-02-10
 
