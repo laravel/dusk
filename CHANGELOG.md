@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.4.0...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.4.1...8.x)
+
+## [v8.4.1](https://github.com/laravel/dusk/compare/v8.4.0...v8.4.1) - 2026-03-10
+
+* [8.x] Makes imports consistent by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1188
 
 ## [v8.4.0](https://github.com/laravel/dusk/compare/v8.3.6...v8.4.0) - 2026-02-25
 
