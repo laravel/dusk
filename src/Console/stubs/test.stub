@@ -2,20 +2,20 @@
 
 namespace DummyNamespace;
 
-use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\DuskTestCase;
 
 class DummyClass extends DuskTestCase
 {
     /**
      * A Dusk test example.
      */
-    public function testExample(): void
+    public function test_example(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->assertSee('Laravel');
+                ->assertSee('Laravel');
         });
     }
 }
