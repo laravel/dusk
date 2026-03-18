@@ -301,6 +301,14 @@ class ElementResolver
      */
     protected function findButtonByText($button)
     {
+        // First, try to find a button with an exact text match.
+        foreach ($this->all('button') as $element) {
+            if (trim($element->getText()) === $button) {
+                return $element;
+            }
+        }
+
+        // If no exact match is found, fall back to a "contains" match.
         foreach ($this->all('button') as $element) {
             if (Str::contains($element->getText(), $button)) {
                 return $element;
