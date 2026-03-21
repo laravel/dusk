@@ -2,6 +2,7 @@
 
 namespace Laravel\Dusk\Tests\Unit;
 
+use Facebook\WebDriver\Exception\NoSuchElementException;
 use InvalidArgumentException;
 use Laravel\Dusk\ElementResolver;
 use Mockery as m;
@@ -229,5 +230,35 @@ class ElementResolverTest extends TestCase
         $result = $method->invoke($resolver, 'Create');
 
         $this->assertSame($button, $result);
+    }
+
+    public function test_all_or_fail_returns_elements()
+    {
+        $element1 = m::mock(stdClass::class);
+        $element2 = m::mock(stdClass::class);
+
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('findElements')->andReturn([$element1, $element2]);
+
+        $resolver = new ElementResolver($driver);
+
+        $result = $resolver->allOrFail('div');
+
+        $this->assertCount(2, $result);
+        $this->assertSame($element1, $result[0]);
+        $this->assertSame($element2, $result[1]);
+    }
+
+    public function test_all_or_fail_throws_when_no_elements()
+    {
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('findElements')->andReturn([]);
+        $driver->shouldReceive('findElement')->andThrow(new NoSuchElementException('No element found'));
+
+        $resolver = new ElementResolver($driver);
+
+        $this->expectException(NoSuchElementException::class);
+
+        $resolver->allOrFail('div');
     }
 }

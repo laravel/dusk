@@ -32,6 +32,7 @@ class WaitsForElementsTest extends TestCase
             return new WebDriverWait($driver, $seconds, $interval);
         });
         $driver->shouldReceive('findElement')->andReturn($element);
+        $driver->shouldReceive('findElements')->andReturn([$element]);
 
         $resolver = m::mock(ElementResolver::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
@@ -401,6 +402,7 @@ class WaitsForElementsTest extends TestCase
         $resolver = m::mock(ElementResolver::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
         $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+        $resolver->shouldReceive('allOrFail')->with('foo')->andReturn([$element]);
 
         $browser = new Browser($driver, $resolver);
 

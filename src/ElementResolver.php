@@ -383,6 +383,25 @@ class ElementResolver
     }
 
     /**
+     * Find all elements by the given selector or throw an exception.
+     *
+     * @param  string  $selector
+     * @return \Facebook\WebDriver\Remote\RemoteWebElement[]
+     *
+     * @throws \Facebook\WebDriver\Exception\NoSuchElementException
+     */
+    public function allOrFail($selector)
+    {
+        $elements = $this->all($selector);
+
+        if (empty($elements)) {
+            $this->findOrFail($selector);
+        }
+
+        return $elements;
+    }
+
+    /**
      * Find the elements by the given selector or return an empty array.
      *
      * @param  string  $selector

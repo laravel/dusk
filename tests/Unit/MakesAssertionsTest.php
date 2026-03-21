@@ -1323,7 +1323,7 @@ class MakesAssertionsTest extends TestCase
 
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('')->andReturn('body');
-        $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
+        $resolver->shouldReceive('allOrFail')->with('')->andReturn([$element]);
 
         $browser = new Browser($driver, $resolver);
 
@@ -1348,7 +1348,7 @@ class MakesAssertionsTest extends TestCase
 
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('')->andReturn('body');
-        $resolver->shouldReceive('findOrFail')->with('')->andReturn($element);
+        $resolver->shouldReceive('allOrFail')->with('')->andReturn([$element]);
 
         $browser = new Browser($driver, $resolver);
 
@@ -1373,7 +1373,7 @@ class MakesAssertionsTest extends TestCase
 
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
-        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+        $resolver->shouldReceive('allOrFail')->with('foo')->andReturn([$element]);
 
         $browser = new Browser($driver, $resolver);
 
@@ -1389,6 +1389,38 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_see_in_with_multiple_elements()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element1 = m::mock(stdClass::class);
+        $element1->shouldReceive('getText')->andReturn('First');
+
+        $element2 = m::mock(stdClass::class);
+        $element2->shouldReceive('getText')->andReturn('Second');
+
+        $element3 = m::mock(stdClass::class);
+        $element3->shouldReceive('getText')->andReturn('Third');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('div')->andReturn('body div');
+        $resolver->shouldReceive('allOrFail')->with('div')->andReturn([$element1, $element2, $element3]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertSeeIn('div', 'Second');
+        $browser->assertSeeIn('div', 'Third');
+
+        try {
+            $browser->assertSeeIn('div', 'Fourth');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Did not see expected text [Fourth] within element [body div].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_dont_see_in()
     {
         $driver = m::mock(stdClass::class);
@@ -1398,7 +1430,7 @@ class MakesAssertionsTest extends TestCase
 
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
-        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+        $resolver->shouldReceive('allOrFail')->with('foo')->andReturn([$element]);
 
         $browser = new Browser($driver, $resolver);
 
@@ -1414,6 +1446,34 @@ class MakesAssertionsTest extends TestCase
         }
     }
 
+    public function test_assert_dont_see_in_with_multiple_elements()
+    {
+        $driver = m::mock(stdClass::class);
+
+        $element1 = m::mock(stdClass::class);
+        $element1->shouldReceive('getText')->andReturn('First');
+
+        $element2 = m::mock(stdClass::class);
+        $element2->shouldReceive('getText')->andReturn('Second');
+
+        $resolver = m::mock(stdClass::class);
+        $resolver->shouldReceive('format')->with('div')->andReturn('body div');
+        $resolver->shouldReceive('allOrFail')->with('div')->andReturn([$element1, $element2]);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->assertDontSeeIn('div', 'Third');
+
+        try {
+            $browser->assertDontSeeIn('div', 'Second');
+        } catch (ExpectationFailedException $e) {
+            $this->assertStringContainsString(
+                'Saw unexpected text [Second] within element [body div].',
+                $e->getMessage()
+            );
+        }
+    }
+
     public function test_assert_see_empty_text_in_element_with_empty_text()
     {
         $driver = m::mock(stdClass::class);
@@ -1423,7 +1483,7 @@ class MakesAssertionsTest extends TestCase
 
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
-        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+        $resolver->shouldReceive('allOrFail')->with('foo')->andReturn([$element]);
 
         $browser = new Browser($driver, $resolver);
 
@@ -1439,7 +1499,7 @@ class MakesAssertionsTest extends TestCase
 
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
-        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+        $resolver->shouldReceive('allOrFail')->with('foo')->andReturn([$element]);
 
         $browser = new Browser($driver, $resolver);
 
@@ -1462,7 +1522,7 @@ class MakesAssertionsTest extends TestCase
 
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
-        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+        $resolver->shouldReceive('allOrFail')->with('foo')->andReturn([$element]);
 
         $browser = new Browser($driver, $resolver);
 
@@ -1485,7 +1545,7 @@ class MakesAssertionsTest extends TestCase
 
         $resolver = m::mock(stdClass::class);
         $resolver->shouldReceive('format')->with('foo')->andReturn('body foo');
-        $resolver->shouldReceive('findOrFail')->with('foo')->andReturn($element);
+        $resolver->shouldReceive('allOrFail')->with('foo')->andReturn([$element]);
 
         $browser = new Browser($driver, $resolver);
 

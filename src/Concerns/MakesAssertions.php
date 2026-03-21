@@ -181,10 +181,16 @@ trait MakesAssertions
 
         $fullSelector = $this->resolver->format($selector);
 
-        $element = $this->resolver->findOrFail($selector);
+        $elements = $this->resolver->allOrFail($selector);
+
+        foreach ($elements as $element) {
+            if (Str::contains($element->getText(), $text, $ignoreCase)) {
+                return $this;
+            }
+        }
 
         PHPUnit::assertTrue(
-            Str::contains($element->getText(), $text, $ignoreCase),
+            false,
             "Did not see expected text [{$text}] within element [{$fullSelector}]."
         );
 
@@ -203,12 +209,14 @@ trait MakesAssertions
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $element = $this->resolver->findOrFail($selector);
+        $elements = $this->resolver->allOrFail($selector);
 
-        PHPUnit::assertFalse(
-            Str::contains($element->getText(), $text, $ignoreCase),
-            "Saw unexpected text [{$text}] within element [{$fullSelector}]."
-        );
+        foreach ($elements as $element) {
+            PHPUnit::assertFalse(
+                Str::contains($element->getText(), $text, $ignoreCase),
+                "Saw unexpected text [{$text}] within element [{$fullSelector}]."
+            );
+        }
 
         return $this;
     }
@@ -223,10 +231,16 @@ trait MakesAssertions
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $element = $this->resolver->findOrFail($selector);
+        $elements = $this->resolver->allOrFail($selector);
+
+        foreach ($elements as $element) {
+            if ($element->getText() !== '') {
+                return $this;
+            }
+        }
 
         PHPUnit::assertTrue(
-            $element->getText() !== '',
+            false,
             "Saw unexpected text [''] within element [{$fullSelector}]."
         );
 
@@ -243,12 +257,14 @@ trait MakesAssertions
     {
         $fullSelector = $this->resolver->format($selector);
 
-        $element = $this->resolver->findOrFail($selector);
+        $elements = $this->resolver->allOrFail($selector);
 
-        PHPUnit::assertTrue(
-            $element->getText() === '',
-            "Did not see expected text [''] within element [{$fullSelector}]."
-        );
+        foreach ($elements as $element) {
+            PHPUnit::assertTrue(
+                $element->getText() === '',
+                "Did not see expected text [''] within element [{$fullSelector}]."
+            );
+        }
 
         return $this;
     }
