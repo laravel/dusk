@@ -2,6 +2,12 @@
 
 ## [Unreleased](https://github.com/laravel/dusk/compare/v8.4.1...8.x)
 
+* [8.x] Support multiple elements in `assertSeeIn` and related assertions by [@JoshSalway](https://github.com/JoshSalway) in https://github.com/laravel/dusk/pull/1194
+
+#### Breaking Changes
+
+`assertSeeIn`, `assertDontSeeIn`, `assertSeeAnythingIn`, and `assertSeeNothingIn` now check **all** elements matching the selector instead of only the first. Tests using `assertDontSeeIn` or `assertSeeNothingIn` with selectors that match multiple elements may now fail if a non-first element contains the text. To preserve old behavior, narrow your selector to match a single element (e.g. `.row:first-child` or `#specific-id`).
+
 ## [v8.4.1](https://github.com/laravel/dusk/compare/v8.4.0...v8.4.1) - 2026-03-10
 
 * [8.x] Makes imports consistent by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1188
