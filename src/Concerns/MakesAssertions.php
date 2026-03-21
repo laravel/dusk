@@ -175,6 +175,10 @@ trait MakesAssertions
      */
     public function assertSeeIn($selector, $text, $ignoreCase = false)
     {
+        if ($text === '') {
+            return $this->assertSeeNothingIn($selector);
+        }
+
         $fullSelector = $this->resolver->format($selector);
 
         $element = $this->resolver->findOrFail($selector);
