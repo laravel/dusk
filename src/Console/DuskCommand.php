@@ -256,7 +256,7 @@ class DuskCommand extends Command
         try {
             return $callback();
         } finally {
-            $this->teardownDuskEnviroment();
+            $this->teardownDuskEnvironment();
         }
     }
 
@@ -331,7 +331,7 @@ class DuskCommand extends Command
             pcntl_async_signals(true);
 
             pcntl_signal(SIGINT, function () {
-                $this->teardownDuskEnviroment();
+                $this->teardownDuskEnvironment();
             });
         }
     }
@@ -341,7 +341,7 @@ class DuskCommand extends Command
      *
      * @return void
      */
-    protected function teardownDuskEnviroment()
+    protected function teardownDuskEnvironment()
     {
         $this->removeConfiguration();
 
