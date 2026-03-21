@@ -1140,7 +1140,7 @@ JS;
     }
 
     /**
-     * Assert that a given Vue component data propertys is an array and contains the given value.
+     * Assert that a given Vue component data property is an array and contains the given value.
      *
      * @param  string  $key
      * @param  string  $value
