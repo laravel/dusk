@@ -1,6 +1,13 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.4.1...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.5.0...8.x)
+
+## [v8.5.0](https://github.com/laravel/dusk/compare/v8.4.1...v8.5.0) - 2026-03-21
+
+* Fix findButtonByText to prefer exact text match over contains by [@JoshSalway](https://github.com/JoshSalway) in https://github.com/laravel/dusk/pull/1189
+* Proxy empty text passed to `assertSeeIn()` by [@weshooper](https://github.com/weshooper) in https://github.com/laravel/dusk/pull/1191
+* [8.x] Fix typo in teardown method name by [@JoshSalway](https://github.com/JoshSalway) in https://github.com/laravel/dusk/pull/1192
+* [8.x] Fix docblock typo in assertVueContains by [@JoshSalway](https://github.com/JoshSalway) in https://github.com/laravel/dusk/pull/1193
 
 ## [v8.4.1](https://github.com/laravel/dusk/compare/v8.4.0...v8.4.1) - 2026-03-10
 
