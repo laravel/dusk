@@ -71,34 +71,6 @@ trait InteractsWithMouse
     }
 
     /**
-     * Wait until enabled, then click the element at the given selector.
-     *
-     * @param  string  $selector
-     * @return $this
-     */
-    public function clickOnceEnabled($selector)
-    {
-        $this->waitUntilEnabled($selector);
-        $this->click($selector);
-
-        return $this;
-    }
-
-    /**
-     * Wait until visible, then click the element at the given selector.
-     *
-     * @param  string  $selector
-     * @return $this
-     */
-    public function clickOnceVisible($selector)
-    {
-        $this->waitFor($selector);
-        $this->click($selector);
-
-        return $this;
-    }
-
-    /**
      * Click the topmost element at the given pair of coordinates.
      *
      * @param  int  $x
@@ -142,6 +114,34 @@ trait InteractsWithMouse
                 $this->resolver->findOrFail($selector)
             )->perform();
         }
+
+        return $this;
+    }
+
+    /**
+     * Wait until the element at the given selector is enabled, then click it.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function clickOnceEnabled($selector)
+    {
+        $this->waitUntilEnabled($selector);
+        $this->click($selector);
+
+        return $this;
+    }
+
+    /**
+     * Wait until the element at the given selector is visible, then click it.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function clickOnceVisible($selector)
+    {
+        $this->waitFor($selector);
+        $this->click($selector);
 
         return $this;
     }
