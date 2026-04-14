@@ -987,6 +987,36 @@ JS;
         );
 
         return $this;
+    }    
+
+    /**
+     * Assert that a JavaScript dialog with the given message was opened, then accepted.
+     *
+     * @param  string  $message
+     * @return $this
+     */
+    public function assertDialogAccepted($message)
+    {
+        $this->waitForDialog();
+        $this->assertDialogOpened($message);
+        $this->acceptDialog();
+
+        return $this;
+    }
+
+    /**
+     * Assert that a JavaScript dialog with the given message was opened, then dismissed.
+     *
+     * @param  string  $message
+     * @return $this
+     */
+    public function assertDialogDismissed($message)
+    {
+        $this->waitForDialog();
+        $this->assertDialogOpened($message);
+        $this->dismissDialog();
+
+        return $this;
     }
 
     /**
