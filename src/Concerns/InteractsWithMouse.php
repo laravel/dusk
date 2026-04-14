@@ -80,6 +80,8 @@ trait InteractsWithMouse
     {
         $this->waitUntilEnabled($selector);
         $this->click($selector);
+
+        return $this;
     }
 
     /**
@@ -92,6 +94,8 @@ trait InteractsWithMouse
     {
         $this->waitFor($selector);
         $this->click($selector);
+
+        return $this;
     }
 
     /**
