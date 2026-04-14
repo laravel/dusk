@@ -987,7 +987,7 @@ JS;
         );
 
         return $this;
-    }    
+    }
 
     /**
      * Assert that a JavaScript dialog with the given message was opened, then accepted.
