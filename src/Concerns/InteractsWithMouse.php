@@ -124,7 +124,7 @@ trait InteractsWithMouse
      * @param  string  $selector
      * @return $this
      */
-    public function clickOnceEnabled($selector)
+    public function clickWhenEnabled($selector)
     {
         $this->waitUntilEnabled($selector);
         $this->click($selector);
@@ -138,7 +138,7 @@ trait InteractsWithMouse
      * @param  string  $selector
      * @return $this
      */
-    public function clickOnceVisible($selector)
+    public function clickWhenVisible($selector)
     {
         $this->waitFor($selector);
         $this->click($selector);
