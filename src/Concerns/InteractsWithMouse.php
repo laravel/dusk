@@ -119,6 +119,34 @@ trait InteractsWithMouse
     }
 
     /**
+     * Wait until the element at the given selector is enabled, then click it.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function clickOnceEnabled($selector)
+    {
+        $this->waitUntilEnabled($selector);
+        $this->click($selector);
+
+        return $this;
+    }
+
+    /**
+     * Wait until the element at the given selector is visible, then click it.
+     *
+     * @param  string  $selector
+     * @return $this
+     */
+    public function clickOnceVisible($selector)
+    {
+        $this->waitFor($selector);
+        $this->click($selector);
+
+        return $this;
+    }
+
+    /**
      * Double click the element at the given selector.
      *
      * @param  string|null  $selector
