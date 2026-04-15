@@ -995,7 +995,7 @@ JS;
      * @param  string  $message
      * @return $this
      */
-    public function assertDialogAccepted($message)
+    public function assertAcceptingDialog($message)
     {
         $this->waitForDialog();
         $this->assertDialogOpened($message);
@@ -1010,7 +1010,7 @@ JS;
      * @param  string  $message
      * @return $this
      */
-    public function assertDialogDismissed($message)
+    public function assertDismissingDialog($message)
     {
         $this->waitForDialog();
         $this->assertDialogOpened($message);
