@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.5.0...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.6.0...8.x)
+
+## [v8.6.0](https://github.com/laravel/dusk/compare/v8.5.0...v8.6.0) - 2026-04-15
+
+* [8.x] Add `clickOnceEnabled()` and `clickOnceVisible()` by [@weshooper](https://github.com/weshooper) in https://github.com/laravel/dusk/pull/1196
+* [8.x] Change clickOnce methods to clickWhen by [@jackbayliss](https://github.com/jackbayliss) in https://github.com/laravel/dusk/pull/1198
 
 ## [v8.5.0](https://github.com/laravel/dusk/compare/v8.4.1...v8.5.0) - 2026-03-21
 
