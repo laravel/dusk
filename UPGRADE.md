@@ -1,5 +1,13 @@
 # Upgrade Guide
 
+## Upgrading To 9.0 From 8.x
+
+jQuery has been [removed as a dependency](https://github.com/laravel/dusk/pull/1166), improving performance.
+
+Sites using the jQuery library should find version conflicts are avoided during Dusk tests.
+
+Dusk tests that interact with jQuery via `script()` calls will need adjustment.
+
 ## Upgrading To 8.0 From 7.x
 
 ### Minimum Versions
