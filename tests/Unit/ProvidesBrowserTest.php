@@ -29,11 +29,11 @@ class ProvidesBrowserTest extends TestCase
     }
 
     #[DataProvider('data')]
-    public function test_capture_failures_for_data()
+    public function test_capture_failures_for_data($data)
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('screenshot')->with(
-            'failure-Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_capture_failures_for_data_foo-0'
+            sprintf('failure-Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_capture_failures_for_data_%s-0', $data)
         );
         $browsers = collect([$browser]);
 
@@ -41,11 +41,11 @@ class ProvidesBrowserTest extends TestCase
     }
 
     #[DataProvider('data')]
-    public function test_store_console_logs_for_data()
+    public function test_store_console_logs_for_data($data)
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
-            'Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_store_console_logs_for_data_foo-0'
+            sprintf('Laravel_Dusk_Tests_Unit_ProvidesBrowserTest_test_store_console_logs_for_data_%s-0', $data)
         );
         $browsers = collect([$browser]);
 
@@ -53,11 +53,14 @@ class ProvidesBrowserTest extends TestCase
     }
 
     #[DataProvider('data')]
-    public function test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_data()
+    public function test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_data($data)
     {
         $browser = m::mock(stdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
-            'Dusk_Tests_Unit_ProvidesBrowserTest_test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_data_foo-0'
+            sprintf(
+                'Dusk_Tests_Unit_ProvidesBrowserTest_test_truncate_test_name_where_that_name_is_really_really_really_too_long_and_might_cause_issues_data_%s-0',
+                $data
+            )
         );
         $browsers = collect([$browser]);
 

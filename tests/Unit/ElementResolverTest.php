@@ -150,6 +150,12 @@ class ElementResolverTest extends TestCase
         $this->assertSame('prefix [dusk="missing-element"] > div', $resolver->format('@missing-element > div'));
     }
 
+    public function test_format_does_not_capture_closing_parenthesis_in_dusk_selector()
+    {
+        $resolver = new ElementResolver(new stdClass, 'prefix');
+        $this->assertSame('prefix [dusk="products"] div:nth-child(2 of [dusk="product"])', $resolver->format('@products div:nth-child(2 of @product)'));
+    }
+
     public function test_find_by_id_with_colon()
     {
         $driver = m::mock(stdClass::class);
@@ -158,9 +164,70 @@ class ElementResolverTest extends TestCase
 
         $class = new ReflectionClass($resolver);
         $method = $class->getMethod('findById');
-        $method->setAccessible(true);
+
         $result = $method->invoke($resolver, '#frmLogin:strCustomerLogin_userID');
 
         $this->assertSame('foo', $result);
+    }
+
+    public function test_find_button_by_text_prefers_exact_match()
+    {
+        $createAppButton = m::mock(stdClass::class);
+        $createAppButton->shouldReceive('getText')->andReturn('Create Application');
+
+        $createButton = m::mock(stdClass::class);
+        $createButton->shouldReceive('getText')->andReturn('Create');
+
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('findElements')->andReturn([$createAppButton, $createButton]);
+
+        $resolver = new ElementResolver($driver);
+
+        $class = new ReflectionClass($resolver);
+        $method = $class->getMethod('findButtonByText');
+
+        // When searching for "Create", the exact match should be returned
+        // instead of "Create Application" which merely contains "Create".
+        $result = $method->invoke($resolver, 'Create');
+
+        $this->assertSame($createButton, $result);
+    }
+
+    public function test_find_button_by_text_falls_back_to_contains_match()
+    {
+        $createAppButton = m::mock(stdClass::class);
+        $createAppButton->shouldReceive('getText')->andReturn('Create Application');
+
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('findElements')->andReturn([$createAppButton]);
+
+        $resolver = new ElementResolver($driver);
+
+        $class = new ReflectionClass($resolver);
+        $method = $class->getMethod('findButtonByText');
+
+        // When no exact match exists, the contains-based match should still work.
+        $result = $method->invoke($resolver, 'Create');
+
+        $this->assertSame($createAppButton, $result);
+    }
+
+    public function test_find_button_by_text_trims_whitespace_for_exact_match()
+    {
+        $button = m::mock(stdClass::class);
+        $button->shouldReceive('getText')->andReturn('  Create  ');
+
+        $driver = m::mock(stdClass::class);
+        $driver->shouldReceive('findElements')->andReturn([$button]);
+
+        $resolver = new ElementResolver($driver);
+
+        $class = new ReflectionClass($resolver);
+        $method = $class->getMethod('findButtonByText');
+
+        // Button text with surrounding whitespace should still match exactly.
+        $result = $method->invoke($resolver, 'Create');
+
+        $this->assertSame($button, $result);
     }
 }

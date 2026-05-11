@@ -1,6 +1,47 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.3.1...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.6.0...8.x)
+
+## [v8.6.0](https://github.com/laravel/dusk/compare/v8.5.0...v8.6.0) - 2026-04-15
+
+* [8.x] Add `clickOnceEnabled()` and `clickOnceVisible()` by [@weshooper](https://github.com/weshooper) in https://github.com/laravel/dusk/pull/1196
+* [8.x] Change clickOnce methods to clickWhen by [@jackbayliss](https://github.com/jackbayliss) in https://github.com/laravel/dusk/pull/1198
+
+## [v8.5.0](https://github.com/laravel/dusk/compare/v8.4.1...v8.5.0) - 2026-03-21
+
+* Fix findButtonByText to prefer exact text match over contains by [@JoshSalway](https://github.com/JoshSalway) in https://github.com/laravel/dusk/pull/1189
+* Proxy empty text passed to `assertSeeIn()` by [@weshooper](https://github.com/weshooper) in https://github.com/laravel/dusk/pull/1191
+* [8.x] Fix typo in teardown method name by [@JoshSalway](https://github.com/JoshSalway) in https://github.com/laravel/dusk/pull/1192
+* [8.x] Fix docblock typo in assertVueContains by [@JoshSalway](https://github.com/JoshSalway) in https://github.com/laravel/dusk/pull/1193
+
+## [v8.4.1](https://github.com/laravel/dusk/compare/v8.4.0...v8.4.1) - 2026-03-10
+
+* [8.x] Makes imports consistent by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1188
+
+## [v8.4.0](https://github.com/laravel/dusk/compare/v8.3.6...v8.4.0) - 2026-02-25
+
+* [8.x] Remove 204 response and instead be explicit with ignores by [@jackbayliss](https://github.com/jackbayliss) in https://github.com/laravel/dusk/pull/1187
+
+## [v8.3.6](https://github.com/laravel/dusk/compare/v8.3.5...v8.3.6) - 2026-02-10
+
+* Fix resolver not formatting properly when selector has a closing parenthesis by [@chinleung](https://github.com/chinleung) in https://github.com/laravel/dusk/pull/1184
+
+## [v8.3.5](https://github.com/laravel/dusk/compare/v8.3.4...v8.3.5) - 2026-02-03
+
+* [8.x] Supports Laravel 13 by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1183
+
+## [v8.3.4](https://github.com/laravel/dusk/compare/v8.3.3...v8.3.4) - 2025-11-20
+
+* [8.x] PHP 8.5 Compatibility by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1181
+
+## [v8.3.3](https://github.com/laravel/dusk/compare/v8.3.2...v8.3.3) - 2025-06-10
+
+* Update logo by [@iamdavidhill](https://github.com/iamdavidhill) in https://github.com/laravel/dusk/pull/1169
+* [8.x] Supports PHPUnit 12.2 by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1174
+
+## [v8.3.2](https://github.com/laravel/dusk/compare/v8.3.1...v8.3.2) - 2025-02-20
+
+* Disable smooth scrolling in TestCase by [@ziadoz](https://github.com/ziadoz) in https://github.com/laravel/dusk/pull/1167
 
 ## [v8.3.1](https://github.com/laravel/dusk/compare/v8.3.0...v8.3.1) - 2025-02-12
 

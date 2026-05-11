@@ -175,6 +175,10 @@ trait MakesAssertions
      */
     public function assertSeeIn($selector, $text, $ignoreCase = false)
     {
+        if ($text === '') {
+            return $this->assertSeeNothingIn($selector);
+        }
+
         $fullSelector = $this->resolver->format($selector);
 
         $element = $this->resolver->findOrFail($selector);
@@ -1134,7 +1138,7 @@ JS;
     }
 
     /**
-     * Assert that a given Vue component data propertys is an array and contains the given value.
+     * Assert that a given Vue component data property is an array and contains the given value.
      *
      * @param  string  $key
      * @param  string  $value

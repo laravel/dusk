@@ -33,7 +33,7 @@ class UserController
      *
      * @param  string  $userId
      * @param  string|null  $guard
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function login($userId, $guard = null)
     {
@@ -46,15 +46,13 @@ class UserController
                     : $provider->retrieveById($userId);
 
         Auth::guard($guard)->login($user);
-
-        return response(status: 204);
     }
 
     /**
      * Log the user out of the application.
      *
      * @param  string|null  $guard
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function logout($guard = null)
     {
@@ -63,8 +61,6 @@ class UserController
         Auth::guard($guard)->logout();
 
         Session::forget('password_hash_'.$guard);
-
-        return response(status: 204);
     }
 
     /**
