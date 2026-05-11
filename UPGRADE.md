@@ -4,7 +4,54 @@
 
 jQuery has been [removed as a dependency](https://github.com/laravel/dusk/pull/1166), improving performance. Sites using the jQuery library should find version conflicts are now avoided during Dusk tests.
 
-Dusk tests that interact with jQuery via `script()` calls will need adjustment.
+Dusk no longer injects jQuery into the page, so calls to `jQuery(...)` or `$(...)` will only work if your application loads jQuery itself.
+
+If your application does not load jQuery itself, these scripts can be rewritten to use browser-native DOM APIs:
+
+```php
+// Before...
+$browser->script("return $('.alert').text();");
+
+// After...
+$browser->script("return document.querySelector('.alert')?.textContent;");
+```
+
+```php
+// Before...
+$browser->script("$('#name').val('Taylor').trigger('input');");
+
+// After...
+$browser->script(<<<'JS'
+    const element = document.querySelector('#name');
+
+    element.value = 'Taylor';
+    element.dispatchEvent(new Event('input', { bubbles: true }));
+JS);
+```
+
+jQuery-only selectors such as `:contains` and `:visible` are not supported by `querySelector`. These should be rewritten using native DOM APIs:
+
+```php
+// Before...
+$browser->script("$('a:contains(\"Dashboard\"):visible').click();");
+
+// After...
+$browser->script(<<<'JS'
+    Array.from(document.querySelectorAll('a'))
+        .find((element) => element.textContent.includes('Dashboard') && element.offsetParent !== null)
+        ?.click();
+JS);
+```
+
+Common replacements include:
+
+- `$('.selector').length` may be replaced with `document.querySelectorAll('.selector').length`.
+- `$('.selector').text()` may be replaced with `document.querySelector('.selector')?.textContent`.
+- `$('.selector').html()` may be replaced with `document.querySelector('.selector')?.innerHTML`.
+- `$('.selector').val()` may be replaced with `document.querySelector('.selector')?.value`.
+- `$('.selector').attr('href')` may be replaced with `document.querySelector('.selector')?.getAttribute('href')`.
+- `$('.selector').addClass('active')` may be replaced with `document.querySelector('.selector')?.classList.add('active')`.
+- `$('.selector').is(':visible')` may be replaced with a visibility check such as `element.offsetParent !== null` or `element.getClientRects().length > 0`.
 
 ## Upgrading To 8.0 From 7.x
 
