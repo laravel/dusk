@@ -66,7 +66,7 @@ class PurgeCommand extends Command
     protected function purgeConsoleLogs()
     {
         $this->purgeDebuggingFiles(
-           'tests/Browser/console', '*.log'
+            'tests/Browser/console', '*.log'
         );
     }
 
