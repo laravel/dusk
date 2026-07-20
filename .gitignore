@@ -1,6 +1,7 @@
 /node_modules
 /vendor
 composer.lock
+/.idea
 /phpunit.xml
 .phpunit.cache/*
 .phpunit.result.cache
