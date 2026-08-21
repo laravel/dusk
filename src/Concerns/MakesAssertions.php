@@ -435,7 +435,7 @@ JS;
      * Get the value of the given input or text area field.
      *
      * @param  string  $field
-     * @return string
+     * @return string|true|null
      */
     public function inputValue($field)
     {
@@ -1199,7 +1199,7 @@ JS;
     /**
      * Retrieve the value of the Vue component's attribute at the given key.
      *
-     * @param  string  $componentSelector
+     * @param  string|null  $componentSelector
      * @param  string  $key
      * @return mixed
      */

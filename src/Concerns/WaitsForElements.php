@@ -73,7 +73,7 @@ trait WaitsForElements
     /**
      * Wait for the given text to be removed.
      *
-     * @param  string  $text
+     * @param  array|string  $text
      * @param  int|null  $seconds
      * @return $this
      *

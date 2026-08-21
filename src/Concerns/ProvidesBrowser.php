@@ -16,7 +16,7 @@ trait ProvidesBrowser
     /**
      * All of the active browser instances.
      *
-     * @var array
+     * @var \Illuminate\Support\Collection|array
      */
     protected static $browsers = [];
 
@@ -57,7 +57,7 @@ trait ProvidesBrowser
      * Create a new browser instance.
      *
      * @param  \Closure  $callback
-     * @return \Laravel\Dusk\Browser|void
+     * @return void
      *
      * @throws \Exception
      * @throws \Throwable
@@ -89,7 +89,7 @@ trait ProvidesBrowser
      * Create the browser instances needed for the given callback.
      *
      * @param  \Closure  $callback
-     * @return array
+     * @return \Illuminate\Support\Collection
      *
      * @throws \ReflectionException
      */
