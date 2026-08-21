@@ -158,7 +158,7 @@ class ChromeDriverCommand extends Command
      * Detect the installed Chrome / Chromium major version.
      *
      * @param  string  $os
-     * @return int|bool
+     * @return string|false
      */
     protected function detectChromeVersion($os)
     {
