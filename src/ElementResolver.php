@@ -404,7 +404,7 @@ class ElementResolver
     /**
      * Format the given selector with the current prefix.
      *
-     * @param  string  $selector
+     * @param  \Laravel\Dusk\Component|string  $selector
      * @return string
      */
     public function format($selector)

@@ -639,7 +639,7 @@ class Browser
      * Return a browser scoped to the given component.
      *
      * @param  \Laravel\Dusk\Component  $component
-     * @return \Laravel\Dusk\Browser
+     * @return static
      */
     public function component(Component $component)
     {
