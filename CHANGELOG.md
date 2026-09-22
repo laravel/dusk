@@ -1,6 +1,23 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.6.0...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.7.0...8.x)
+
+## [v8.7.0](https://github.com/laravel/dusk/compare/v8.6.0...v8.7.0) - 2026-08-26
+
+* Pin GitHub Actions to commit SHAs and add Dependabot config by [@joetannenbaum](https://github.com/joetannenbaum) in https://github.com/laravel/dusk/pull/1200
+* Bump shivammathur/setup-php from 2.37.0 to 2.37.1 in the github-actions group by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/laravel/dusk/pull/1203
+* GitHub Actions hardening by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1204
+* Add Dependabot cooldown of 5 days by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1205
+* Enable Dependabot auto-merge by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/dusk/pull/1208
+* Bump actions/checkout from 6.0.2 to 6.0.3 in the github-actions group by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/laravel/dusk/pull/1209
+* Bump shivammathur/setup-php from 2.37.1 to 2.37.2 in the github-actions group by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/laravel/dusk/pull/1210
+* Test Improvements by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1211
+* Bump actions/checkout from 6.0.3 to 7.0.0 in the github-actions group by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/laravel/dusk/pull/1212
+* Bump stefanzweifel/git-auto-commit-action from 7.1.0 to 7.2.0 in the github-actions group by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/laravel/dusk/pull/1214
+* [8.x] Add  art & workbench to .gitattributes &  update gtiginore by [@jackbayliss](https://github.com/jackbayliss) in https://github.com/laravel/dusk/pull/1215
+* Bump the github-actions group with 2 updates by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/laravel/dusk/pull/1216
+* [8.x] Update doc blocks by [@MizouziE](https://github.com/MizouziE) in https://github.com/laravel/dusk/pull/1218
+* Supports Guzzle 8 by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1219
 
 ## [v8.6.0](https://github.com/laravel/dusk/compare/v8.5.0...v8.6.0) - 2026-04-15
 
