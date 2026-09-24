@@ -261,6 +261,8 @@ class ElementResolver
         if (! is_null($element = $this->find($button))) {
             return $element;
         }
+
+        return null;
     }
 
     /**
@@ -276,6 +278,8 @@ class ElementResolver
             ! is_null($element = $this->find("button[name='{$button}']"))) {
             return $element;
         }
+
+        return null;
     }
 
     /**
@@ -291,6 +295,8 @@ class ElementResolver
                 return $element;
             }
         }
+
+        return null;
     }
 
     /**
@@ -314,6 +320,8 @@ class ElementResolver
                 return $element;
             }
         }
+
+        return null;
     }
 
     /**
@@ -327,6 +335,8 @@ class ElementResolver
         if (preg_match('/^#[\w\-:]+$/', $selector)) {
             return $this->driver->findElement(WebDriverBy::id(substr($selector, 1)));
         }
+
+        return null;
     }
 
     /**
@@ -342,6 +352,8 @@ class ElementResolver
         } catch (Exception $e) {
             //
         }
+
+        return null;
     }
 
     /**
@@ -362,7 +374,7 @@ class ElementResolver
             }
         }
 
-        throw $e;
+        throw $e; // @phpstan-ignore variable.undefined
     }
 
     /**

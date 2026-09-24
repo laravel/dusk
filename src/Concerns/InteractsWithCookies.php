@@ -37,6 +37,8 @@ trait InteractsWithCookies
 
             return $hasValuePrefix ? CookieValuePrefix::remove($decryptedValue) : $decryptedValue;
         }
+
+        return null;
     }
 
     /**
@@ -63,6 +65,8 @@ trait InteractsWithCookies
         if ($cookie) {
             return rawurldecode($cookie['value']);
         }
+
+        return null;
     }
 
     /**
