@@ -12,6 +12,7 @@ class BrowserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
+                ->pause(500)
                 ->assertSee(match (true) {
                     laravel_version_compare('13.0', '>=') => 'Let\'s get started',
                     laravel_version_compare('12.0', '>=') => 'Laravel has an incredibly rich ecosystem.',
