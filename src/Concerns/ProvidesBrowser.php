@@ -190,7 +190,7 @@ trait ProvidesBrowser
      */
     protected function closeAllButPrimary($browsers)
     {
-        $browsers->slice(1)->each->quit();
+        $browsers->slice(1)->each->quit(); // @phpstan-ignore method.notFound
 
         return $browsers->take(1);
     }
@@ -202,7 +202,7 @@ trait ProvidesBrowser
      */
     public static function closeAll()
     {
-        Collection::make(static::$browsers)->each->quit();
+        Collection::make(static::$browsers)->each->quit(); // @phpstan-ignore method.notFound
 
         static::$browsers = collect();
     }
