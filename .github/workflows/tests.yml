@@ -17,7 +17,7 @@ permissions:
 jobs:
   tests:
     runs-on: ubuntu-22.04
-    continue-on-fail: ${{ matrix.experimental }}
+    continue-on-error: ${{ matrix.experimental }}
 
     strategy:
       fail-fast: true
