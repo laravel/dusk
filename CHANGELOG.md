@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.7.0...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.7.1...8.x)
+
+## [v8.7.1](https://github.com/laravel/dusk/compare/v8.7.0...v8.7.1) - 2026-09-24
+
+* Test Improvements by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1222
+* Supports PHPUnit 13 by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1221
+* Supports PHPStan 2 by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1220
 
 ## [v8.7.0](https://github.com/laravel/dusk/compare/v8.6.0...v8.7.0) - 2026-08-26
 
