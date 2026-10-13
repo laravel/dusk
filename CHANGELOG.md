@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.7.1...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.7.2...8.x)
+
+## [v8.7.2](https://github.com/laravel/dusk/compare/v8.7.1...v8.7.2) - 2026-10-07
+
+* Experimental supports for PHP 8.6 by [@crynobone](https://github.com/crynobone) in https://github.com/laravel/dusk/pull/1223
 
 ## [v8.7.1](https://github.com/laravel/dusk/compare/v8.7.0...v8.7.1) - 2026-09-24
 
