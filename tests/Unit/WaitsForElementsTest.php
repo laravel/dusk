@@ -249,6 +249,46 @@ class WaitsForElementsTest extends TestCase
         $browser->waitUntilMissing('foo');
     }
 
+    public function test_wait_until_present()
+    {
+        $element = m::mock(RemoteWebElement::class);
+
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('wait')->with(1, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $resolver = m::mock(ElementResolver::class);
+        $resolver->shouldReceive('find')
+            ->with('foo')
+            ->times(3)
+            ->andReturn(null, null, $element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->waitUntilPresent('foo', 1);
+    }
+
+    public function test_wait_until_present_failure_message()
+    {
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('wait')->with(1, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $resolver = m::mock(ElementResolver::class);
+        $resolver->shouldReceive('find')->with('foo')->andReturn(null);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->waitUntilPresent('foo', 1);
+            $this->fail('waitUntilPresent() did not timeout.');
+        } catch (TimeOutException $e) {
+            $this->assertSame('Waited 1 seconds for presence of selector [foo].', $e->getMessage());
+        }
+    }
+
     public function test_wait_until_missing_text_failure_message_containing_a_percent_character()
     {
         $element = m::mock(RemoteWebElement::class);
