@@ -47,6 +47,24 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for the given selector to be present in the DOM, regardless of visibility.
+     *
+     * @param  string  $selector
+     * @param  int|null  $seconds
+     * @return $this
+     *
+     * @throws \Facebook\WebDriver\Exception\TimeoutException
+     */
+    public function waitUntilPresent($selector, $seconds = null)
+    {
+        $message = $this->formatTimeOutMessage('Waited %s seconds for presence of selector', $selector);
+
+        return $this->waitUsing($seconds, 100, function () use ($selector) {
+            return ! is_null($this->resolver->find($selector));
+        }, $message);
+    }
+
+    /**
      * Wait for the given selector to be removed.
      *
      * @param  string  $selector
