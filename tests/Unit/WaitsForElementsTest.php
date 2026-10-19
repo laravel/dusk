@@ -356,6 +356,27 @@ class WaitsForElementsTest extends TestCase
         }
     }
 
+    public function test_wait_for_attribute_in_failure_message_containing_a_percent_character()
+    {
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('wait')->with(1, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $resolver = m::mock(ElementResolver::class);
+        $resolver->shouldReceive('format')->with('@progress')->andReturn('body [dusk="progress"]');
+        $resolver->shouldReceive('findOrFail')->with('@progress')->andThrow(TimeOutException::class, 'Waited 1 seconds for attribute [data-progress] with value "50%" in selector @progress');
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->waitForAttributeIn('@progress', 'data-progress', '50%', 1);
+            $this->fail('waitForAttributeIn() did not timeout.');
+        } catch (TimeOutException $e) {
+            $this->assertSame('Waited 1 seconds for attribute [data-progress] with value "50%" in selector @progress', $e->getMessage());
+        }
+    }
+
     public function test_wait_for_link_failure_message_containing_a_percent_character()
     {
         $driver = m::mock(WebDriver::class);
@@ -445,6 +466,25 @@ class WaitsForElementsTest extends TestCase
         $browser = new Browser($driver, $resolver);
 
         $browser->waitForTextIn('foo', 'Discount: 20%');
+    }
+
+    public function test_wait_for_attribute_in()
+    {
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('getAttribute')->with('data-state')->andReturn('open');
+
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('wait')->with(1, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $resolver = m::mock(ElementResolver::class);
+        $resolver->shouldReceive('format')->with('@modal')->andReturn('body [dusk="modal"]');
+        $resolver->shouldReceive('findOrFail')->with('@modal')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->waitForAttributeIn('@modal', 'data-state', 'open', 1);
     }
 
     public function test_wait_for_link()

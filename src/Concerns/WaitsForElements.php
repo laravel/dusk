@@ -150,6 +150,26 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for the given attribute to have the given value inside the given selector.
+     *
+     * @param  string  $selector
+     * @param  string  $attribute
+     * @param  string  $value
+     * @param  int|null  $seconds
+     * @return $this
+     *
+     * @throws \Facebook\WebDriver\Exception\TimeoutException
+     */
+    public function waitForAttributeIn($selector, $attribute, $value, $seconds = null)
+    {
+        $message = 'Waited %s seconds for attribute ['.$attribute.'] with value "'.$this->escapePercentCharacters($value).'" in selector '.$selector;
+
+        return $this->waitUsing($seconds, 100, function () use ($selector, $attribute, $value) {
+            return $this->assertAttribute($selector, $attribute, $value);
+        }, $message);
+    }
+
+    /**
      * Wait for the given link to become visible.
      *
      * @param  string  $link
