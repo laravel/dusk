@@ -17,6 +17,7 @@ class OperatingSystemTest extends TestCase
     {
         $this->assertSame([
             'linux',
+            'linux-arm',
             'mac',
             'mac-intel',
             'mac-arm',
@@ -61,6 +62,8 @@ class OperatingSystemTest extends TestCase
         yield ['115.0', 'linux', 'linux64'];
         yield ['113.0', 'linux', 'linux64'];
         yield ['105.0', 'linux', 'linux64'];
+
+        yield ['153.0', 'linux-arm', 'linux-arm64'];
 
         yield ['115.0', 'mac', 'mac-x64'];
         yield ['113.0', 'mac', 'mac64'];

@@ -55,6 +55,15 @@ class ChromeProcessTest extends TestCase
         }
     }
 
+    public function test_build_process_for_linux_arm()
+    {
+        try {
+            (new ChromeProcessLinuxArm)->toProcess();
+        } catch (RuntimeException $exception) {
+            $this->assertStringContainsString('chromedriver-linux-arm', $exception->getMessage());
+        }
+    }
+
     public function test_invalid_path()
     {
         $this->expectException(RuntimeException::class);
@@ -138,5 +147,18 @@ class ChromeProcessLinux extends ChromeProcess
     protected function operatingSystemId()
     {
         return 'linux';
+    }
+}
+
+class ChromeProcessLinuxArm extends ChromeProcess
+{
+    protected function onWindows()
+    {
+        return false;
+    }
+
+    protected function operatingSystemId()
+    {
+        return 'linux-arm';
     }
 }
