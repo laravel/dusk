@@ -22,6 +22,15 @@ class OperatingSystem
                 '/usr/bin/google-chrome-stable --version',
             ],
         ],
+        'linux-arm' => [
+            'slug' => 'linux-arm64',
+            'commands' => [
+                '/usr/bin/google-chrome --version',
+                '/usr/bin/chromium-browser --version',
+                '/usr/bin/chromium --version',
+                '/usr/bin/google-chrome-stable --version',
+            ],
+        ],
         'mac' => [
             'slug' => 'mac-x64',
             'commands' => [
@@ -115,6 +124,8 @@ class OperatingSystem
             return 'win';
         } elseif (static::onMac()) {
             return static::macArchitectureId();
+        } elseif (in_array(php_uname('m'), ['aarch64', 'arm64'])) {
+            return 'linux-arm';
         }
 
         return 'linux';
