@@ -1,6 +1,16 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.7.2...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.8.0...8.x)
+
+## [v8.8.0](https://github.com/laravel/dusk/compare/v8.7.2...v8.8.0) - 2026-11-09
+
+* Remove security policy in favor of the org-wide default by [@pushpak1300](https://github.com/pushpak1300) in https://github.com/laravel/dusk/pull/1224
+* [8.x] Add `waitUntilPresent` by [@ghabriel25](https://github.com/ghabriel25) in https://github.com/laravel/dusk/pull/1225
+* Bump the github-actions group with 2 updates by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/laravel/dusk/pull/1226
+* [8.x] Add `waitForAttributeIn` by [@ghabriel25](https://github.com/ghabriel25) in https://github.com/laravel/dusk/pull/1227
+* [8.x] Install the arm64 ChromeDriver on Linux arm64 by [@sabira-khan](https://github.com/sabira-khan) in https://github.com/laravel/dusk/pull/1228
+* Bump stefanzweifel/git-auto-commit-action from 7.2.0 to 7.2.1 in the github-actions group by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/laravel/dusk/pull/1229
+* Bump dependency floor by [@joetannenbaum](https://github.com/joetannenbaum) in https://github.com/laravel/dusk/pull/1230
 
 ## [v8.7.2](https://github.com/laravel/dusk/compare/v8.7.1...v8.7.2) - 2026-10-07
 
