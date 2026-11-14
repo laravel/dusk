@@ -47,6 +47,24 @@ trait WaitsForElements
     }
 
     /**
+     * Wait for the given selector to be present in the DOM, regardless of visibility.
+     *
+     * @param  string  $selector
+     * @param  int|null  $seconds
+     * @return $this
+     *
+     * @throws \Facebook\WebDriver\Exception\TimeoutException
+     */
+    public function waitUntilPresent($selector, $seconds = null)
+    {
+        $message = $this->formatTimeOutMessage('Waited %s seconds for presence of selector', $selector);
+
+        return $this->waitUsing($seconds, 100, function () use ($selector) {
+            return ! is_null($this->resolver->find($selector));
+        }, $message);
+    }
+
+    /**
      * Wait for the given selector to be removed.
      *
      * @param  string  $selector
@@ -73,7 +91,7 @@ trait WaitsForElements
     /**
      * Wait for the given text to be removed.
      *
-     * @param  string  $text
+     * @param  array|string  $text
      * @param  int|null  $seconds
      * @return $this
      *
@@ -128,6 +146,26 @@ trait WaitsForElements
 
         return $this->waitUsing($seconds, 100, function () use ($selector, $text, $ignoreCase) {
             return $this->assertSeeIn($selector, $text, $ignoreCase);
+        }, $message);
+    }
+
+    /**
+     * Wait for the given attribute to have the given value inside the given selector.
+     *
+     * @param  string  $selector
+     * @param  string  $attribute
+     * @param  string  $value
+     * @param  int|null  $seconds
+     * @return $this
+     *
+     * @throws \Facebook\WebDriver\Exception\TimeoutException
+     */
+    public function waitForAttributeIn($selector, $attribute, $value, $seconds = null)
+    {
+        $message = 'Waited %s seconds for attribute ['.$attribute.'] with value "'.$this->escapePercentCharacters($value).'" in selector '.$selector;
+
+        return $this->waitUsing($seconds, 100, function () use ($selector, $attribute, $value) {
+            return $this->assertAttribute($selector, $attribute, $value);
         }, $message);
     }
 
@@ -393,7 +431,9 @@ trait WaitsForElements
     {
         $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
 
-        $this->pause($interval);
+        if (static::$pauseBeforeWaiting) {
+            $this->pause($interval);
+        }
 
         $this->driver->wait($seconds, $interval)->until(
             function ($driver) use ($callback) {
