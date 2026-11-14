@@ -119,6 +119,13 @@ class Browser
     public static $waitSeconds = 5;
 
     /**
+     * Determine if waits should pause before the first check.
+     *
+     * @var bool
+     */
+    public static $pauseBeforeWaiting = true;
+
+    /**
      * The RemoteWebDriver instance.
      *
      * @var \Facebook\WebDriver\Remote\RemoteWebDriver
