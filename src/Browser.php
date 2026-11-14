@@ -119,7 +119,7 @@ class Browser
     public static $waitSeconds = 5;
 
     /**
-     * Determine if waits should pause for one interval before the first check.
+     * Determine if waits should pause before the first check.
      *
      * @var bool
      */
