@@ -18,6 +18,8 @@ class WaitsForElementsTest extends TestCase
 
     protected function tearDown(): void
     {
+        Browser::$pauseBeforeWaiting = true;
+
         m::close();
     }
 
@@ -107,6 +109,23 @@ class WaitsForElementsTest extends TestCase
         });
 
         $browser = new Browser($driver);
+
+        $browser->waitUsing(5, 100, function () {
+            return true;
+        });
+    }
+
+    public function test_wait_using_without_pausing_first()
+    {
+        Browser::$pauseBeforeWaiting = false;
+
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('wait')->with(5, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $browser = m::mock(Browser::class.'[pause]', [$driver]);
+        $browser->shouldNotReceive('pause');
 
         $browser->waitUsing(5, 100, function () {
             return true;
@@ -249,6 +268,46 @@ class WaitsForElementsTest extends TestCase
         $browser->waitUntilMissing('foo');
     }
 
+    public function test_wait_until_present()
+    {
+        $element = m::mock(RemoteWebElement::class);
+
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('wait')->with(1, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $resolver = m::mock(ElementResolver::class);
+        $resolver->shouldReceive('find')
+            ->with('foo')
+            ->times(3)
+            ->andReturn(null, null, $element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->waitUntilPresent('foo', 1);
+    }
+
+    public function test_wait_until_present_failure_message()
+    {
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('wait')->with(1, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $resolver = m::mock(ElementResolver::class);
+        $resolver->shouldReceive('find')->with('foo')->andReturn(null);
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->waitUntilPresent('foo', 1);
+            $this->fail('waitUntilPresent() did not timeout.');
+        } catch (TimeOutException $e) {
+            $this->assertSame('Waited 1 seconds for presence of selector [foo].', $e->getMessage());
+        }
+    }
+
     public function test_wait_until_missing_text_failure_message_containing_a_percent_character()
     {
         $element = m::mock(RemoteWebElement::class);
@@ -313,6 +372,27 @@ class WaitsForElementsTest extends TestCase
             $this->fail('waitForTextIn() did not timeout.');
         } catch (TimeOutException $e) {
             $this->assertSame('Waited 1 seconds for text "Discount: 20%" in selector foo', $e->getMessage());
+        }
+    }
+
+    public function test_wait_for_attribute_in_failure_message_containing_a_percent_character()
+    {
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('wait')->with(1, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $resolver = m::mock(ElementResolver::class);
+        $resolver->shouldReceive('format')->with('@progress')->andReturn('body [dusk="progress"]');
+        $resolver->shouldReceive('findOrFail')->with('@progress')->andThrow(TimeOutException::class, 'Waited 1 seconds for attribute [data-progress] with value "50%" in selector @progress');
+
+        $browser = new Browser($driver, $resolver);
+
+        try {
+            $browser->waitForAttributeIn('@progress', 'data-progress', '50%', 1);
+            $this->fail('waitForAttributeIn() did not timeout.');
+        } catch (TimeOutException $e) {
+            $this->assertSame('Waited 1 seconds for attribute [data-progress] with value "50%" in selector @progress', $e->getMessage());
         }
     }
 
@@ -405,6 +485,25 @@ class WaitsForElementsTest extends TestCase
         $browser = new Browser($driver, $resolver);
 
         $browser->waitForTextIn('foo', 'Discount: 20%');
+    }
+
+    public function test_wait_for_attribute_in()
+    {
+        $element = m::mock(RemoteWebElement::class);
+        $element->shouldReceive('getAttribute')->with('data-state')->andReturn('open');
+
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('wait')->with(1, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $resolver = m::mock(ElementResolver::class);
+        $resolver->shouldReceive('format')->with('@modal')->andReturn('body [dusk="modal"]');
+        $resolver->shouldReceive('findOrFail')->with('@modal')->andReturn($element);
+
+        $browser = new Browser($driver, $resolver);
+
+        $browser->waitForAttributeIn('@modal', 'data-state', 'open', 1);
     }
 
     public function test_wait_for_link()

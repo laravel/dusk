@@ -14,7 +14,7 @@ trait SupportsChrome
     /**
      * The Chromedriver process instance.
      *
-     * @var \Symfony\Component\Process\Process
+     * @var \Symfony\Component\Process\Process|null
      */
     protected static $chromeProcess;
 

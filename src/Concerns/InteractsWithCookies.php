@@ -16,7 +16,7 @@ trait InteractsWithCookies
      * @param  string|null  $value
      * @param  int|DateTimeInterface|null  $expiry
      * @param  array  $options
-     * @return $this|string|null
+     * @return ($value is null ? string|null : $this)
      */
     public function cookie($name, $value = null, $expiry = null, array $options = [])
     {
@@ -37,6 +37,8 @@ trait InteractsWithCookies
 
             return $hasValuePrefix ? CookieValuePrefix::remove($decryptedValue) : $decryptedValue;
         }
+
+        return null;
     }
 
     /**
@@ -46,7 +48,7 @@ trait InteractsWithCookies
      * @param  string|null  $value
      * @param  int|DateTimeInterface|null  $expiry
      * @param  array  $options
-     * @return $this|string|null
+     * @return ($value is null ? string|null : $this)
      */
     public function plainCookie($name, $value = null, $expiry = null, array $options = [])
     {
@@ -63,6 +65,8 @@ trait InteractsWithCookies
         if ($cookie) {
             return rawurldecode($cookie['value']);
         }
+
+        return null;
     }
 
     /**
