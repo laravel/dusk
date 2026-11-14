@@ -18,6 +18,8 @@ class WaitsForElementsTest extends TestCase
 
     protected function tearDown(): void
     {
+        Browser::$pauseBeforeWaiting = true;
+
         m::close();
     }
 
@@ -107,6 +109,23 @@ class WaitsForElementsTest extends TestCase
         });
 
         $browser = new Browser($driver);
+
+        $browser->waitUsing(5, 100, function () {
+            return true;
+        });
+    }
+
+    public function test_wait_using_without_pausing_first()
+    {
+        Browser::$pauseBeforeWaiting = false;
+
+        $driver = m::mock(WebDriver::class);
+        $driver->shouldReceive('wait')->with(5, 100)->andReturnUsing(function ($seconds, $interval) use ($driver) {
+            return new WebDriverWait($driver, $seconds, $interval);
+        });
+
+        $browser = m::mock(Browser::class.'[pause]', [$driver]);
+        $browser->shouldNotReceive('pause');
 
         $browser->waitUsing(5, 100, function () {
             return true;
