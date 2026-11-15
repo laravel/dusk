@@ -14,26 +14,26 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-json": "*",
         "ext-zip": "*",
-        "guzzlehttp/guzzle": "^7.5",
-        "illuminate/console": "^10.0|^11.0|^12.0|^13.0",
-        "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+        "guzzlehttp/guzzle": "^7.15.2|^8.0.1",
+        "illuminate/console": "^12.0|^13.0",
+        "illuminate/support": "^12.0|^13.0",
         "php-webdriver/webdriver": "^1.15.2",
-        "symfony/console": "^6.2|^7.0|^8.0",
-        "symfony/finder": "^6.2|^7.0|^8.0",
-        "symfony/process": "^6.2|^7.0|^8.0",
+        "symfony/console": "^7.0|^8.0",
+        "symfony/finder": "^7.0|^8.0",
+        "symfony/process": "^7.4.5|^8.0.5",
         "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {
-        "laravel/framework": "^10.0|^11.0|^12.0|^13.0",
+        "laravel/framework": "^12.69|^13.30",
         "mockery/mockery": "^1.6",
-        "orchestra/testbench-core": "^8.19|^9.17|^10.8|^11.0",
-        "phpstan/phpstan": "^1.10",
-        "phpunit/phpunit": "^10.1|^11.0|^12.0.1",
+        "orchestra/testbench-core": "^10.8|^11.0",
+        "phpstan/phpstan": "2.2.15",
+        "phpunit/phpunit": "^11.0|^12.0.1|^13.0",
         "psy/psysh": "^0.11.12|^0.12",
-        "symfony/yaml": "^6.2|^7.0|^8.0"
+        "symfony/yaml": "^7.0|^8.0"
     },
     "suggest": {
         "ext-pcntl": "Used to gracefully terminate Dusk when tests are running."
@@ -45,7 +45,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Laravel\\Dusk\\Tests\\": "tests/"
+            "Laravel\\Dusk\\Tests\\": "tests/",
+            "App\\": "workbench/app/"
         }
     },
     "extra": {
@@ -56,9 +57,6 @@
         }
     },
     "config": {
-        "audit": {
-            "block-insecure": false
-        },
         "sort-packages": true
     },
     "scripts": {

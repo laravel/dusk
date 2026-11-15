@@ -57,7 +57,7 @@ trait InteractsWithElements
      *
      * @param  string  $selector
      * @param  string|null  $value
-     * @return $this
+     * @return ($value is null ? string|true|null : $this)
      */
     public function value($selector, $value = null)
     {
@@ -90,7 +90,7 @@ trait InteractsWithElements
      *
      * @param  string  $selector
      * @param  string  $attribute
-     * @return string
+     * @return string|true|null
      */
     public function attribute($selector, $attribute)
     {

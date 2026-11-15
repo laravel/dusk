@@ -16,7 +16,7 @@ trait ProvidesBrowser
     /**
      * All of the active browser instances.
      *
-     * @var array
+     * @var \Illuminate\Support\Collection|array
      */
     protected static $browsers = [];
 
@@ -57,7 +57,7 @@ trait ProvidesBrowser
      * Create a new browser instance.
      *
      * @param  \Closure  $callback
-     * @return \Laravel\Dusk\Browser|void
+     * @return void
      *
      * @throws \Exception
      * @throws \Throwable
@@ -89,7 +89,7 @@ trait ProvidesBrowser
      * Create the browser instances needed for the given callback.
      *
      * @param  \Closure  $callback
-     * @return array
+     * @return \Illuminate\Support\Collection
      *
      * @throws \ReflectionException
      */
@@ -190,7 +190,7 @@ trait ProvidesBrowser
      */
     protected function closeAllButPrimary($browsers)
     {
-        $browsers->slice(1)->each->quit();
+        $browsers->slice(1)->each->quit(); // @phpstan-ignore method.notFound
 
         return $browsers->take(1);
     }
@@ -202,7 +202,7 @@ trait ProvidesBrowser
      */
     public static function closeAll()
     {
-        Collection::make(static::$browsers)->each->quit();
+        Collection::make(static::$browsers)->each->quit(); // @phpstan-ignore method.notFound
 
         static::$browsers = collect();
     }

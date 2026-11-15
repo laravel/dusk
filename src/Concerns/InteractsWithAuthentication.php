@@ -20,7 +20,7 @@ trait InteractsWithAuthentication
     /**
      * Log into the application using a given user ID or email.
      *
-     * @param  object|string  $userId
+     * @param  object|string|int  $userId
      * @param  string|null  $guard
      * @return $this
      */

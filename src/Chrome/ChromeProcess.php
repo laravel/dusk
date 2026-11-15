@@ -41,6 +41,7 @@ class ChromeProcess
         } else {
             $filenames = [
                 'linux' => 'chromedriver-linux',
+                'linux-arm' => 'chromedriver-linux-arm',
                 'mac' => 'chromedriver-mac',
                 'mac-intel' => 'chromedriver-mac-intel',
                 'mac-arm' => 'chromedriver-mac-arm',

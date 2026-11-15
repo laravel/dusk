@@ -119,6 +119,13 @@ class Browser
     public static $waitSeconds = 5;
 
     /**
+     * Determine if waits should pause before the first check.
+     *
+     * @var bool
+     */
+    public static $pauseBeforeWaiting = true;
+
+    /**
      * The RemoteWebDriver instance.
      *
      * @var \Facebook\WebDriver\Remote\RemoteWebDriver
@@ -337,6 +344,7 @@ class Browser
 
         $html = $this->driver->findElement(WebDriverBy::tagName('html'));
 
+        /** @phpstan-ignore empty.variable */
         if (! empty($html) && $html->getSize()->getWidth() > 0 && $html->getSize()->getHeight() > 0) {
             $this->resize($html->getSize()->getWidth(), $html->getSize()->getHeight());
         }
@@ -637,7 +645,7 @@ class Browser
      * Return a browser scoped to the given component.
      *
      * @param  \Laravel\Dusk\Component  $component
-     * @return \Laravel\Dusk\Browser
+     * @return static
      */
     public function component(Component $component)
     {

@@ -93,6 +93,10 @@ class ChromeDriverCommand extends Command
 
         foreach (OperatingSystem::all() as $os) {
             if ($all || ($os === $currentOS)) {
+                if ($all && $os === 'linux-arm' && version_compare($version, '153.0', '<')) {
+                    continue;
+                }
+
                 $archive = $this->download($version, $os);
 
                 $binary = $this->extract($archive);
@@ -158,7 +162,7 @@ class ChromeDriverCommand extends Command
      * Detect the installed Chrome / Chromium major version.
      *
      * @param  string  $os
-     * @return int|bool
+     * @return string|false
      */
     protected function detectChromeVersion($os)
     {

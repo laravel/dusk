@@ -156,7 +156,7 @@ class DuskCommand extends Command
     /**
      * Get the PHP binary environment variables.
      *
-     * @return array|null
+     * @return array
      */
     protected function env()
     {
