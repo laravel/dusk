@@ -1,6 +1,15 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/dusk/compare/v8.8.0...8.x)
+## [Unreleased](https://github.com/laravel/dusk/compare/v8.9.0...8.x)
+
+## [v8.9.0](https://github.com/laravel/dusk/compare/v8.8.0...v8.9.0) - 2026-11-14
+
+### What's Changed
+
+* Dependency floor bump by [@pushpak1300](https://github.com/pushpak1300) in https://github.com/laravel/dusk/pull/1231
+* [8.x] Allow opting out of the pause before waits by [@jackbayliss](https://github.com/jackbayliss) in https://github.com/laravel/dusk/pull/1232
+
+**Full Changelog**: https://github.com/laravel/dusk/compare/v8.8.0...v8.9.0
 
 ## [v8.8.0](https://github.com/laravel/dusk/compare/v8.7.2...v8.8.0) - 2026-11-09
 
